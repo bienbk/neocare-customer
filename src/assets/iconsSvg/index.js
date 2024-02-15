@@ -53,7 +53,23 @@ import icon_gift from './iconMain/icon_gift.svg';
 import icon_rating from './iconMain/icon_rating.svg';
 import icon_camera_review from './iconMain/icon_camera_review.svg';
 import icon_star_review from './iconMain/icon_star_review.svg';
+import icon_account_main from './iconMain/icon_account_main.svg';
+import icon_heart_main from './iconMain/icon_heart_main.svg';
+import icon_height from './iconMain/icon_height.svg';
+import icon_home from './iconMain/icon_home.svg';
+import icon_medicine_main from './iconMain/icon_medicine_main.svg';
+import icon_weight from './iconMain/icon_weight.svg';
+import icon_heart_line from './iconMain/icon_heart_line.svg';
+import icon_sugar_line from './iconMain/icon_sugar_line.svg';
 export default {
+  icon_account_main,
+  icon_sugar_line,
+  icon_heart_line,
+  icon_heart_main,
+  icon_height,
+  icon_weight,
+  icon_medicine_main,
+  icon_home,
   icon_star_review,
   icon_camera_review,
   icon_rating,

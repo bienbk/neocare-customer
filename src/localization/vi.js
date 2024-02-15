@@ -6,6 +6,7 @@ export default {
     home: 'Trang Chủ',
     select: 'Chọn',
     selected: 'Đã chọn',
+    complete: 'Hoàn tất',
     subscribe: 'Đăng kí',
     updateNotification:
       'App Neo Cafe có 1 phiên bản mới cập nhật. Bạn có muốn sử dụng ngay phiên bản mới không.',

@@ -1,12 +1,12 @@
 const Colors = {
   buttonTextColor: '#255D54',
-  button2Color: '#1F443D',
+  buttonBackground: '#5B73E0',
   textGrayColor: '#909090',
   numberColor: '#F1DCB1',
-  backgroundColor: '#F6F6F6',
-  redColor: '#D80001',
-  blackColor: '#000000',
-  textLinkColor: '#00A2F3',
+  background: '#F6F6F6',
+  red: '#D80001',
+  black: '#000000',
+  textLink: '#00A2F3',
   whiteColor: '#FFFFFF',
 };
 

@@ -1,3 +1,4 @@
+// eslint-disable-next-line react-native/no-inline-styles
 import React, {useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import * as Screens from 'components';
@@ -25,23 +26,23 @@ import {getCurrentLanguage} from 'store/selectors';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-// const StackAccount = () => {
-//   return (
-//     <Stack.Navigator
-//       screenOptions={{header: () => null}}
-//       initialRouteName={NAVIGATION_ACCOUNT}>
-//       <Stack.Screen name={NAVIGATION_ACCOUNT} component={Screens.Account} />
-//       <Stack.Screen
-//         name={NAVIGATION_ACCOUNT_INFO}
-//         component={Screens.AccountInfo}
-//       />
-//       <Stack.Screen
-//         name={NAVIGATION_ACCOUNT_ORDER_HISTORY}
-//         component={Screens && Screens.HistoryOrder ? Screens.HistoryOrder : ''}
-//       />
-//     </Stack.Navigator>
-//   );
-// };
+const StackAccount = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{header: () => null}}
+      initialRouteName={'NAVIGATION_ACCOUNT'}>
+      {/* <Stack.Screen name={NAVIGATION_ACCOUNT} component={Screens.Account} />
+      <Stack.Screen
+        name={NAVIGATION_ACCOUNT_INFO}
+        component={Screens.AccountInfo}
+      />
+      <Stack.Screen
+        name={NAVIGATION_ACCOUNT_ORDER_HISTORY}
+        component={Screens && Screens.HistoryOrder ? Screens.HistoryOrder : ''}
+      /> */}
+    </Stack.Navigator>
+  );
+};
 
 // icon_giohang1
 const Main = () => {
@@ -59,52 +60,39 @@ const Main = () => {
         tabBarHideOnKeyboard: true,
         tabBarIcon: ({color, size, focused}) => {
           const icons = {
-            [NAVIGATION_HOME]: 'icon_svg_home',
-            // [NAVIGATION_SHOP]: 'icon_svg_shop',
-            // [NAVIGATION_MENU]: 'icon_svg_menu',
-            // [NAVIGATION_REVIEW]: 'icon_rating',
-            // [NAVIGATION_ACCOUNT]: 'icon_svg_account',
+            [NAVIGATION_HOME]: 'icon_home',
+            ['NAVIGATION_DOCTOR']: 'icon_heart_main',
+            ['NAVIGATION_PRESCRIBED']: 'icon_medicine_main',
+            ['NAVIGATION_ACCOUNT']: 'icon_account_main',
           };
           const title = router => {
             switch (router) {
               case NAVIGATION_HOME:
                 return strings.common.home;
-              // case NAVIGATION_MENU:
-              //   return 'Menu';
-              // case NAVIGATION_SHOP:
-              //   return strings.common.store;
-              // case NAVIGATION_REVIEW:
-              //   return strings.common.reviews;
-              // case NAVIGATION_ACCOUNT:
-              //   return strings.common.user;
+              case 'NAVIGATION_DOCTOR':
+                return 'Bác sĩ';
+              case 'NAVIGATION_PRESCRIBED':
+                return strings.common.reviews;
+              case 'NAVIGATION_ACCOUNT':
+                return strings.common.user;
               default:
             }
           };
           return (
-            // <Images
-            //   resizeMode="contain"
-            //   style={styles.icon}
-            //   styleContainer={styles.styleContainerIcon}
-            //   source={icons[route.name]}
-            //   tintColor={
-            //     focused ? Colors.buttonTextColor : Colors.textGrayColor
-            //   }
-            // />
             <View
               style={{
                 alignItems: 'center',
                 width: widthDevice / 5,
+                // backgroundColor: 'red',
+                paddingVertical: 5,
               }}>
               <Svg
                 name={icons[route.name]}
-                size={35}
-                color={focused ? Colors.buttonTextColor : Colors.textGrayColor}
-                style={{
-                  marginTop: 10,
-                }}
+                size={25}
+                color={focused ? Colors.buttonBackground : Colors.textGrayColor}
               />
               <TextSmallEleven
-                // eslint-disable-next-line react-native/no-inline-styles
+
                 style={{
                   fontSize: 11,
                   fontWeight:
@@ -112,21 +100,19 @@ const Main = () => {
                       ? focused
                         ? 'bold'
                         : 'normal'
-                      : 'normal',
+                      : 'bold',
                   fontFamily: focused
                     ? 'SVN-Poppins-SemiBold'
                     : 'SVN-Poppins-Regular',
-                  marginBottom: insets.bottom > 0 ? 0 : 13,
-                  color: focused
-                    ? Colors.buttonTextColor
-                    : Colors.textGrayColor,
+                  marginBottom: insets.bottom > 0 ? 0 : 5,
+                  color: focused ? Colors.black : Colors.textGrayColor,
                 }}>
                 {title(route.name)}
               </TextSmallEleven>
             </View>
           );
         },
-        tabBarActiveTintColor: Colors.buttonTextColor,
+        tabBarActiveTintColor: Colors.buttonBackground,
         tabBarInactiveTintColor: Colors.textGrayColor,
         // tabBarLabelStyle: {
         //   fontSize: 11,
@@ -138,6 +124,21 @@ const Main = () => {
       })}>
       <Tab.Screen
         name={NAVIGATION_HOME}
+        component={Screens.Home}
+        options={{title: () => null}}
+      />
+      <Tab.Screen
+        name={'NAVIGATION_DOCTOR'}
+        component={Screens.Home}
+        options={{title: () => null}}
+      />
+      <Tab.Screen
+        name={'NAVIGATION_PRESCRIBED'}
+        component={Screens.Home}
+        options={{title: () => null}}
+      />
+      <Tab.Screen
+        name={'NAVIGATION_ACCOUNT'}
         component={Screens.Home}
         options={{title: () => null}}
       />

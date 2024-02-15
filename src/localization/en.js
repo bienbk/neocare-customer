@@ -4,6 +4,7 @@ export default {
     continue: 'Continue',
     store: 'Stores',
     home: 'Home',
+    complete: 'Complete',
     reviews: 'Reviews',
     user: 'User',
     notification: 'Notification',

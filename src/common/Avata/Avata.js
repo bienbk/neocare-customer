@@ -324,7 +324,7 @@ const Avata = ({
               type={'SimpleLineIcons'}
               name={'refresh'}
               size={25}
-              color={Colors.blackColor}
+              color={Colors.black}
             />
           </TouchableOpacity>
           <TextNormal onPress={() => onRefresh()} style={{fontSize: 12}}>
