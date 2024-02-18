@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unstable-nested-components */
-import React, {useEffect, useRef, useState} from 'react';
+import React from 'react';
 import {FlatList, SafeAreaView, View, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import {
@@ -10,6 +10,8 @@ import {
 import Icons from '../../common/Icons/Icons';
 import Colors from '../../theme/Colors';
 import Svg from '../../common/Svg/Svg';
+import CustomCheckbox from '../../common/CustomCheckbox/CustomCheckbox';
+// import Header from '../../common/Header/Header';
 
 const data = [
   {
@@ -52,7 +54,6 @@ const data = [
   },
 ];
 const Home = ({navigation}) => {
-  // eslint-disable-next-line react/no-unstable-nested-components
   const FooterFlatList = () => (
     <View style={styles.containerListFooter}>
       <View style={styles.wrapperWeightHeight}>
@@ -67,14 +68,13 @@ const Home = ({navigation}) => {
   );
   return (
     <SafeAreaView style={styles.containerSafeArea}>
-      <View style={{flex: 1, padding: 10}}>
+      <View style={{flex: 1, padding: 10, backgroundColor: Colors.background}}>
         <View style={styles.wrapperTitle}>
           <TextMoneyBold>NEO CARE</TextMoneyBold>
           <View style={styles.wrapperIconSection}>
             <TouchableOpacity>
               <Icons type={'Feather'} name={'bell'} size={25} color={'black'} />
             </TouchableOpacity>
-
             <TouchableOpacity>
               <Icons
                 type={'Feather'}
@@ -89,7 +89,6 @@ const Home = ({navigation}) => {
         <View style={{flex: 1, paddingVertical: 5}}>
           <FlatList
             data={data}
-            numColumns={1}
             showsVerticalScrollIndicator={false}
             renderItem={({item, index}) => {
               return (
@@ -99,7 +98,10 @@ const Home = ({navigation}) => {
                     <TextNormal
                       style={{
                         marginRight: 10,
-                        color: item.status === 'Cao' ? 'red' : 'orange',
+                        color:
+                          item.status === 'Cao'
+                            ? Colors.red.red60
+                            : Colors.blue.blue60,
                         fontWeight: item.status === 'Cao' ? 'bold' : 'light',
                       }}>
                       {'\u25CF ' + item.status}

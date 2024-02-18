@@ -23,7 +23,6 @@ import {heightDevice, widthDevice} from '../../assets/constans';
 import {NAVIGATION_PROFILE_HEALTH} from '../../navigation/routes';
 
 const Profile = ({navigation}) => {
-  // console.log('PROFILE SCREEN ::::', navigation);
   const [name, setName] = useState('');
   const [invalidName, setInvalidName] = useState('');
   const [birthday, setBirthday] = useState('');
@@ -31,11 +30,10 @@ const Profile = ({navigation}) => {
   const [modal, setModal] = useState(-1);
   const refBirthday = useRef({isChanged: false, val: -1});
   const handleSubmitInfo = () => {
-    navigation.navigate(NAVIGATION_PROFILE_HEALTH);
+    navigation && navigation.navigate(NAVIGATION_PROFILE_HEALTH);
   };
   const onChangeDate = (e, v) => {
     const {timestamp} = e.nativeEvent;
-    console.log('TIME STAMP:::', timestamp);
     if (e.type === 'set') {
       const tempRef = {
         val: timestamp,
@@ -73,7 +71,7 @@ const Profile = ({navigation}) => {
               onChangeText={setName}
               underlineColorAndroid="transparent"
             />
-            <TextNormal style={{color: Colors.red, fontStyle: 'italic'}}>
+            <TextNormal style={{color: Colors.redColor, fontStyle: 'italic'}}>
               {invalidName || 'Tên không đuợc có ký tự đặc biệt'}
             </TextNormal>
           </View>

@@ -1,17 +1,8 @@
 // eslint-disable-next-line react-native/no-inline-styles
-import React, {useEffect} from 'react';
+import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import * as Screens from 'components';
-import {NAVIGATION_HOME, NAVIGATION_MENU} from 'navigation/routes';
-// import Images from 'common/Images/Images';
-// import {
-//   heightDevice,
-//   icon_account,
-//   icon_home,
-//   icon_menu,
-//   icon_shop,
-//   widthDevice,
-// } from 'assets/constans';
+import {NAVIGATION_HOME} from 'navigation/routes';
 import {Platform, StyleSheet, View} from 'react-native';
 import Colors from 'theme/Colors';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -20,9 +11,7 @@ import Svg from 'common/Svg/Svg';
 import {TextSmallEleven} from 'common/Text/TextFont';
 import {widthDevice} from 'assets/constans';
 import strings from 'localization/Localization';
-import {useSelector} from 'react-redux';
-import {getCurrentLanguage} from 'store/selectors';
-
+import { NAVIGATION_MY_DOCTOR } from '../../navigation/routes';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -47,11 +36,7 @@ const StackAccount = () => {
 // icon_giohang1
 const Main = () => {
   const insets = useSafeAreaInsets();
-  const currentUserLanguage = useSelector(state => getCurrentLanguage(state));
-
-  useEffect(() => {
-    console.log('CHANGE LANGUAGE:::::', currentUserLanguage);
-  }, [currentUserLanguage]);
+  // const currentUserLanguage = useSelector(state => getCurrentLanguage(state));
 
   return (
     <Tab.Navigator
@@ -61,7 +46,7 @@ const Main = () => {
         tabBarIcon: ({color, size, focused}) => {
           const icons = {
             [NAVIGATION_HOME]: 'icon_home',
-            ['NAVIGATION_DOCTOR']: 'icon_heart_main',
+            [NAVIGATION_MY_DOCTOR]: 'icon_heart_main',
             ['NAVIGATION_PRESCRIBED']: 'icon_medicine_main',
             ['NAVIGATION_ACCOUNT']: 'icon_account_main',
           };
@@ -69,7 +54,7 @@ const Main = () => {
             switch (router) {
               case NAVIGATION_HOME:
                 return strings.common.home;
-              case 'NAVIGATION_DOCTOR':
+              case NAVIGATION_MY_DOCTOR:
                 return 'Bác sĩ';
               case 'NAVIGATION_PRESCRIBED':
                 return strings.common.reviews;
@@ -92,7 +77,6 @@ const Main = () => {
                 color={focused ? Colors.buttonBackground : Colors.textGrayColor}
               />
               <TextSmallEleven
-
                 style={{
                   fontSize: 11,
                   fontWeight:
@@ -128,8 +112,8 @@ const Main = () => {
         options={{title: () => null}}
       />
       <Tab.Screen
-        name={'NAVIGATION_DOCTOR'}
-        component={Screens.Home}
+        name={NAVIGATION_MY_DOCTOR}
+        component={Screens.MyDoctor}
         options={{title: () => null}}
       />
       <Tab.Screen

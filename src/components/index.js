@@ -10,5 +10,15 @@ import Login from './Login/Login';
 import VerifyCode from './VerifyCode/VerifyCode';
 import Profile from './Profile/Profile';
 import ProfileHealth from './ProfileHealth/ProfileHealth';
+import MyDoctor from './MyDoctor/MyDoctor';
 
-export {Splash, Main, Home, Login, VerifyCode, Profile, ProfileHealth};
+export {
+  Splash,
+  Main,
+  Home,
+  Login,
+  VerifyCode,
+  Profile,
+  ProfileHealth,
+  MyDoctor,
+};

@@ -1,38 +1,33 @@
 /* eslint-disable react-native/no-inline-styles */
 import {React, useState, useRef, useEffect} from 'react';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  TextInput,
-  Pressable,
-  Keyboard,
-  TouchableOpacity,
-  FlatList,
-} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import {View, TouchableOpacity, FlatList} from 'react-native';
+// import {useDispatch, useSelector} from 'react-redux';
 import styles from './styles';
 import {
   TextMoneyBold,
   TextNormal,
   TextSemiBold,
 } from '../../common/Text/TextFont';
-import Colors from '../../theme/Colors';
+// import Colors from '../../theme/Colors';
 import strings from '../../localization/Localization';
-import {heightDevice, widthDevice} from '../../assets/constans';
+import {widthDevice} from '../../assets/constans';
 import Icons from '../../common/Icons/Icons';
 import Svg from '../../common/Svg/Svg';
 const weightValues = () => {
   const result = [];
-  for (let i = 0; i <= 100; ) {
+  for (let i = 0; i < 100; i++) {
     result.push(i);
-    i += 1;
   }
   return result;
 };
 const WeightScreen = ({nextStep}) => {
   const [weight, setWeight] = useState({type: 1, val: 0});
   const refWeight = useRef(null);
+  const [dataWeight, setDataWeight] = useState([]);
+  useEffect(() => {
+    const tempList = weightValues() || [];
+    setDataWeight(tempList);
+  }, []);
 
   const handleWeightType = type => {
     const newWeight = {
@@ -51,6 +46,9 @@ const WeightScreen = ({nextStep}) => {
       });
     }
   }, [weight]);
+  useEffect(() => {
+    console.log('TEST dataWeight::', dataWeight);
+  }, [dataWeight]);
   const handleWeightVal = type => {
     const tempWeight = {
       ...weight,
@@ -58,7 +56,7 @@ const WeightScreen = ({nextStep}) => {
     };
     setWeight(tempWeight);
   };
-  const renderSlider = ({item, index}) => {
+  const renderSlider = ({item}) => {
     return (
       <TouchableOpacity
         onPress={() => setWeight({...weight, val: item})}
@@ -92,7 +90,7 @@ const WeightScreen = ({nextStep}) => {
             <TextNormal
               style={{
                 color: item === weight.val ? 'blue' : 'gray',
-                fontWeight: item === weight.val ? 'bold' : '',
+                fontWeight: item === weight.val ? 'bold' : 'light',
                 fontSize: item === weight.val ? 15 : 14,
               }}>
               {item}
@@ -156,7 +154,7 @@ const WeightScreen = ({nextStep}) => {
       {/* SLIDER */}
       <View
         style={{
-          width: '100%',
+          // width: '100%',
           // backgroundColor: 'red',
           paddingVertical: 20,
         }}>
@@ -165,17 +163,17 @@ const WeightScreen = ({nextStep}) => {
           ref={refWeight}
           showsHorizontalScrollIndicator={false}
           keyExtractor={(_, index) => index.toString()}
-          data={weightValues()}
+          data={dataWeight ? dataWeight : []}
           renderItem={renderSlider}
           onScrollToIndexFailed={error => {
-            if (refWeight && refWeight.current) {
+            if (dataWeight && refWeight && refWeight.current) {
               refWeight.current.scrollToOffset({
                 offset: error.averageItemLength * error.index,
                 animated: true,
               });
             }
             setTimeout(() => {
-              if (refWeight.current) {
+              if (dataWeight && refWeight.current) {
                 refWeight.current.scrollToIndex({
                   index: error.index,
                   animated: true,

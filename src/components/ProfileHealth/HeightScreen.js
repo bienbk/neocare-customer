@@ -10,20 +10,23 @@ import {
 } from '../../common/Text/TextFont';
 // import Colors from '../../theme/Colors';
 import strings from '../../localization/Localization';
-import {widthDevice} from '../../assets/constans';
 import Icons from '../../common/Icons/Icons';
 import Svg from '../../common/Svg/Svg';
 const heightValues = () => {
   const result = [];
-  for (let i = 200; i >= 100; ) {
+  for (let i = 200; i > 100; i--) {
     result.push(i);
-    i = i - 1;
   }
   return result;
 };
 const HeightScreen = ({nextStep}) => {
   const [height, setHeight] = useState({type: 1, val: 185});
+  const [heightData, setHeightData] = useState([]);
   const refWeight = useRef(null);
+  useEffect(() => {
+    const tempList = heightValues() || [];
+    setHeightData(tempList);
+  }, []);
   const handleWeightType = type => {
     const newWeight = {
       ...height,
@@ -81,7 +84,7 @@ const HeightScreen = ({nextStep}) => {
           <TextNormal
             style={{
               color: item === height.val ? 'blue' : 'gray',
-              fontWeight: item === height.val ? 'bold' : '',
+              fontWeight: item === height.val ? 'bold' : 'light',
               fontSize: item === height.val ? 16 : 15,
             }}>
             {item}
@@ -163,17 +166,17 @@ const HeightScreen = ({nextStep}) => {
           showsVerticalScrollIndicator={false}
           keyExtractor={(_, index) => index.toString()}
           contentContainerStyle={{alignSelf: 'flex-end'}}
-          data={heightValues()}
+          data={heightData ? heightData : []}
           renderItem={renderSlider}
           onScrollToIndexFailed={error => {
-            if (refWeight && refWeight.current) {
+            if (heightData && refWeight && refWeight.current) {
               refWeight.current.scrollToOffset({
                 offset: error.averageItemLength * error.index,
                 animated: true,
               });
             }
             setTimeout(() => {
-              if (refWeight.current) {
+              if (heightData && refWeight.current) {
                 refWeight.current.scrollToIndex({
                   index: error.index,
                   animated: true,

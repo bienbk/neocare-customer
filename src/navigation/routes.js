@@ -8,3 +8,4 @@ export const NAVIGATION_LOGIN = 'Login';
 export const NAVIGATION_VERIFY_CODE = 'VerifyCode';
 export const NAVIGATION_PROFILE = 'Profile';
 export const NAVIGATION_PROFILE_HEALTH = 'ProfileHealth';
+export const NAVIGATION_MY_DOCTOR = 'MyDoctor';
