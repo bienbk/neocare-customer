@@ -11,6 +11,8 @@ import Colors from '../../theme/Colors';
 import Svg from '../../common/Svg/Svg';
 import Images from '../../common/Images/Images';
 import {doctor_avatar, logo} from '../../assets/constans';
+import DoctorItem from './DoctorItem';
+import {NAVIGATION_DOCTOR_DETAIL} from '../../navigation/routes';
 
 const doctors = [
   {
@@ -46,71 +48,10 @@ const MyDoctor = ({navigation}) => {
   }, []);
   const renderDoctorItem = ({item, index}) => {
     return (
-      <View
-        style={{
-          padding: 10,
-          backgroundColor: Colors.gray.gray95,
-          borderRadius: 10,
-          marginTop: 10,
-        }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            borderBottomColor: Colors.gray.gray60,
-            borderBottomWidth: 1,
-            paddingVertical: 10,
-            borderStyle: 'dotted',
-          }}>
-          {item && item.isConnect && (
-            <View
-              style={{
-                position: 'absolute',
-                top: -10,
-                right: -10,
-                paddingHorizontal: 10,
-                flexDirection: 'row',
-                borderTopRightRadius: 10,
-                paddingVertical: 2,
-                alignItems: 'center',
-                borderBottomLeftRadius: 10,
-                backgroundColor: Colors.blue.blue40,
-              }}>
-              <Icons
-                type={'Feather'}
-                name={'star'}
-                size={15}
-                color={Colors.whiteColor}
-              />
-              <TextNormal style={{color: Colors.whiteColor}}>
-                {` ${index + 6} tháng `}
-              </TextNormal>
-            </View>
-          )}
-          <Images
-            resizeMode="contain"
-            style={styles.imageDoctor}
-            source={doctor_avatar}
-            // source={banner.image}
-          />
-          <View style={{paddingHorizontal: 10}}>
-            <TextSemiBold style={{marginBottom: 5}}>{item.name}</TextSemiBold>
-            <TextNormal style={{marginBottom: 5}}>
-              {item.class + ' - ' + item.department}
-            </TextNormal>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Icons
-                type={'Feather'}
-                name={'map-pin'}
-                size={20}
-                color={Colors.blue.blue40}
-              />
-              <TextNormal style={{marginLeft: 5, color: 'black'}}>
-                {item.address}
-              </TextNormal>
-            </View>
-          </View>
-        </View>
-      </View>
+      <DoctorItem
+        item={item}
+        selectItem={() => navigation.navigate(NAVIGATION_DOCTOR_DETAIL)}
+      />
     );
   };
   return (

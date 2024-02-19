@@ -11,6 +11,7 @@ import Icons from '../../common/Icons/Icons';
 import Colors from '../../theme/Colors';
 import Svg from '../../common/Svg/Svg';
 import CustomCheckbox from '../../common/CustomCheckbox/CustomCheckbox';
+import {NAVIGATION_HEALTH_MANUAL} from '../../navigation/routes';
 // import Header from '../../common/Header/Header';
 
 const data = [
@@ -36,7 +37,7 @@ const data = [
   },
   {
     id: 3,
-    desease: 'HbA1c',
+    desease: 'Mỡ máu',
     status: 'Cao',
     created: new Date().toLocaleString('en-GB').replaceAll('/', '-'),
     value: '6',
@@ -44,7 +45,7 @@ const data = [
     unit: '%',
   },
   {
-    id: 3,
+    id: 4,
     desease: 'Cholesterols',
     status: 'Cao',
     created: new Date().toLocaleString('en-GB').replaceAll('/', '-'),
@@ -66,9 +67,63 @@ const Home = ({navigation}) => {
       </View>
     </View>
   );
+  const renderItem = ({item, index}) => {
+    return (
+      <TouchableOpacity
+        onPress={() => navigation.navigate(NAVIGATION_HEALTH_MANUAL, {id: item.id})}
+        style={styles.containerFlatlistItem}>
+        <TextNormal style={{fontSize: 17}}>{item.desease}</TextNormal>
+        <View style={styles.wrapperContentData}>
+          <TextNormal
+            style={{
+              marginRight: 10,
+              color:
+                item.status === 'Cao' ? Colors.red.red60 : Colors.blue.blue60,
+              fontWeight: item.status === 'Cao' ? 'bold' : 'light',
+            }}>
+            {'\u25CF ' + item.status}
+          </TextNormal>
+          <Icons
+            type={'Feather'}
+            name={'clock'}
+            size={15}
+            style={styles.iconClock}
+            color={'gray'}
+          />
+          <TextNormal style={{color: Colors.textGrayColor}}>
+            {item.created}
+          </TextNormal>
+        </View>
+        <View style={styles.containerValueDesease}>
+          <View style={{flexDirection: 'row'}}>
+            <TextNormal style={styles.textIndexDesease}>
+              {item.value && item.unit
+                ? `${item.value} ${item.unit}`
+                : item.value}
+            </TextNormal>
+            {item && item.subVal !== 0 && (
+              <View style={styles.wrapperSubValue}>
+                <Icons
+                  type={'Feather'}
+                  name={'heart'}
+                  size={15}
+                  color={'red'}
+                  style={styles.heartIcon}
+                />
+                <TextSemiBold style={{fontSize: 24}}>
+                  {item.subVal}
+                </TextSemiBold>
+              </View>
+            )}
+          </View>
+          {item && item?.icon && <Svg name={item?.icon} size={40} />}
+        </View>
+      </TouchableOpacity>
+    );
+  };
   return (
     <SafeAreaView style={styles.containerSafeArea}>
-      <View style={{flex: 1, padding: 10, backgroundColor: Colors.background}}>
+      <View style={styles.container}>
         <View style={styles.wrapperTitle}>
           <TextMoneyBold>NEO CARE</TextMoneyBold>
           <View style={styles.wrapperIconSection}>
@@ -86,67 +141,14 @@ const Home = ({navigation}) => {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{flex: 1, paddingVertical: 5}}>
+        <View style={styles.wrapperFlatlist}>
           <FlatList
             data={data}
             showsVerticalScrollIndicator={false}
-            renderItem={({item, index}) => {
-              return (
-                <View style={styles.containerFlatlistItem}>
-                  <TextNormal style={{fontSize: 17}}>{item.desease}</TextNormal>
-                  <View style={styles.wrapperContentData}>
-                    <TextNormal
-                      style={{
-                        marginRight: 10,
-                        color:
-                          item.status === 'Cao'
-                            ? Colors.red.red60
-                            : Colors.blue.blue60,
-                        fontWeight: item.status === 'Cao' ? 'bold' : 'light',
-                      }}>
-                      {'\u25CF ' + item.status}
-                    </TextNormal>
-                    <Icons
-                      type={'Feather'}
-                      name={'clock'}
-                      size={15}
-                      style={styles.iconClock}
-                      color={'gray'}
-                    />
-                    <TextNormal style={{color: Colors.textGrayColor}}>
-                      {item.created}
-                    </TextNormal>
-                  </View>
-                  <View style={styles.containerValueDesease}>
-                    <View style={{flexDirection: 'row'}}>
-                      <TextNormal style={styles.textIndexDesease}>
-                        {item.value && item.unit
-                          ? `${item.value} ${item.unit}`
-                          : item.value}
-                      </TextNormal>
-                      {item && item.subVal !== 0 && (
-                        <View style={styles.wrapperSubValue}>
-                          <Icons
-                            type={'Feather'}
-                            name={'heart'}
-                            size={15}
-                            color={'red'}
-                            style={styles.heartIcon}
-                          />
-                          <TextSemiBold style={{fontSize: 24}}>
-                            {item.subVal}
-                          </TextSemiBold>
-                        </View>
-                      )}
-                    </View>
-                    {item && item?.icon && <Svg name={item?.icon} size={40} />}
-                  </View>
-                </View>
-              );
-            }}
+            renderItem={renderItem}
             ListFooterComponent={FooterFlatList}
             ListHeaderComponent={() => (
-              <TextSemiBold style={{paddingVertical: 5}}>
+              <TextSemiBold style={styles.titleFlatlist}>
                 Tình trạng sức khoẻ
               </TextSemiBold>
             )}

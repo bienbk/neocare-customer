@@ -66,6 +66,9 @@ const styles = StyleSheet.create({
     marginTop: 5,
     borderRadius: 20,
   },
+  container: {flex: 1, padding: 10, backgroundColor: Colors.gray.gray95},
+  wrapperFlatlist: {flex: 1, paddingVertical: 5},
+  titleFlatlist: {paddingVertical: 5},
 });
 
 export default styles;

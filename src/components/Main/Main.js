@@ -1,4 +1,3 @@
-// eslint-disable-next-line react-native/no-inline-styles
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import * as Screens from 'components';
@@ -11,7 +10,10 @@ import Svg from 'common/Svg/Svg';
 import {TextSmallEleven} from 'common/Text/TextFont';
 import {widthDevice} from 'assets/constans';
 import strings from 'localization/Localization';
-import { NAVIGATION_MY_DOCTOR } from '../../navigation/routes';
+import {
+  NAVIGATION_DOCTOR_DETAIL,
+  NAVIGATION_MY_DOCTOR,
+} from '../../navigation/routes';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -19,7 +21,7 @@ const StackAccount = () => {
   return (
     <Stack.Navigator
       screenOptions={{header: () => null}}
-      initialRouteName={'NAVIGATION_ACCOUNT'}>
+      initialRouteName={NAVIGATION_DOCTOR_DETAIL}>
       {/* <Stack.Screen name={NAVIGATION_ACCOUNT} component={Screens.Account} />
       <Stack.Screen
         name={NAVIGATION_ACCOUNT_INFO}
@@ -28,6 +30,10 @@ const StackAccount = () => {
       <Stack.Screen
         name={NAVIGATION_ACCOUNT_ORDER_HISTORY}
         component={Screens && Screens.HistoryOrder ? Screens.HistoryOrder : ''}
+      /> */}
+      {/* <Stack.Screen
+        name={NAVIGATION_DOCTOR_DETAIL}
+        component={Screens.DoctorDetail}
       /> */}
     </Stack.Navigator>
   );

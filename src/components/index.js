@@ -11,7 +11,8 @@ import VerifyCode from './VerifyCode/VerifyCode';
 import Profile from './Profile/Profile';
 import ProfileHealth from './ProfileHealth/ProfileHealth';
 import MyDoctor from './MyDoctor/MyDoctor';
-
+import HealthManual from './HealthManual/HealthManual';
+import DoctorDetail from './DoctorDetail/DoctorDetail';
 export {
   Splash,
   Main,
@@ -20,5 +21,7 @@ export {
   VerifyCode,
   Profile,
   ProfileHealth,
+  HealthManual,
   MyDoctor,
+  DoctorDetail,
 };

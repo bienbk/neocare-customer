@@ -17,7 +17,6 @@ const Profile = ({navigation}) => {
     setStep(prev => (prev -= 1));
   };
   const handleComplete = () => {
-    console.log('COMPLETE:::', NAVIGATION_MAIN);
     navigation &&
       navigation.reset({
         index: 0,

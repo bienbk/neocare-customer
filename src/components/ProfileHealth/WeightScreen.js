@@ -13,6 +13,7 @@ import strings from '../../localization/Localization';
 import {widthDevice} from '../../assets/constans';
 import Icons from '../../common/Icons/Icons';
 import Svg from '../../common/Svg/Svg';
+import HorizontalRange from '../../common/HorizontalRange/HorizontalRange';
 const weightValues = () => {
   const result = [];
   for (let i = 0; i < 100; i++) {
@@ -21,8 +22,8 @@ const weightValues = () => {
   return result;
 };
 const WeightScreen = ({nextStep}) => {
-  const [weight, setWeight] = useState({type: 1, val: 0});
-  const refWeight = useRef(null);
+  const [weight, setWeight] = useState(0);
+  const [typeWeight, setTypeWeight] = useState(1);
   const [dataWeight, setDataWeight] = useState([]);
   useEffect(() => {
     const tempList = weightValues() || [];
@@ -30,75 +31,10 @@ const WeightScreen = ({nextStep}) => {
   }, []);
 
   const handleWeightType = type => {
-    const newWeight = {
-      ...weight,
-      type: type,
-    };
-    setWeight(newWeight);
+    setTypeWeight(type);
   };
-  useEffect(() => {
-    if (refWeight && refWeight.current) {
-      refWeight.current.scrollToItem({
-        item: weight.val,
-        animated: true,
-        viewOffset: widthDevice / 2 - 25,
-        // viewPostion: 0,
-      });
-    }
-  }, [weight]);
-  useEffect(() => {
-    console.log('TEST dataWeight::', dataWeight);
-  }, [dataWeight]);
   const handleWeightVal = type => {
-    const tempWeight = {
-      ...weight,
-      val: type === 0 ? weight.val - 1 : weight.val + 1,
-    };
-    setWeight(tempWeight);
-  };
-  const renderSlider = ({item}) => {
-    return (
-      <TouchableOpacity
-        onPress={() => setWeight({...weight, val: item})}
-        style={styles.wrapperSliderItem}>
-        <View
-          style={{
-            height: item % 5 === 0 ? 50 : 25,
-            width: item !== weight.val ? 3 : 4,
-            borderRadius: 2,
-            marginBottom: item % 5 === 0 ? 10 : item === weight.val ? 0 : 20,
-            backgroundColor: item !== weight.val ? 'lightgray' : 'blue',
-          }}
-        />
-        {item === weight.val && item % 5 !== 0 && (
-          <View
-            style={{
-              marginTop: 5,
-              justifyContent: 'flex-end',
-              alignSelf: 'flex-end',
-            }}>
-            <Icons
-              type={'Feather'}
-              name={'navigation-2'}
-              size={20}
-              color={'blue'}
-            />
-          </View>
-        )}
-        {item % 5 === 0 && (
-          <View>
-            <TextNormal
-              style={{
-                color: item === weight.val ? 'blue' : 'gray',
-                fontWeight: item === weight.val ? 'bold' : 'light',
-                fontSize: item === weight.val ? 15 : 14,
-              }}>
-              {item}
-            </TextNormal>
-          </View>
-        )}
-      </TouchableOpacity>
-    );
+    setWeight(prev => (prev = type === 0 ? prev - 1 : prev + 1));
   };
   return (
     <View style={{flex: 1}}>
@@ -119,9 +55,9 @@ const WeightScreen = ({nextStep}) => {
             onPress={() => handleWeightType(1)}
             style={[
               styles.weightButton,
-              weight.type === 1 && styles.activeWeightButton,
+              typeWeight === 1 && styles.activeWeightButton,
             ]}>
-            <TextNormal style={[weight.type === 1 && styles.activeTextWeight]}>
+            <TextNormal style={[typeWeight === 1 && styles.activeTextWeight]}>
               KG
             </TextNormal>
           </TouchableOpacity>
@@ -129,9 +65,9 @@ const WeightScreen = ({nextStep}) => {
             onPress={() => handleWeightType(2)}
             style={[
               styles.weightButton,
-              weight.type === 2 && styles.activeWeightButton,
+              typeWeight === 2 && styles.activeWeightButton,
             ]}>
-            <TextNormal style={[weight.type === 2 && styles.activeTextWeight]}>
+            <TextNormal style={[typeWeight === 2 && styles.activeTextWeight]}>
               LBS
             </TextNormal>
           </TouchableOpacity>
@@ -143,7 +79,7 @@ const WeightScreen = ({nextStep}) => {
             style={styles.weightValueButton}>
             <Icons type={'Feather'} name={'minus'} size={26} color={'white'} />
           </TouchableOpacity>
-          <TextMoneyBold style={{fontSize: 40}}>{weight.val}</TextMoneyBold>
+          <TextMoneyBold style={{fontSize: 40}}>{weight}</TextMoneyBold>
           <TouchableOpacity
             onPress={() => handleWeightVal(1)}
             style={styles.weightValueButton}>
@@ -152,7 +88,12 @@ const WeightScreen = ({nextStep}) => {
         </View>
       </View>
       {/* SLIDER */}
-      <View
+      <HorizontalRange
+        dataRange={dataWeight}
+        value={weight}
+        setValue={setWeight}
+      />
+      {/* <View
         style={{
           // width: '100%',
           // backgroundColor: 'red',
@@ -182,7 +123,7 @@ const WeightScreen = ({nextStep}) => {
             }, 100);
           }}
         />
-      </View>
+        </View>*/}
       <View style={{flex: 1, alignItems: 'center'}}>
         <Svg name={'icon_weight'} size={200} />
         <TouchableOpacity onPress={nextStep} style={styles.buttonContinue}>

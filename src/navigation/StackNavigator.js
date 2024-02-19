@@ -1,6 +1,8 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {
+  NAVIGATION_DOCTOR_DETAIL,
+  NAVIGATION_HEALTH_MANUAL,
   NAVIGATION_LOGIN,
   NAVIGATION_MAIN,
   NAVIGATION_PROFILE,
@@ -23,11 +25,22 @@ const StackNavigator = () => {
       <Stack.Screen
         name={NAVIGATION_VERIFY_CODE}
         component={Screens.VerifyCode}
+        options={{
+          header: () => null,
+        }}
+      />
+      <Stack.Screen
+        name={NAVIGATION_DOCTOR_DETAIL}
+        component={Screens.DoctorDetail}
       />
       <Stack.Screen name={NAVIGATION_PROFILE} component={Screens.Profile} />
       <Stack.Screen
         name={NAVIGATION_PROFILE_HEALTH}
         component={Screens.ProfileHealth}
+      />
+      <Stack.Screen
+        name={NAVIGATION_HEALTH_MANUAL}
+        component={Screens.HealthManual}
       />
     </Stack.Navigator>
   );
