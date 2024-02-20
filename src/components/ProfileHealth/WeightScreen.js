@@ -14,10 +14,10 @@ import {widthDevice} from '../../assets/constans';
 import Icons from '../../common/Icons/Icons';
 import Svg from '../../common/Svg/Svg';
 import HorizontalRange from '../../common/HorizontalRange/HorizontalRange';
-const weightValues = () => {
+const weightValues = type => {
   const result = [];
   for (let i = 0; i < 100; i++) {
-    result.push(i);
+    result.push(type === 1 ? i : parseInt(i * 2.2, 10));
   }
   return result;
 };
@@ -26,12 +26,15 @@ const WeightScreen = ({nextStep}) => {
   const [typeWeight, setTypeWeight] = useState(1);
   const [dataWeight, setDataWeight] = useState([]);
   useEffect(() => {
-    const tempList = weightValues() || [];
+    const tempList = weightValues(1) || [];
     setDataWeight(tempList);
   }, []);
 
   const handleWeightType = type => {
+    const tempWeight = weightValues(type === 1 ? 1 : 2);
+    setDataWeight(tempWeight);
     setTypeWeight(type);
+    setWeight(0);
   };
   const handleWeightVal = type => {
     setWeight(prev => (prev = type === 0 ? prev - 1 : prev + 1));
@@ -79,7 +82,7 @@ const WeightScreen = ({nextStep}) => {
             style={styles.weightValueButton}>
             <Icons type={'Feather'} name={'minus'} size={26} color={'white'} />
           </TouchableOpacity>
-          <TextMoneyBold style={{fontSize: 40}}>{weight}</TextMoneyBold>
+          <TextMoneyBold style={{fontSize: 40}}>{parseInt(weight, 10)}</TextMoneyBold>
           <TouchableOpacity
             onPress={() => handleWeightVal(1)}
             style={styles.weightValueButton}>
@@ -92,38 +95,9 @@ const WeightScreen = ({nextStep}) => {
         dataRange={dataWeight}
         value={weight}
         setValue={setWeight}
+        type={typeWeight === 1 ? 'kg' : 'lbs'}
       />
-      {/* <View
-        style={{
-          // width: '100%',
-          // backgroundColor: 'red',
-          paddingVertical: 20,
-        }}>
-        <FlatList
-          horizontal
-          ref={refWeight}
-          showsHorizontalScrollIndicator={false}
-          keyExtractor={(_, index) => index.toString()}
-          data={dataWeight ? dataWeight : []}
-          renderItem={renderSlider}
-          onScrollToIndexFailed={error => {
-            if (dataWeight && refWeight && refWeight.current) {
-              refWeight.current.scrollToOffset({
-                offset: error.averageItemLength * error.index,
-                animated: true,
-              });
-            }
-            setTimeout(() => {
-              if (dataWeight && refWeight.current) {
-                refWeight.current.scrollToIndex({
-                  index: error.index,
-                  animated: true,
-                });
-              }
-            }, 100);
-          }}
-        />
-        </View>*/}
+
       <View style={{flex: 1, alignItems: 'center'}}>
         <Svg name={'icon_weight'} size={200} />
         <TouchableOpacity onPress={nextStep} style={styles.buttonContinue}>

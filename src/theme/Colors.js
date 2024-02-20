@@ -48,6 +48,9 @@ const Colors = {
     red60: '#FF5540',
     red50: '#EF0000',
     red40: '#C00100',
+    red90: '#FFDAD4',
+    red95: '#FFEDEA',
+    red80: '#FFB4A8',
   },
 };
 

@@ -21,6 +21,7 @@ import strings from '../../localization/Localization';
 import MyModal from '../../common/MyModal/MyModal';
 import {heightDevice, widthDevice} from '../../assets/constans';
 import {NAVIGATION_PROFILE_HEALTH} from '../../navigation/routes';
+import Svg from '../../common/Svg/Svg';
 
 const Profile = ({navigation}) => {
   const [name, setName] = useState('');
@@ -126,7 +127,7 @@ const Profile = ({navigation}) => {
         )}
         <MyModal visible={modal === 2} onPressOutSide={() => setModal(-1)}>
           <View style={styles.modalView}>
-            <View style={{height: heightDevice / 3}}>
+            <View style={{height: heightDevice / 2.5}}>
               <View style={styles.wrapperContentModal}>
                 <TextSemiBold style={styles.textTitleModal}>
                   Giới tính
@@ -138,6 +139,7 @@ const Profile = ({navigation}) => {
                       styles.wrapperItemGender,
                       gender === 'Nam' && styles.activeGenderMale,
                     ]}>
+                    <Svg name={'icon_male'} size={120} />
                     <TextNormal>Nam</TextNormal>
                   </TouchableOpacity>
                   <TouchableOpacity
@@ -146,11 +148,14 @@ const Profile = ({navigation}) => {
                       styles.wrapperItemGender,
                       gender !== 'Nam' && styles.activeGenderFemale,
                     ]}>
+                    <Svg name={'icon_female'} size={120} />
                     <TextNormal>Nữ</TextNormal>
                   </TouchableOpacity>
                 </View>
                 <View style={styles.safeView}>
-                  <TouchableOpacity style={styles.btnSelectGender}>
+                  <TouchableOpacity
+                    onPress={() => setModal(-1)}
+                    style={styles.btnSelectGender}>
                     <TextNormal style={styles.textButton}>
                       {strings.common.save}
                     </TextNormal>

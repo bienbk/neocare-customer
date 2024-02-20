@@ -12,10 +12,10 @@ import {
 import strings from '../../localization/Localization';
 import Icons from '../../common/Icons/Icons';
 import Svg from '../../common/Svg/Svg';
-const heightValues = () => {
+const heightValues = type => {
   const result = [];
   for (let i = 200; i > 100; i--) {
-    result.push(i);
+    result.push(type === 1 ? i : parseFloat(i * 0.03).toFixed(2));
   }
   return result;
 };
@@ -24,7 +24,7 @@ const HeightScreen = ({nextStep}) => {
   const [heightData, setHeightData] = useState([]);
   const refWeight = useRef(null);
   useEffect(() => {
-    const tempList = heightValues() || [];
+    const tempList = heightValues(1) || [];
     setHeightData(tempList);
   }, []);
   const handleWeightType = type => {
@@ -32,6 +32,8 @@ const HeightScreen = ({nextStep}) => {
       ...height,
       type: type,
     };
+    const tempList = heightValues(type) || [];
+    setHeightData(tempList);
     setHeight(newWeight);
   };
   useEffect(() => {
@@ -59,14 +61,14 @@ const HeightScreen = ({nextStep}) => {
         style={styles.wrapperSliderHeight}>
         <View
           style={{
-            height: item % 5 === 0 ? 3 : 4,
-            width: item % 5 === 0 ? 55 : 30,
+            height: item !== height.val ? 3 : 4,
+            width: index % 5 === 0 ? 55 : 30,
             borderRadius: 2,
-            marginRight: item % 5 === 0 ? 5 : item === height.val ? 5 : 20,
+            marginRight: index % 5 === 0 ? 5 : item === height.val ? 5 : 20,
             backgroundColor: item !== height.val ? 'lightgray' : 'blue',
           }}
         />
-        {item === height.val && item % 5 !== 0 && (
+        {item === height.val && index % 5 !== 0 && (
           <View
             style={{
               justifyContent: 'flex-end',
@@ -80,7 +82,7 @@ const HeightScreen = ({nextStep}) => {
             />
           </View>
         )}
-        {item % 5 === 0 && (
+        {index % 5 === 0 && (
           <TextNormal
             style={{
               color: item === height.val ? 'blue' : 'gray',

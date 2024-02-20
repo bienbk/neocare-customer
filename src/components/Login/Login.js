@@ -87,10 +87,10 @@ const Login = ({navigation}) => {
                   boxType={'square'}
                   lineWidth={2}
                   style={styles.styleCheckbox}
-                  onTintColor={Colors.buttonBackground}
-                  onFillColor={Colors.buttonBackground}
+                  onTintColor={Colors.blue.blue20}
+                  onFillColor={Colors.blue.blue20}
                   tintColors={{
-                    true: Colors.buttonBackground,
+                    true: Colors.blue.blue20,
                     false: 'black',
                   }}
                   onCheckColor={Colors.whiteColor}

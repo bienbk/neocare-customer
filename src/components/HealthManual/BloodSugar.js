@@ -19,7 +19,7 @@ import Colors from '../../theme/Colors';
 import strings from '../../localization/Localization';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import HorizontalRange from '../../common/HorizontalRange/HorizontalRange';
-import { NAVIGATION_HOME } from '../../navigation/routes';
+import {NAVIGATION_HOME} from '../../navigation/routes';
 const dataValues = () => {
   const result = [];
   for (let i = 0; i < 100; i++) {
@@ -74,23 +74,14 @@ const BloodSugar = ({navigation}) => {
           }}>
           <TouchableOpacity
             onPress={() => setShowDatePicker(true)}
-            style={{
-              flexDirection: 'row',
-              paddingHorizontal: 20,
-              paddingVertical: 10,
-              justifyContent: 'center',
-              width: '70%',
-              alignItems: 'center',
-              backgroundColor: Colors.gray.gray95,
-              borderRadius: 20,
-            }}>
+            style={styles.wrapperDatePicker}>
             <Icons
               type={'Feather'}
               name={'calendar'}
               size={18}
               color={'black'}
             />
-            <TextNormalSemiBold style={{marginLeft: 5}}>
+            <TextNormalSemiBold style={styles.textToday}>
               {date
                 ? date
                 : new Date().toLocaleDateString('en-GB').replaceAll('/', '-') +
@@ -115,6 +106,7 @@ const BloodSugar = ({navigation}) => {
               justifyContent: 'center',
               width: '60%',
               alignItems: 'center',
+              marginBottom: 10,
               backgroundColor: Colors.gray.gray95,
               borderRadius: 30,
             }}>
@@ -147,7 +139,7 @@ const BloodSugar = ({navigation}) => {
           value={bloodSugar}
           setValue={setBloodSugar}
         />
-        <View style={{paddingVertical: 10, alignItems: 'center'}}>
+        <View style={{paddingVertical: 10, alignItems: 'center', marginTop: 20}}>
           <TextNormalSemiBold
             style={{color: Colors.gray.gray40, fontWeight: 'bold'}}>
             {'Đuờng huyết đơn vị mg/dL (0 - 100)'}
@@ -157,9 +149,9 @@ const BloodSugar = ({navigation}) => {
             contentContainerStyle={{
               flexDirection: 'row',
               justifyContent: 'space-between',
-              width: '100%',
-              height: 100,
               alignItems: 'center',
+              paddingVertical: 20,
+              width: '100%',
             }}
             horizontal={true}
             renderItem={({item, index}) => {
@@ -169,15 +161,15 @@ const BloodSugar = ({navigation}) => {
                   style={[
                     styles.wrapperTime,
                     timeMessure === index + 1 && {
-                      backgroundColor: Colors.red.red60,
+                      backgroundColor: Colors.red.red70,
                     },
                   ]}>
-                  <TextSemiBold
+                  <TextNormalSemiBold
                     style={
-                      timeMessure === index + 1 && {color: Colors.whiteColor}
+                      timeMessure === index + 1 && {color: Colors.whiteColor, fontWeight: 'bold'}
                     }>
                     {item.name}
-                  </TextSemiBold>
+                  </TextNormalSemiBold>
                 </TouchableOpacity>
               );
             }}

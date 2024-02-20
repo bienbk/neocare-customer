@@ -22,6 +22,7 @@ import strings from '../../localization/Localization';
 import {heightDevice, widthDevice} from '../../assets/constans';
 import Icons from '../../common/Icons/Icons';
 import CheckBox from '@react-native-community/checkbox';
+import CustomCheckbox from '../../common/CustomCheckbox/CustomCheckbox';
 const listDisease = [
   {id: 1, name: 'Bệnh Alzheimer và mất trí nhớ', checked: false},
   {id: 12, name: 'Bệnh Alzheimer và mất trí nhớ', checked: false},
@@ -48,6 +49,15 @@ const HealthStatus = ({nextStep}) => {
     });
     setlistDiseases(newList);
   };
+  const handleValueCheckbox = item => {
+    const tempList = Array.from(listDiseases);
+    tempList.map(i => {
+      if (i.id === item.id) {
+        i.value = !i.value;
+      }
+    });
+    setlistDiseases(tempList);
+  };
   return (
     <View style={{flex: 1}}>
       {/* TITLE SECTION */}
@@ -62,33 +72,25 @@ const HealthStatus = ({nextStep}) => {
         </TextNormal>
       </View>
       {/* Check list SECTION */}
-      <View style={{flex: 1}}>
-        <FlatList
-          data={listDiseases}
-          showsVerticalScrollIndicator={false}
-          keyExtractor={(_, index) => index.toString()}
-          renderItem={({item}) => {
-            return (
-              <TouchableOpacity
-                onPress={() => hanldeSelectItem(item)}
-                style={styles.wrapperCheckbox}>
-                <CheckBox
-                  boxType={'square'}
-                  lineWidth={2}
-                  style={{marginRight: 10}}
-                  onTintColor={'#5B73E0'}
-                  onFillColor={'#5B73E0'}
-                  tintColors={{true: '#5B73E0', false: '#5B73E0'}}
-                  onCheckColor={Colors.whiteColor}
-                  width={22}
-                  value={item.checked}
-                />
-                <TextNormal>{item.name}</TextNormal>
-              </TouchableOpacity>
-            );
-          }}
-        />
-      </View>
+      <FlatList
+        data={listDiseases}
+        showsVerticalScrollIndicator={false}
+        // contentContainerStyle={{backgroundColor:}}
+        keyExtractor={(_, index) => index.toString()}
+        renderItem={({item}) => {
+          return (
+            <TouchableOpacity
+              onPress={() => hanldeSelectItem(item)}
+              style={styles.wrapperCheckbox}>
+              <TextNormal>{item.name}</TextNormal>
+              <CustomCheckbox
+                value={item.value}
+                setValue={() => handleValueCheckbox(item)}
+              />
+            </TouchableOpacity>
+          );
+        }}
+      />
       <View style={{alignItems: 'center'}}>
         <TouchableOpacity onPress={nextStep} style={styles.buttonContinue}>
           <TextSemiBold style={styles.textContinueButton}>

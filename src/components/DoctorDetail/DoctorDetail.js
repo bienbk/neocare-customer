@@ -1,7 +1,12 @@
-import React, {useState} from 'react';
-import {FlatList, SafeAreaView, TouchableOpacity, View} from 'react-native';
+import React, {useRef, useState} from 'react';
 import {
-  TextHighLightBold,
+  FlatList,
+  SafeAreaView,
+  Animated,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {
   TextMoneyBold,
   TextNormal,
   TextNormalSemiBold,
@@ -9,44 +14,28 @@ import {
   TextSmallMedium,
 } from '../../common/Text/TextFont';
 import styles from './styles';
-import Titles from '../../common/Titles/Titles';
 import Images from '../../common/Images/Images';
-import {doctor_avatar} from '../../assets/constans';
+import {doctor_detail, formatMoney, widthDevice} from '../../assets/constans';
 import Colors from '../../theme/Colors';
 import Icons from '../../common/Icons/Icons';
 import {NAVIGATION_MY_DOCTOR} from '../../navigation/routes';
 
 const DoctorDetail = ({navigation}) => {
   const [showDescription, setShowDescription] = useState(true);
+  const [descriptionHeight, setdescriptionHeight] = useState(0);
 
   const renderPackageOfDoctor = ({item, index}) => {
     return (
-      <View
-        style={{
-          backgroundColor: Colors.blue.blue80,
-          padding: 10,
-          borderRadius: 20,
-          marginTop: 5,
-        }}>
-        <View
-          style={{
-            position: 'absolute',
-            top: 20,
-            backgroundColor: Colors.blue.blue70,
-            borderRadius: 50,
-            right: -40,
-            height: 100,
-            width: 100,
-          }}
-        />
+      <View style={styles.wrapperCardPackage}>
+        <View style={styles.decoration} />
 
         <TextSemiBold style={{padding: 5}}>
-          {'Chăm sóc đặc biệt 6 tháng'}
+          {`Chăm sóc đặc biệt ${(index + 1) * 6} tháng`}
         </TextSemiBold>
         <FlatList
           data={[1, 3, 4]}
           renderItem={() => (
-            <View style={{flexDirection: 'row', paddingVertical: 3}}>
+            <View style={{flexDirection: 'row', paddingVertical: 4}}>
               <Icons
                 type={'Feather'}
                 name={'check'}
@@ -59,101 +48,157 @@ const DoctorDetail = ({navigation}) => {
               </TextNormalSemiBold>
             </View>
           )}
-          ListFooterComponent={() => (
-            <View
-              style={{
-                paddingVertical: 1,
-                backgroundColor: 'lightgray',
-                marginVertical: 5,
-              }}
-            />
-          )}
         />
-        <View
-          style={{
-            paddingVertical: 5,
-            paddingHorizontal: 5,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}>
+        <View style={styles.wrapperFooterCard}>
           <TextSemiBold style={{color: Colors.blue.blue20}}>
-            2.500.000đ
+            {formatMoney((index + 1) * 2500000) + 'đ'}
           </TextSemiBold>
-          <TouchableOpacity
-            style={{
-              paddingHorizontal: 20,
-              paddingVertical: 5,
-              backgroundColor: Colors.blue.blue50,
-              borderRadius: 20,
-            }}>
-            <TextSemiBold>Mua gói</TextSemiBold>
+          <TouchableOpacity style={styles.buyPackageButton}>
+            <TextSemiBold style={{color: Colors.whiteColor}}>
+              Mua gói
+            </TextSemiBold>
           </TouchableOpacity>
         </View>
       </View>
     );
   };
+  const positionY = useRef(new Animated.Value(0)).current;
+  const IMAGE_HEIGHT = (widthDevice * 5) / 8;
+  // const imageAnimation = {
+  //   transform: [
+  //     {
+  //       translateY: positionY.interpolate({
+  //         inputRange: [0, IMAGE_HEIGHT],
+  //         outputRange: [0, IMAGE_HEIGHT / 4],
+  //         extrapolate: 'clamp',
+  //       }),
+  //     },
+  //     {
+  //       scale: positionY.interpolate({
+  //         inputRange: [0, IMAGE_HEIGHT],
+  //         outputRange: [1, 0.5],
+  //         extrapolate: 'clamp',
+  //       }),
+  //     },
+  //   ],
+  // };
+  const opacityImage = {
+    opacity: positionY.interpolate({
+      inputRange: [0, IMAGE_HEIGHT / 2, IMAGE_HEIGHT],
+      outputRange: [1, 0.3, 0],
+      extrapolate: 'clamp',
+    }),
+  };
+  // const opacityHeader = positionY.interpolate({
+  //   inputRange: [IMAGE_HEIGHT - 20, IMAGE_HEIGHT - 10, IMAGE_HEIGHT],
+  //   outputRange: [0, 0.8, 1],
+  //   extrapolate: 'clamp',
+  // });
+  const layoutDescription = event => {
+    const {height} = event.nativeEvent.layout;
+    setdescriptionHeight(height);
+  };
+  const headerFlatlist = () => {
+    return (
+      <View style={{padding: 5}}>
+        <TextMoneyBold>Gói sức khoẻ</TextMoneyBold>
+      </View>
+    );
+  };
   return (
     <SafeAreaView style={styles.containerSafeArea}>
-      <Titles
-        title={'Thông tin bác sĩ'}
-        iconBack={true}
-        onPressBack={() => navigation.navigate(NAVIGATION_MY_DOCTOR)}
-      />
+      {/* ANIMATED SCROLL */}
       <View style={styles.container}>
-        <View style={styles.wrapperDoctorContainer}>
-          <Images
-            resizeMode="contain"
-            style={styles.imageDoctor}
-            source={doctor_avatar}
-          />
-          <View style={styles.wrapperDoctorInfo}>
-            <TextSemiBold style={styles.textDoctorName}>
-              Nguyễn Hữu Nghĩa
-            </TextSemiBold>
-            <TextNormal style={styles.textDoctorDepartment}>
-              {'PGS.TS.BS - Chuyên khoa ung bướu'}
-            </TextNormal>
-            <View style={styles.wrapperAddress}>
-              <Icons
-                type={'Feather'}
-                name={'phone-outgoing'}
-                size={20}
-                color={Colors.blue.blue30}
-              />
-              <TextNormal
-                style={{marginLeft: 10, fontSize: 15, fontWeight: 'bold'}}>
-                0376525171
-              </TextNormal>
-            </View>
-          </View>
-          <TouchableOpacity
-            style={styles.toggleIcon}
-            onPress={() => setShowDescription(prev => (prev = !prev))}>
-            <Icons
-              type={'Feather'}
-              name={showDescription ? 'chevron-up' : 'chevron-down'}
-              size={25}
-              color={Colors.blue.blue30}
-            />
-          </TouchableOpacity>
-        </View>
-        {showDescription && (
-          <View style={styles.wrapperDescription}>
-            <TextSmallMedium>
-              TS.Bác Sĩ Nguyễn Hữu Nghĩa Nguyên Phó giám đốc Bệnh Viện Phòng
-              Không Không Quân, Nguyên Giám đốc Viện y học phóng xạ và u bướu
-              Quân đội. Bác sĩ Nguyễn
+        {/* HEADER ANIMATED */}
+        {/* <Animated.View
+          style={[styles.wrapperAnimationHeader, {opacity: opacityHeader}]}>
+          <View style={styles.wrapperHeaderTitle}>
+            <TextSemiBold>{'Nguyễn Hữu Nghĩa'}</TextSemiBold>
+            <TextSmallMedium style={{color: Colors.blue.blue40}}>
+              {'Chuyên khoa ung bướu'}
             </TextSmallMedium>
           </View>
-        )}
-        <View style={{flex: 1}}>
-          <FlatList
-            data={[1, 2]}
-            showsVerticalScrollIndicator={false}
-            renderItem={renderPackageOfDoctor}
-          />
-        </View>
+        </Animated.View> */}
+
+        {/* IMAGE ANIMATED */}
+        <Animated.ScrollView
+          style={styles.scrollContainer}
+          onScroll={Animated.event(
+            [{nativeEvent: {contentOffset: {y: positionY}}}],
+            {useNativeDriver: true},
+          )}
+          scrollEventThrottle={16}>
+          <Animated.View style={[styles.wrapperImageDoctor, opacityImage]}>
+            <Images
+              source={doctor_detail}
+              style={[styles.imageDoctor]}
+              resizeMode={'cover'}
+            />
+          </Animated.View>
+          <TouchableOpacity
+            onPress={() => navigation.navigate(NAVIGATION_MY_DOCTOR)}
+            style={styles.closeIcon}>
+            <Icons
+              type={'Feather'}
+              name={'arrow-left'}
+              size={18}
+              color={Colors.gray.gray20}
+            />
+          </TouchableOpacity>
+          {/* DESCRIPTION SECTION */}
+          <View style={{paddingHorizontal: 10}}>
+            <View style={[styles.wrapeprCardInfo]}>
+              <TouchableOpacity style={styles.phoneIcon}>
+                <Icons type={'Feather'} name={'phone'} size={20} color={'white'} />
+              </TouchableOpacity>
+              <View style={styles.inforCard}>
+                <TextSemiBold>{'Nguyễn Hữu Nghĩa'}</TextSemiBold>
+                <TextNormal>{'Chuyên khoa ung bướu'}</TextNormal>
+                <TouchableOpacity style={styles.wrapperDepartmentLabel}>
+                  <TextSmallMedium style={{color: Colors.red.red40}}>
+                    {'Viêm khớp'}
+                  </TextSmallMedium>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => setShowDescription(prev => (prev = !prev))}
+                  style={styles.toggleIcon}>
+                  <Icons
+                    type={'Feather'}
+                    name={showDescription ? 'chevron-up' : 'chevron-down'}
+                    size={20}
+                    color={'black'}
+                  />
+                </TouchableOpacity>
+              </View>
+              {showDescription && (
+                <View
+                  onLayout={layoutDescription}
+                  style={[styles.wrapperDescription]}>
+                  <TextSmallMedium>
+                    BS CKI Lê Hoàng Bảo công tác tại bệnh viện Đại học Y dược
+                    TP.HCM, có hơn 10 năm kinh nghiệm điều trị các bệnh lý nội
+                    tiết, bao gồm đái tháo đường, tuyến giáp, tuyến thượng thận,
+                    tuyến yên, chuyển hóa. Ngoài ra, BS Lê Hoàng Bảo còn là Hội
+                    viên Hội Đái tháo đường và Nội tiết TP. HCM.
+                  </TextSmallMedium>
+                </View>
+              )}
+            </View>
+            {/* OPTIONS & EXTRA SECTION */}
+            <FlatList
+              data={[1, 2, 3, 4]}
+              showsVerticalScrollIndicator={false}
+              ListHeaderComponent={headerFlatlist}
+              contentContainerStyle={{
+                marginBottom: 10,
+                marginTop:
+                  showDescription && descriptionHeight ? descriptionHeight : 0,
+              }}
+              renderItem={renderPackageOfDoctor}
+              keyExtractor={(_, index) => index}
+            />
+          </View>
+        </Animated.ScrollView>
       </View>
     </SafeAreaView>
   );

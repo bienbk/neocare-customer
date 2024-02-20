@@ -80,6 +80,7 @@ export const prime2 = require('assets/images/Goi12km.png');
 export const voucher = require('assets/images/voucher.png');
 export const star = require('assets/images/star.png');
 export const doctor_avatar = require('assets/images/doctor.png');
+export const doctor_detail = require('assets/images/doctor_detail.png');
 export function formatMoney(x) {
   return x && x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }

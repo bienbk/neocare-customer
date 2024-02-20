@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   activeWeightButton: {
-    backgroundColor: '#5B73E0',
+    backgroundColor: Colors.blue.blue50,
   },
   activeTextWeight: {
     fontWeight: '700',
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#5B73E0',
+    backgroundColor: Colors.blue.blue40,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -110,15 +110,18 @@ const styles = StyleSheet.create({
     marginTop: 5,
     alignItems: 'center',
     borderRadius: 20,
+    justifyContent: 'space-between',
   },
   buttonContinue: {
     width: widthDevice - 40,
     paddingVertical: 12,
     borderRadius: 40,
-    backgroundColor: '#5B73E0',
+    backgroundColor: Colors.gray.gray10,
     marginTop: 10,
     justifyContent: 'center',
     alignItems: 'center',
+    // position: 'absolute',
+    // bottom: 5,
   },
 });
 

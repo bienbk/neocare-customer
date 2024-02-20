@@ -37,15 +37,6 @@ const data = [
   },
   {
     id: 3,
-    desease: 'Mỡ máu',
-    status: 'Cao',
-    created: new Date().toLocaleString('en-GB').replaceAll('/', '-'),
-    value: '6',
-    subVal: 0,
-    unit: '%',
-  },
-  {
-    id: 4,
     desease: 'Cholesterols',
     status: 'Cao',
     created: new Date().toLocaleString('en-GB').replaceAll('/', '-'),
@@ -70,9 +61,18 @@ const Home = ({navigation}) => {
   const renderItem = ({item, index}) => {
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate(NAVIGATION_HEALTH_MANUAL, {id: item.id})}
+        onPress={() =>
+          navigation.navigate(NAVIGATION_HEALTH_MANUAL, {id: item.id})
+        }
         style={styles.containerFlatlistItem}>
         <TextNormal style={{fontSize: 17}}>{item.desease}</TextNormal>
+        <Icons
+          type={'Feather'}
+          name={'chevron-right'}
+          size={20}
+          color={'black'}
+          style={{position: 'absolute', right: 10, top: 10}}
+        />
         <View style={styles.wrapperContentData}>
           <TextNormal
             style={{
@@ -146,6 +146,7 @@ const Home = ({navigation}) => {
             data={data}
             showsVerticalScrollIndicator={false}
             renderItem={renderItem}
+            keyExtractor={(item, index) => `${item.name}_${index}`}
             ListFooterComponent={FooterFlatList}
             ListHeaderComponent={() => (
               <TextSemiBold style={styles.titleFlatlist}>

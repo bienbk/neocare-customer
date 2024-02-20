@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.buttonBackground,
+    backgroundColor: Colors.gray.gray10,
     borderRadius: 40,
     width: widthDevice - 30,
   },
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   wrapperContentModal: {flex: 1, backgroundColor: 'white'},
   wrapperItemGender: {
     width: widthDevice / 2 - 50,
-    height: 100,
+    height: 150,
     backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
@@ -113,9 +113,10 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'center',
     borderRadius: 40,
-    backgroundColor: 'lightgray',
-    width: '100%',
+    backgroundColor: Colors.gray.gray10,
+    width: '50%',
   },
 });
 

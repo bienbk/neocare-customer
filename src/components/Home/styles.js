@@ -63,10 +63,10 @@ const styles = StyleSheet.create({
   containerFlatlistItem: {
     backgroundColor: 'white',
     padding: 10,
-    marginTop: 5,
+    marginTop: 10,
     borderRadius: 20,
   },
-  container: {flex: 1, padding: 10, backgroundColor: Colors.gray.gray95},
+  container: {flex: 1, padding: 10, backgroundColor: Colors.backgroundColor},
   wrapperFlatlist: {flex: 1, paddingVertical: 5},
   titleFlatlist: {paddingVertical: 5},
 });

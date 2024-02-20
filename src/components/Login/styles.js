@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     width: widthDevice * 0.9,
     height: 50,
     borderRadius: 30,
-    backgroundColor: Colors.buttonBackground,
+    backgroundColor: Colors.gray.gray10,
     alignItems: 'center',
     justifyContent: 'center',
   },

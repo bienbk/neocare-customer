@@ -61,7 +61,13 @@ import icon_medicine_main from './iconMain/icon_medicine_main.svg';
 import icon_weight from './iconMain/icon_weight.svg';
 import icon_heart_line from './iconMain/icon_heart_line.svg';
 import icon_sugar_line from './iconMain/icon_sugar_line.svg';
+import icon_male from './iconMain/icon_male.svg';
+import icon_female from './iconMain/icon_female.svg';
+import icon_mydoctor_main from './iconMain/icon_mydoctor_main.svg';
 export default {
+  icon_mydoctor_main,
+  icon_male,
+  icon_female,
   icon_account_main,
   icon_sugar_line,
   icon_heart_line,

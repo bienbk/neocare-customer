@@ -5,7 +5,7 @@ import Icons from '../Icons/Icons';
 import styles from './styles';
 import {TextNormal} from '../Text/TextFont';
 import { widthDevice } from '../../assets/constans';
-const HorizontalRange = ({dataRange, setValue, value}) => {
+const HorizontalRange = ({dataRange, setValue, value, type}) => {
   const refPressure = useRef(null);
   useEffect(() => {
     if (refPressure && refPressure.current) {
@@ -17,21 +17,21 @@ const HorizontalRange = ({dataRange, setValue, value}) => {
       });
     }
   }, [value]);
-  const renderSlider = ({item}) => {
+  const renderSlider = ({item, index}) => {
     return (
       <TouchableOpacity
         onPress={() => setValue(item)}
         style={styles.wrapperSliderItem}>
         <View
           style={{
-            height: item % 5 === 0 ? 50 : 25,
+            height: index % 5 === 0 ? 50 : 25,
             width: item !== value ? 3 : 4,
             borderRadius: 2,
-            marginBottom: item % 5 === 0 ? 10 : item === value ? 0 : 20,
+            marginBottom: index % 5 === 0 ? 10 : item === value ? 0 : 20,
             backgroundColor: item !== value ? 'lightgray' : 'blue',
           }}
         />
-        {item === value && item % 5 !== 0 && (
+        {item === value && index % 5 !== 0 && (
           <View
             style={{
               marginTop: 5,
@@ -46,7 +46,7 @@ const HorizontalRange = ({dataRange, setValue, value}) => {
             />
           </View>
         )}
-        {item % 5 === 0 && (
+        {index % 5 === 0 && (
           <View>
             <TextNormal
               style={{

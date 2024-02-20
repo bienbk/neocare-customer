@@ -12,11 +12,11 @@ import {
 import Icons from '../Icons/Icons';
 import {TextNormal} from '../Text/TextFont';
 
-const CustomCheckbox = ({}) => {
-  const [value, setValue] = useState(false);
+const CustomCheckbox = ({value, setValue}) => {
+  // const [value, setValue] = useState(false);
   return (
     <TouchableOpacity
-      onPress={() => setValue(prev => (prev = !prev))}
+      onPress={setValue}
       style={[styles.container, value && styles.activeContainer]}>
       <View style={[styles.wrapper]}>
         <Icons

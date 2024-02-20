@@ -2,7 +2,7 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import * as Screens from 'components';
 import {NAVIGATION_HOME} from 'navigation/routes';
-import {Platform, StyleSheet, View} from 'react-native';
+import {Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Colors from 'theme/Colors';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -11,6 +11,7 @@ import {TextSmallEleven} from 'common/Text/TextFont';
 import {widthDevice} from 'assets/constans';
 import strings from 'localization/Localization';
 import {
+  NAVIGATION_ACCOUNT,
   NAVIGATION_DOCTOR_DETAIL,
   NAVIGATION_MY_DOCTOR,
 } from '../../navigation/routes';
@@ -42,80 +43,59 @@ const StackAccount = () => {
 // icon_giohang1
 const Main = () => {
   const insets = useSafeAreaInsets();
+  const screenOption = ({route}) => ({
+    tabBarHideOnKeyboard: true,
+    tabBarIcon: e => renderItemTab(e, route),
+    tabBarActiveTintColor: Colors.buttonBackground,
+    tabBarInactiveTintColor: Colors.textGrayColor,
+    headerShown: false,
+    tabBarStyle: {height: 75 + insets.bottom / 2},
+  });
   // const currentUserLanguage = useSelector(state => getCurrentLanguage(state));
+  const renderItemTab = ({focused}, route) => {
+    const icons = {
+      [NAVIGATION_HOME]: 'icon_home',
+      [NAVIGATION_MY_DOCTOR]: 'icon_heart_main',
+      ['NAVIGATION_PRESCRIBED']: 'icon_medicine_main',
+      [NAVIGATION_ACCOUNT]: 'icon_account_main',
+    };
+    const title = router => {
+      switch (router) {
+        case NAVIGATION_HOME:
+          return strings.common.home;
+        case NAVIGATION_MY_DOCTOR:
+          return 'Bác sĩ';
+        case 'NAVIGATION_PRESCRIBED':
+          return 'Chỉ định';
+        case NAVIGATION_ACCOUNT:
+          return strings.common.user;
+        default:
+      }
+    };
+    return (
+      <TouchableOpacity style={focused ? styles.activeTab : styles.inactiveTab}>
+        <Svg name={icons[route.name]} size={25} color={Colors.gray.gray30} />
+        <TextSmallEleven
+          style={{
+            color: focused ? Colors.blue.blue20 : Colors.textGrayColor,
+            fontWeight: focused ? 'bold' : 'light',
+          }}>
+          {title(route.name)}
+        </TextSmallEleven>
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <Tab.Navigator
-      initialRouteName={NAVIGATION_HOME}
-      screenOptions={({route}) => ({
-        tabBarHideOnKeyboard: true,
-        tabBarIcon: ({color, size, focused}) => {
-          const icons = {
-            [NAVIGATION_HOME]: 'icon_home',
-            [NAVIGATION_MY_DOCTOR]: 'icon_heart_main',
-            ['NAVIGATION_PRESCRIBED']: 'icon_medicine_main',
-            ['NAVIGATION_ACCOUNT']: 'icon_account_main',
-          };
-          const title = router => {
-            switch (router) {
-              case NAVIGATION_HOME:
-                return strings.common.home;
-              case NAVIGATION_MY_DOCTOR:
-                return 'Bác sĩ';
-              case 'NAVIGATION_PRESCRIBED':
-                return strings.common.reviews;
-              case 'NAVIGATION_ACCOUNT':
-                return strings.common.user;
-              default:
-            }
-          };
-          return (
-            <View
-              style={{
-                alignItems: 'center',
-                width: widthDevice / 5,
-                // backgroundColor: 'red',
-                paddingVertical: 5,
-              }}>
-              <Svg
-                name={icons[route.name]}
-                size={25}
-                color={focused ? Colors.buttonBackground : Colors.textGrayColor}
-              />
-              <TextSmallEleven
-                style={{
-                  fontSize: 11,
-                  fontWeight:
-                    Platform.OS === 'ios'
-                      ? focused
-                        ? 'bold'
-                        : 'normal'
-                      : 'bold',
-                  fontFamily: focused
-                    ? 'SVN-Poppins-SemiBold'
-                    : 'SVN-Poppins-Regular',
-                  marginBottom: insets.bottom > 0 ? 0 : 5,
-                  color: focused ? Colors.black : Colors.textGrayColor,
-                }}>
-                {title(route.name)}
-              </TextSmallEleven>
-            </View>
-          );
-        },
-        tabBarActiveTintColor: Colors.buttonBackground,
-        tabBarInactiveTintColor: Colors.textGrayColor,
-        // tabBarLabelStyle: {
-        //   fontSize: 11,
-        //   fontFamily: 'SVN-Poppins-Regular',
-        //   marginBottom: insets.bottom > 0 ? 0 : 13,
-        // },
-        headerShown: false,
-        tabBarStyle: {height: 75 + insets.bottom / 2},
-      })}>
+      initialRouteName={NAVIGATION_ACCOUNT}
+      screenOptions={screenOption}>
       <Tab.Screen
         name={NAVIGATION_HOME}
         component={Screens.Home}
-        options={{title: () => null}}
+        options={{
+          title: () => null,
+        }}
       />
       <Tab.Screen
         name={NAVIGATION_MY_DOCTOR}
@@ -128,8 +108,8 @@ const Main = () => {
         options={{title: () => null}}
       />
       <Tab.Screen
-        name={'NAVIGATION_ACCOUNT'}
-        component={Screens.Home}
+        name={NAVIGATION_ACCOUNT}
+        component={Screens.Account}
         options={{title: () => null}}
       />
     </Tab.Navigator>
@@ -145,5 +125,22 @@ const styles = StyleSheet.create({
   },
   styleContainerIcon: {
     marginTop: 5,
+  },
+  inactiveTab: {
+    alignItems: 'center',
+    width: widthDevice / 5,
+    // backgroundColor: 'red',
+    paddingVertical: 5,
+  },
+  activeTab: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    zIndex: 100,
+    elevation: 1,
+    width: Platform.OS === 'ios' ? 50 : 60,
+    height: Platform.OS === 'ios' ? 50 : 60,
+    top: Platform.OS === 'ios' ? -10 : -20,
+    borderRadius: Platform.OS === 'ios' ? 25 : 30,
   },
 });

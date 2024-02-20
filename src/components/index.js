@@ -13,6 +13,7 @@ import ProfileHealth from './ProfileHealth/ProfileHealth';
 import MyDoctor from './MyDoctor/MyDoctor';
 import HealthManual from './HealthManual/HealthManual';
 import DoctorDetail from './DoctorDetail/DoctorDetail';
+import Account from './Account/Account';
 export {
   Splash,
   Main,
@@ -24,4 +25,5 @@ export {
   HealthManual,
   MyDoctor,
   DoctorDetail,
+  Account,
 };
