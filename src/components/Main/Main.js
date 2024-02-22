@@ -88,7 +88,7 @@ const Main = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName={NAVIGATION_ACCOUNT}
+      initialRouteName={NAVIGATION_MY_DOCTOR}
       screenOptions={screenOption}>
       <Tab.Screen
         name={NAVIGATION_HOME}

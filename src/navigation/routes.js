@@ -11,3 +11,5 @@ export const NAVIGATION_PROFILE_HEALTH = 'ProfileHealth';
 export const NAVIGATION_MY_DOCTOR = 'MyDoctor';
 export const NAVIGATION_DOCTOR_DETAIL = 'DoctorDetail';
 export const NAVIGATION_HEALTH_MANUAL = 'HealthManual';
+export const NAVIGATION_PACKAGE_DETAIL = 'PackageDetail';
+export const NAVIGATION_CONNECTION = 'Connection';

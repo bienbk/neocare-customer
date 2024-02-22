@@ -8,7 +8,13 @@ const Colors = {
   black: '#000000',
   textLink: '#00A2F3',
   whiteColor: '#FFFFFF',
+  green: {
+    green30: '#11463E',
+    green40: '#006B5E',
+    green50: '#76F8E2',
+  },
   blue: {
+    blue98: '#FBF8FF',
     blue95: '#F0EFFF',
     blue90: '#DDE1FF',
     blue80: '#B9C3FF',

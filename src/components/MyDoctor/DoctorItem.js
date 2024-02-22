@@ -6,10 +6,16 @@ import Colors from '../../theme/Colors';
 import Images from '../../common/Images/Images';
 import styles from './styles';
 import {doctor_avatar} from '../../assets/constans';
+import ProgressLine from '../../common/ProgressLine/ProgressLine';
 
 const DoctorItem = ({item, selectItem}) => {
   return (
-    <TouchableOpacity onPress={selectItem} style={styles.wrapperDoctorItem}>
+    <TouchableOpacity
+      onPress={selectItem}
+      style={[
+        styles.wrapperDoctorItem,
+        !item.isConnect && {elevation: 1, backgroundColor: Colors.blue.blue98},
+      ]}>
       <View style={styles.wrapperProfileDoctor}>
         {item && item.isConnect && (
           <View style={styles.wrapperLabel}>
@@ -20,7 +26,7 @@ const DoctorItem = ({item, selectItem}) => {
               color={Colors.whiteColor}
             />
             <TextNormal style={{color: Colors.whiteColor}}>
-              {` 6 tháng`}
+              {' 6 tháng'}
             </TextNormal>
           </View>
         )}
@@ -32,9 +38,9 @@ const DoctorItem = ({item, selectItem}) => {
         <View style={styles.wrapperProfileContent}>
           <TextSemiBold style={styles.textDoctorName}>{item.name}</TextSemiBold>
           <TextNormal style={styles.textDoctorDepartment}>
-            {item.class + ' - ' + item.department}
+            {item.department}
           </TextNormal>
-          <View style={styles.wrapperAddressDoctor}>
+          {/* <View style={styles.wrapperAddressDoctor}>
             <Icons
               type={'Feather'}
               name={'map-pin'}
@@ -44,31 +50,10 @@ const DoctorItem = ({item, selectItem}) => {
             <TextNormal style={{marginLeft: 5, color: Colors.textGrayColor}}>
               {item.address}
             </TextNormal>
-          </View>
+          </View> */}
         </View>
       </View>
-      {item && item.isConnect && (
-        <View style={styles.wrapperTimeSection}>
-          <View style={styles.wrapperTitleTime}>
-            <Icons
-              type={'Feather'}
-              name={'check-circle'}
-              color={'green'}
-              size={18}
-            />
-            <TextNormal style={styles.textTitleTime}>
-              Gói chăm sóc sức khoẻ 6 tháng
-            </TextNormal>
-            <TextNormal
-              style={{textAlign: 'right', flex: 1, fontWeight: 'bold'}}>
-              250 ngày
-            </TextNormal>
-          </View>
-          <View style={styles.wrapperTimeline}>
-            <View style={styles.wrapperTimeLeft} />
-          </View>
-        </View>
-      )}
+      {item && item.isConnect && <ProgressLine isDetailDoctor={false} />}
     </TouchableOpacity>
   );
 };

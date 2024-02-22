@@ -16,6 +16,7 @@ const ConfirmationModal = ({
   onConfirm,
   textContent,
   title,
+  textButtonConfrim,
   isWarning,
   isConfriming,
   isDisableConfirm,
@@ -66,20 +67,20 @@ const ConfirmationModal = ({
             <TouchableOpacity
               style={styles.modalButtonCancel}
               onPress={onCancel}>
-              <TextNormalSemiBold style={styles.modalButtonCancelText}>
+              <TextSemiBold style={styles.modalButtonCancelText}>
                 {textContent === 'Bạn có muốn đánh giá đơn hàng?' ||
                 textContent === 'Would you like to rate your order?'
                   ? strings.common.skip
                   : strings.common.back}
-              </TextNormalSemiBold>
+              </TextSemiBold>
             </TouchableOpacity>
             <TouchableOpacity
               disabled={isDisableConfirm === true || isClicked === true}
               style={styles.modalButtonOk}
               onPress={() => handleConfirmClick()}>
-              <TextNormalSemiBold style={styles.modalButtonOkText}>
+              <TextSemiBold style={styles.modalButtonOkText}>
                 {strings.common.confirm}
-              </TextNormalSemiBold>
+              </TextSemiBold>
             </TouchableOpacity>
           </View>
         )}
@@ -89,9 +90,9 @@ const ConfirmationModal = ({
               disabled={isDisableConfirm === true || isClicked === true}
               style={styles.modalButtonOk}
               onPress={() => handleConfirmClick()}>
-              <TextNormalSemiBold style={styles.modalButtonOkText}>
-                {strings.common.confirm}
-              </TextNormalSemiBold>
+              <TextSemiBold style={styles.modalButtonOkText}>
+                {textButtonConfrim ? textButtonConfrim : strings.common.confirm}
+              </TextSemiBold>
             </TouchableOpacity>
           </View>
         )}

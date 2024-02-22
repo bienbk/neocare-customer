@@ -1,5 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, SafeAreaView, View, TouchableOpacity} from 'react-native';
+import {
+  FlatList,
+  SafeAreaView,
+  View,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import styles from './styles';
 import {
   TextMoneyBold,
@@ -10,9 +16,19 @@ import Icons from '../../common/Icons/Icons';
 import Colors from '../../theme/Colors';
 import Svg from '../../common/Svg/Svg';
 import Images from '../../common/Images/Images';
-import {doctor_avatar, logo} from '../../assets/constans';
+import {
+  doctor_avatar,
+  heightDevice,
+  logo,
+  widthDevice,
+} from '../../assets/constans';
 import DoctorItem from './DoctorItem';
-import {NAVIGATION_DOCTOR_DETAIL} from '../../navigation/routes';
+import {
+  NAVIGATION_CONNECTION,
+  NAVIGATION_DOCTOR_DETAIL,
+} from '../../navigation/routes';
+import LinearGradient from 'react-native-linear-gradient';
+import MyModal from '../../common/MyModal/MyModal';
 
 const doctors = [
   {
@@ -29,7 +45,7 @@ const doctors = [
     class: 'BS',
     department: 'Chuyên khoa nội tiết',
     address: 'Cau Giay,TP Ha Noi',
-    isConnect: false,
+    isConnect: true,
   },
   {
     id: 3,
@@ -37,12 +53,29 @@ const doctors = [
     class: 'TS.BS',
     department: 'Chuyên khoa Tim',
     address: 'Quan 1,TP Ho Chi Minh',
-    isConnect: true,
+    isConnect: false,
+  },
+  {
+    id: 4,
+    name: 'Phan Kim Phương',
+    class: 'TS.BS',
+    department: 'Chuyên khoa Tim',
+    address: 'Quan 1,TP Ho Chi Minh',
+    isConnect: false,
+  },
+  {
+    id: 5,
+    name: 'Phan Kim Phương',
+    class: 'TS.BS',
+    department: 'Chuyên khoa Tim',
+    address: 'Quan 1,TP Ho Chi Minh',
+    isConnect: false,
   },
 ];
 
 const MyDoctor = ({navigation}) => {
   const [listDoctor, setListDoctor] = useState([]);
+  const [openOption, setOpenOption] = useState(-1);
   useEffect(() => {
     setListDoctor(doctors);
   }, []);
@@ -56,29 +89,74 @@ const MyDoctor = ({navigation}) => {
   };
   return (
     <SafeAreaView style={styles.containerSafeArea}>
-      <View style={{flex: 1, padding: 10, backgroundColor: Colors.background}}>
-        <View style={styles.wrapperTitle}>
-          <TextMoneyBold style={{fontSize: 24}}>Bác sĩ của tôi</TextMoneyBold>
-          <View style={styles.wrapperIconSection}>
-            <TouchableOpacity>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.containerSafeArea}>
+        <LinearGradient
+          colors={[Colors.blue.blue60, Colors.blue.blue80]}
+          style={{height: 110, width: widthDevice}}>
+          <View style={styles.wrapperTitle}>
+            <TextMoneyBold
+              style={{fontSize: 25, padding: 10, color: Colors.blue.blue98}}>
+              Bác sĩ
+            </TextMoneyBold>
+            <TouchableOpacity onPress={() => setOpenOption(1)}>
               <Icons
                 type={'Feather'}
                 name={'plus-circle'}
-                size={25}
+                size={30}
                 style={styles.iconPlus}
-                color={'black'}
+                color={'white'}
               />
             </TouchableOpacity>
           </View>
+        </LinearGradient>
+        <View style={styles.container}>
+          <View style={styles.wrapperMydoctor}>
+            <TextSemiBold>Bác sĩ của tôi</TextSemiBold>
+            <FlatList
+              data={listDoctor.filter(i => i.id <= 2)}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={(item, index) => `${item.name}-${index}`}
+              renderItem={renderDoctorItem}
+            />
+          </View>
+          <View style={{paddingHorizontal: 10, paddingVertical: 10}}>
+            <TextSemiBold>Bác sĩ đang theo dõi</TextSemiBold>
+            <FlatList
+              data={listDoctor.filter(i => i.id > 2)}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={(item, index) => `${item.name}-${index}`}
+              renderItem={renderDoctorItem}
+              // contentContainerStyle={{backgroundColor: Colors.gray.gray95}}
+            />
+          </View>
         </View>
-        <View style={{flex: 1, paddingVertical: 5}}>
-          <FlatList
-            data={listDoctor}
-            showsVerticalScrollIndicator={false}
-            renderItem={renderDoctorItem}
-          />
+      </ScrollView>
+      <MyModal
+        visible={openOption > 0}
+        onPressOutSide={() => setOpenOption(-1)}>
+        <View style={styles.removeModal}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate(NAVIGATION_CONNECTION, {type: 1})
+            }
+            style={styles.optionButton}>
+            <TextSemiBold style={{color: Colors.blue.blue40}}>
+              Nhập mã thủ công
+            </TextSemiBold>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate(NAVIGATION_CONNECTION, {type: 2})
+            }
+            style={styles.optionButton}>
+            <TextSemiBold style={{color: Colors.blue.blue40}}>
+              Quét mã QR
+            </TextSemiBold>
+          </TouchableOpacity>
         </View>
-      </View>
+      </MyModal>
     </SafeAreaView>
   );
 };

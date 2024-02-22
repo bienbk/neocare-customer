@@ -127,7 +127,7 @@ const Profile = ({navigation}) => {
         )}
         <MyModal visible={modal === 2} onPressOutSide={() => setModal(-1)}>
           <View style={styles.modalView}>
-            <View style={{height: heightDevice / 2.5}}>
+            <View style={{height: heightDevice / 3}}>
               <View style={styles.wrapperContentModal}>
                 <TextSemiBold style={styles.textTitleModal}>
                   Giới tính
@@ -139,8 +139,11 @@ const Profile = ({navigation}) => {
                       styles.wrapperItemGender,
                       gender === 'Nam' && styles.activeGenderMale,
                     ]}>
-                    <Svg name={'icon_male'} size={120} />
-                    <TextNormal>Nam</TextNormal>
+                    <Svg
+                      name={'icon_male'}
+                      size={90}
+                      style={styles.avatarIcon}
+                    />
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => setGender('Nữ')}
@@ -148,8 +151,11 @@ const Profile = ({navigation}) => {
                       styles.wrapperItemGender,
                       gender !== 'Nam' && styles.activeGenderFemale,
                     ]}>
-                    <Svg name={'icon_female'} size={120} />
-                    <TextNormal>Nữ</TextNormal>
+                    <Svg
+                      name={'icon_female'}
+                      size={90}
+                      style={styles.avatarIcon}
+                    />
                   </TouchableOpacity>
                 </View>
                 <View style={styles.safeView}>
