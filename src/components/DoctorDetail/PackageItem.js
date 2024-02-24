@@ -5,6 +5,7 @@ import {
   TextNormal,
   TextNormalSemiBold,
   TextSemiBold,
+  TextSmallTwelve,
 } from '../../common/Text/TextFont';
 import styles from './styles';
 import {formatMoney} from '../../assets/constans';
@@ -18,22 +19,33 @@ const PackageItem = ({item, index, navigation}) => {
       <View style={styles.wrapperActivePackage}>
         <View style={styles.decorationActived} />
         <View style={{paddingHorizontal: 10}}>
-          <TextSemiBold style={{paddingTop: 5}}>
+          <TextNormal style={{paddingTop: 5, fontWeight: 'bold'}}>
             {`Chăm sóc đặc biệt ${(index + 1) * 6} tháng`}
-          </TextSemiBold>
-          <TextNormal style={{paddingVertical: 5}}>
+          </TextNormal>
+          <TextSmallTwelve style={{paddingVertical: 5}}>
             Giá gói: 2.500.000đ
-          </TextNormal>
-          <TextNormal style={{paddingBottom: 5}} >Ngày tham gia: 18/02/2024</TextNormal>
-          <ProgressLine isDetailDoctor={true} />
-          <TextNormal
+          </TextSmallTwelve>
+          <TextSmallTwelve style={{paddingBottom: 5}}>
+            Ngày tham gia: 18/02/2024
+          </TextSmallTwelve>
+          <View
             style={{
-              textAlign: 'right',
-              fontWeight: 'bold',
-              color: Colors.red.red50,
+              flexDirection: 'row',
+              alignItems: 'center',
+              paddingVertical: 6,
             }}>
-            250 ngày
-          </TextNormal>
+            <ProgressLine isDetailDoctor={true} />
+            <TextSmallTwelve
+              style={{
+                textAlign: 'right',
+                fontWeight: 'bold',
+                color: '#4C0C23',
+
+                paddingLeft: 10,
+              }}>
+              250 ngày
+            </TextSmallTwelve>
+          </View>
         </View>
       </View>
     );
@@ -42,13 +54,13 @@ const PackageItem = ({item, index, navigation}) => {
     <View style={styles.wrapperCardPackage}>
       <View style={styles.decoration} />
 
-      <TextSemiBold style={{padding: 5}}>
+      <TextNormal style={{padding: 5, fontWeight: 'bold'}}>
         {`Chăm sóc đặc biệt ${(index + 1) * 6} tháng`}
-      </TextSemiBold>
+      </TextNormal>
       <FlatList
         data={[1, 3, 4]}
         renderItem={() => (
-          <View style={{flexDirection: 'row', paddingVertical: 4}}>
+          <View style={{flexDirection: 'row', paddingVertical: 2}}>
             <Icons
               type={'Feather'}
               name={'check'}
@@ -56,22 +68,22 @@ const PackageItem = ({item, index, navigation}) => {
               color={'black'}
               style={{paddingHorizontal: 5}}
             />
-            <TextNormalSemiBold>
+            <TextSmallTwelve>
               Kiểm tra sức khoẻ dựa theo chỉ số hằng tuần
-            </TextNormalSemiBold>
+            </TextSmallTwelve>
           </View>
         )}
       />
       <View style={styles.wrapperFooterCard}>
-        <TextSemiBold style={{color: Colors.blue.blue20}}>
+        <TextSemiBold style={{color: '#2544BD'}}>
           {formatMoney((index + 1) * 2500000) + 'đ'}
         </TextSemiBold>
         <TouchableOpacity
           onPress={() => navigation.navigate(NAVIGATION_PACKAGE_DETAIL)}
           style={styles.buyPackageButton}>
-          <TextSemiBold style={{color: Colors.whiteColor}}>
+          <TextNormal style={{color: Colors.whiteColor, fontWeight: 'bold'}}>
             Mua gói
-          </TextSemiBold>
+          </TextNormal>
         </TouchableOpacity>
       </View>
     </View>

@@ -10,26 +10,8 @@ import ProgressLine from '../../common/ProgressLine/ProgressLine';
 
 const DoctorItem = ({item, selectItem}) => {
   return (
-    <TouchableOpacity
-      onPress={selectItem}
-      style={[
-        styles.wrapperDoctorItem,
-        !item.isConnect && {elevation: 1, backgroundColor: Colors.blue.blue98},
-      ]}>
+    <TouchableOpacity onPress={selectItem} style={[styles.wrapperDoctorItem]}>
       <View style={styles.wrapperProfileDoctor}>
-        {item && item.isConnect && (
-          <View style={styles.wrapperLabel}>
-            <Icons
-              type={'Feather'}
-              name={'star'}
-              size={15}
-              color={Colors.whiteColor}
-            />
-            <TextNormal style={{color: Colors.whiteColor}}>
-              {' 6 tháng'}
-            </TextNormal>
-          </View>
-        )}
         <Images
           resizeMode="contain"
           style={styles.imageDoctor}
@@ -40,17 +22,6 @@ const DoctorItem = ({item, selectItem}) => {
           <TextNormal style={styles.textDoctorDepartment}>
             {item.department}
           </TextNormal>
-          {/* <View style={styles.wrapperAddressDoctor}>
-            <Icons
-              type={'Feather'}
-              name={'map-pin'}
-              size={20}
-              color={Colors.blue.blue40}
-            />
-            <TextNormal style={{marginLeft: 5, color: Colors.textGrayColor}}>
-              {item.address}
-            </TextNormal>
-          </View> */}
         </View>
       </View>
       {item && item.isConnect && <ProgressLine isDetailDoctor={false} />}

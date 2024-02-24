@@ -16,8 +16,8 @@ function createRequestTypes(prefix = '', bases, suffixes = suffixTypes) {
 }
 
 // Events related to Neocafe REST API
-export const NEOCAFE = createRequestTypes(
-  'NEOCAFE',
+export const NEOCARE = createRequestTypes(
+  'NEOCARE',
   [
     //auth
     'CHECK_AUTHENTICATION',
@@ -32,6 +32,12 @@ export const NEOCAFE = createRequestTypes(
     'CONFIRM_DELETE_OTP',
     'UPDATE_USER_INFO',
     'SET_LANGUAGE',
+
+    // Doctor
+    'GET_PACKAGE_OF_DOCTOR',
+
+    // Order
+    'BUY_PACKAGE',
   ],
   suffixTypes,
 );

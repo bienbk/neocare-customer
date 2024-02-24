@@ -21,7 +21,7 @@ import CheckBox from '@react-native-community/checkbox';
 
 const Login = ({navigation}) => {
   const refInput = useRef(null);
-  const [phone, setPhone] = useState('0376525170');
+  const [phone, setPhone] = useState('0123123');
   const [isAgreePolicy, setAgreePolicy] = useState(true);
 
   const handleSubmitPhone = () => {
@@ -41,7 +41,7 @@ const Login = ({navigation}) => {
             <View
               style={{
                 paddingBottom: 30,
-                paddingTop: 70,
+                marginTop: heightDevice * 0.11,
                 paddingHorizontal: 10,
               }}>
               <TextNormal style={styles.textIntro1}>
@@ -87,10 +87,10 @@ const Login = ({navigation}) => {
                   boxType={'square'}
                   lineWidth={2}
                   style={styles.styleCheckbox}
-                  onTintColor={Colors.blue.blue20}
-                  onFillColor={Colors.blue.blue20}
+                  onTintColor={Colors.buttonBackground}
+                  onFillColor={Colors.buttonBackground}
                   tintColors={{
-                    true: Colors.blue.blue20,
+                    true: Colors.buttonBackground,
                     false: 'black',
                   }}
                   onCheckColor={Colors.whiteColor}
@@ -107,6 +107,7 @@ const Login = ({navigation}) => {
             </View>
             <TouchableOpacity
               onPress={() => handleSubmitPhone()}
+              disabled={!phone || phone.length === 0}
               style={[styles.buttonSubmitPhone]}>
               <TextSemiBold style={styles.textConfirm}>
                 {'Tiếp tục'}

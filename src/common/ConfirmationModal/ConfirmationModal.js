@@ -4,7 +4,6 @@ import React, {useEffect, useState} from 'react';
 import {
   TextNormal,
   TextNormalSemiBold,
-  TextSemiBold,
 } from 'common/Text/TextFont';
 import styles from './styles';
 import strings from 'localization/Localization';
@@ -18,6 +17,7 @@ const ConfirmationModal = ({
   title,
   textButtonConfrim,
   isWarning,
+  isQuestion,
   isConfriming,
   isDisableConfirm,
 }) => {
@@ -40,7 +40,9 @@ const ConfirmationModal = ({
           children ? styles.containerModalWithChildren : styles.containerModal
         }>
         <View style={styles.headerModal}>
-          <TextSemiBold>{title || strings.common.notification}</TextSemiBold>
+          <TextNormalSemiBold style={{fontSize: 20}}>
+            {title || strings.common.notification}
+          </TextNormalSemiBold>
         </View>
 
         {children ? (
@@ -53,34 +55,27 @@ const ConfirmationModal = ({
 
         {isWarning === true && (
           <View style={styles.wrapperActionWarning}>
-            <TouchableOpacity
-              style={styles.modalButtonCancel}
-              onPress={onCancel}>
-              <TextSemiBold style={styles.modalButtonCancelText}>
+            <TouchableOpacity style={styles.buttonCancel} onPress={onCancel}>
+              <TextNormalSemiBold style={styles.modalButtonCancelText}>
                 {strings.common.back}
-              </TextSemiBold>
+              </TextNormalSemiBold>
             </TouchableOpacity>
           </View>
         )}
-        {!isConfriming && !isWarning && (
+        {isQuestion && (
           <View style={styles.wrapperButtonSection}>
-            <TouchableOpacity
-              style={styles.modalButtonCancel}
-              onPress={onCancel}>
-              <TextSemiBold style={styles.modalButtonCancelText}>
-                {textContent === 'Bạn có muốn đánh giá đơn hàng?' ||
-                textContent === 'Would you like to rate your order?'
-                  ? strings.common.skip
-                  : strings.common.back}
-              </TextSemiBold>
+            <TouchableOpacity style={styles.buttonBack} onPress={onCancel}>
+              <TextNormalSemiBold style={styles.modalButtonCancelText}>
+                {strings.common.back}
+              </TextNormalSemiBold>
             </TouchableOpacity>
             <TouchableOpacity
               disabled={isDisableConfirm === true || isClicked === true}
-              style={styles.modalButtonOk}
+              style={styles.buttonOk}
               onPress={() => handleConfirmClick()}>
-              <TextSemiBold style={styles.modalButtonOkText}>
+              <TextNormalSemiBold style={styles.modalButtonOkText}>
                 {strings.common.confirm}
-              </TextSemiBold>
+              </TextNormalSemiBold>
             </TouchableOpacity>
           </View>
         )}
@@ -88,11 +83,11 @@ const ConfirmationModal = ({
           <View style={styles.wrapperActionWarning}>
             <TouchableOpacity
               disabled={isDisableConfirm === true || isClicked === true}
-              style={styles.modalButtonOk}
+              style={styles.buttonConfirm}
               onPress={() => handleConfirmClick()}>
-              <TextSemiBold style={styles.modalButtonOkText}>
+              <TextNormalSemiBold style={styles.modalButtonOkText}>
                 {textButtonConfrim ? textButtonConfrim : strings.common.confirm}
-              </TextSemiBold>
+              </TextNormalSemiBold>
             </TouchableOpacity>
           </View>
         )}

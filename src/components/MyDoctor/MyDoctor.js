@@ -93,18 +93,25 @@ const MyDoctor = ({navigation}) => {
         showsVerticalScrollIndicator={false}
         style={styles.containerSafeArea}>
         <LinearGradient
-          colors={[Colors.blue.blue60, Colors.blue.blue80]}
-          style={{height: 110, width: widthDevice}}>
+          colors={['#6D86F9', '#AFB9FF']}
+          start={{x: 0, y: 1}}
+          end={{x: 1, y: 1}}
+          style={{height: 117, width: widthDevice}}>
           <View style={styles.wrapperTitle}>
             <TextMoneyBold
-              style={{fontSize: 25, padding: 10, color: Colors.blue.blue98}}>
+              style={{
+                fontSize: 24,
+                paddingHorizontal: 15,
+                paddingVertical: 10,
+                color: Colors.blue.blue98,
+              }}>
               Bác sĩ
             </TextMoneyBold>
             <TouchableOpacity onPress={() => setOpenOption(1)}>
               <Icons
                 type={'Feather'}
                 name={'plus-circle'}
-                size={30}
+                size={25}
                 style={styles.iconPlus}
                 color={'white'}
               />
@@ -113,22 +120,26 @@ const MyDoctor = ({navigation}) => {
         </LinearGradient>
         <View style={styles.container}>
           <View style={styles.wrapperMydoctor}>
-            <TextSemiBold>Bác sĩ của tôi</TextSemiBold>
+            <TextSemiBold style={{paddingBottom: 5}}>
+              Bác sĩ của tôi
+            </TextSemiBold>
             <FlatList
+              scrollEnabled={false}
               data={listDoctor.filter(i => i.id <= 2)}
               showsVerticalScrollIndicator={false}
               keyExtractor={(item, index) => `${item.name}-${index}`}
               renderItem={renderDoctorItem}
             />
           </View>
-          <View style={{paddingHorizontal: 10, paddingVertical: 10}}>
+          <View style={styles.wrapperFollowingdoctor}>
             <TextSemiBold>Bác sĩ đang theo dõi</TextSemiBold>
             <FlatList
+              scrollEnabled={false}
               data={listDoctor.filter(i => i.id > 2)}
               showsVerticalScrollIndicator={false}
               keyExtractor={(item, index) => `${item.name}-${index}`}
               renderItem={renderDoctorItem}
-              // contentContainerStyle={{backgroundColor: Colors.gray.gray95}}
+              contentContainerStyle={{paddingVertical: 5}}
             />
           </View>
         </View>
@@ -138,18 +149,20 @@ const MyDoctor = ({navigation}) => {
         onPressOutSide={() => setOpenOption(-1)}>
         <View style={styles.removeModal}>
           <TouchableOpacity
-            onPress={() =>
-              navigation.navigate(NAVIGATION_CONNECTION, {type: 1})
-            }
+            onPress={() => {
+              setOpenOption(-1);
+              navigation.navigate(NAVIGATION_CONNECTION, {type: 1});
+            }}
             style={styles.optionButton}>
             <TextSemiBold style={{color: Colors.blue.blue40}}>
               Nhập mã thủ công
             </TextSemiBold>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() =>
-              navigation.navigate(NAVIGATION_CONNECTION, {type: 2})
-            }
+            onPress={() => {
+              setOpenOption(-1);
+              navigation.navigate(NAVIGATION_CONNECTION, {type: 2});
+            }}
             style={styles.optionButton}>
             <TextSemiBold style={{color: Colors.blue.blue40}}>
               Quét mã QR

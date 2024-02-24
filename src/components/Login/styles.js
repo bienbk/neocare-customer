@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
 
   container: {
-    paddingHorizontal: 15,
+    paddingHorizontal: 24,
     flex: 1,
     paddingVertical: 30,
     backgroundColor: Colors.backgroundColor,
@@ -98,10 +98,10 @@ const styles = StyleSheet.create({
     // borderRadius: 60,
     // justifyContent: 'center',
     // alignItems: 'center',
-    width: widthDevice * 0.9,
-    height: 50,
+    width: widthDevice - 50,
+    height: 48,
     borderRadius: 30,
-    backgroundColor: Colors.gray.gray10,
+    backgroundColor: Colors.buttonBackground,
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -64,7 +64,13 @@ import icon_sugar_line from './iconMain/icon_sugar_line.svg';
 import icon_male from './iconMain/icon_male.svg';
 import icon_female from './iconMain/icon_female.svg';
 import icon_mydoctor_main from './iconMain/icon_mydoctor_main.svg';
+import card_blue from './iconMain/card_blue.svg';
+import card_pink from './iconMain/card_pink.svg';
+import icon_checked from './iconMain/icon_checked.svg';
 export default {
+  icon_checked,
+  card_pink,
+  card_blue,
   icon_mydoctor_main,
   icon_male,
   icon_female,

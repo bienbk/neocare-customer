@@ -12,23 +12,23 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import styles from './style';
 import CodeInput from './CodeInput';
-import {
-  confirmOtp,
-  sendPhone,
-  confirmOtpReset,
-  getDeleteAccount,
-  resetDeleteOtp,
-  deleteAccountReset,
-  confirmDeleteAccountOtp,
-  logout,
-} from 'store/actions';
-import {
-  isErrorConfirm,
-  isStatusDeleteAccount,
-  isStatusConfirmOtp,
-  statusConfirmOtpDelete,
-  getErrorMessageConfirm,
-} from 'store/selectors';
+// import {
+//   confirmOtp,
+//   sendPhone,
+//   confirmOtpReset,
+//   getDeleteAccount,
+//   resetDeleteOtp,
+//   deleteAccountReset,
+//   confirmDeleteAccountOtp,
+//   logout,
+// } from 'store/actions';
+// import {
+//   isErrorConfirm,
+//   isStatusDeleteAccount,
+//   isStatusConfirmOtp,
+//   statusConfirmOtpDelete,
+//   getErrorMessageConfirm,
+// } from 'store/selectors';
 import Status from 'common/Status/Status';
 import {
   TextNormal,
@@ -51,8 +51,8 @@ const VerifyCode = ({navigation, route}) => {
   const [pinReady, setPinReady] = useState(false);
   // const deviceId = useRef(null);
   // const pushToken = useRef(null);
-  const statusConfirmOtp = useSelector(state => isStatusConfirmOtp(state));
-  const errorConfirmOtp = useSelector(state => isErrorConfirm(state));
+  // const statusConfirmOtp = useSelector(state => isStatusConfirmOtp(state));
+  // const errorConfirmOtp = useSelector(state => isErrorConfirm(state));
   const [disableSendAgainButton, setDisableSendAgainButton] = useState(false);
   const [timer, setTimer] = useState(0);
   const [resendTime, setResendTime] = useState(0);
@@ -231,11 +231,11 @@ const VerifyCode = ({navigation, route}) => {
               maxLength={MAX_CODE_LENGTH}
               navigation={navigation}
             />
-            {!errorConfirmOtp && (
+            {/* {!errorConfirmOtp && (
               <TextNormal style={styles.textError}>
                 {errorConfirmOtp || 'Mã xác minh không đúng'}
               </TextNormal>
-            )}
+            )} */}
           </View>
           {pinReady ? (
             <View style={styles.wrapperSubtitle}>
@@ -281,7 +281,7 @@ const VerifyCode = ({navigation, route}) => {
           </View> */}
         </View>
       </Pressable>
-      <Loading isHidden={statusConfirmOtp === Status.LOADING} />
+      {/* <Loading isHidden={statusConfirmOtp === Status.LOADING} /> */}
     </SafeAreaView>
   );
 };

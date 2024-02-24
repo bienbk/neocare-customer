@@ -20,12 +20,13 @@ const heightValues = type => {
   return result;
 };
 const HeightScreen = ({nextStep}) => {
-  const [height, setHeight] = useState({type: 1, val: 185});
+  const [height, setHeight] = useState({type: 1, val: 0});
   const [heightData, setHeightData] = useState([]);
   const refWeight = useRef(null);
   useEffect(() => {
     const tempList = heightValues(1) || [];
     setHeightData(tempList);
+    setHeight({type: 1, val: 165});
   }, []);
   const handleWeightType = type => {
     const newWeight = {

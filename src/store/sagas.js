@@ -1,10 +1,10 @@
 import {fork} from 'redux-saga/effects';
-import authSaga from './auth/authSaga';
+import orderSaga from './order/orderSaga';
 
-import userSaga from './user/userSaga';
+import doctorSaga from './doctor/doctorSaga';
 
 const saga = function* () {
-  yield fork(authSaga);
-  yield fork(userSaga);
+  yield fork(doctorSaga);
+  yield fork(orderSaga);
 };
 export default saga;

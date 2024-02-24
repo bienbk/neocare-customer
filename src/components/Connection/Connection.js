@@ -13,7 +13,7 @@ import {
   TextSemiBold,
   TextSmallMedium,
 } from '../../common/Text/TextFont';
-import {widthDevice} from '../../assets/constans';
+import {heightDevice, widthDevice} from '../../assets/constans';
 import Icons from '../../common/Icons/Icons';
 import {NAVIGATION_MY_DOCTOR} from '../../navigation/routes';
 const maxLength = 6;
@@ -49,15 +49,17 @@ const Connection = ({navigation, route}) => {
     const isDigitFocused = isCurrentDigit || (isLastDigit && isCodeFull);
     const styleOTPInput = inputContainerFocus && isDigitFocused ? true : false;
     return (
-      <View key={index} style={styles.otpInputView}>
-        <TextNormal style={styles.otpInputText}>{digit}</TextNormal>
+      <View key={index} style={[styles.otpInputView]}>
+        <TextNormal style={styles.otpInputText}>
+          {digit ? digit : ''}
+        </TextNormal>
       </View>
     );
   };
   return (
     <SafeAreaView style={styles.container}>
       {typeShow === 1 && (
-        <View style={{flex: 1, backgroundColor: 'white'}}>
+        <View style={{flex: 1}}>
           <TouchableOpacity
             onPress={() => navigation.navigate(NAVIGATION_MY_DOCTOR)}
             style={styles.wrapperClose}>
@@ -65,11 +67,11 @@ const Connection = ({navigation, route}) => {
               type={'Feather'}
               name={'arrow-left'}
               size={25}
-              color={'white'}
+              color={'black'}
             />
           </TouchableOpacity>
           <View style={styles.inputSection}>
-            <TextSemiBold style={{paddingVertical: 15}}>
+            <TextSemiBold style={{paddingVertical: 30}}>
               {'Bạn hãy nhập mã giới thiệu của bác sĩ '}
             </TextSemiBold>
             <Pressable
@@ -90,15 +92,20 @@ const Connection = ({navigation, route}) => {
               style={styles.hiddenTextInput}
               // autoFocus={true}
             />
-            <TextSmallMedium
-              style={{color: Colors.red.red50, paddingVertical: 20}}>
+            <TextNormal style={{color: '#EF0000', paddingVertical: 20}}>
               {'Mã giới thiệu không đúng'}
-            </TextSmallMedium>
+            </TextNormal>
           </View>
         </View>
       )}
       {typeShow === 2 && (
-        <View style={{backgroundColor: 'red', flex: 1}}>
+        <View
+          style={{
+            backgroundColor: 'white',
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
           <TextNormal>QRCODE</TextNormal>
         </View>
       )}
@@ -110,24 +117,25 @@ export default Connection;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.whiteColor,
+    backgroundColor: Colors.backgroundColor,
   },
   inputContainerPressable: {
     width: widthDevice - 40,
     flexDirection: 'row',
     justifyContent: 'center',
+    // backgroundColor: 'green',
   },
   wrapperClose: {
     // height: 30,
     // width: 30,
     borderRadius: 30,
     padding: 10,
-    backgroundColor: Colors.gray.gray10,
+    backgroundColor: Colors.whiteColor,
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-    top: 20,
-    left: 20,
+    top: 16,
+    left: 16,
   },
   hiddenTextInput: {
     // borderColor: '#004D40',
@@ -136,17 +144,19 @@ const styles = StyleSheet.create({
     // padding: 12,
     // marginTop: 15,
     // width: 300,
-    // color: 'white',
+    // color: 'red',
     position: 'absolute',
-    width: 1,
+    width: 0,
     height: 1,
+    zIndex: 1000,
     opacity: 0,
   },
   inputSection: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 30,
-    height: '80%',
+    // marginTop: 30,
+    // height: '80%',
+    marginTop: heightDevice * 0.25,
     // backgroundColor: 'red',
   },
   otpInputView: {
@@ -154,20 +164,34 @@ const styles = StyleSheet.create({
     // minWidth: '13%',
     borderWidth: 0.5,
     backgroundColor: 'white',
-    borderRadius: 5,
-    marginHorizontal: 5,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 7,
+    width: 35,
+    height: 55,
+  },
+  activeInputView: {
+    borderColor: 'gray',
+    // minWidth: '13%',
+    borderWidth: 0.5,
+    backgroundColor: 'white',
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 7,
     width: 35,
     height: 55,
   },
   otpInputText: {
-    fontSize: 25,
+    fontSize: 29,
     textAlign: 'center',
-    alignSelf: 'center',
-    justifyContent: 'center',
+    // alignSelf: 'center',
+
     color: 'black',
-    fontWeight: '500',
-    paddingVertical: 10,
-    paddingHorizontal: 5,
+    fontWeight: '700',
+    // paddingVertical: 2,
+    // paddingHorizontal: 1,
     // backgroundColor: 'red',
   },
 });

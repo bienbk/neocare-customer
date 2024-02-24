@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   wrapperTitle: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: 30,
+    marginTop: 30,
     // backgroundColor: 'red',
     paddingVertical: 15,
   },
@@ -54,17 +54,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   activeWeightButton: {
-    backgroundColor: Colors.blue.blue50,
+    backgroundColor: '#7189F7',
   },
   activeTextWeight: {
     fontWeight: '700',
     color: 'white',
   },
   weightValueButton: {
-    width: 40,
-    height: 40,
+    width: 32,
+    height: 32,
     borderRadius: 20,
-    backgroundColor: Colors.blue.blue40,
+    backgroundColor: '#7189F7',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -116,12 +116,12 @@ const styles = StyleSheet.create({
     width: widthDevice - 40,
     paddingVertical: 12,
     borderRadius: 40,
-    backgroundColor: Colors.gray.gray10,
+    backgroundColor: Colors.buttonBackground,
     marginTop: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    // position: 'absolute',
-    // bottom: 5,
+    position: 'absolute',
+    bottom: 5,
   },
 });
 

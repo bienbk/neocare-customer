@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
     borderColor: Colors.textGrayColor,
   },
   wrapperSection: {
-    paddingTop: 10,
-    paddingBottom: 15,
+    paddingVertical: 15,
+    // paddingHorizontal: 15,
   },
   birthSection: {
     backgroundColor: 'white',
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.gray.gray10,
+    backgroundColor: Colors.buttonBackground,
     borderRadius: 40,
     width: widthDevice - 30,
   },
@@ -59,8 +59,8 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   textButton: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 16,
+    fontWeight: '700',
     color: Colors.whiteColor,
   },
   modalView: {
@@ -102,12 +102,12 @@ const styles = StyleSheet.create({
     // backgroundColor: 'red',
   },
   activeGenderMale: {
-    backgroundColor: 'lightblue',
+    backgroundColor: '#DDE1FF',
     borderWidth: 1,
     borderColor: 'blue',
   },
   activeGenderFemale: {
-    backgroundColor: 'pink',
+    backgroundColor: '#FFD9E0',
     borderWidth: 1,
     borderColor: 'red',
   },
@@ -118,8 +118,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     borderRadius: 40,
-    backgroundColor: Colors.gray.gray10,
-    width: '50%',
+    backgroundColor: Colors.buttonBackground,
+    width: '90%',
   },
 });
 

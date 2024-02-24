@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignSelf: 'center',
-    paddingVertical: 10,
+    paddingVertical: 20,
     paddingHorizontal: 0,
   },
   safeView: {
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   },
   wrapperTitle: {
     paddingBottom: 10,
-    paddingTop: 70,
+    paddingTop: heightDevice * 0.15,
     paddingHorizontal: 10,
   },
   container: {
@@ -47,22 +47,22 @@ const styles = StyleSheet.create({
     color: Colors.textGrayColor,
   },
   otpInputText: {
-    fontSize: 25,
+    fontSize: 29,
     textAlign: 'center',
     alignSelf: 'center',
     justifyContent: 'center',
     color: 'black',
-    fontWeight: '500',
-    paddingVertical: 10,
-    paddingHorizontal: 5,
+    fontWeight: '600',
     // backgroundColor: 'red',
   },
   otpInputView: {
     borderColor: 'gray',
     // minWidth: '13%',
     borderWidth: 0.5,
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'white',
-    borderRadius: 5,
+    borderRadius: 10,
     marginHorizontal: 5,
     width: 35,
     height: 55,
@@ -113,9 +113,10 @@ const styles = StyleSheet.create({
   },
   textSend: {
     textAlign: 'center',
+    marginTop: 10,
     fontSize: 16,
     textDecorationLine: 'underline',
-    color: 'blue',
+    color: Colors.buttonBackground,
   },
   questionSendback: {
     textAlign: 'center',

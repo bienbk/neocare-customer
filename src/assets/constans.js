@@ -81,6 +81,7 @@ export const voucher = require('assets/images/voucher.png');
 export const star = require('assets/images/star.png');
 export const doctor_avatar = require('assets/images/doctor.png');
 export const doctor_detail = require('assets/images/doctor_detail.png');
+export const empty_logo = require('assets/images/empty_logo.png');
 export function formatMoney(x) {
   return x && x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }

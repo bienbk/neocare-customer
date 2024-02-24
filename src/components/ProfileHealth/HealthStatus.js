@@ -72,32 +72,32 @@ const HealthStatus = ({nextStep}) => {
         </TextNormal>
       </View>
       {/* Check list SECTION */}
-      <FlatList
-        data={listDiseases}
-        showsVerticalScrollIndicator={false}
-        // contentContainerStyle={{backgroundColor:}}
-        keyExtractor={(_, index) => index.toString()}
-        renderItem={({item}) => {
-          return (
-            <TouchableOpacity
-              onPress={() => hanldeSelectItem(item)}
-              style={styles.wrapperCheckbox}>
-              <TextNormal>{item.name}</TextNormal>
-              <CustomCheckbox
-                value={item.value}
-                setValue={() => handleValueCheckbox(item)}
-              />
-            </TouchableOpacity>
-          );
-        }}
-      />
-      <View style={{alignItems: 'center'}}>
-        <TouchableOpacity onPress={nextStep} style={styles.buttonContinue}>
-          <TextSemiBold style={styles.textContinueButton}>
-            {strings.common.complete}
-          </TextSemiBold>
-        </TouchableOpacity>
+      <View style={{height: '70%'}}>
+        <FlatList
+          data={listDiseases}
+          showsVerticalScrollIndicator={false}
+          // contentContainerStyle={{height: '90%'}}
+          keyExtractor={(_, index) => index.toString()}
+          renderItem={({item}) => {
+            return (
+              <TouchableOpacity
+                onPress={() => hanldeSelectItem(item)}
+                style={styles.wrapperCheckbox}>
+                <TextNormal>{item.name}</TextNormal>
+                <CustomCheckbox
+                  value={item.value}
+                  setValue={() => handleValueCheckbox(item)}
+                />
+              </TouchableOpacity>
+            );
+          }}
+        />
       </View>
+      <TouchableOpacity onPress={nextStep} style={styles.buttonContinue}>
+        <TextSemiBold style={styles.textContinueButton}>
+          {strings.common.complete}
+        </TextSemiBold>
+      </TouchableOpacity>
     </View>
   );
 };

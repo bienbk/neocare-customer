@@ -28,6 +28,7 @@ const WeightScreen = ({nextStep}) => {
   useEffect(() => {
     const tempList = weightValues(1) || [];
     setDataWeight(tempList);
+    setWeight(60);
   }, []);
 
   const handleWeightType = type => {
@@ -82,7 +83,9 @@ const WeightScreen = ({nextStep}) => {
             style={styles.weightValueButton}>
             <Icons type={'Feather'} name={'minus'} size={26} color={'white'} />
           </TouchableOpacity>
-          <TextMoneyBold style={{fontSize: 40}}>{parseInt(weight, 10)}</TextMoneyBold>
+          <TextMoneyBold style={{fontSize: 60}}>
+            {parseInt(weight, 10)}
+          </TextMoneyBold>
           <TouchableOpacity
             onPress={() => handleWeightVal(1)}
             style={styles.weightValueButton}>
@@ -99,7 +102,7 @@ const WeightScreen = ({nextStep}) => {
       />
 
       <View style={{flex: 1, alignItems: 'center'}}>
-        <Svg name={'icon_weight'} size={200} />
+        <Svg name={'icon_weight'} size={220} />
         <TouchableOpacity onPress={nextStep} style={styles.buttonContinue}>
           <TextSemiBold style={styles.textContinueButton}>
             {strings.common.continue}
