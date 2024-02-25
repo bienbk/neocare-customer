@@ -1,7 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {
   FlatList,
+  Keyboard,
   Platform,
+  Pressable,
   SafeAreaView,
   TextInput,
   TouchableOpacity,
@@ -17,6 +19,8 @@ import Icons from '../../common/Icons/Icons';
 import Colors from '../../theme/Colors';
 import {widthDevice} from '../../assets/constans';
 import strings from '../../localization/Localization';
+import UnitSelector from '../../common/UnitSelector/UnitSelector';
+import CustomButton from '../../common/CustomButton/CustomButton';
 
 const items = [
   {id: 1, name: 'HDL-C'},
@@ -35,9 +39,6 @@ const Cholesterol = ({navigation, route}) => {
   const textInputRef = useRef(null);
   const [messure, setMessure] = useState(1);
 
-  useEffect(() => {
-    console.log(HDL);
-  }, [HDL]);
   const handleInput = (val, index) => {
     if (index === 0) {
       setHDL(val);
@@ -67,52 +68,72 @@ const Cholesterol = ({navigation, route}) => {
   };
   const footerComponent = () => {
     return (
-      <View
-        style={{
-          alignItems: 'center',
-          paddingVertical: 10,
-          marginTop: 20,
-          justifyContent: 'center',
-        }}>
-        <View style={styles.wrapperTypeMessure}>
+      <View style={{alignItems: 'center', paddingVertical: 20}}>
+        <UnitSelector
+          firstOption={'mg/dL'}
+          secondOption={'mmol/L'}
+          onPressSelector={val => setMessure(val)}
+          isSelected={messure}
+        />
+      </View>
+    );
+  };
+  const handleBlurInput = () => {
+    console.log('textInputRef.current;:::', textInputRef.current);
+    Keyboard.dismiss();
+    setInputActive(-1);
+  };
+  const renderInputItem = ({item, index}) => {
+    return (
+      <View style={styles.wrapperDataItem}>
+        <TextSemiBold>{item.name}</TextSemiBold>
+        <View style={styles.wrapperRowItem}>
           <TouchableOpacity
-            onPress={() => setMessure(1)}
             style={[
-              styles.messureButton,
-              messure === 1 && {backgroundColor: Colors.blue.blue80},
+              styles.wrapperInputCholesterol,
+              inputActive === index && {
+                backgroundColor: Colors.blue.blue80,
+              },
             ]}>
-            <TextSemiBold style={messure === 1 && {color: Colors.blue.blue30}}>
-              mg/dL
-            </TextSemiBold>
+            <View style={styles.inputContainerPressable}>
+              <TextSemiBold style={[styles.otpInputText]}>
+                {index === 0 ? HDL : index === 1 ? LDL : Triglycerides}
+              </TextSemiBold>
+            </View>
+            <TextInput
+              onChangeText={e => handleInput(e, index)}
+              maxLength={3}
+              keyboardType="number-pad"
+              returnKeyType="done"
+              textContentType="oneTimeCode"
+              ref={textInputRef}
+              onFocus={() => setInputActive(index)}
+              onBlur={handleBlurInput}
+              style={styles.inputCholesterol}
+            />
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => setMessure(2)}
-            style={[
-              styles.messureButton,
-              messure === 2 && {backgroundColor: Colors.blue.blue80},
-            ]}>
-            <TextSemiBold style={messure === 2 && {color: Colors.blue.blue30}}>
-              mmol/L
-            </TextSemiBold>
-          </TouchableOpacity>
+
+          <Icons
+            type={'Feather'}
+            name={'alert-circle'}
+            size={25}
+            color={'gray'}
+          />
         </View>
       </View>
     );
   };
   return (
-    <View style={styles.container}>
-      <View style={styles.wrapperTitle}>
-        <TextSemiBold style={styles.textTitle}>
-          {'Thông tin mỡ máu'}
-        </TextSemiBold>
-        <TouchableOpacity
-          onPress={() => navigation.navigate(NAVIGATION_HOME)}
-          style={styles.wrapperClose}>
-          <Icons type={'Feather'} name={'x'} size={20} color={'white'} />
-        </TouchableOpacity>
-      </View>
-      <View
-        style={{paddingVertical: 10, alignItems: 'center', marginVertical: 10}}>
+    <Pressable onPress={() => handleBlurInput()} style={styles.container}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate(NAVIGATION_HOME)}
+        style={styles.wrapperClose}>
+        <Icons type={'Feather'} name={'x'} size={20} color={'white'} />
+      </TouchableOpacity>
+      <TextSemiBold style={styles.textTitle}>
+        {'Thông tin đuờng huyết'}
+      </TextSemiBold>
+      <View style={{paddingBottom: 10, alignItems: 'center', marginBottom: 10}}>
         <TouchableOpacity
           onPress={() => setShowDatePicker(true)}
           style={styles.wrapperDatePicker}>
@@ -131,53 +152,11 @@ const Cholesterol = ({navigation, route}) => {
       <FlatList
         data={items}
         showsVerticalScrollIndicator={false}
-        keyExtractor={index => index.toString()}
-        renderItem={({item, index}) => {
-          return (
-            <View style={styles.wrapperDataItem}>
-              <TextSemiBold>{item.name}</TextSemiBold>
-              <View style={styles.wrapperRowItem}>
-                <TouchableOpacity
-                  // onPress={}
-                  style={[
-                    styles.wrapperInputCholesterol,
-                    inputActive === index && {
-                      backgroundColor: Colors.blue.blue80,
-                    },
-                  ]}>
-                  <View style={styles.inputContainerPressable}>
-                    <TextSemiBold style={[styles.otpInputText]}>
-                      {index === 0 ? HDL : index === 1 ? LDL : Triglycerides}
-                    </TextSemiBold>
-                  </View>
-                  <TextInput
-                    onChangeText={e => handleInput(e, index)}
-                    maxLength={3}
-                    keyboardType="number-pad"
-                    returnKeyType="done"
-                    textContentType="oneTimeCode"
-                    ref={textInputRef}
-                    // onBlur={handleOnBlur}
-                    onFocus={() => setInputActive(index)}
-                    // blurOnSubmit={false}
-                    style={styles.inputCholesterol}
-                    // autoFocus={true}
-                  />
-                </TouchableOpacity>
-
-                <Icons type={'Feather'} name={'alert-circle'} size={25} color={'gray'} />
-              </View>
-            </View>
-          );
-        }}
+        keyExtractor={(_, index) => index.toString()}
+        renderItem={renderInputItem}
         ListFooterComponent={footerComponent}
       />
-
-      <TouchableOpacity style={styles.completeButton}>
-        <TextSemiBold style={{color: Colors.whiteColor}}>
-          {strings.common.complete}
-        </TextSemiBold>
-      </TouchableOpacity>
+      <CustomButton label={strings.common.complete} />
       {showDatePicker && (
         <DateTimePicker
           value={new Date()}
@@ -188,7 +167,7 @@ const Cholesterol = ({navigation, route}) => {
           // style={styles.datePicker}
         />
       )}
-    </View>
+    </Pressable>
   );
 };
 

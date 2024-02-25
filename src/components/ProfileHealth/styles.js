@@ -11,23 +11,25 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 15,
     flex: 1,
-    paddingVertical: 10,
+    paddingTop: 10,
     backgroundColor: Colors.backgroundColor,
   },
   buttonBack: {
     position: 'absolute',
-    top: 0,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    top: 16,
+    left: 16,
+
     // backgroundColor: 'red',
   },
   wrapperTitle: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 30,
+    marginTop: 10,
     // backgroundColor: 'red',
     paddingVertical: 15,
+    paddingHorizontal: 20,
   },
+  subtitleText: {textAlign: 'center', color: Colors.gray.gray50},
   weightButton: {
     paddingHorizontal: 10,
     paddingVertical: 10,
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
   textContinueButton: {
     color: 'white',
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 17,
   },
   wrapperSliderHeight: {
     paddingHorizontal: 15,
@@ -111,17 +113,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 20,
     justifyContent: 'space-between',
-  },
-  buttonContinue: {
-    width: widthDevice - 40,
-    paddingVertical: 12,
-    borderRadius: 40,
-    backgroundColor: Colors.buttonBackground,
-    marginTop: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'absolute',
-    bottom: 5,
   },
 });
 

@@ -22,6 +22,7 @@ import MyModal from '../../common/MyModal/MyModal';
 import {heightDevice, widthDevice} from '../../assets/constans';
 import {NAVIGATION_PROFILE_HEALTH} from '../../navigation/routes';
 import Svg from '../../common/Svg/Svg';
+import CustomButton from '../../common/CustomButton/CustomButton';
 
 const Profile = ({navigation}) => {
   const [name, setName] = useState('');
@@ -106,13 +107,11 @@ const Profile = ({navigation}) => {
             </TouchableOpacity>
           </View>
           <View style={styles.wrapperButton}>
-            <TouchableOpacity
+            <CustomButton
               onPress={handleSubmitInfo}
-              style={styles.btnContinue}>
-              <TextNormal style={styles.textButton}>
-                {strings.common.continue}
-              </TextNormal>
-            </TouchableOpacity>
+              label={strings.common.continue}
+              styledButton={styles.btnContinue}
+            />
           </View>
         </View>
         {Platform.OS === 'android' && modal === 1 && (

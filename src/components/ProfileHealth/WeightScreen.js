@@ -14,6 +14,7 @@ import {widthDevice} from '../../assets/constans';
 import Icons from '../../common/Icons/Icons';
 import Svg from '../../common/Svg/Svg';
 import HorizontalRange from '../../common/HorizontalRange/HorizontalRange';
+import CustomButton from '../../common/CustomButton/CustomButton';
 const weightValues = type => {
   const result = [];
   for (let i = 0; i < 100; i++) {
@@ -28,7 +29,7 @@ const WeightScreen = ({nextStep}) => {
   useEffect(() => {
     const tempList = weightValues(1) || [];
     setDataWeight(tempList);
-    setWeight(60);
+    setWeight(50);
   }, []);
 
   const handleWeightType = type => {
@@ -103,12 +104,8 @@ const WeightScreen = ({nextStep}) => {
 
       <View style={{flex: 1, alignItems: 'center'}}>
         <Svg name={'icon_weight'} size={220} />
-        <TouchableOpacity onPress={nextStep} style={styles.buttonContinue}>
-          <TextSemiBold style={styles.textContinueButton}>
-            {strings.common.continue}
-          </TextSemiBold>
-        </TouchableOpacity>
       </View>
+      <CustomButton onPress={nextStep} label={strings.common.continue} />
     </View>
   );
 };

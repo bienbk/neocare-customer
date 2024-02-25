@@ -13,6 +13,7 @@ import Colors from '../../theme/Colors';
 import InputManual from './InputManual';
 import strings from '../../localization/Localization';
 import {NAVIGATION_HOME} from '../../navigation/routes';
+import CustomButton from '../../common/CustomButton/CustomButton';
 
 const BloodPressure = ({navigation}) => {
   const [firstInput, setFirstInput] = useState('');
@@ -45,16 +46,14 @@ const BloodPressure = ({navigation}) => {
   };
   return (
     <View style={styles.container}>
-      <View style={styles.wrapperTitle}>
-        <TextSemiBold style={styles.textTitle}>
-          {'Thông tin huyết áp'}
-        </TextSemiBold>
-        <TouchableOpacity
-          onPress={() => navigation.navigate(NAVIGATION_HOME)}
-          style={styles.wrapperClose}>
-          <Icons type={'Feather'} name={'x'} size={20} color={'white'} />
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity
+        onPress={() => navigation.navigate(NAVIGATION_HOME)}
+        style={styles.wrapperClose}>
+        <Icons type={'Feather'} name={'x'} size={20} color={'white'} />
+      </TouchableOpacity>
+      <TextSemiBold style={styles.textTitle}>
+        {'Thông tin huyết áp'}
+      </TextSemiBold>
       <View style={styles.containerInputHealth}>
         <TouchableOpacity
           onPress={() => handleActiveInput(1)}
@@ -128,11 +127,7 @@ const BloodPressure = ({navigation}) => {
           Nhịp tim theo nhịp/phút (45 - 250)
         </TextNormalSemiBold>
       </Pressable>
-      <TouchableOpacity style={styles.completeButton}>
-        <TextSemiBold style={{color: Colors.whiteColor}}>
-          {strings.common.complete}
-        </TextSemiBold>
-      </TouchableOpacity>
+      <CustomButton label={strings.common.complete} />
     </View>
   );
 };

@@ -23,6 +23,7 @@ import {
   actionResetBuyPackage,
 } from '../../store/order/orderAction';
 import Status from '../../common/Status/Status';
+import CustomButton from '../../common/CustomButton/CustomButton';
 
 const PackageDetail = ({navigation}) => {
   const [currentPackge, setCurrentPackge] = useState(null);
@@ -75,26 +76,34 @@ const PackageDetail = ({navigation}) => {
             color={'black'}
           />
         </TouchableOpacity>
-        <View style={{marginTop: heightDevice * 0.17, alignItems: 'center',}}>
+        <View style={{marginTop: heightDevice * 0.06, alignItems: 'center'}}>
           <TextSemiBold style={{paddingBottom: 24, size: 20}}>
             Gói chăm sóc đặc biệt 6 tháng
           </TextSemiBold>
           <View style={styles.wrapperContentCard}>
             <View style={styles.contentLine}>
-              <TextNormal style={{color: Colors.gray.gray60}}>Hiệu lực từ</TextNormal>
+              <TextNormal style={{color: Colors.gray.gray60}}>
+                Hiệu lực từ
+              </TextNormal>
               <TextNormal>Ngày yêu cầu được xác nhận</TextNormal>
             </View>
             <View style={styles.contentLine}>
-              <TextNormal style={{color: Colors.gray.gray60}}>Thời hạn gói</TextNormal>
+              <TextNormal style={{color: Colors.gray.gray60}}>
+                Thời hạn gói
+              </TextNormal>
               <TextNormal>6 tháng</TextNormal>
             </View>
             <View style={styles.contentLine}>
-              <TextNormal style={{color: Colors.gray.gray60}}>Thanh toán</TextNormal>
+              <TextNormal style={{color: Colors.gray.gray60}}>
+                Thanh toán
+              </TextNormal>
               <TextNormal>Tiền mặt</TextNormal>
             </View>
             <View style={styles.wrapperPaymentLine}>
               <TextNormalSemiBold>Tổng</TextNormalSemiBold>
-              <TextNormal style={{fontWeight: 'bold', fontSize: 17}}>2.500.000đ</TextNormal>
+              <TextNormal style={{fontWeight: 'bold', fontSize: 17}}>
+                2.500.000đ
+              </TextNormal>
             </View>
           </View>
           <TextSmallTwelve style={styles.warningText}>
@@ -103,13 +112,17 @@ const PackageDetail = ({navigation}) => {
           </TextSmallTwelve>
         </View>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => handleBuyPackage()}
           style={styles.sendButton}>
           <TextSemiBold style={{color: Colors.whiteColor}}>
             Gửi yêu cầu
           </TextSemiBold>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+        <CustomButton
+          onPress={() => handleBuyPackage()}
+          label={'Gửi yêu cầu'}
+        />
       </View>
       <ConfirmationModal
         isConfriming={true}

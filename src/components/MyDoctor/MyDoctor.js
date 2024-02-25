@@ -10,6 +10,7 @@ import styles from './styles';
 import {
   TextMoneyBold,
   TextNormal,
+  TextNormalSemiBold,
   TextSemiBold,
 } from '../../common/Text/TextFont';
 import Icons from '../../common/Icons/Icons';
@@ -18,6 +19,7 @@ import Svg from '../../common/Svg/Svg';
 import Images from '../../common/Images/Images';
 import {
   doctor_avatar,
+  empty_logo,
   heightDevice,
   logo,
   widthDevice,
@@ -29,6 +31,7 @@ import {
 } from '../../navigation/routes';
 import LinearGradient from 'react-native-linear-gradient';
 import MyModal from '../../common/MyModal/MyModal';
+import CustomButton from '../../common/CustomButton/CustomButton';
 
 const doctors = [
   {
@@ -87,6 +90,12 @@ const MyDoctor = ({navigation}) => {
       />
     );
   };
+  const headerFollowingList = () => (
+    <TextSemiBold style={{paddingBottom: 5}}>Bác sĩ đang theo dõi</TextSemiBold>
+  );
+  const headerActivedList = () => (
+    <TextSemiBold style={{paddingBottom: 5}}>Bác sĩ của tôi</TextSemiBold>
+  );
   return (
     <SafeAreaView style={styles.containerSafeArea}>
       <ScrollView
@@ -96,51 +105,63 @@ const MyDoctor = ({navigation}) => {
           colors={['#6D86F9', '#AFB9FF']}
           start={{x: 0, y: 1}}
           end={{x: 1, y: 1}}
-          style={{height: 117, width: widthDevice}}>
+          style={{height: heightDevice * (117 / 844), width: widthDevice}}>
           <View style={styles.wrapperTitle}>
-            <TextMoneyBold
-              style={{
-                fontSize: 24,
-                paddingHorizontal: 15,
-                paddingVertical: 10,
-                color: Colors.blue.blue98,
-              }}>
-              Bác sĩ
-            </TextMoneyBold>
-            <TouchableOpacity onPress={() => setOpenOption(1)}>
-              <Icons
-                type={'Feather'}
-                name={'plus-circle'}
-                size={25}
-                style={styles.iconPlus}
-                color={'white'}
-              />
-            </TouchableOpacity>
+            <TextMoneyBold style={styles.titleText}>Bác sĩ</TextMoneyBold>
+            {listDoctor && (
+              <TouchableOpacity onPress={() => setOpenOption(1)}>
+                <Icons
+                  type={'Feather'}
+                  name={'plus-circle'}
+                  size={25}
+                  style={styles.iconPlus}
+                  color={'white'}
+                />
+              </TouchableOpacity>
+            )}
           </View>
         </LinearGradient>
         <View style={styles.container}>
           <View style={styles.wrapperMydoctor}>
-            <TextSemiBold style={{paddingBottom: 5}}>
-              Bác sĩ của tôi
-            </TextSemiBold>
-            <FlatList
-              scrollEnabled={false}
-              data={listDoctor.filter(i => i.id <= 2)}
-              showsVerticalScrollIndicator={false}
-              keyExtractor={(item, index) => `${item.name}-${index}`}
-              renderItem={renderDoctorItem}
-            />
-          </View>
-          <View style={styles.wrapperFollowingdoctor}>
-            <TextSemiBold>Bác sĩ đang theo dõi</TextSemiBold>
-            <FlatList
-              scrollEnabled={false}
-              data={listDoctor.filter(i => i.id > 2)}
-              showsVerticalScrollIndicator={false}
-              keyExtractor={(item, index) => `${item.name}-${index}`}
-              renderItem={renderDoctorItem}
-              contentContainerStyle={{paddingVertical: 5}}
-            />
+            {listDoctor && (
+              <FlatList
+                scrollEnabled={false}
+                data={listDoctor.filter(i => i.id <= 2)}
+                showsVerticalScrollIndicator={false}
+                keyExtractor={(item, index) => `${item.name}-${index}`}
+                renderItem={renderDoctorItem}
+                contentContainerStyle={{marginBottom: 15}}
+                ListHeaderComponent={headerActivedList}
+              />
+            )}
+            {listDoctor && (
+              <FlatList
+                scrollEnabled={false}
+                data={listDoctor.filter(i => i.id > 2)}
+                showsVerticalScrollIndicator={false}
+                keyExtractor={(item, index) => `${item.name}-${index}`}
+                renderItem={renderDoctorItem}
+                ListHeaderComponent={headerFollowingList}
+                contentContainerStyle={{paddingVertical: 5}}
+              />
+            )}
+            {!listDoctor && (
+              <View style={styles.containerEmpty}>
+                <Images
+                  resizeMode="contain"
+                  style={styles.imageEmpty}
+                  source={empty_logo}
+                />
+                <TextNormalSemiBold style={styles.emptyDoctorText}>
+                  Thêm thông tin bác sĩ có thể giúp bạn liên hệ với họ dễ dàng
+                  hơn
+                </TextNormalSemiBold>
+                <CustomButton
+                  label={'Thêm bác sĩ'}
+                  styledButton={styles.addDoctorBtn}
+                />
+              </View>
+            )}
           </View>
         </View>
       </ScrollView>

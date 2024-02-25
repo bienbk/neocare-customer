@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.textGrayColor,
   },
   btnContinue: {
-    paddingVertical: 12,
+    paddingVertical: 13,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.buttonBackground,
@@ -81,17 +81,21 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   textTitleModal: {textAlign: 'center', fontSize: 24, fontWeight: 'bold'},
-  wrapperContentModal: {flex: 1, backgroundColor: 'white'},
+  wrapperContentModal: {
+    flex: 1,
+    backgroundColor: 'white',
+    paddingHorizontal: 10,
+  },
   wrapperItemGender: {
-    width: widthDevice / 2 - 30,
+    width: widthDevice / 2 - 40,
     // paddingVertical: 10,
     height: 100,
     backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 10,
+    borderRadius: 16,
   },
-  avatarIcon: {position: 'absolute', top: - 25, zIndex: 100, elevation: 10},
+  avatarIcon: {position: 'absolute', top: -25, zIndex: 100, elevation: 10},
   wrapperContentGender: {
     paddingVertical: 20,
     flexDirection: 'row',
@@ -113,7 +117,7 @@ const styles = StyleSheet.create({
   },
   btnSelectGender: {
     paddingHorizontal: 10,
-    paddingVertical: 10,
+    paddingVertical: 13,
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',

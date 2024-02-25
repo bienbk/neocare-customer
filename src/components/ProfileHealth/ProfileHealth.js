@@ -29,9 +29,9 @@ const Profile = ({navigation}) => {
         {/* BUTTON BACK */}
         <TouchableOpacity onPress={onPressBack} style={styles.buttonBack}>
           <Icons
-            type={'Ionicons'}
-            name={'chevron-back'}
-            size={26}
+            type={'Feather'}
+            name={'arrow-left'}
+            size={24}
             color={'#3C3C3C'}
           />
         </TouchableOpacity>

@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   errorMessage: {
-    color: 'red',
+    color: '#EF0000',
     fontSize: 14,
     paddingTop: 5,
   },

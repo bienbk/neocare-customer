@@ -12,6 +12,7 @@ import {
 import strings from '../../localization/Localization';
 import Icons from '../../common/Icons/Icons';
 import Svg from '../../common/Svg/Svg';
+import CustomButton from '../../common/CustomButton/CustomButton';
 const heightValues = type => {
   const result = [];
   for (let i = 200; i > 100; i--) {
@@ -26,7 +27,7 @@ const HeightScreen = ({nextStep}) => {
   useEffect(() => {
     const tempList = heightValues(1) || [];
     setHeightData(tempList);
-    setHeight({type: 1, val: 165});
+    setHeight({type: 1, val: 160});
   }, []);
   const handleWeightType = type => {
     const newWeight = {
@@ -155,8 +156,9 @@ const HeightScreen = ({nextStep}) => {
           // width: '100%',
           // backgroundColor: 'red',
           flexDirection: 'row',
-          paddingVertical: 10,
+          paddingTop: 10,
           justifyContent: 'space-around',
+          marginBottom: 60,
           flex: 1,
         }}>
         <Svg
@@ -189,13 +191,7 @@ const HeightScreen = ({nextStep}) => {
           }}
         />
       </View>
-      <View style={{alignItems: 'center'}}>
-        <TouchableOpacity onPress={nextStep} style={styles.buttonContinue}>
-          <TextSemiBold style={styles.textContinueButton}>
-            {strings.common.continue}
-          </TextSemiBold>
-        </TouchableOpacity>
-      </View>
+      <CustomButton onPress={nextStep} label={strings.common.continue} />
     </View>
   );
 };

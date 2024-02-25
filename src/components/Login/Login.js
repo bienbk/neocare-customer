@@ -18,6 +18,8 @@ import Images from '../../common/Images/Images';
 import {icon_vietnam} from '../../assets/constans';
 import {NAVIGATION_VERIFY_CODE} from '../../navigation/routes';
 import CheckBox from '@react-native-community/checkbox';
+import CustomButton from '../../common/CustomButton/CustomButton';
+import strings from '../../localization/Localization';
 
 const Login = ({navigation}) => {
   const refInput = useRef(null);
@@ -105,14 +107,20 @@ const Login = ({navigation}) => {
                 </View>
               </TouchableOpacity>
             </View>
-            <TouchableOpacity
-              onPress={() => handleSubmitPhone()}
+            {/* <TouchableOpacity
+              onPress={}
               disabled={!phone || phone.length === 0}
               style={[styles.buttonSubmitPhone]}>
               <TextSemiBold style={styles.textConfirm}>
                 {'Tiếp tục'}
               </TextSemiBold>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+            <CustomButton
+              onPress={() => handleSubmitPhone()}
+              isDisabled={!phone || phone.length === 0}
+              styledButton={styles.buttonSubmitPhone}
+              label={strings.common.continue}
+            />
             <TouchableOpacity onPress={() => console.log()}>
               <TextNormal style={styles.linkText}>
                 {'Liên hệ hotline'}

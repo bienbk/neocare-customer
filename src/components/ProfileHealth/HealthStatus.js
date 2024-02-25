@@ -23,6 +23,7 @@ import {heightDevice, widthDevice} from '../../assets/constans';
 import Icons from '../../common/Icons/Icons';
 import CheckBox from '@react-native-community/checkbox';
 import CustomCheckbox from '../../common/CustomCheckbox/CustomCheckbox';
+import CustomButton from '../../common/CustomButton/CustomButton';
 const listDisease = [
   {id: 1, name: 'Bệnh Alzheimer và mất trí nhớ', checked: false},
   {id: 12, name: 'Bệnh Alzheimer và mất trí nhớ', checked: false},
@@ -58,6 +59,19 @@ const HealthStatus = ({nextStep}) => {
     });
     setlistDiseases(tempList);
   };
+  const renderSelector = ({item}) => {
+    return (
+      <View
+        onPress={() => hanldeSelectItem(item)}
+        style={styles.wrapperCheckbox}>
+        <TextNormal>{item.name}</TextNormal>
+        <CustomCheckbox
+          value={item.value}
+          setValue={() => handleValueCheckbox(item)}
+        />
+      </View>
+    );
+  };
   return (
     <View style={{flex: 1}}>
       {/* TITLE SECTION */}
@@ -65,39 +79,23 @@ const HealthStatus = ({nextStep}) => {
         <TextMoneyBold style={{fontSize: 24, marginBottom: 5}}>
           {'Tình trạng sức khoẻ'}
         </TextMoneyBold>
-        <TextNormal style={{textAlign: 'center'}}>
-          {
-            'Bạn có bất kỳ bệnh mạn tính nào sau đây không? Chọn tất cả tình trạng bạn đang có'
-          }
+        <TextNormal style={styles.subtitleText}>
+          {'Bạn có bất kỳ bệnh mạn tính nào sau đây không?'}
+        </TextNormal>
+        <TextNormal style={styles.subtitleText}>
+          {'Chọn tất cả tình trạng bạn đang có'}
         </TextNormal>
       </View>
       {/* Check list SECTION */}
-      <View style={{height: '70%'}}>
+      <View style={{flex: 1, marginBottom: 100}}>
         <FlatList
           data={listDiseases}
           showsVerticalScrollIndicator={false}
-          // contentContainerStyle={{height: '90%'}}
           keyExtractor={(_, index) => index.toString()}
-          renderItem={({item}) => {
-            return (
-              <TouchableOpacity
-                onPress={() => hanldeSelectItem(item)}
-                style={styles.wrapperCheckbox}>
-                <TextNormal>{item.name}</TextNormal>
-                <CustomCheckbox
-                  value={item.value}
-                  setValue={() => handleValueCheckbox(item)}
-                />
-              </TouchableOpacity>
-            );
-          }}
+          renderItem={renderSelector}
         />
       </View>
-      <TouchableOpacity onPress={nextStep} style={styles.buttonContinue}>
-        <TextSemiBold style={styles.textContinueButton}>
-          {strings.common.complete}
-        </TextSemiBold>
-      </TouchableOpacity>
+      <CustomButton onPress={nextStep} label={strings.common.complete} />
     </View>
   );
 };

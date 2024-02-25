@@ -45,17 +45,6 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderTopWidth: 1,
   },
-  sendButton: {
-    paddingVertical: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'center',
-    backgroundColor: Colors.buttonBackground,
-    borderRadius: 24,
-    width: widthDevice - 30,
-    position: 'absolute',
-    bottom: 20,
-  },
 });
 
 export default styles;

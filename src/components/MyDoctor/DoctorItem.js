@@ -11,7 +11,11 @@ import ProgressLine from '../../common/ProgressLine/ProgressLine';
 const DoctorItem = ({item, selectItem}) => {
   return (
     <TouchableOpacity onPress={selectItem} style={[styles.wrapperDoctorItem]}>
-      <View style={styles.wrapperProfileDoctor}>
+      <View
+        style={[
+          styles.wrapperProfileDoctor,
+          item.isConnect && styles.wrapperActiveProfileDoctor,
+        ]}>
         <Images
           resizeMode="contain"
           style={styles.imageDoctor}
