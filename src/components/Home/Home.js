@@ -79,7 +79,7 @@ const Home = ({navigation}) => {
               marginRight: 10,
               color:
                 item.status === 'Cao' ? Colors.red.red60 : Colors.blue.blue60,
-              fontWeight: item.status === 'Cao' ? 'bold' : 'light',
+              fontWeight: item.status === 'Cao' ? 'bold' : '500',
             }}>
             {'\u25CF ' + item.status}
           </TextNormal>

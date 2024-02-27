@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     color: 'black',
     borderWidth: 1,
     borderColor: Colors.textGrayColor,
+    height: 50,
   },
   wrapperSection: {
     paddingVertical: 15,

@@ -30,11 +30,14 @@ const Profile = ({navigation}) => {
   const [birthday, setBirthday] = useState('');
   const [gender, setGender] = useState('Nam');
   const [modal, setModal] = useState(-1);
+  const [timeValue, setTimeValue] = useState(new Date());
   const refBirthday = useRef({isChanged: false, val: -1});
   const handleSubmitInfo = () => {
     navigation && navigation.navigate(NAVIGATION_PROFILE_HEALTH);
   };
   const onChangeDate = (e, v) => {
+    console.log('BIENNNNNNNN:::', e, v);
+    setTimeValue(v);
     const {timestamp} = e.nativeEvent;
     if (e.type === 'set') {
       const tempRef = {
@@ -88,7 +91,7 @@ const Profile = ({navigation}) => {
                   paddingLeft: 10,
                   color: !birthday ? Colors.textGrayColor : 'black',
                 }}>
-                {!birthday ? 'Nhập họ và tên của bạn' : birthday}
+                {!birthday ? 'Nhập ngày sinh của bạn' : birthday}
               </TextNormal>
             </TouchableOpacity>
           </View>
@@ -117,6 +120,16 @@ const Profile = ({navigation}) => {
         {Platform.OS === 'android' && modal === 1 && (
           <DateTimePicker
             value={new Date()}
+            mode={'date'}
+            display={Platform.OS === 'android' ? 'default' : 'spinner'}
+            onChange={onChangeDate}
+            textColor="black"
+            // style={styles.datePicker}
+          />
+        )}
+        {Platform.OS === 'ios' && modal === 1 && (
+          <DateTimePicker
+            value={timeValue}
             mode={'date'}
             display={Platform.OS === 'android' ? 'default' : 'spinner'}
             onChange={onChangeDate}

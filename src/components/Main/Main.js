@@ -78,7 +78,7 @@ const Main = () => {
         <TextSmallEleven
           style={{
             color: focused ? Colors.blue.blue20 : Colors.textGrayColor,
-            fontWeight: focused ? 'bold' : 'light',
+            fontWeight: focused ? 'bold' : '500',
           }}>
           {title(route.name)}
         </TextSmallEleven>

@@ -88,7 +88,7 @@ const HeightScreen = ({nextStep}) => {
           <TextNormal
             style={{
               color: item === height.val ? 'blue' : 'gray',
-              fontWeight: item === height.val ? 'bold' : 'light',
+              fontWeight: item === height.val ? 'bold' : '500',
               fontSize: item === height.val ? 16 : 15,
             }}>
             {item}

@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.backgroundColor,
   },
   textHello: {
-    fontWeight: 'light',
+    fontWeight: '500',
     fontSize: 14,
     alignSelf: 'center',
     color: 'grey',

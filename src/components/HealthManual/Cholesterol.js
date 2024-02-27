@@ -130,9 +130,7 @@ const Cholesterol = ({navigation, route}) => {
         style={styles.wrapperClose}>
         <Icons type={'Feather'} name={'x'} size={20} color={'white'} />
       </TouchableOpacity>
-      <TextSemiBold style={styles.textTitle}>
-        {'Thông tin đuờng huyết'}
-      </TextSemiBold>
+      <TextSemiBold style={styles.textTitle}>{'Thông tin mỡ máu'}</TextSemiBold>
       <View style={{paddingBottom: 10, alignItems: 'center', marginBottom: 10}}>
         <TouchableOpacity
           onPress={() => setShowDatePicker(true)}

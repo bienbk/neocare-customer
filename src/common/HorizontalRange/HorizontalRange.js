@@ -51,7 +51,7 @@ const HorizontalRange = ({dataRange, setValue, value, type}) => {
             <TextNormal
               style={{
                 color: item === value ? 'blue' : 'gray',
-                fontWeight: item === value ? 'bold' : 'light',
+                fontWeight: item === value ? 'bold' : '500',
                 fontSize: item === value ? 15 : 14,
               }}>
               {item}
