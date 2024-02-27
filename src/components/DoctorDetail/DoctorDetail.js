@@ -28,10 +28,10 @@ import PackageItem from './PackageItem';
 import LinearGradient from 'react-native-linear-gradient';
 import {useDispatch, useSelector} from 'react-redux';
 import {
-  selectorPakageOfDoctor,
-  selectorStatusPackageDoctor,
+  pakageOfDoctorSelector,
+  statusPackageDoctorSelector,
 } from '../../store/doctor/doctorSelector';
-import {actionGetPackageDoctor} from '../../store/doctor/doctorAction';
+import {getPackageDoctorAction} from '../../store/doctor/doctorAction';
 import Status from '../../common/Status/Status';
 // import {ScrollView} from 'react-native-gesture-handler';
 const IMAGE_HEIGHT = (widthDevice * 5) / 6;
@@ -40,13 +40,13 @@ const DoctorDetail = ({navigation}) => {
   const [descriptionHeight, setdescriptionHeight] = useState(0);
   const [removeModal, setRemoveModal] = useState(-1);
   const dispatch = useDispatch();
-  const packagesDoctor = useSelector(state => selectorPakageOfDoctor(state));
+  const packagesDoctor = useSelector(state => pakageOfDoctorSelector(state));
   const statusPackagesDoctor = useSelector(state =>
-    selectorStatusPackageDoctor(state),
+    statusPackageDoctorSelector(state),
   );
 
   useEffect(() => {
-    dispatch(actionGetPackageDoctor());
+    dispatch(getPackageDoctorAction());
   }, []);
   useEffect(() => {
     // if (statusPackagesDoctor === Status.SUCCESS && packagesDoctor) {

@@ -8,7 +8,6 @@ import Main from './Main/Main';
 import Home from './Home/Home';
 import Login from './Login/Login';
 import VerifyCode from './VerifyCode/VerifyCode';
-import Profile from './Profile/Profile';
 import ProfileHealth from './ProfileHealth/ProfileHealth';
 import MyDoctor from './MyDoctor/MyDoctor';
 import HealthManual from './HealthManual/HealthManual';
@@ -22,7 +21,6 @@ export {
   Home,
   Login,
   VerifyCode,
-  Profile,
   ProfileHealth,
   Connection,
   HealthManual,

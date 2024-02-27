@@ -54,7 +54,7 @@ const Main = () => {
   // const currentUserLanguage = useSelector(state => getCurrentLanguage(state));
   const renderItemTab = ({focused}, route) => {
     const icons = {
-      [NAVIGATION_HOME]: 'icon_home',
+      [NAVIGATION_HOME]: 'icon_home_main',
       [NAVIGATION_MY_DOCTOR]: 'icon_heart_main',
       ['NAVIGATION_PRESCRIBED']: 'icon_medicine_main',
       [NAVIGATION_ACCOUNT]: 'icon_account_main',

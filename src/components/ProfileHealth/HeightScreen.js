@@ -191,7 +191,10 @@ const HeightScreen = ({nextStep}) => {
           }}
         />
       </View>
-      <CustomButton onPress={nextStep} label={strings.common.continue} />
+      <CustomButton
+        onPress={() => nextStep({height: height.val})}
+        label={strings.common.continue}
+      />
     </View>
   );
 };

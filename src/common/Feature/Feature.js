@@ -64,7 +64,7 @@ const Feature = ({
       onPress={handleNavigation}>
       <View style={styles.content}>
         {/* <Images resizeMode={'contain'} source={icon} style={styles.image} /> */}
-        <Svg name={icon} size={36} color={Colors.textGrayColor} />
+        {/* <Svg name={icon} size={36} color={Colors.textGrayColor} /> */}
         {name === 'Đăng xuất' && isNotUser ? (
           <TextNormal style={styles.textName}>Đăng nhập</TextNormal>
         ) : name === 'Mã giới thiệu' && codeAffiliate?.ref_phone ? (

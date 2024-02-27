@@ -32,12 +32,17 @@ export const NEOCARE = createRequestTypes(
     'CONFIRM_DELETE_OTP',
     'UPDATE_USER_INFO',
     'SET_LANGUAGE',
+    'REGISTER_USER',
 
     // Doctor
     'GET_PACKAGE_OF_DOCTOR',
+    'FOLLOW_DOCTOR',
 
     // Order
     'BUY_PACKAGE',
+
+    // DISEASES
+    'LIST_ALL_DISEASE',
   ],
   suffixTypes,
 );

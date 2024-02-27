@@ -15,7 +15,14 @@ import {
 } from '../../common/Text/TextFont';
 import {heightDevice, widthDevice} from '../../assets/constans';
 import Icons from '../../common/Icons/Icons';
-import {NAVIGATION_MY_DOCTOR} from '../../navigation/routes';
+import {NAVIGATION_DOCTOR_DETAIL, NAVIGATION_MY_DOCTOR} from '../../navigation/routes';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  messageFollowDoctorSelector,
+  statusFollowDoctorSelector,
+} from '../../store/doctor/doctorSelector';
+import {followDoctorAction, resetFollowDoctor} from '../../store/doctor/doctorAction';
+import Status from '../../common/Status/Status';
 const maxLength = 6;
 const Connection = ({navigation, route}) => {
   const [typeShow, setTypeShow] = useState(0);
@@ -23,6 +30,19 @@ const Connection = ({navigation, route}) => {
   const codeDigitsArray = new Array(maxLength).fill(0);
   const textInputRef = useRef(null);
   const [inputContainerFocus, setInputContainerFocus] = useState(false);
+  const dispatch = useDispatch();
+  const statusFollowDoctor = useSelector(state =>
+    statusFollowDoctorSelector(state),
+  );
+  const messageFollowDoctor = useSelector(state =>
+    messageFollowDoctorSelector(state),
+  );
+  useEffect(() => {
+    if (statusFollowDoctor === Status.SUCCESS) {
+      dispatch(resetFollowDoctor());
+      navigation.navigate(NAVIGATION_DOCTOR_DETAIL, {code});
+    }
+  }, [statusFollowDoctor]);
   const handleOnBlur = () => {
     setInputContainerFocus(false);
   };
@@ -32,7 +52,13 @@ const Connection = ({navigation, route}) => {
   }, []);
   useEffect(() => {
     // setPinReady(code.length === maxLength);
-    if (code.length === maxLength && code === '111111') {
+    if (code.length === maxLength) {
+      // dispatch(
+      //   followDoctorAction({
+      //     patient_id: 1,
+      //     qr_code: code,
+      //   }),
+      // );
       navigation.navigate(NAVIGATION_MY_DOCTOR);
     }
   }, [code]);
@@ -93,7 +119,7 @@ const Connection = ({navigation, route}) => {
               // autoFocus={true}
             />
             <TextNormal style={{color: '#EF0000', paddingVertical: 20}}>
-              {'Mã giới thiệu không đúng'}
+              {messageFollowDoctor}
             </TextNormal>
           </View>
         </View>

@@ -1,4 +1,4 @@
-import {React, useState} from 'react';
+import {React, useEffect, useState} from 'react';
 import {SafeAreaView, View, TouchableOpacity} from 'react-native';
 // import {useDispatch, useSelector} from 'react-redux';
 import styles from './styles';
@@ -8,21 +8,48 @@ import WeightScreen from './WeightScreen';
 import HeightScreen from './HeightScreen';
 import HealthStatus from './HealthStatus';
 import {NAVIGATION_MAIN} from '../../navigation/routes';
-const Profile = ({navigation}) => {
-  const [step, setStep] = useState(1);
+import BaseProfile from './BaseProfile';
+import {useDispatch} from 'react-redux';
+import {registerUserAction} from '../../store/user/userAction';
+const Profile = ({navigation, route}) => {
+  const [step, setStep] = useState(0);
+  const dispatch = useDispatch();
+  const [profile, setProfile] = useState(null);
   const onPressBack = () => {
-    if (step === 1) {
-      navigation.pop();
+    if (step === 0) {
+      return;
     }
     setStep(prev => (prev -= 1));
   };
-  const handleComplete = () => {
+  const handleComplete = val => {
+    const temp = {
+      ...profile,
+      ...val,
+    };
+    setProfile(temp);
+    console.log('BODY TO PUSH;;;', temp);
+    // dispatch(registerUserAction(temp));
     navigation &&
       navigation.reset({
         index: 0,
         routes: [{name: NAVIGATION_MAIN}],
       });
   };
+  const updateProfile = user => {
+    if (!profile) {
+      setProfile({...user, phone: route.params.phone});
+    } else {
+      const tempProfile = {
+        ...profile,
+        ...user,
+      };
+      setProfile(tempProfile);
+    }
+    setStep(prev => (prev += 1));
+  };
+  useEffect(() => {
+    console.log('Profile updated::', profile);
+  }, [profile]);
   return (
     <SafeAreaView style={styles.safeView}>
       <View style={styles.container}>
@@ -35,13 +62,10 @@ const Profile = ({navigation}) => {
             color={'#3C3C3C'}
           />
         </TouchableOpacity>
-        {step === 1 && (
-          <WeightScreen nextStep={() => setStep(prev => (prev += 1))} />
-        )}
-        {step === 2 && (
-          <HeightScreen nextStep={() => setStep(prev => (prev += 1))} />
-        )}
-        {step === 3 && <HealthStatus nextStep={handleComplete} />}
+        {step === 0 && <BaseProfile nextStep={val => updateProfile(val)} />}
+        {step === 1 && <WeightScreen nextStep={val => updateProfile(val)} />}
+        {step === 2 && <HeightScreen nextStep={val => updateProfile(val)} />}
+        {step === 3 && <HealthStatus nextStep={val => handleComplete(val)} />}
       </View>
     </SafeAreaView>
   );

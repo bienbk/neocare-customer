@@ -4,7 +4,7 @@ import DoctorController from './doctorController';
 // import {asyncStorage} from 'store/index';
 // import {isTokenConfirm} from '../auth/authSelector';
 
-function* sagaGetPackageDoctor({payload}) {
+function* getPackageDoctorSaga({payload}) {
   try {
     const result = yield call(DoctorController.getPackageDoctor, payload);
     if (result.success) {
@@ -25,6 +25,28 @@ function* sagaGetPackageDoctor({payload}) {
     });
   }
 }
+
+function* followDoctorSaga({payload}) {
+  try {
+    const result = yield call(DoctorController.followDoctor, payload);
+    if (result.success) {
+      yield put({
+        type: NEOCARE.FOLLOW_DOCTOR_SUCCESS,
+      });
+    } else {
+      yield put({
+        type: NEOCARE.FOLLOW_DOCTOR_ERROR,
+        payload: result.message,
+      });
+    }
+  } catch (error) {
+    yield put({
+      type: NEOCARE.FOLLOW_DOCTOR_ERROR,
+      payload: error.message,
+    });
+  }
+}
 export default function* watcherSaga() {
-  yield takeLatest(NEOCARE.GET_PACKAGE_OF_DOCTOR_REQUEST, sagaGetPackageDoctor);
+  yield takeLatest(NEOCARE.FOLLOW_DOCTOR_REQUEST, followDoctorSaga);
+  yield takeLatest(NEOCARE.GET_PACKAGE_OF_DOCTOR_REQUEST, getPackageDoctorSaga);
 }

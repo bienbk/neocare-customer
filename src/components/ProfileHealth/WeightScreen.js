@@ -105,7 +105,10 @@ const WeightScreen = ({nextStep}) => {
       <View style={{flex: 1, alignItems: 'center'}}>
         <Svg name={'icon_weight'} size={220} />
       </View>
-      <CustomButton onPress={nextStep} label={strings.common.continue} />
+      <CustomButton
+        onPress={() => nextStep({weight})}
+        label={strings.common.continue}
+      />
     </View>
   );
 };

@@ -7,7 +7,11 @@ import {
 export const UrlApi = {
   // --------------------- PACKAGE OF DOCTOR --------------------
   apiGetPackageOfDoctor: BASE_NEOCARE_CUSTOMER + 'products/doctors',
-
+  apiFollowDoctor: BASE_NEOCARE_CUSTOMER,
   // ---------------------- ORDER ------------------------
   apiBuyPackage: BASE_NEOCARE_CUSTOMER + 'orders/healthcare',
+  // ---------------------- USER ( PATIENT ) ---------------------
+  apiRegisterUser: BASE_NEOCARE_CUSTOMER,
+  // ------------------------ DISEASES -------------------------
+  apiListAllDisease: BASE_NEOCARE_CUSTOMER + 'diseases/list/',
 };

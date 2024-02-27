@@ -80,9 +80,9 @@ const styles = StyleSheet.create({
   textDoctorDepartment: {
     marginBottom: 5,
     color: Colors.red.red40,
-    paddingVertical: 5,
+    paddingVertical: 2,
     backgroundColor: Colors.red.red90,
-    paddingHorizontal: 5,
+    paddingHorizontal: 8,
     textAlign: 'center',
     borderRadius: 8,
   },
@@ -107,6 +107,15 @@ const styles = StyleSheet.create({
   //   zIndex: 100,
   //   alignSelf: 'center',
   // },
+  textRequest: {
+    marginBottom: 5,
+    color: '#002BA4',
+    paddingVertical: 2,
+    backgroundColor: '#DDE1FF',
+    paddingHorizontal: 8,
+    textAlign: 'center',
+    borderRadius: 8,
+  },
   containerEmpty: {
     // flex: 1,
     // height: '100%',

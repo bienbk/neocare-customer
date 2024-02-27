@@ -41,7 +41,7 @@ import Svg from 'common/Svg/Svg';
 import {OneSignal} from 'react-native-onesignal';
 import {asyncStorage} from 'store/index';
 import strings from 'localization/Localization';
-import {NAVIGATION_PROFILE} from '../../navigation/routes';
+import {NAVIGATION_PROFILE_HEALTH} from '../../navigation/routes';
 
 const VerifyCode = ({navigation, route}) => {
   const {phone, type} = route.params;
@@ -143,7 +143,7 @@ const VerifyCode = ({navigation, route}) => {
   useEffect(() => {
     if (pinReady) {
       // dispatch(confirmOtp(code, deviceId.current, pushToken.current));
-      navigation.navigate(NAVIGATION_PROFILE);
+      navigation.navigate(NAVIGATION_PROFILE_HEALTH, {phone: '0376525170'});
     }
   }, [pinReady]);
 

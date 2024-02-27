@@ -160,9 +160,10 @@ const styles = StyleSheet.create({
   wrapperActivePackage: {
     backgroundColor: Colors.pink.pink90,
     padding: 10,
-    borderRadius: 20,
-    zIndex: 100,
+    borderRadius: 30,
     marginTop: 10,
+    width: widthDevice - 30,
+    alignSelf: 'center',
   },
 
   wrapperFooterCard: {

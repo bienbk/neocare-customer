@@ -1,6 +1,6 @@
 import React from 'react';
 import Icons from '../../common/Icons/Icons';
-import {FlatList, View, TouchableOpacity} from 'react-native';
+import {FlatList, View, TouchableOpacity, ImageBackground} from 'react-native';
 import {
   TextNormal,
   TextNormalSemiBold,
@@ -8,7 +8,7 @@ import {
   TextSmallTwelve,
 } from '../../common/Text/TextFont';
 import styles from './styles';
-import {formatMoney} from '../../assets/constans';
+import {card_blue, card_pink, formatMoney} from '../../assets/constans';
 import Colors from '../../theme/Colors';
 import {NAVIGATION_PACKAGE_DETAIL} from '../../navigation/routes';
 import ProgressLine from '../../common/ProgressLine/ProgressLine';
@@ -16,8 +16,11 @@ import ProgressLine from '../../common/ProgressLine/ProgressLine';
 const PackageItem = ({item, index, navigation}) => {
   if (item % 2 === 0) {
     return (
-      <View style={styles.wrapperActivePackage}>
-        <View style={styles.decorationActived} />
+      <ImageBackground
+        imageStyle={{borderRadius: 20}}
+        source={card_pink}
+        style={styles.wrapperActivePackage}>
+        {/* <View style={styles.decorationActived} /> */}
         <View style={{paddingHorizontal: 10}}>
           <TextNormal style={{paddingTop: 5, fontWeight: 'bold'}}>
             {`Chăm sóc đặc biệt ${(index + 1) * 6} tháng`}
@@ -47,13 +50,14 @@ const PackageItem = ({item, index, navigation}) => {
             </TextSmallTwelve>
           </View>
         </View>
-      </View>
+      </ImageBackground>
     );
   }
   return (
-    <View style={styles.wrapperCardPackage}>
-      <View style={styles.decoration} />
-
+    <ImageBackground
+      imageStyle={{borderRadius: 20}}
+      source={card_blue}
+      style={styles.wrapperActivePackage}>
       <TextNormal style={{padding: 5, fontWeight: 'bold'}}>
         {`Chăm sóc đặc biệt ${(index + 1) * 6} tháng`}
       </TextNormal>
@@ -86,7 +90,7 @@ const PackageItem = ({item, index, navigation}) => {
           </TextNormal>
         </TouchableOpacity>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 

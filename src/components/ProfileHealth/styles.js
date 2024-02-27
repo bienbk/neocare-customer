@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 16,
     left: 16,
-
+    zIndex: 999,
     // backgroundColor: 'red',
   },
   wrapperTitle: {

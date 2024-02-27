@@ -35,7 +35,6 @@ const StackNavigator = () => {
         name={NAVIGATION_DOCTOR_DETAIL}
         component={Screens.DoctorDetail}
       />
-      <Stack.Screen name={NAVIGATION_PROFILE} component={Screens.Profile} />
       <Stack.Screen
         name={NAVIGATION_PROFILE_HEALTH}
         component={Screens.ProfileHealth}
