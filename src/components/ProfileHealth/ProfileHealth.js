@@ -9,10 +9,14 @@ import HeightScreen from './HeightScreen';
 import HealthStatus from './HealthStatus';
 import {NAVIGATION_MAIN} from '../../navigation/routes';
 import BaseProfile from './BaseProfile';
-import {useDispatch} from 'react-redux';
-import {registerUserAction} from '../../store/user/userAction';
+import {useDispatch, useSelector} from 'react-redux';
+import {registerUserAction, resetRegisterUser} from '../../store/user/userAction';
+import { statusRegisterSelector } from '../../store/user/userSelector';
+import Status from '../../common/Status/Status';
+import { asyncStorage } from '../../store';
 const Profile = ({navigation, route}) => {
   const [step, setStep] = useState(0);
+  const statusRegister = useSelector(state => statusRegisterSelector(state));
   const dispatch = useDispatch();
   const [profile, setProfile] = useState(null);
   const onPressBack = () => {
@@ -27,13 +31,7 @@ const Profile = ({navigation, route}) => {
       ...val,
     };
     setProfile(temp);
-    console.log('BODY TO PUSH;;;', temp);
-    // dispatch(registerUserAction(temp));
-    navigation &&
-      navigation.reset({
-        index: 0,
-        routes: [{name: NAVIGATION_MAIN}],
-      });
+    dispatch(registerUserAction(temp));
   };
   const updateProfile = user => {
     if (!profile) {
@@ -48,8 +46,14 @@ const Profile = ({navigation, route}) => {
     setStep(prev => (prev += 1));
   };
   useEffect(() => {
-    console.log('Profile updated::', profile);
-  }, [profile]);
+    if (statusRegister === Status.SUCCESS) {
+      onRegisterSuccess();
+    }
+  }, [statusRegister]);
+  const onRegisterSuccess = () => {
+    dispatch(resetRegisterUser());
+    navigation.navigate(NAVIGATION_MAIN);
+  };
   return (
     <SafeAreaView style={styles.safeView}>
       <View style={styles.container}>

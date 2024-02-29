@@ -2,7 +2,7 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import * as Screens from 'components';
 import {NAVIGATION_HOME} from 'navigation/routes';
-import {Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 import Colors from 'theme/Colors';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -54,15 +54,15 @@ const Main = () => {
   // const currentUserLanguage = useSelector(state => getCurrentLanguage(state));
   const renderItemTab = ({focused}, route) => {
     const icons = {
-      [NAVIGATION_HOME]: 'icon_home_main',
-      [NAVIGATION_MY_DOCTOR]: 'icon_heart_main',
+      [NAVIGATION_HOME]: 'icon_heart_main',
+      [NAVIGATION_MY_DOCTOR]: 'icon_mydoctor_main',
       ['NAVIGATION_PRESCRIBED']: 'icon_medicine_main',
       [NAVIGATION_ACCOUNT]: 'icon_account_main',
     };
     const title = router => {
       switch (router) {
         case NAVIGATION_HOME:
-          return strings.common.home;
+          return 'Sổ sức khoẻ';
         case NAVIGATION_MY_DOCTOR:
           return 'Bác sĩ';
         case 'NAVIGATION_PRESCRIBED':
@@ -73,12 +73,16 @@ const Main = () => {
       }
     };
     return (
-      <TouchableOpacity style={focused ? styles.activeTab : styles.inactiveTab}>
-        <Svg name={icons[route.name]} size={25} color={Colors.gray.gray30} />
+      <TouchableOpacity style={styles.inactiveTab}>
+        <Svg
+          name={icons[route.name]}
+          size={25}
+          color={focused ? Colors.backgroundColor : 'black'}
+        />
         <TextSmallEleven
           style={{
             color: focused ? Colors.blue.blue20 : Colors.textGrayColor,
-            fontWeight: focused ? 'bold' : '500',
+            fontWeight: focused ? 'bold' : '600',
           }}>
           {title(route.name)}
         </TextSmallEleven>
@@ -88,7 +92,7 @@ const Main = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName={NAVIGATION_HOME}
+      initialRouteName={NAVIGATION_MY_DOCTOR}
       screenOptions={screenOption}>
       <Tab.Screen
         name={NAVIGATION_HOME}
@@ -128,19 +132,21 @@ const styles = StyleSheet.create({
   },
   inactiveTab: {
     alignItems: 'center',
-    width: widthDevice / 5,
+    // zIndex: 999,
+    // width: widthDevice / 5,
     // backgroundColor: 'red',
-    paddingVertical: 5,
+    padding: 10,
   },
   activeTab: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white',
-    zIndex: 100,
-    elevation: 1,
-    width: Platform.OS === 'ios' ? 50 : 60,
-    height: Platform.OS === 'ios' ? 50 : 60,
-    top: Platform.OS === 'ios' ? -10 : -20,
-    borderRadius: Platform.OS === 'ios' ? 25 : 30,
+    // backgroundColor: Colors.blue.blue95,
+    zIndex: 999,
+    elevation: 0,
+    // padding: 5,
+    // width: Platform.OS === 'ios' ? 50 : 60,
+    // height: Platform.OS === 'ios' ? 50 : 60,
+    // top: Platform.OS === 'ios' ? -10 : -15,
+    // borderRadius: Platform.OS === 'ios' ? 30 : 40,
   },
 });

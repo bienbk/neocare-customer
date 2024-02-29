@@ -27,33 +27,28 @@ import strings from '../../localization/Localization';
 import PackageItem from './PackageItem';
 import LinearGradient from 'react-native-linear-gradient';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  pakageOfDoctorSelector,
-  statusPackageDoctorSelector,
-} from '../../store/doctor/doctorSelector';
-import {getPackageDoctorAction} from '../../store/doctor/doctorAction';
 import Status from '../../common/Status/Status';
-// import {ScrollView} from 'react-native-gesture-handler';
-const IMAGE_HEIGHT = (widthDevice * 5) / 6;
-const DoctorDetail = ({navigation}) => {
+const DoctorDetail = ({navigation, route}) => {
   const [showDescription, setShowDescription] = useState(false);
   const [descriptionHeight, setdescriptionHeight] = useState(0);
   const [removeModal, setRemoveModal] = useState(-1);
+  const [doctor, setDoctor] = useState();
+  const [listPackage, setListPackage] = useState([]);
   const dispatch = useDispatch();
-  const packagesDoctor = useSelector(state => pakageOfDoctorSelector(state));
-  const statusPackagesDoctor = useSelector(state =>
-    statusPackageDoctorSelector(state),
-  );
 
   useEffect(() => {
-    dispatch(getPackageDoctorAction());
+    const {currentDoctor} = route.params || -1;
+    if (currentDoctor !== -1) {
+      console.log('DETAIL DOCTOR :::', currentDoctor);
+      setListPackage(
+        currentDoctor?.purchased_package &&
+          currentDoctor?.purchased_package?.package_items
+          ? currentDoctor?.purchased_package?.package_items
+          : [],
+      );
+      setDoctor(currentDoctor);
+    }
   }, []);
-  useEffect(() => {
-    // if (statusPackagesDoctor === Status.SUCCESS && packagesDoctor) {
-    // }
-    console.log('statusPackagesDoctor:::', statusPackagesDoctor);
-    console.log('packagesDoctor::::', packagesDoctor);
-  }, [statusPackagesDoctor]);
 
   const renderPackageOfDoctor = ({item, index}) => {
     return <PackageItem item={item} index={index} navigation={navigation} />;
@@ -107,10 +102,10 @@ const DoctorDetail = ({navigation}) => {
           </TouchableOpacity>
           <View style={styles.inforCard}>
             <TextSemiBold style={{paddingVertical: 5, fontSize: 20}}>
-              {'Nguyễn Hữu Nghĩa'}
+              {doctor?.name}
             </TextSemiBold>
             <TextSmallTwelve style={{color: Colors.gray.gray50}}>
-              {'Chuyên khoa ung bướu'}
+              {doctor?.department}
             </TextSmallTwelve>
             <TextSmallTwelve style={styles.wrapperDepartmentLabel}>
               {'Viêm khớp'}
@@ -151,7 +146,7 @@ const DoctorDetail = ({navigation}) => {
         <View style={{paddingHorizontal: 15, flex: 1}}>
           {/* OPTIONS & EXTRA SECTION */}
           <FlatList
-            data={[1, 2, 3, 4]}
+            data={listPackage}
             scrollEnabled={false}
             showsVerticalScrollIndicator={false}
             ListHeaderComponent={headerFlatlist}

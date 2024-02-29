@@ -32,6 +32,18 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import MyModal from '../../common/MyModal/MyModal';
 import CustomButton from '../../common/CustomButton/CustomButton';
+import CustomeHeader from './CustomeHeader';
+import EmptyList from './EmptyList';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  listDoctorSelector,
+  statusListDoctorSelector,
+} from '../../store/doctor/doctorSelector';
+import {
+  listDoctorAction,
+  resetListDoctor,
+} from '../../store/doctor/doctorAction';
+import Status from '../../common/Status/Status';
 
 const doctors = [
   {
@@ -79,89 +91,111 @@ const doctors = [
 const MyDoctor = ({navigation}) => {
   const [listDoctor, setListDoctor] = useState([]);
   const [openOption, setOpenOption] = useState(-1);
+  const dispatch = useDispatch();
+  const listDoctors = useSelector(state => listDoctorSelector(state));
+  const statusListDoctor = useSelector(state =>
+    statusListDoctorSelector(state),
+  );
   useEffect(() => {
-    setListDoctor(doctors);
+    fetchDoctorData();
   }, []);
+  const fetchDoctorData = () => {
+    const query = {
+      patient_id: 7,
+      qr_code: '',
+      size: 10,
+      page: 1,
+    };
+    dispatch(listDoctorAction(query));
+  };
+  useEffect(() => {
+    if (
+      statusListDoctor === Status.SUCCESS &&
+      listDoctors &&
+      listDoctors.length
+    ) {
+      dispatch(resetListDoctor());
+      showListDoctor();
+    }
+  }, [statusListDoctor, listDoctors]);
+  const showListDoctor = () => {
+    const tempListDoctor = JSON.parse(JSON.stringify(listDoctors));
+    tempListDoctor.map(doc => {
+      doc.department = 'Chuyên khoa Tim';
+      doc.name = `${doc?.doctor?.last_name} ${doc?.doctor?.first_name}`;
+      const {package_items} = doc?.purchased_package;
+      if (
+        package_items &&
+        package_items.length &&
+        package_items.includes(i => i.product_status === 1)
+      ) {
+        doc.isConnect = true;
+      }
+    });
+    setListDoctor(tempListDoctor);
+  };
   const renderDoctorItem = ({item, index}) => {
     return (
       <DoctorItem
         item={item}
-        selectItem={() => navigation.navigate(NAVIGATION_DOCTOR_DETAIL)}
+        selectItem={() =>
+          navigation.navigate(NAVIGATION_DOCTOR_DETAIL, {currentDoctor: item})
+        }
       />
     );
   };
   const headerFollowingList = () => (
     <TextSemiBold style={{paddingBottom: 5}}>Bác sĩ đang theo dõi</TextSemiBold>
   );
-  const headerActivedList = () => (
-    <TextSemiBold style={{paddingBottom: 5}}>Bác sĩ của tôi</TextSemiBold>
-  );
+  const headerActivedList = () =>
+    listDoctor.filter(i => i.isConnect).length > 0 && (
+      <TextSemiBold style={{paddingBottom: 5}}>Bác sĩ của tôi</TextSemiBold>
+    );
   return (
     <SafeAreaView style={styles.containerSafeArea}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.containerSafeArea}>
-        <LinearGradient
-          colors={['#6D86F9', '#AFB9FF']}
-          start={{x: 0, y: 1}}
-          end={{x: 1, y: 1}}
-          style={{height: heightDevice * (117 / 844), width: widthDevice}}>
-          <View style={styles.wrapperTitle}>
-            <TextMoneyBold style={styles.titleText}>Bác sĩ</TextMoneyBold>
-            {listDoctor && (
-              <TouchableOpacity onPress={() => setOpenOption(1)}>
-                <Icons
-                  type={'Feather'}
-                  name={'plus-circle'}
-                  size={25}
-                  style={styles.iconPlus}
-                  color={'white'}
-                />
-              </TouchableOpacity>
-            )}
-          </View>
-        </LinearGradient>
+        <CustomeHeader
+          onPressOption={() => setOpenOption(1)}
+          isShow={listDoctor.length > 0}
+        />
         <View style={styles.container}>
           <View style={styles.wrapperMydoctor}>
             {listDoctor && (
               <FlatList
                 scrollEnabled={false}
-                data={listDoctor.filter(i => i.id <= 2)}
+                data={
+                  listDoctor && listDoctor.length > 0
+                    ? listDoctor.filter(i => i.isConnect)
+                    : []
+                }
                 showsVerticalScrollIndicator={false}
-                keyExtractor={(item, index) => `${item.name}-${index}`}
+                keyExtractor={(item, index) => `${index}`}
                 renderItem={renderDoctorItem}
-                contentContainerStyle={{marginBottom: 15}}
+                contentContainerStyle={{
+                  marginBottom:
+                    listDoctor.filter(i => i.isConnect).length > 0 ? 15 : 0,
+                }}
                 ListHeaderComponent={headerActivedList}
               />
             )}
             {listDoctor && (
               <FlatList
                 scrollEnabled={false}
-                data={listDoctor.filter(i => i.id > 2)}
+                data={
+                  listDoctor && listDoctor.length > 0
+                    ? listDoctor.filter(i => !i.isConnect)
+                    : []
+                }
                 showsVerticalScrollIndicator={false}
-                keyExtractor={(item, index) => `${item.name}-${index}`}
+                keyExtractor={(item, index) => `${index}`}
                 renderItem={renderDoctorItem}
                 ListHeaderComponent={headerFollowingList}
-                contentContainerStyle={{paddingVertical: 5}}
+                contentContainerStyle={{paddingVertical: 0}}
               />
             )}
-            {!listDoctor && (
-              <View style={styles.containerEmpty}>
-                <Images
-                  resizeMode="contain"
-                  style={styles.imageEmpty}
-                  source={empty_logo}
-                />
-                <TextNormalSemiBold style={styles.emptyDoctorText}>
-                  Thêm thông tin bác sĩ có thể giúp bạn liên hệ với họ dễ dàng
-                  hơn
-                </TextNormalSemiBold>
-                <CustomButton
-                  label={'Thêm bác sĩ'}
-                  styledButton={styles.addDoctorBtn}
-                />
-              </View>
-            )}
+            {!listDoctor && <EmptyList onPressAdd={() => {}} />}
           </View>
         </View>
       </ScrollView>

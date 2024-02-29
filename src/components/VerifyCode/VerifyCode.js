@@ -143,7 +143,7 @@ const VerifyCode = ({navigation, route}) => {
   useEffect(() => {
     if (pinReady) {
       // dispatch(confirmOtp(code, deviceId.current, pushToken.current));
-      navigation.navigate(NAVIGATION_PROFILE_HEALTH, {phone: '0376525170'});
+      navigation.navigate(NAVIGATION_PROFILE_HEALTH, {phone: phone});
     }
   }, [pinReady]);
 

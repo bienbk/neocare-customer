@@ -2,13 +2,14 @@ import React from 'react';
 import {
   TextMoneyBold,
   TextNormal,
+  TextNormalSemiBold,
   TextSemiBold,
 } from '../../common/Text/TextFont';
-import {Pressable, TouchableOpacity, View} from 'react-native';
-import {MIDDLE_DOT, widthDevice} from '../../assets/constans';
+import {TouchableOpacity, View} from 'react-native';
+// import {MIDDLE_DOT,} from '../../assets/constans';
 import Icons from '../../common/Icons/Icons';
 import styles from './styles';
-import Colors from '../../theme/Colors';
+// import Colors from '../../theme/Colors';
 
 const DiseaseCard = ({
   name,
@@ -21,31 +22,45 @@ const DiseaseCard = ({
   index,
 }) => {
   return (
-    <Pressable onPress={onPressItem} style={styles.wrapperCardItem}>
-      <TextSemiBold style={styles.diseaseNameText}>{name}</TextSemiBold>
-      <View style={styles.wrapperInfo}>
-        <TextNormal
-          style={
-            status === 'Bình thường'
-              ? styles.statusText
-              : styles.statusDangerText
-          }>
-          {MIDDLE_DOT + ` ${status}`}
-        </TextNormal>
-        <Icons type={'Feather'} name={'clock'} color={'lightgray'} />
+    <View style={styles.wrapperCardItem}>
+      <View style={styles.wrapperContentCard}>
+        <View style={styles.wrapperNameLine}>
+          <TextSemiBold style={styles.diseaseNameText}>{name}</TextSemiBold>
+          <TextNormal
+            style={
+              status === 'Bình thường'
+                ? styles.statusText
+                : styles.statusDangerText
+            }>
+            {status}
+          </TextNormal>
+        </View>
         <TextNormal style={styles.timeText}>{created_at}</TextNormal>
-      </View>
-      <View style={styles.wrapperValue}>
-        <TextMoneyBold style={styles.fontSize29}>{value}</TextMoneyBold>
-        {subValue && (
-          <View style={styles.wrapperSubvalue}>
-            <Icons type={'Feather'} name={'heart'} size={25} color={'red'} />
-            <TextMoneyBold style={styles.fontSize29}>{subValue}</TextMoneyBold>
+        {index === 1 && (
+          <View style={styles.wrapperTypeTime}>
+            <TextNormal style={styles.timeText}>Trạng thái:</TextNormal>
+            <TextNormal style={styles.typeTimeText}>Trước ăn</TextNormal>
           </View>
         )}
-        {unit && <TextNormal style={styles.unitText}>{unit}</TextNormal>}
       </View>
-    </Pressable>
+      <View style={styles.wrapperValue}>
+        <View style={{flexDirection: 'row'}}>
+          <TextMoneyBold style={styles.fontSize29}>{value}</TextMoneyBold>
+          {subValue && (
+            <View style={styles.wrapperSubvalue}>
+              <Icons type={'Feather'} name={'heart'} size={25} color={'red'} />
+              <TextMoneyBold style={styles.fontSize29}>
+                {subValue}
+              </TextMoneyBold>
+            </View>
+          )}
+          {unit && <TextNormal style={styles.unitText}>{unit}</TextNormal>}
+        </View>
+        <TouchableOpacity onPress={onPressItem}>
+          <TextNormal style={styles.navigationText}>Nhập thủ công</TextNormal>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 };
 

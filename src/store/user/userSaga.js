@@ -1,6 +1,7 @@
 import {NEOCARE} from 'store/actionsTypes';
 import {takeLatest, call, put, select} from 'redux-saga/effects';
 import UserController from './userController';
+import { asyncStorage } from '..';
 // import {asyncStorage} from 'store/index';
 // import {isTokenConfirm} from '../auth/authSelector';
 
@@ -115,6 +116,7 @@ function* registerUserSaga({payload}) {
   try {
     const result = yield call(UserController.registerUser, payload);
     if (result.success === true) {
+      asyncStorage.setUser(result.data);
       yield put({
         type: NEOCARE.REGISTER_USER_SUCCESS,
         payload: result.data,

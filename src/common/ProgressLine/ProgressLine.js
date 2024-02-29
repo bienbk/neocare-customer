@@ -7,17 +7,15 @@ import {widthDevice} from '../../assets/constans';
 import LinearGradient from 'react-native-linear-gradient';
 import Svg from '../Svg/Svg';
 
-const ProgressLine = ({isDetailDoctor}) => {
+const ProgressLine = ({isDetailDoctor, line, index}) => {
   return (
     <View style={styles.wrapperTimeSection}>
       {!isDetailDoctor && (
         <View style={styles.wrapperTitleTime}>
           <Svg name={'icon_checked'} size={16} />
-          <TextNormal style={styles.textTitleTime}>
-            Gói chăm sóc sức khoẻ 6 tháng
-          </TextNormal>
+          <TextNormal style={styles.textTitleTime}>{line.name}</TextNormal>
           <TextNormal style={{textAlign: 'right', flex: 1, fontWeight: 'bold'}}>
-            150 ngày
+            {`${50 * (index + 1)} ngày`}
           </TextNormal>
         </View>
       )}

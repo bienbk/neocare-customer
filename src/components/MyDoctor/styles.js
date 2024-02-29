@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
     backgroundColor: Colors.red.red90,
     paddingHorizontal: 8,
+    width: 120,
     textAlign: 'center',
     borderRadius: 8,
   },

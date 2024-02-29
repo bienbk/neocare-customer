@@ -14,7 +14,7 @@ import {NAVIGATION_PACKAGE_DETAIL} from '../../navigation/routes';
 import ProgressLine from '../../common/ProgressLine/ProgressLine';
 
 const PackageItem = ({item, index, navigation}) => {
-  if (item % 2 === 0) {
+  if (item?.product_status === 1) {
     return (
       <ImageBackground
         imageStyle={{borderRadius: 20}}
@@ -26,7 +26,7 @@ const PackageItem = ({item, index, navigation}) => {
             {`Chăm sóc đặc biệt ${(index + 1) * 6} tháng`}
           </TextNormal>
           <TextSmallTwelve style={{paddingVertical: 5}}>
-            Giá gói: 2.500.000đ
+            {`Giá gói: ${item.price}`}
           </TextSmallTwelve>
           <TextSmallTwelve style={{paddingBottom: 5}}>
             Ngày tham gia: 18/02/2024
@@ -59,7 +59,7 @@ const PackageItem = ({item, index, navigation}) => {
       source={card_blue}
       style={styles.wrapperActivePackage}>
       <TextNormal style={{padding: 5, fontWeight: 'bold'}}>
-        {`Chăm sóc đặc biệt ${(index + 1) * 6} tháng`}
+        {item.name}
       </TextNormal>
       <FlatList
         data={[1, 3, 4]}
@@ -80,13 +80,24 @@ const PackageItem = ({item, index, navigation}) => {
       />
       <View style={styles.wrapperFooterCard}>
         <TextSemiBold style={{color: '#2544BD'}}>
-          {formatMoney((index + 1) * 2500000) + 'đ'}
+          {formatMoney(item.price) + 'đ'}
         </TextSemiBold>
         <TouchableOpacity
           onPress={() => navigation.navigate(NAVIGATION_PACKAGE_DETAIL)}
-          style={styles.buyPackageButton}>
-          <TextNormal style={{color: Colors.whiteColor, fontWeight: 'bold'}}>
-            Mua gói
+          style={[
+            styles.buyPackageButton,
+            item?.product_status === 0 && {backgroundColor: Colors.gray.gray80},
+          ]}>
+          <TextNormal
+            style={{
+              color:
+                item?.product_status === 0
+                  ? Colors.buttonBackground
+                  : Colors.whiteColor,
+              fontWeight: 'bold',
+              opacity: item?.product_status === 0 ? 0.5 : 1,
+            }}>
+            {item?.product_status === 0 ? 'Chờ xác nhận' : 'Mua gói'}
           </TextNormal>
         </TouchableOpacity>
       </View>

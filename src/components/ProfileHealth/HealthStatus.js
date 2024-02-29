@@ -13,7 +13,11 @@ import {
   listDiseaseSelector,
   statusListDiseaseSelector,
 } from '../../store/disease/diseaseSelector';
-import {getListDiseasesAction} from '../../store/disease/diseaseAction';
+import {
+  getListDiseasesAction,
+  resetListDisease,
+} from '../../store/disease/diseaseAction';
+import Status from '../../common/Status/Status';
 const listDisease = [
   {id: 1, name: 'Bệnh Alzheimer và mất trí nhớ', checked: false},
   {id: 12, name: 'Tiểu đường', checked: false},
@@ -32,7 +36,15 @@ const HealthStatus = ({nextStep}) => {
   const statusListDisease = useSelector(state =>
     statusListDiseaseSelector(state),
   );
-
+  useEffect(() => {
+    if (
+      statusListDisease === Status.SUCCESS &&
+      listAllDisease &&
+      listAllDisease.length > 0
+    ) {
+      dispatch(resetListDisease());
+    }
+  }, [statusListDisease]);
   useEffect(() => {
     dispatch(
       getListDiseasesAction({

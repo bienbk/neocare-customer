@@ -23,13 +23,15 @@ import Icons from '../../common/Icons/Icons';
 import Colors from '../../theme/Colors';
 import DiseaseCard from './DiseaseCard';
 import CustomeHeader from './CustomeHeader';
-import { NAVIGATION_HEALTH_MANUAL } from '../../navigation/routes';
+import {NAVIGATION_HEALTH_MANUAL} from '../../navigation/routes';
+import {asyncStorage} from '../../store';
+import HeaderList from './HeaderList';
 const fakeData = [
   {
     id: 1,
     name: 'Huyết áp',
     status: 'Bình thường',
-    created_at: 'Hôm nay, 10:02',
+    created_at: '27/02/2024, 10:02',
     value: '120/80',
     subVal: '80',
   },
@@ -37,7 +39,7 @@ const fakeData = [
     id: 2,
     name: 'Đường huyết',
     status: 'Bình thường',
-    created_at: 'Hôm nay, 10:02',
+    created_at: '27/02/2024, 10:02',
     value: '120',
     unit: 'mg/dL',
     subVal: '',
@@ -45,14 +47,21 @@ const fakeData = [
   {
     id: 3,
     name: 'Mỡ máu',
-    status: 'Bất thường',
-    created_at: 'Hôm nay, 10:02',
+    status: 'Cao bất thường',
+    created_at: '27/02/2024, 10:02',
     value: '6.2',
     unit: '%',
   },
 ];
 
 const Home = ({navigation}) => {
+  useEffect(() => {
+    checkUser();
+  }, []);
+  const checkUser = async () => {
+    const user = await asyncStorage.getUser();
+    console.log('STORAGE USER:::', user);
+  };
   const handlePressCard = index => {
     navigation.navigate(NAVIGATION_HEALTH_MANUAL, {id: index + 1});
   };
@@ -75,10 +84,11 @@ const Home = ({navigation}) => {
         <View style={styles.wrapperListCard}>
           <FlatList
             data={fakeData}
+            scrollEnabled={false}
             showsVerticalScrollIndicator={false}
             keyExtractor={i => i.name}
             renderItem={renderCardItem}
-            // ListFooterComponent={{}}
+            ListHeaderComponent={<HeaderList onPressOption={() => {}} />}
           />
         </View>
       </ScrollView>

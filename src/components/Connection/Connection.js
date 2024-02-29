@@ -15,14 +15,21 @@ import {
 } from '../../common/Text/TextFont';
 import {heightDevice, widthDevice} from '../../assets/constans';
 import Icons from '../../common/Icons/Icons';
-import {NAVIGATION_DOCTOR_DETAIL, NAVIGATION_MY_DOCTOR} from '../../navigation/routes';
+import {
+  NAVIGATION_DOCTOR_DETAIL,
+  NAVIGATION_MY_DOCTOR,
+} from '../../navigation/routes';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   messageFollowDoctorSelector,
   statusFollowDoctorSelector,
 } from '../../store/doctor/doctorSelector';
-import {followDoctorAction, resetFollowDoctor} from '../../store/doctor/doctorAction';
+import {
+  followDoctorAction,
+  resetFollowDoctor,
+} from '../../store/doctor/doctorAction';
 import Status from '../../common/Status/Status';
+import {asyncStorage} from '../../store';
 const maxLength = 6;
 const Connection = ({navigation, route}) => {
   const [typeShow, setTypeShow] = useState(0);
@@ -31,6 +38,7 @@ const Connection = ({navigation, route}) => {
   const textInputRef = useRef(null);
   const [inputContainerFocus, setInputContainerFocus] = useState(false);
   const dispatch = useDispatch();
+  const currentUser = useRef({id: -1});
   const statusFollowDoctor = useSelector(state =>
     statusFollowDoctorSelector(state),
   );
@@ -40,7 +48,7 @@ const Connection = ({navigation, route}) => {
   useEffect(() => {
     if (statusFollowDoctor === Status.SUCCESS) {
       dispatch(resetFollowDoctor());
-      navigation.navigate(NAVIGATION_DOCTOR_DETAIL, {code});
+      navigation.navigate(NAVIGATION_MY_DOCTOR);
     }
   }, [statusFollowDoctor]);
   const handleOnBlur = () => {
@@ -49,17 +57,21 @@ const Connection = ({navigation, route}) => {
   useEffect(() => {
     const {type} = route.params;
     setTypeShow(type);
+    checkUser();
   }, []);
+  const checkUser = async () => {
+    const user = (await asyncStorage.getUser()) || {id: -1};
+    currentUser.current = user ? user : {id: -1};
+  };
   useEffect(() => {
     // setPinReady(code.length === maxLength);
-    if (code.length === maxLength) {
-      // dispatch(
-      //   followDoctorAction({
-      //     patient_id: 1,
-      //     qr_code: code,
-      //   }),
-      // );
-      navigation.navigate(NAVIGATION_MY_DOCTOR);
+    if (code.length === maxLength && currentUser.current.id !== -1) {
+      dispatch(
+        followDoctorAction({
+          patient_id: 9,
+          qr_code: '123456',
+        }),
+      );
     }
   }, [code]);
   const handleOnPress = () => {

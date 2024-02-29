@@ -9,7 +9,7 @@ const initializeState = {
 
   // statusConfirmDelete: Status.DEFAULT,
   // errorDeleteAccount: '',
-
+  currentUser: {id: -1},
   statusRegisterUser: Status.DEFAULT,
   messageRegisterUser: '',
 
@@ -87,6 +87,7 @@ export default (state = initializeState, {type, payload}) => {
     case NEOCARE.REGISTER_USER_SUCCESS:
       return {
         ...state,
+        currentUser: payload,
         statusRegisterUser: Status.SUCCESS,
       };
     case NEOCARE.REGISTER_USER_ERROR:

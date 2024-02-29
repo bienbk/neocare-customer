@@ -11,7 +11,9 @@ import icon_male from './iconMain/icon_male.svg';
 import icon_female from './iconMain/icon_female.svg';
 import icon_mydoctor_main from './iconMain/icon_mydoctor_main.svg';
 import icon_checked from './iconMain/icon_checked.svg';
+import icon_option from './iconMain/icon_option.svg';
 export default {
+  icon_option,
   icon_checked,
   icon_mydoctor_main,
   icon_male,

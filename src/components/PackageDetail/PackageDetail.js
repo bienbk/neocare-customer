@@ -77,7 +77,7 @@ const PackageDetail = ({navigation}) => {
           />
         </TouchableOpacity>
         <View style={{marginTop: heightDevice * 0.06, alignItems: 'center'}}>
-          <TextSemiBold style={{paddingBottom: 24, size: 20}}>
+          <TextSemiBold style={{paddingBottom: 24, fontSize: 20}}>
             Gói chăm sóc đặc biệt 6 tháng
           </TextSemiBold>
           <View style={styles.wrapperContentCard}>
