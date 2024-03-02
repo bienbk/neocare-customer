@@ -41,17 +41,41 @@ const DoctorDetail = ({navigation, route}) => {
     if (currentDoctor !== -1) {
       console.log('DETAIL DOCTOR :::', currentDoctor);
       setListPackage(
-        currentDoctor?.purchased_package &&
-          currentDoctor?.purchased_package?.package_items
-          ? currentDoctor?.purchased_package?.package_items
-          : [],
+        currentDoctor?.package_items ? currentDoctor?.package_items : [],
       );
       setDoctor(currentDoctor);
     }
   }, []);
-
+  const findItem = i => {
+    let result;
+    if (
+      doctor &&
+      doctor?.purchased_packages &&
+      doctor?.purchased_packages.length > 0
+    ) {
+      doctor.purchased_packages.map(order => {
+        if (
+          order.package_items[0] &&
+          order.package_items[0]?.product_id === i?.product_id
+        ) {
+          result = {
+            ...i,
+            ...order,
+          };
+        }
+      });
+    }
+    return result;
+  };
   const renderPackageOfDoctor = ({item, index}) => {
-    return <PackageItem item={item} index={index} navigation={navigation} />;
+    return (
+      <PackageItem
+        item={item}
+        order={findItem(item)}
+        index={index}
+        navigation={navigation}
+      />
+    );
   };
   const layoutDescription = event => {
     const {height} = event.nativeEvent.layout;
@@ -129,7 +153,7 @@ const DoctorDetail = ({navigation, route}) => {
               styles.wrapperDescription,
               // !showDescription && {height: '50%'},
             ]}>
-            <TextSmallMedium numberOfLines={showDescription ? -1 : 3}>
+            <TextSmallMedium numberOfLines={showDescription ? 0 : 3}>
               BS CKI Lê Hoàng Bảo công tác tại bệnh viện Đại học Y dược TP.HCM,
               có hơn 10 năm kinh nghiệm điều trị các bệnh lý nội tiết, bao gồm
               đái tháo đường, tuyến giáp, tuyến thượng thận, tuyến yên, chuyển

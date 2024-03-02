@@ -1,20 +1,34 @@
 import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
-import Icons from '../../common/Icons/Icons';
-import {
-  TextNormal,
-  TextSemiBold,
-  TextSmallTwelve,
-} from '../../common/Text/TextFont';
-import Colors from '../../theme/Colors';
+import {TextSemiBold, TextSmallTwelve} from '../../common/Text/TextFont';
 import Images from '../../common/Images/Images';
 import styles from './styles';
 import {doctor_avatar} from '../../assets/constans';
 import ProgressLine from '../../common/ProgressLine/ProgressLine';
-import {FlatList} from 'react-native-gesture-handler';
 
 const DoctorItem = ({item, selectItem}) => {
-  const {package_items} = item?.purchased_package;
+  const {package_items} = item || [];
+  const findItem = i => {
+    let result;
+    if (
+      item &&
+      item?.purchased_packages &&
+      item?.purchased_packages.length > 0
+    ) {
+      item.purchased_packages.map(order => {
+        if (
+          order.package_items[0] &&
+          order.package_items[0]?.product_id === i?.product_id
+        ) {
+          result = {
+            ...i,
+            ...order,
+          };
+        }
+      });
+    }
+    return result;
+  };
   return (
     <TouchableOpacity onPress={selectItem} style={[styles.wrapperDoctorItem]}>
       <View
@@ -59,7 +73,11 @@ const DoctorItem = ({item, selectItem}) => {
           .filter(i => i.product_status === 1)
           .map((line, index) => {
             return (
-              <ProgressLine isDetailDoctor={false} index={index} line={line} />
+              <ProgressLine
+                isDetailDoctor={false}
+                index={index}
+                line={findItem(line)}
+              />
             );
           })}
       {/* {item && item.isConnect && <ProgressLine isDetailDoctor={false} />} */}

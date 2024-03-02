@@ -13,8 +13,19 @@ import Colors from '../../theme/Colors';
 import {NAVIGATION_PACKAGE_DETAIL} from '../../navigation/routes';
 import ProgressLine from '../../common/ProgressLine/ProgressLine';
 
-const PackageItem = ({item, index, navigation}) => {
+const PackageItem = ({item, index, navigation, order}) => {
   if (item?.product_status === 1) {
+    const leftDay =
+      (new Date().getTime() - new Date(order?.purchased_date).getTime()) /
+      60000 /
+      (24 * 60);
+    const totalDay =
+      order && order.name ? parseInt(order.name.match(/\d+/)[0], 10) * 30 : -1;
+
+    const convertDate = date => {
+      const splited = date.split('-');
+      return `${splited[2]}-${splited[1]}-${splited[0]}`;
+    };
     return (
       <ImageBackground
         imageStyle={{borderRadius: 20}}
@@ -26,10 +37,10 @@ const PackageItem = ({item, index, navigation}) => {
             {`Chăm sóc đặc biệt ${(index + 1) * 6} tháng`}
           </TextNormal>
           <TextSmallTwelve style={{paddingVertical: 5}}>
-            {`Giá gói: ${item.price}`}
+            {`Giá gói: ${formatMoney(item.price)}`}
           </TextSmallTwelve>
           <TextSmallTwelve style={{paddingBottom: 5}}>
-            Ngày tham gia: 18/02/2024
+            {'Ngày tham gia: ' + convertDate(order.purchased_date.substring(0, 10))}
           </TextSmallTwelve>
           <View
             style={{
@@ -37,7 +48,7 @@ const PackageItem = ({item, index, navigation}) => {
               alignItems: 'center',
               paddingVertical: 6,
             }}>
-            <ProgressLine isDetailDoctor={true} />
+            <ProgressLine isDetailDoctor={true} line={order} />
             <TextSmallTwelve
               style={{
                 textAlign: 'right',
@@ -46,7 +57,7 @@ const PackageItem = ({item, index, navigation}) => {
 
                 paddingLeft: 10,
               }}>
-              250 ngày
+              {`${totalDay - parseInt(leftDay, 10)} ngày`}
             </TextSmallTwelve>
           </View>
         </View>

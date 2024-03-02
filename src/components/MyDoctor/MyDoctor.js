@@ -7,36 +7,20 @@ import {
   ScrollView,
 } from 'react-native';
 import styles from './styles';
-import {
-  TextMoneyBold,
-  TextNormal,
-  TextNormalSemiBold,
-  TextSemiBold,
-} from '../../common/Text/TextFont';
-import Icons from '../../common/Icons/Icons';
+import {TextSemiBold} from '../../common/Text/TextFont';
 import Colors from '../../theme/Colors';
-import Svg from '../../common/Svg/Svg';
-import Images from '../../common/Images/Images';
-import {
-  doctor_avatar,
-  empty_logo,
-  heightDevice,
-  logo,
-  widthDevice,
-} from '../../assets/constans';
 import DoctorItem from './DoctorItem';
 import {
   NAVIGATION_CONNECTION,
   NAVIGATION_DOCTOR_DETAIL,
 } from '../../navigation/routes';
-import LinearGradient from 'react-native-linear-gradient';
 import MyModal from '../../common/MyModal/MyModal';
-import CustomButton from '../../common/CustomButton/CustomButton';
 import CustomeHeader from './CustomeHeader';
 import EmptyList from './EmptyList';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   listDoctorSelector,
+  statusFollowDoctorSelector,
   statusListDoctorSelector,
 } from '../../store/doctor/doctorSelector';
 import {
@@ -45,65 +29,26 @@ import {
 } from '../../store/doctor/doctorAction';
 import Status from '../../common/Status/Status';
 
-const doctors = [
-  {
-    id: 1,
-    name: 'Nguyễn Hữu Nghĩa',
-    class: 'PGS.TS.BS',
-    department: 'Chuyên khoa ung bướu',
-    address: 'Long Bien,TP Ha Noi',
-    isConnect: true,
-  },
-  {
-    id: 2,
-    name: 'Lê Hoàng Bảo',
-    class: 'BS',
-    department: 'Chuyên khoa nội tiết',
-    address: 'Cau Giay,TP Ha Noi',
-    isConnect: true,
-  },
-  {
-    id: 3,
-    name: 'Phan Kim Phương',
-    class: 'TS.BS',
-    department: 'Chuyên khoa Tim',
-    address: 'Quan 1,TP Ho Chi Minh',
-    isConnect: false,
-  },
-  {
-    id: 4,
-    name: 'Phan Kim Phương',
-    class: 'TS.BS',
-    department: 'Chuyên khoa Tim',
-    address: 'Quan 1,TP Ho Chi Minh',
-    isConnect: false,
-  },
-  {
-    id: 5,
-    name: 'Phan Kim Phương',
-    class: 'TS.BS',
-    department: 'Chuyên khoa Tim',
-    address: 'Quan 1,TP Ho Chi Minh',
-    isConnect: false,
-  },
-];
-
 const MyDoctor = ({navigation}) => {
   const [listDoctor, setListDoctor] = useState([]);
   const [openOption, setOpenOption] = useState(-1);
   const dispatch = useDispatch();
   const listDoctors = useSelector(state => listDoctorSelector(state));
+  const statusFollowDoctor = useSelector(state =>
+    statusFollowDoctorSelector(state),
+  );
   const statusListDoctor = useSelector(state =>
     statusListDoctorSelector(state),
   );
   useEffect(() => {
     fetchDoctorData();
-  }, []);
+    console.log('come to my doctor');
+  }, [statusFollowDoctor]);
   const fetchDoctorData = () => {
     const query = {
       patient_id: 7,
       qr_code: '',
-      size: 10,
+      size: 100,
       page: 1,
     };
     dispatch(listDoctorAction(query));
@@ -123,11 +68,11 @@ const MyDoctor = ({navigation}) => {
     tempListDoctor.map(doc => {
       doc.department = 'Chuyên khoa Tim';
       doc.name = `${doc?.doctor?.last_name} ${doc?.doctor?.first_name}`;
-      const {package_items} = doc?.purchased_package;
+      const {package_items} = doc || [];
       if (
         package_items &&
         package_items.length &&
-        package_items.includes(i => i.product_status === 1)
+        package_items.findIndex(i => i.product_status === 1) !== -1
       ) {
         doc.isConnect = true;
       }
@@ -162,7 +107,7 @@ const MyDoctor = ({navigation}) => {
         />
         <View style={styles.container}>
           <View style={styles.wrapperMydoctor}>
-            {listDoctor && (
+            {listDoctor && listDoctor.length > 0 && (
               <FlatList
                 scrollEnabled={false}
                 data={
@@ -171,7 +116,7 @@ const MyDoctor = ({navigation}) => {
                     : []
                 }
                 showsVerticalScrollIndicator={false}
-                keyExtractor={(item, index) => `${index}`}
+                keyExtractor={(item, index) => `${index}_${item.id}_2`}
                 renderItem={renderDoctorItem}
                 contentContainerStyle={{
                   marginBottom:
@@ -180,7 +125,7 @@ const MyDoctor = ({navigation}) => {
                 ListHeaderComponent={headerActivedList}
               />
             )}
-            {listDoctor && (
+            {listDoctor && listDoctor.length > 0 && (
               <FlatList
                 scrollEnabled={false}
                 data={
@@ -189,13 +134,19 @@ const MyDoctor = ({navigation}) => {
                     : []
                 }
                 showsVerticalScrollIndicator={false}
-                keyExtractor={(item, index) => `${index}`}
+                keyExtractor={(item, index) => `${index}_${item.id}_1`}
                 renderItem={renderDoctorItem}
                 ListHeaderComponent={headerFollowingList}
                 contentContainerStyle={{paddingVertical: 0}}
               />
             )}
-            {!listDoctor && <EmptyList onPressAdd={() => {}} />}
+            {listDoctor.length === 0 && (
+              <EmptyList
+                onPressAdd={() =>
+                  navigation.navigate(NAVIGATION_CONNECTION, {type: 1})
+                }
+              />
+            )}
           </View>
         </View>
       </ScrollView>

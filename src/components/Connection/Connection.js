@@ -68,8 +68,8 @@ const Connection = ({navigation, route}) => {
     if (code.length === maxLength && currentUser.current.id !== -1) {
       dispatch(
         followDoctorAction({
-          patient_id: 9,
-          qr_code: '123456',
+          patient_id: 7,
+          qr_code: code,
         }),
       );
     }
@@ -131,7 +131,9 @@ const Connection = ({navigation, route}) => {
               // autoFocus={true}
             />
             <TextNormal style={{color: '#EF0000', paddingVertical: 20}}>
-              {messageFollowDoctor}
+              {messageFollowDoctor
+                ? 'Mã bác sĩ không đúng, vui lòng thử lại!'
+                : ''}
             </TextNormal>
           </View>
         </View>

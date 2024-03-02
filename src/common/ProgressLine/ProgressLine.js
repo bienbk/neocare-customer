@@ -8,6 +8,12 @@ import LinearGradient from 'react-native-linear-gradient';
 import Svg from '../Svg/Svg';
 
 const ProgressLine = ({isDetailDoctor, line, index}) => {
+  const leftDay =
+    (new Date().getTime() - new Date(line?.purchased_date).getTime()) /
+    60000 /
+    (24 * 60);
+  const totalDay =
+    line && line.name ? parseInt(line.name.match(/\d+/)[0], 10) * 30 : -1;
   return (
     <View style={styles.wrapperTimeSection}>
       {!isDetailDoctor && (
@@ -15,7 +21,7 @@ const ProgressLine = ({isDetailDoctor, line, index}) => {
           <Svg name={'icon_checked'} size={16} />
           <TextNormal style={styles.textTitleTime}>{line.name}</TextNormal>
           <TextNormal style={{textAlign: 'right', flex: 1, fontWeight: 'bold'}}>
-            {`${50 * (index + 1)} ngày`}
+            {`${totalDay - parseInt(leftDay, 10)} ngày`}
           </TextNormal>
         </View>
       )}
@@ -27,7 +33,12 @@ const ProgressLine = ({isDetailDoctor, line, index}) => {
         /> */}
         <LinearGradient
           colors={['#94A6FF', '#EE8FA7']}
-          style={styles.wrapperTimeLeft}
+          style={[
+            styles.wrapperTimeLeft,
+            leftDay > 0 && {
+              width: `${((totalDay - leftDay) / totalDay) * 100}%`,
+            },
+          ]}
           start={{x: 0, y: 1}}
           end={{x: 1, y: 1}}
         />
@@ -56,15 +67,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   textTitleTime: {paddingHorizontal: 2},
-  wrapperTimeLeftRed: {
-    backgroundColor: Colors.blue.blue50,
-    width: `${(250 / 365) * 100}%`,
-    height: 10,
-    borderRadius: 20,
-  },
   wrapperTimeLeft: {
     // backgroundColor: Colors.pink.pink60,
-    width: `${(250 / 365) * 100}%`,
     height: 10,
     borderRadius: 20,
   },

@@ -212,9 +212,10 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     // borderWidth: 1,
     // backgroundColor: 'red',
+    paddingHorizontal: 20,
     bottom: 0,
     zIndex: 999,
-    right: 0,
+    right: -10,
   },
   wrapperDescription: {
     paddingVertical: 10,

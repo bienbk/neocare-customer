@@ -121,7 +121,7 @@ const BloodPressure = ({navigation}) => {
         onPress={Keyboard.dismiss}
         style={{padding: 10, alignItems: 'center', flex: 1}}>
         <TextNormalSemiBold style={{color: Colors.red.red50, padding: 5}}>
-          {warningMessage || 'Warning text come here'}
+          {warningMessage ? 'Warning text come here' : ''}
         </TextNormalSemiBold>
         <TextNormalSemiBold>
           Nhịp tim theo nhịp/phút (45 - 250)

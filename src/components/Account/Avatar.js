@@ -12,7 +12,7 @@ import {
   ScrollView,
 } from 'react-native';
 import Colors from 'theme/Colors';
-import { heightDevice, widthDevice } from '../../assets/constans';
+import {heightDevice, widthDevice} from '../../assets/constans';
 
 const Avatar = ({}) => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -38,7 +38,7 @@ const Avatar = ({}) => {
         <View style={styles.content}>
           <Images source={logo} style={styles.image} />
           <TouchableOpacity style={styles.button}>
-            <Svg name={'icon_edit1'} size={32} color={Colors.textGrayColor} />
+            {/* <Svg name={'icon_edit1'} size={32} color={Colors.textGrayColor} /> */}
           </TouchableOpacity>
         </View>
         <View style={styles.textBalance}>
