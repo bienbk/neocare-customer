@@ -8,6 +8,8 @@ import {
   Keyboard,
   TextInput,
 } from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {sendPhone} from 'store/actions';
 import styles from './styles';
 import {TextNormal, TextSemiBold} from '../../common/Text/TextFont';
 import SeparatorLine from '../../common/SeparatorLine/SeparatorLine';
@@ -22,17 +24,19 @@ import CustomButton from '../../common/CustomButton/CustomButton';
 import strings from '../../localization/Localization';
 
 const Login = ({navigation}) => {
+  const dispatch = useDispatch();
   const refInput = useRef(null);
   const [phone, setPhone] = useState('0123123');
   const [isAgreePolicy, setAgreePolicy] = useState(true);
 
   const handleSubmitPhone = () => {
-    // if (!phone) {
-    //   return 0;
-    // }
-    navigation.navigate(NAVIGATION_VERIFY_CODE, {
-      phone: phone.replace(/^0/, ''),
-    });
+    if (!phone) {
+      return 0;
+    }
+    dispatch(sendPhone('+84' + phone.replace(/^0/, '')));
+    // navigation.navigate(NAVIGATION_VERIFY_CODE, {
+    //   phone: phone.replace(/^0/, ''),
+    // });
   };
 
   return (
