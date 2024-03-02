@@ -4,10 +4,11 @@ import {UrlApi} from 'http/UrlApi';
 class AuthController {
   sendPhoneController = async phone => {
     try {
-      console.log(phone);
+      console.log('go to confirm phone: ', phone, UrlApi.sendPhone);
       const {data} = await HttpClient.post(UrlApi.sendPhone, {
-        phone,
+        phoneNumber: phone,
       });
+      console.log('data return confirm phone: ', data);
       return {success: true, data: data};
     } catch (error) {
       return {success: false, error: error.message};

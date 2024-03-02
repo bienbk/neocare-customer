@@ -1,17 +1,17 @@
-import {NEOCAFE} from 'store/actionsTypes';
+import {NEOCARE} from 'store/actionsTypes';
 
 export const sendPhone = phone => ({
-  type: NEOCAFE.SEND_PHONE_REQUEST,
+  type: NEOCARE.SEND_PHONE_REQUEST,
   payload: {
     phone,
   },
 });
 export const sendPhoneReset = () => ({
-  type: NEOCAFE.SEND_PHONE_RESET,
+  type: NEOCARE.SEND_PHONE_RESET,
 });
 
 export const confirmOtp = (otp, device_id, push_token) => ({
-  type: NEOCAFE.CONFIRM_OTP_REQUEST,
+  type: NEOCARE.CONFIRM_OTP_REQUEST,
   payload: {
     otp,
     device_id,
@@ -19,25 +19,25 @@ export const confirmOtp = (otp, device_id, push_token) => ({
   },
 });
 export const confirmOtpReset = () => ({
-  type: NEOCAFE.CONFIRM_OTP_RESET,
+  type: NEOCARE.CONFIRM_OTP_RESET,
 });
 
 export const loginPhone = phone => ({
-  type: NEOCAFE.LOGIN_PHONE_REQUEST,
+  type: NEOCARE.LOGIN_PHONE_REQUEST,
   payload: {
     phone,
   },
 });
 export const loginPhoneReset = () => ({
-  type: NEOCAFE.LOGIN_PHONE_RESET,
+  type: NEOCARE.LOGIN_PHONE_RESET,
 });
 
 export const logout = () => ({
-  type: NEOCAFE.LOGOUT_REQUEST,
+  type: NEOCARE.LOGOUT_REQUEST,
 });
 
 export const getVersion = (os, version, app_id) => ({
-  type: NEOCAFE.GET_VERSION_REQUEST,
+  type: NEOCARE.GET_VERSION_REQUEST,
   payload: {
     os,
     version,

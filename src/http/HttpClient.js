@@ -12,7 +12,7 @@ export const setDefaultLanguage = language => {
 console.log('default language:::', defaultLanguage);
 const HttpClient = axios.create({
   timeout: 12000,
-  headers: {'content-type': 'application/json'},
+  headers: {rid: 'passwordless', 'content-type': 'application/json'},
 });
 
 // Custom middleware for requests (this one just logs the error).

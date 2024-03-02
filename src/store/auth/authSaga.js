@@ -1,5 +1,5 @@
 import {takeLatest, call, put, select} from 'redux-saga/effects';
-import {NEOCAFE} from 'store/actionsTypes';
+import {NEOCARE} from 'store/actionsTypes';
 import authController from './authController';
 import {isTokenConfirm} from './authSelector';
 import {confirmOtpReset, loginPhoneReset, sendPhoneReset} from './authAction';
@@ -19,7 +19,7 @@ function* sendPhoneSaga({payload}) {
       const {data} = result.data;
       console.log('result success sendPhone:', data);
       yield put({
-        type: NEOCAFE.SEND_PHONE_SUCCESS,
+        type: NEOCARE.SEND_PHONE_SUCCESS,
         payload: {
           tokenConfirm: data?.otp_token,
         },
@@ -28,18 +28,18 @@ function* sendPhoneSaga({payload}) {
     } else if (result.success === true && result?.data?.status === false) {
       console.log('result errorr sendPhone:', result);
       yield put({
-        type: NEOCAFE.SEND_PHONE_ERROR,
+        type: NEOCARE.SEND_PHONE_ERROR,
         payload: {errorMsg: result?.data?.error},
       });
     } else {
       yield put({
-        type: NEOCAFE.SEND_PHONE_ERROR,
+        type: NEOCARE.SEND_PHONE_ERROR,
         payload: {errorMsg: 'Xảy ra lỗi trong quá trình nhận OTP'},
       });
     }
   } catch (e) {
     yield put({
-      type: NEOCAFE.SEND_PHONE_ERROR,
+      type: NEOCARE.SEND_PHONE_ERROR,
       payload: {
         errorMsg:
           'Xảy ra lỗi trong quá trình nhật OTP, vui lòng liên hệ nhân viên chăm sóc khách hàng',
@@ -65,13 +65,13 @@ function* confirmOtp({payload}) {
     console.log('result confirmOtp:', result);
     if (result?.status) {
       yield put({
-        type: NEOCAFE.CONFIRM_OTP_SUCCESS,
+        type: NEOCARE.CONFIRM_OTP_SUCCESS,
       });
       yield asyncStorage.setUser(result?.data);
       // yield put(confirmOtpReset());
     } else {
       yield put({
-        type: NEOCAFE.CONFIRM_OTP_ERROR,
+        type: NEOCARE.CONFIRM_OTP_ERROR,
         payload: {
           errorMsg: strings.verifyScreen.errorMessageOtp,
         },
@@ -79,7 +79,7 @@ function* confirmOtp({payload}) {
     }
   } catch (e) {
     yield put({
-      type: NEOCAFE.CONFIRM_OTP_ERROR,
+      type: NEOCARE.CONFIRM_OTP_ERROR,
       payload: {
         errorMsg: strings.verifyScreen.errorMessageApp,
       },
@@ -96,7 +96,7 @@ function* loginPhone({payload}) {
     console.log('result loginPhone:', result, payload);
     if (result?.status) {
       yield put({
-        type: NEOCAFE.LOGIN_PHONE_SUCCESS,
+        type: NEOCARE.LOGIN_PHONE_SUCCESS,
         payload: {
           user: payload,
         },
@@ -129,7 +129,7 @@ function* getVersions({payload}) {
     );
     console.log('response Versionnnnnn:', result);
     yield put({
-      type: NEOCAFE.GET_VERSION_SUCCESS,
+      type: NEOCARE.GET_VERSION_SUCCESS,
       payload: {
         forceUpdate: result.force,
         versionNew: result.version,
@@ -138,16 +138,16 @@ function* getVersions({payload}) {
     });
   } catch (error) {
     yield put({
-      type: NEOCAFE.GET_VERSION_ERROR,
+      type: NEOCARE.GET_VERSION_ERROR,
       payload: {errorMsg: error},
     });
   }
 }
 
 export default function* watcherSaga() {
-  yield takeLatest(NEOCAFE.SEND_PHONE_REQUEST, sendPhoneSaga);
-  yield takeLatest(NEOCAFE.CONFIRM_OTP_REQUEST, confirmOtp);
-  yield takeLatest(NEOCAFE.LOGIN_PHONE_REQUEST, loginPhone);
-  yield takeLatest(NEOCAFE.LOGOUT_REQUEST, logout);
-  yield takeLatest(NEOCAFE.GET_VERSION_REQUEST, getVersions);
+  yield takeLatest(NEOCARE.SEND_PHONE_REQUEST, sendPhoneSaga);
+  yield takeLatest(NEOCARE.CONFIRM_OTP_REQUEST, confirmOtp);
+  yield takeLatest(NEOCARE.LOGIN_PHONE_REQUEST, loginPhone);
+  yield takeLatest(NEOCARE.LOGOUT_REQUEST, logout);
+  yield takeLatest(NEOCARE.GET_VERSION_REQUEST, getVersions);
 }
