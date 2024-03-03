@@ -1,5 +1,6 @@
 import 'react-native-gesture-handler';
 import React, {useEffect} from 'react';
+import SuperTokens from 'supertokens-react-native';
 
 import RootNavigation from 'navigation/RootNavigation';
 import {LogBox, TextInput} from 'react-native';
@@ -15,6 +16,7 @@ const App = () => {
     TextInput.defaultProps = TextInput.defaultProps || {};
     TextInput.defaultProps.allowFontScaling = false;
     console.disableYellowBox = true;
+    // console.log('SuperTokens', SuperTokens);
     LogBox.ignoreAllLogs();
   }, []);
 

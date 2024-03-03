@@ -1,4 +1,8 @@
-import {heightDevice, widthDevice} from 'assets/constans';
+// import {heightDevice, widthDevice} from 'assets/constans';
+// import SeparatorLine from 'common/SeparatorLine/SeparatorLine';
+// import {NAVIGATION_ACCESS_LOCATION, NAVIGATION_LOGIN} from 'navigation/routes';
+import {heightDevice, smart_phone, widthDevice} from 'assets/constans';
+import Images from 'common/Images/Images';
 import SeparatorLine from 'common/SeparatorLine/SeparatorLine';
 import {NAVIGATION_ACCESS_LOCATION, NAVIGATION_LOGIN} from 'navigation/routes';
 import {React, useState, useEffect, useRef} from 'react';
@@ -12,23 +16,28 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import styles from './style';
 import CodeInput from './CodeInput';
-// import {
-//   confirmOtp,
-//   sendPhone,
-//   confirmOtpReset,
-//   getDeleteAccount,
-//   resetDeleteOtp,
-//   deleteAccountReset,
-//   confirmDeleteAccountOtp,
-//   logout,
-// } from 'store/actions';
-// import {
-//   isErrorConfirm,
-//   isStatusDeleteAccount,
-//   isStatusConfirmOtp,
-//   statusConfirmOtpDelete,
-//   getErrorMessageConfirm,
-// } from 'store/selectors';
+import {
+  confirmOtp,
+  sendPhone,
+  reSendPhone,
+  confirmOtpReset,
+  getDeleteAccount,
+  resetDeleteOtp,
+  // resetGetListProduct,
+  deleteAccountReset,
+  resetOrder,
+  confirmDeleteAccountOtp,
+  logout,
+} from 'store/actions';
+import {
+  isErrorConfirm,
+  isStatusDeleteAccount,
+  isStatusConfirmOtp,
+  statusConfirmOtpDelete,
+  getErrorMessageConfirm,
+  getDeviceId,
+  getPreAuthSessionId,
+} from 'store/selectors';
 import Status from 'common/Status/Status';
 import {
   TextNormal,
@@ -50,9 +59,9 @@ const VerifyCode = ({navigation, route}) => {
   const [code, setCode] = useState('');
   const [pinReady, setPinReady] = useState(false);
   // const deviceId = useRef(null);
-  // const pushToken = useRef(null);
-  // const statusConfirmOtp = useSelector(state => isStatusConfirmOtp(state));
-  // const errorConfirmOtp = useSelector(state => isErrorConfirm(state));
+  const pushToken = useRef(null);
+  const statusConfirmOtp = useSelector(state => isStatusConfirmOtp(state));
+  const errorConfirmOtp = useSelector(state => isErrorConfirm(state));
   const [disableSendAgainButton, setDisableSendAgainButton] = useState(false);
   const [timer, setTimer] = useState(0);
   const [resendTime, setResendTime] = useState(0);
@@ -67,124 +76,130 @@ const VerifyCode = ({navigation, route}) => {
   }, []);
   const initTimeLogin = async () => {
     setTimer(60);
-    // const timeLogin = await asyncStorage.getTimeLogin();
-    // console.log('LOGIN INFO::::', timeLogin);
-    // if (
-    //   timeLogin &&
-    //   timeLogin?.last_login_at !== -1 &&
-    //   timeLogin?.levels &&
-    //   timeLogin?.levels.length > 0 &&
-    //   timeLogin?.last_phone === phone
-    // ) {
-    //   const resendTimes = timeLogin?.resend_times;
-    //   setResendTime(resendTimes);
-    //   setTimer(
-    //     resendTimes < 3 ? timeLogin?.levels[resendTimes].count_down : -1,
-    //   );
-    // } else {
-    // setTimer(60);
-    // await asyncStorage.setTimeLogin({
-    //   last_login_at: new Date().getTime(),
-    //   last_phone: phone,
-    //   resend_times: 0,
-    //   levels: [
-    //     {level: 0, count_down: 60},
-    //     {level: 1, count_down: 120},
-    //     {level: 2, count_down: 180},
-    //   ],
-    // });
-    // }
+    const timeLogin = await asyncStorage.getTimeLogin();
+    console.log('LOGIN INFO::::', timeLogin);
+    if (
+      timeLogin &&
+      timeLogin?.last_login_at !== -1 &&
+      timeLogin?.levels &&
+      timeLogin?.levels.length > 0 &&
+      timeLogin?.last_phone === phone
+    ) {
+      const resendTimes = timeLogin?.resend_times;
+      setResendTime(resendTimes);
+      setTimer(
+        resendTimes < 3 ? timeLogin?.levels[resendTimes].count_down : -1,
+      );
+    } else {
+      setTimer(60);
+      await asyncStorage.setTimeLogin({
+        last_login_at: new Date().getTime(),
+        last_phone: phone,
+        resend_times: 0,
+        levels: [
+          {level: 0, count_down: 60},
+          {level: 1, count_down: 120},
+          {level: 2, count_down: 180},
+        ],
+      });
+    }
   };
-  // const statusDeleteAccount = useSelector(state =>
-  //   isStatusDeleteAccount(state),
-  // );
-  // const statusConfirmDelete = useSelector(state =>
-  //   statusConfirmOtpDelete(state),
-  // );
-  // const messageConfirmDelete = useSelector(state =>
-  //   getErrorMessageConfirm(state),
-  // );
+  const statusDeleteAccount = useSelector(state =>
+    isStatusDeleteAccount(state),
+  );
+  const statusConfirmDelete = useSelector(state =>
+    statusConfirmOtpDelete(state),
+  );
+  const messageConfirmDelete = useSelector(state =>
+    getErrorMessageConfirm(state),
+  );
+  const deviceId = useSelector(state => getDeviceId(state));
+  const preAuthSessionId = useSelector(state => getPreAuthSessionId(state));
   const handleAuthenticate = () => {
     if (pinReady) {
       navigation.navigate(NAVIGATION_ACCESS_LOCATION);
     }
   };
   const handleSendCodeAgain = async () => {
-    const timeLogin = await asyncStorage.getTimeLogin();
-    await asyncStorage.setTimeLogin({
-      ...timeLogin,
-      resend_times: resendTime + 1,
-    });
-    setResendTime(resendTime + 1);
-    setTimer(
-      resendTime + 1 <= 2 ? timeLogin?.levels[resendTime + 1].count_down : -1,
-    );
-    if (resendTime + 1 <= 2) {
-      const interval = setInterval(() => {
-        setTimer(lastTimerCount => {
-          lastTimerCount <= 1 && clearInterval(interval);
-          return lastTimerCount - 1;
-        });
-      }, 1000);
-      // dispatch(sendPhone('+84' + phone.replace(/^0/, '')));
-    }
+    // const timeLogin = await asyncStorage.getTimeLogin();
+    // await asyncStorage.setTimeLogin({
+    //   ...timeLogin,
+    //   resend_times: resendTime + 1,
+    // });
+    // setResendTime(resendTime + 1);
+    // setTimer(
+    //   resendTime + 1 <= 2 ? timeLogin?.levels[resendTime + 1].count_down : -1,
+    // );
+    // if (resendTime + 1 <= 2) {
+    //   const interval = setInterval(() => {
+    //     setTimer(lastTimerCount => {
+    //       lastTimerCount <= 1 && clearInterval(interval);
+    //       return lastTimerCount - 1;
+    //     });
+    //   }, 1000);
+    //   // dispatch(sendPhone('+84' + phone.replace(/^0/, '')));
+    // }
     setDisableSendAgainButton(true);
+    dispatch(
+      reSendPhone({deviceId: deviceId, preAuthSessionId: preAuthSessionId}),
+    );
   };
-  // useEffect(() => {
-  //   if (disableSendAgainButton === true) {
-  //     if (timer > 0) {
-  //       setTimeout(() => {
-  //         setDisableSendAgainButton(false);
-  //       }, timer * 1000);
-  //     }
-  //   }
-  // }, [disableSendAgainButton]);
+  useEffect(() => {
+    if (disableSendAgainButton === true) {
+      if (timer > 0) {
+        setTimeout(() => {
+          setDisableSendAgainButton(false);
+        }, timer * 1000);
+      }
+    }
+  }, [disableSendAgainButton]);
 
   useEffect(() => {
     if (pinReady) {
-      // dispatch(confirmOtp(code, deviceId.current, pushToken.current));
-      navigation.navigate(NAVIGATION_PROFILE_HEALTH, {phone: phone});
+      dispatch(confirmOtp(code, deviceId, preAuthSessionId));
+      // navigation.navigate(NAVIGATION_PROFILE_HEALTH, {phone: phone});
     }
   }, [pinReady]);
 
-  // useEffect(() => {
-  //   if (statusConfirmOtp === Status.SUCCESS) {
-  //     resetTimeLogin();
-  //     navigation.dispatch(
-  //       CommonActions.reset({
-  //         index: 0,
-  //         routes: [{name: NAVIGATION_ACCESS_LOCATION}],
-  //       }),
-  //     );
-  //     dispatch(confirmOtpReset());
-  //   }
-  // }, [statusConfirmOtp]);
-  // const resetTimeLogin = async () => {
-  //   await asyncStorage.setTimeLogin({
-  //     last_login_at: -1,
-  //     last_phone: -1,
-  //     resend_times: 0,
-  //     levels: [],
-  //   });
-  // };
-  // useEffect(() => {
-  //   if (type === 1 && statusConfirmDelete === Status.SUCCESS) {
-  //     dispatch(getDeleteAccount());
-  //   }
-  // }, [statusConfirmDelete]);
-  // useEffect(() => {
-  //   if (statusDeleteAccount === Status.SUCCESS) {
-  //     dispatch(resetDeleteOtp());
-  //     dispatch(logout());
-  //     dispatch(deleteAccountReset());
-  //     navigation.dispatch(
-  //       CommonActions.reset({
-  //         index: 0,
-  //         routes: [{name: NAVIGATION_LOGIN}],
-  //       }),
-  //     );
-  //   }
-  // }, [statusDeleteAccount]);
+  useEffect(() => {
+    if (statusConfirmOtp === Status.SUCCESS) {
+      resetTimeLogin();
+      dispatch(confirmOtpReset());
+      navigation.navigate(NAVIGATION_PROFILE_HEALTH, {phone: phone});
+      // navigation.dispatch(
+      //   CommonActions.reset({
+      //     index: 0,
+      //     routes: [{name: NAVIGATION_PROFILE_HEALTH}],
+      //   }),
+      // );
+    }
+  }, [statusConfirmOtp]);
+  const resetTimeLogin = async () => {
+    await asyncStorage.setTimeLogin({
+      last_login_at: -1,
+      last_phone: -1,
+      resend_times: 0,
+      levels: [],
+    });
+  };
+  useEffect(() => {
+    if (type === 1 && statusConfirmDelete === Status.SUCCESS) {
+      dispatch(getDeleteAccount());
+    }
+  }, [statusConfirmDelete]);
+  useEffect(() => {
+    if (statusDeleteAccount === Status.SUCCESS) {
+      dispatch(resetDeleteOtp());
+      dispatch(logout());
+      dispatch(deleteAccountReset());
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{name: NAVIGATION_LOGIN}],
+        }),
+      );
+    }
+  }, [statusDeleteAccount]);
   // useEffect(() => {
   //   getDeviceId();
   //   setTimeout(() => {

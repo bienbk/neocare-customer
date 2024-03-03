@@ -22,6 +22,7 @@ export const NEOCARE = createRequestTypes(
     //auth
     'CHECK_AUTHENTICATION',
     'SEND_PHONE',
+    'RESEND_PHONE',
     'CONFIRM_OTP',
     'LOGIN_PHONE',
     'LOGOUT',

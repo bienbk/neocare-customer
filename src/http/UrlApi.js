@@ -5,6 +5,18 @@ import {
 } from 'assets/config';
 
 export const UrlApi = {
+  // ---------------------- USER -AUTH  ---------------------------
+  baseApi: BASE_PATH_MENU,
+  getUserInfo: BASE_PATH_MENU + 'userinfo',
+  getVersion: BASE_PATH_CAFE + 'version',
+  sendPhone: BASE_PATH_MENU + 'patients/auth/signinup/code',
+  resendPhone: BASE_PATH_MENU + 'patients/auth/signinup/code/resend',
+  confirmPhone: BASE_PATH_MENU + 'patients/auth/signinup/code/consume',
+  loginPhone: BASE_PATH_MENU + 'customerloginphone',
+  deleteAccount: BASE_PATH_MENU + 'deleteAccount',
+  confirmOtpDelete: BASE_PATH_MENU + 'confirmPhone',
+  updateUserInfo: BASE_PATH_MENU + 'updateCustomerInfo',
+  updateLanguageUrl: BASE_PATH_MENU + 'updatelanguages',
   // --------------------- PACKAGE OF DOCTOR --------------------
   apiGetPackageOfDoctor: BASE_NEOCARE_CUSTOMER + 'products/doctors',
   apiFollowDoctor: BASE_NEOCARE_CUSTOMER,

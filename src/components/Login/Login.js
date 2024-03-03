@@ -1,5 +1,5 @@
 import {SafeAreaView} from 'react-native-safe-area-context';
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 
 import {
   View,
@@ -8,11 +8,15 @@ import {
   Keyboard,
   TextInput,
 } from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {sendPhone} from 'store/actions';
 import styles from './styles';
+import {isErrorSendOtp, isStatusSendPhone} from 'store/selectors';
 import {TextNormal, TextSemiBold} from '../../common/Text/TextFont';
 import SeparatorLine from '../../common/SeparatorLine/SeparatorLine';
 import Svg from 'common/Svg/Svg';
 import Colors from 'theme/Colors';
+import Status from 'common/Status/Status';
 import {heightDevice} from 'assets/constans';
 import Images from '../../common/Images/Images';
 import {icon_vietnam} from '../../assets/constans';
@@ -21,18 +25,36 @@ import CheckBox from '@react-native-community/checkbox';
 import CustomButton from '../../common/CustomButton/CustomButton';
 import strings from '../../localization/Localization';
 
-const Login = ({navigation}) => {
+const Login = props => {
+  const dispatch = useDispatch();
   const refInput = useRef(null);
+  const statusSendPhone = useSelector(state => isStatusSendPhone(state));
+  const errorSendPhone = useSelector(state => isErrorSendOtp(state));
+  const [showError, setShowError] = useState(false);
   const [phone, setPhone] = useState('0123123');
   const [isAgreePolicy, setAgreePolicy] = useState(true);
+  console.log('statusSendPhone', statusSendPhone);
+  console.log('errorSendPhone', errorSendPhone);
+
+  useEffect(() => {
+    console.log('get here useEffect');
+    if (statusSendPhone === Status.SUCCESS) {
+      props.navigation.navigate(NAVIGATION_VERIFY_CODE, {
+        phone: phone.replace(/^0/, ''),
+      });
+    } else if (statusSendPhone === Status.ERROR) {
+      setShowError(true);
+    }
+  }, [statusSendPhone]);
 
   const handleSubmitPhone = () => {
-    // if (!phone) {
-    //   return 0;
-    // }
-    navigation.navigate(NAVIGATION_VERIFY_CODE, {
-      phone: phone.replace(/^0/, ''),
-    });
+    if (!phone) {
+      return 0;
+    }
+    dispatch(sendPhone('+84' + phone.replace(/^0/, '')));
+    // navigation.navigate(NAVIGATION_VERIFY_CODE, {
+    //   phone: phone.replace(/^0/, ''),
+    // });
   };
 
   return (

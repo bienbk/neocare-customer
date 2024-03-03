@@ -1,10 +1,17 @@
 import axios from 'axios';
+import {UrlApi} from 'http/UrlApi';
+import {asyncStorage} from 'store/index';
+import SuperTokens from 'supertokens-react-native';
 // import { API_URL } from 'react-native-dotenv';
 /*
   Base client config for your application.
   Here you can define your base url, headers,
   timeouts and middleware used for each request.
 */
+// SuperTokens.init({
+//   apiDomain: UrlApi,
+//   apiBasePath: 'patients/auth',
+// });
 let defaultLanguage = 'vi';
 export const setDefaultLanguage = language => {
   defaultLanguage = language;
@@ -12,14 +19,27 @@ export const setDefaultLanguage = language => {
 console.log('default language:::', defaultLanguage);
 const HttpClient = axios.create({
   timeout: 12000,
-  headers: {'content-type': 'application/json'},
+  headers: {
+    'Access-Control-Expose-Headers':
+      'front-token, st-access-token, st-refresh-token',
+    'content-type': 'application/json',
+  },
 });
+SuperTokens.addAxiosInterceptors(HttpClient);
 
 // Custom middleware for requests (this one just logs the error).
 HttpClient.interceptors.request.use(
-  config => {
+  async config => {
     // config.headers['X-CUPIFY-APP'] = 'NEOCAFE';
     // config.headers['Accept-Language'] = defaultLanguage;
+    const tokens = await asyncStorage.getToken();
+    // console.log('getToken: ', tokens);
+    if (tokens && tokens.stAccessToken) {
+      config.headers.rid = 'session'
+      config.headers.authorization = 'Bearer ' + tokens.stAccessToken || '';
+    } else {
+      config.headers.rid = 'passwordless'
+    }
     // console.log('REQUEST API:', config);
     return config;
   },
@@ -31,7 +51,10 @@ HttpClient.interceptors.request.use(
 
 // Custom middleware for responses (this one just logs the error).
 HttpClient.interceptors.response.use(
-  response => response,
+  response => {
+    // console.log('response Http Client: ', response);
+    return response;
+  },
   error => {
     //console.log('Request got response with error:', error);
     return Promise.reject(error);
