@@ -38,6 +38,7 @@ export const NEOCARE = createRequestTypes(
     'GET_PACKAGE_OF_DOCTOR',
     'FOLLOW_DOCTOR',
     'LIST_DOCTOR',
+    'GET_DOCTOR_DETAIL',
 
     // Order
     'BUY_PACKAGE',

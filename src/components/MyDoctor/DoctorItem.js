@@ -8,27 +8,6 @@ import ProgressLine from '../../common/ProgressLine/ProgressLine';
 
 const DoctorItem = ({item, selectItem}) => {
   const {package_items} = item || [];
-  const findItem = i => {
-    let result;
-    if (
-      item &&
-      item?.purchased_packages &&
-      item?.purchased_packages.length > 0
-    ) {
-      item.purchased_packages.map(order => {
-        if (
-          order.package_items[0] &&
-          order.package_items[0]?.product_id === i?.product_id
-        ) {
-          result = {
-            ...i,
-            ...order,
-          };
-        }
-      });
-    }
-    return result;
-  };
   return (
     <TouchableOpacity onPress={selectItem} style={[styles.wrapperDoctorItem]}>
       <View
@@ -46,16 +25,11 @@ const DoctorItem = ({item, selectItem}) => {
           <TextSmallTwelve style={styles.textDoctorDepartment}>
             {item.department}
           </TextSmallTwelve>
-          {/* {item && !item.isConnect && (
-            <TextSmallTwelve style={styles.textRequest}>
-              {'Đã gửi yêu cầu mua gói'}
-            </TextSmallTwelve>
-          )} */}
           {item &&
             package_items &&
             package_items.length > 0 &&
             package_items
-              .filter(i => i.product_status === 0)
+              .filter(i => i.product_status === 2)
               .map((line, index) => {
                 return (
                   <TextSmallTwelve style={styles.textRequest}>
@@ -66,18 +40,13 @@ const DoctorItem = ({item, selectItem}) => {
         </View>
       </View>
       {item &&
-        item.isConnect &&
         package_items &&
         package_items.length > 0 &&
         package_items
           .filter(i => i.product_status === 1)
           .map((line, index) => {
             return (
-              <ProgressLine
-                isDetailDoctor={false}
-                index={index}
-                line={findItem(line)}
-              />
+              <ProgressLine isDetailDoctor={false} index={index} line={line} />
             );
           })}
       {/* {item && item.isConnect && <ProgressLine isDetailDoctor={false} />} */}

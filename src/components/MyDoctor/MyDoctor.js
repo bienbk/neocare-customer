@@ -5,6 +5,7 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
+  RefreshControl,
 } from 'react-native';
 import styles from './styles';
 import {TextSemiBold} from '../../common/Text/TextFont';
@@ -20,7 +21,6 @@ import EmptyList from './EmptyList';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   listDoctorSelector,
-  statusFollowDoctorSelector,
   statusListDoctorSelector,
 } from '../../store/doctor/doctorSelector';
 import {
@@ -33,22 +33,23 @@ const MyDoctor = ({navigation}) => {
   const [listDoctor, setListDoctor] = useState([]);
   const [openOption, setOpenOption] = useState(-1);
   const dispatch = useDispatch();
+  const [refreshing, setRefreshing] = useState(false);
   const listDoctors = useSelector(state => listDoctorSelector(state));
-  const statusFollowDoctor = useSelector(state =>
-    statusFollowDoctorSelector(state),
-  );
   const statusListDoctor = useSelector(state =>
     statusListDoctorSelector(state),
   );
   useEffect(() => {
     fetchDoctorData();
-    console.log('come to my doctor');
-  }, [statusFollowDoctor]);
+  }, [navigation]);
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    fetchDoctorData();
+  }, []);
   const fetchDoctorData = () => {
     const query = {
       patient_id: 7,
       qr_code: '',
-      size: 100,
+      size: 1000,
       page: 1,
     };
     dispatch(listDoctorAction(query));
@@ -59,6 +60,7 @@ const MyDoctor = ({navigation}) => {
       listDoctors &&
       listDoctors.length
     ) {
+      setRefreshing(false);
       dispatch(resetListDoctor());
       showListDoctor();
     }
@@ -100,7 +102,10 @@ const MyDoctor = ({navigation}) => {
     <SafeAreaView style={styles.containerSafeArea}>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={styles.containerSafeArea}>
+        style={styles.containerSafeArea}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
         <CustomeHeader
           onPressOption={() => setOpenOption(1)}
           isShow={listDoctor.length > 0}

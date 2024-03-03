@@ -14,6 +14,10 @@ const initializeState = {
   // LIST DOCTOR
   listDoctor: [],
   statusListDoctor: Status.DEFAULT,
+
+  // DOCTOR DETAIL
+  currentDoctor: {},
+  statusGetDoctorDetail: Status.DEFAULT,
 };
 
 export default (state = initializeState, {type, payload}) => {
@@ -64,29 +68,27 @@ export default (state = initializeState, {type, payload}) => {
         messageFollowDoctor: '',
       };
     // --------------------- GET ALL PACKAGE OF DOCTOR -----------------------
-    // case NEOCARE.GET_PACKAGE_OF_DOCTOR_REQUEST:
-    //   return {
-    //     ...state,
-    //     statusGetPackageDoctor: Status.LOADING,
-    //   };
-    // case NEOCARE.GET_PACKAGE_OF_DOCTOR_SUCCESS:
-    //   return {
-    //     ...state,
-    //     packageOfDoctor: payload,
-    //     statusGetPackageDoctor: Status.SUCCESS,
-    //   };
-    // case NEOCARE.GET_PACKAGE_OF_DOCTOR_ERROR:
-    //   return {
-    //     ...state,
-    //     statusGetPackageDoctor: Status.ERROR,
-    //     messageGetPackageDoctor: payload,
-    //   };
-    // case NEOCARE.GET_PACKAGE_OF_DOCTOR_RESET:
-    //   return {
-    //     ...state,
-    //     statusGetPackageDoctor: Status.DEFAULT,
-    //     messageGetPackageDoctor: '',
-    //   };
+    case NEOCARE.GET_DOCTOR_DETAIL_REQUEST:
+      return {
+        ...state,
+        statusGetDoctorDetail: Status.LOADING,
+      };
+    case NEOCARE.GET_DOCTOR_DETAIL_SUCCESS:
+      return {
+        ...state,
+        currentDoctor: payload,
+        statusGetDoctorDetail: Status.SUCCESS,
+      };
+    case NEOCARE.GET_DOCTOR_DETAIL_ERROR:
+      return {
+        ...state,
+        statusGetDoctorDetail: Status.ERROR,
+      };
+    case NEOCARE.GET_DOCTOR_DETAIL_RESET:
+      return {
+        ...state,
+        statusGetDoctorDetail: Status.DEFAULT,
+      };
     default: {
       return state;
     }

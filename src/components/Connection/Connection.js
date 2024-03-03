@@ -48,7 +48,11 @@ const Connection = ({navigation, route}) => {
   useEffect(() => {
     if (statusFollowDoctor === Status.SUCCESS) {
       dispatch(resetFollowDoctor());
-      navigation.navigate(NAVIGATION_MY_DOCTOR);
+      const connected = {
+        code,
+        patient_id: 7,
+      };
+      navigation.navigate(NAVIGATION_DOCTOR_DETAIL, {connected});
     }
   }, [statusFollowDoctor]);
   const handleOnBlur = () => {

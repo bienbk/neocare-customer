@@ -13,14 +13,16 @@ import Colors from '../../theme/Colors';
 import {NAVIGATION_PACKAGE_DETAIL} from '../../navigation/routes';
 import ProgressLine from '../../common/ProgressLine/ProgressLine';
 
-const PackageItem = ({item, index, navigation, order}) => {
-  if (item?.product_status === 1) {
+const PackageItem = ({packageItem, index, navigation}) => {
+  // ACTIVE
+  if (packageItem?.product_status === 1) {
     const leftDay =
-      (new Date().getTime() - new Date(order?.purchased_date).getTime()) /
+      (new Date().getTime() - new Date(packageItem?.purchased_date).getTime()) /
       60000 /
       (24 * 60);
-    const totalDay =
-      order && order.name ? parseInt(order.name.match(/\d+/)[0], 10) * 30 : -1;
+    const totalDay = packageItem.name
+      ? parseInt(packageItem.name.match(/\d+/)[0], 10) * 30
+      : -1;
 
     const convertDate = date => {
       const splited = date.split('-');
@@ -34,13 +36,14 @@ const PackageItem = ({item, index, navigation, order}) => {
         {/* <View style={styles.decorationActived} /> */}
         <View style={{paddingHorizontal: 10}}>
           <TextNormal style={{paddingTop: 5, fontWeight: 'bold'}}>
-            {`Chăm sóc đặc biệt ${(index + 1) * 6} tháng`}
+            {`Chăm sóc đặc biệt ${packageItem.name.match(/\d+/)[0]} tháng`}
           </TextNormal>
           <TextSmallTwelve style={{paddingVertical: 5}}>
-            {`Giá gói: ${formatMoney(item.price)}`}
+            {`Giá gói: ${formatMoney(packageItem.price)}`}
           </TextSmallTwelve>
           <TextSmallTwelve style={{paddingBottom: 5}}>
-            {'Ngày tham gia: ' + convertDate(order.purchased_date.substring(0, 10))}
+            {'Ngày tham gia: ' +
+              convertDate(packageItem.purchased_date.substring(0, 10))}
           </TextSmallTwelve>
           <View
             style={{
@@ -48,13 +51,12 @@ const PackageItem = ({item, index, navigation, order}) => {
               alignItems: 'center',
               paddingVertical: 6,
             }}>
-            <ProgressLine isDetailDoctor={true} line={order} />
+            <ProgressLine isDetailDoctor={true} line={packageItem} />
             <TextSmallTwelve
               style={{
                 textAlign: 'right',
                 fontWeight: 'bold',
                 color: '#4C0C23',
-
                 paddingLeft: 10,
               }}>
               {`${totalDay - parseInt(leftDay, 10)} ngày`}
@@ -64,17 +66,18 @@ const PackageItem = ({item, index, navigation, order}) => {
       </ImageBackground>
     );
   }
+  // FOLLOWING || REQUESTING
   return (
     <ImageBackground
       imageStyle={{borderRadius: 20}}
       source={card_blue}
       style={styles.wrapperActivePackage}>
       <TextNormal style={{padding: 5, fontWeight: 'bold'}}>
-        {item.name}
+        {packageItem.name}
       </TextNormal>
       <FlatList
-        data={[1, 3, 4]}
-        renderItem={() => (
+        data={packageItem?.desc ? packageItem.desc.split(',') : []}
+        renderItem={({item}) => (
           <View style={{flexDirection: 'row', paddingVertical: 2}}>
             <Icons
               type={'Feather'}
@@ -83,32 +86,36 @@ const PackageItem = ({item, index, navigation, order}) => {
               color={'black'}
               style={{paddingHorizontal: 5}}
             />
-            <TextSmallTwelve>
-              Kiểm tra sức khoẻ dựa theo chỉ số hằng tuần
-            </TextSmallTwelve>
+            <TextSmallTwelve>{item}</TextSmallTwelve>
           </View>
         )}
       />
       <View style={styles.wrapperFooterCard}>
         <TextSemiBold style={{color: '#2544BD'}}>
-          {formatMoney(item.price) + 'đ'}
+          {formatMoney(packageItem.price) + 'đ'}
         </TextSemiBold>
         <TouchableOpacity
-          onPress={() => navigation.navigate(NAVIGATION_PACKAGE_DETAIL)}
+          onPress={() =>
+            navigation.navigate(NAVIGATION_PACKAGE_DETAIL, {
+              item: packageItem,
+            })
+          }
           style={[
             styles.buyPackageButton,
-            item?.product_status === 0 && {backgroundColor: Colors.gray.gray80},
+            packageItem?.product_status === 2 && {
+              backgroundColor: Colors.gray.gray80,
+            },
           ]}>
           <TextNormal
             style={{
               color:
-                item?.product_status === 0
+                packageItem?.product_status === 2
                   ? Colors.buttonBackground
                   : Colors.whiteColor,
               fontWeight: 'bold',
-              opacity: item?.product_status === 0 ? 0.5 : 1,
+              opacity: packageItem?.product_status === 2 ? 0.5 : 1,
             }}>
-            {item?.product_status === 0 ? 'Chờ xác nhận' : 'Mua gói'}
+            {packageItem?.product_status === 2 ? 'Chờ xác nhận' : 'Mua gói'}
           </TextNormal>
         </TouchableOpacity>
       </View>

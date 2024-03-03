@@ -46,5 +46,27 @@ class DoctorController {
       return {success: false};
     }
   };
+  getDoctorDetail = async payload => {
+    const {patient_id, qr_code, size, page} = payload;
+    const query = {
+      qr_code,
+      size,
+      page,
+    };
+    try {
+      const {data} = await HttpClient.get(
+        UrlApi.apiListDoctorInfo + `${patient_id}/doctor`,
+        {params: query},
+      );
+      console.log('GET DOCTOR DETAIL CONTROLLER::', data);
+      if (data.doctor_of_patients && data.doctor_of_patients.length > 0) {
+        return {success: true, data: data.doctor_of_patients[0] || []};
+      }
+      return {success: false};
+    } catch (error) {
+      console.log('LIST DOCTOR ERROR::', error);
+      return {success: false};
+    }
+  };
 }
 export default new DoctorController();

@@ -28,6 +28,14 @@ import PackageItem from './PackageItem';
 import LinearGradient from 'react-native-linear-gradient';
 import {useDispatch, useSelector} from 'react-redux';
 import Status from '../../common/Status/Status';
+import {
+  getDoctorDetailAction,
+  resetGetDoctorDetail,
+} from '../../store/doctor/doctorAction';
+import {
+  doctorDetailSelector,
+  statusGetDoctorDetailSelector,
+} from '../../store/doctor/doctorSelector';
 const DoctorDetail = ({navigation, route}) => {
   const [showDescription, setShowDescription] = useState(false);
   const [descriptionHeight, setdescriptionHeight] = useState(0);
@@ -35,46 +43,49 @@ const DoctorDetail = ({navigation, route}) => {
   const [doctor, setDoctor] = useState();
   const [listPackage, setListPackage] = useState([]);
   const dispatch = useDispatch();
-
+  const currentDoctorDetail = useSelector(state => doctorDetailSelector(state));
+  const statusGetDoctor = useSelector(state =>
+    statusGetDoctorDetailSelector(state),
+  );
   useEffect(() => {
     const {currentDoctor} = route.params || -1;
-    if (currentDoctor !== -1) {
-      console.log('DETAIL DOCTOR :::', currentDoctor);
+    if (currentDoctor) {
       setListPackage(
         currentDoctor?.package_items ? currentDoctor?.package_items : [],
       );
       setDoctor(currentDoctor);
     }
-  }, []);
-  const findItem = i => {
-    let result;
-    if (
-      doctor &&
-      doctor?.purchased_packages &&
-      doctor?.purchased_packages.length > 0
-    ) {
-      doctor.purchased_packages.map(order => {
-        if (
-          order.package_items[0] &&
-          order.package_items[0]?.product_id === i?.product_id
-        ) {
-          result = {
-            ...i,
-            ...order,
-          };
-        }
-      });
+    const {connected} = route.params || -1;
+    if (connected) {
+      fetchDoctorData(connected.patient_id, connected.code);
     }
-    return result;
+  }, [navigation]);
+  const fetchDoctorData = (patient_id, code) => {
+    const query = {
+      patient_id,
+      qr_code: code,
+      size: 100,
+      page: 1,
+    };
+    dispatch(getDoctorDetailAction(query));
   };
+  useEffect(() => {
+    if (statusGetDoctor === Status.SUCCESS) {
+      console.log('currentDoctorDetail::::::::', currentDoctorDetail);
+      setDoctor(currentDoctorDetail);
+      setListPackage(
+        currentDoctorDetail?.package_items
+          ? currentDoctorDetail?.package_items
+          : [],
+      );
+      setTimeout(() => {
+        dispatch(resetGetDoctorDetail());
+      }, 1000);
+    }
+  }, [statusGetDoctor]);
   const renderPackageOfDoctor = ({item, index}) => {
     return (
-      <PackageItem
-        item={item}
-        order={findItem(item)}
-        index={index}
-        navigation={navigation}
-      />
+      <PackageItem packageItem={item} index={index} navigation={navigation} />
     );
   };
   const layoutDescription = event => {
@@ -126,13 +137,13 @@ const DoctorDetail = ({navigation, route}) => {
           </TouchableOpacity>
           <View style={styles.inforCard}>
             <TextSemiBold style={{paddingVertical: 5, fontSize: 20}}>
-              {doctor?.name}
+              {doctor?.doctor.last_name + ' ' + doctor?.doctor.first_name}
             </TextSemiBold>
-            <TextSmallTwelve style={{color: Colors.gray.gray50}}>
-              {doctor?.department}
+            <TextSmallTwelve style={{color: Colors.gray.gray50, marginLeft: 5}}>
+              {doctor?.department || 'Chuyên khoa Tim'}
             </TextSmallTwelve>
             <TextSmallTwelve style={styles.wrapperDepartmentLabel}>
-              {'Viêm khớp'}
+              {'Tim mạch'}
             </TextSmallTwelve>
             <TouchableOpacity
               onPress={() => setShowDescription(prev => (prev = !prev))}

@@ -16,11 +16,20 @@ export const resetFollowDoctor = () => ({
   type: NEOCARE.FOLLOW_DOCTOR_RESET,
 });
 
-// --------------- GET DOCTOR INFORMATION --------------------
+// --------------- LIST DOCTOR INFORMATION --------------------
 export const listDoctorAction = payload => ({
   type: NEOCARE.LIST_DOCTOR_REQUEST,
   payload,
 });
 export const resetListDoctor = () => ({
   type: NEOCARE.LIST_DOCTOR_RESET,
+});
+
+// ------------ GET DETAIL DOCTOR INFORMATION -----------------
+export const getDoctorDetailAction = payload => ({
+  type: NEOCARE.GET_DOCTOR_DETAIL_REQUEST,
+  payload,
+});
+export const resetGetDoctorDetail = () => ({
+  type: NEOCARE.GET_DOCTOR_DETAIL_RESET,
 });

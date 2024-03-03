@@ -65,8 +65,29 @@ function* listDoctorSaga({payload}) {
     });
   }
 }
+function* getDoctorDetailSaga({payload}) {
+  try {
+    const result = yield call(DoctorController.getDoctorDetail, payload);
+    console.log('result saga::', result);
+    if (result.success) {
+      yield put({
+        type: NEOCARE.GET_DOCTOR_DETAIL_SUCCESS,
+        payload: result.data,
+      });
+    } else {
+      yield put({
+        type: NEOCARE.GET_DOCTOR_DETAIL_ERROR,
+      });
+    }
+  } catch (error) {
+    yield put({
+      type: NEOCARE.GET_DOCTOR_DETAIL_ERROR,
+    });
+  }
+}
 export default function* watcherSaga() {
   yield takeLatest(NEOCARE.LIST_DOCTOR_REQUEST, listDoctorSaga);
   yield takeLatest(NEOCARE.FOLLOW_DOCTOR_REQUEST, followDoctorSaga);
+  yield takeLatest(NEOCARE.GET_DOCTOR_DETAIL_REQUEST, getDoctorDetailSaga)
   // yield takeLatest(NEOCARE.GET_PACKAGE_OF_DOCTOR_REQUEST, getPackageDoctorSaga);
 }

@@ -12,8 +12,8 @@ import {
 import Icons from '../../common/Icons/Icons';
 import Colors from '../../theme/Colors';
 import Svg from '../../common/Svg/Svg';
-import {NAVIGATION_DOCTOR_DETAIL} from '../../navigation/routes';
-import {heightDevice, widthDevice} from '../../assets/constans';
+import {NAVIGATION_DOCTOR_DETAIL, NAVIGATION_MY_DOCTOR} from '../../navigation/routes';
+import {formatMoney, heightDevice, widthDevice} from '../../assets/constans';
 import ConfirmationModal from '../../common/ConfirmationModal/ConfirmationModal';
 import strings from '../../localization/Localization';
 import {useDispatch, useSelector} from 'react-redux';
@@ -25,25 +25,30 @@ import {
 import Status from '../../common/Status/Status';
 import CustomButton from '../../common/CustomButton/CustomButton';
 
-const PackageDetail = ({navigation}) => {
+const PackageDetail = ({navigation, route}) => {
   const [currentPackge, setCurrentPackge] = useState(null);
   const [modal, setModal] = useState(false);
   const dispatch = useDispatch();
+  useEffect(() => {
+    const {item} = route.params || {};
+    console.log('item:::', item);
+    setCurrentPackge(item);
+  }, [navigation]);
   const statusBuyPackage = useSelector(state =>
     selectorStatusBuyPackage(state),
   );
   const handleBuyPackage = () => {
+    if (!currentPackge) {
+      return;
+    }
     const body = {
       items: [
         {
-          product_id: 1,
-          quantity: 1,
-        },
-        {
-          product_id: 2,
+          product_id: currentPackge?.product_id,
           quantity: 1,
         },
       ],
+      customer_id: 7,
     };
     dispatch(actionBuyPackage(body));
   };
@@ -56,7 +61,7 @@ const PackageDetail = ({navigation}) => {
   const confirmSendingRequest = () => {
     dispatch(actionResetBuyPackage());
     setModal(false);
-    navigation && navigation.navigate(NAVIGATION_DOCTOR_DETAIL);
+    navigation && navigation.navigate(NAVIGATION_MY_DOCTOR);
   };
   return (
     <SafeAreaView style={styles.containerSafeArea}>
@@ -78,7 +83,7 @@ const PackageDetail = ({navigation}) => {
         </TouchableOpacity>
         <View style={{marginTop: heightDevice * 0.06, alignItems: 'center'}}>
           <TextSemiBold style={{paddingBottom: 24, fontSize: 20}}>
-            Gói chăm sóc đặc biệt 6 tháng
+            {currentPackge ? currentPackge?.name : ''}
           </TextSemiBold>
           <View style={styles.wrapperContentCard}>
             <View style={styles.contentLine}>
@@ -91,7 +96,10 @@ const PackageDetail = ({navigation}) => {
               <TextNormal style={{color: Colors.gray.gray60}}>
                 Thời hạn gói
               </TextNormal>
-              <TextNormal>6 tháng</TextNormal>
+              <TextNormal>{`${parseInt(
+                currentPackge?.name.match(/\d+/)[0],
+                10,
+              )} tháng`}</TextNormal>
             </View>
             <View style={styles.contentLine}>
               <TextNormal style={{color: Colors.gray.gray60}}>
@@ -102,7 +110,7 @@ const PackageDetail = ({navigation}) => {
             <View style={styles.wrapperPaymentLine}>
               <TextNormalSemiBold>Tổng</TextNormalSemiBold>
               <TextNormal style={{fontWeight: 'bold', fontSize: 17}}>
-                2.500.000đ
+                {formatMoney(currentPackge?.price) + 'đ'}
               </TextNormal>
             </View>
           </View>
