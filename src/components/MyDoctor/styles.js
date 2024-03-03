@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginTop: 10,
   },
+  paddingBottom5: {paddingBottom: 5},
   wrapperProfileContent: {paddingHorizontal: 10},
   textDoctorName: {marginBottom: 5},
   textDoctorDepartment: {

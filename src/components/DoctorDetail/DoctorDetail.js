@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   SafeAreaView,
@@ -9,7 +9,6 @@ import {
   ImageBackground,
 } from 'react-native';
 import {
-  TextMoneyBold,
   TextNormal,
   TextNormalSemiBold,
   TextSemiBold,
@@ -17,8 +16,7 @@ import {
   TextSmallTwelve,
 } from '../../common/Text/TextFont';
 import styles from './styles';
-import Images from '../../common/Images/Images';
-import {doctor_detail, widthDevice} from '../../assets/constans';
+import {doctor_detail} from '../../assets/constans';
 import Colors from '../../theme/Colors';
 import Icons from '../../common/Icons/Icons';
 import {NAVIGATION_MY_DOCTOR} from '../../navigation/routes';
@@ -48,30 +46,28 @@ const DoctorDetail = ({navigation, route}) => {
     statusGetDoctorDetailSelector(state),
   );
   useEffect(() => {
-    const {currentDoctor} = route.params || -1;
+    const {currentDoctor} = route.params;
     if (currentDoctor) {
       setListPackage(
         currentDoctor?.package_items ? currentDoctor?.package_items : [],
       );
       setDoctor(currentDoctor);
     }
-    const {connected} = route.params || -1;
+    const {connected} = route.params;
     if (connected) {
       fetchDoctorData(connected.patient_id, connected.code);
     }
   }, [navigation]);
   const fetchDoctorData = (patient_id, code) => {
-    const query = {
-      patient_id,
-      qr_code: code,
-      size: 100,
-      page: 1,
-    };
-    dispatch(getDoctorDetailAction(query));
+    dispatch(
+      getDoctorDetailAction({
+        patient_id,
+        qr_code: code,
+      }),
+    );
   };
   useEffect(() => {
     if (statusGetDoctor === Status.SUCCESS) {
-      console.log('currentDoctorDetail::::::::', currentDoctorDetail);
       setDoctor(currentDoctorDetail);
       setListPackage(
         currentDoctorDetail?.package_items
@@ -189,10 +185,7 @@ const DoctorDetail = ({navigation, route}) => {
               backgroundColor: 'white',
               marginBottom: 10,
               borderRadius: 10,
-              marginTop:
-                showDescription && descriptionHeight
-                  ? descriptionHeight + 20
-                  : descriptionHeight + 20,
+              marginTop: descriptionHeight + 20,
             }}
             renderItem={renderPackageOfDoctor}
             keyExtractor={(_, index) => index}

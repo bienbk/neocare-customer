@@ -12,16 +12,16 @@ import {
 import Icons from '../../common/Icons/Icons';
 import Colors from '../../theme/Colors';
 import Svg from '../../common/Svg/Svg';
-import {NAVIGATION_DOCTOR_DETAIL, NAVIGATION_MY_DOCTOR} from '../../navigation/routes';
+import {
+  NAVIGATION_DOCTOR_DETAIL,
+  NAVIGATION_MY_DOCTOR,
+} from '../../navigation/routes';
 import {formatMoney, heightDevice, widthDevice} from '../../assets/constans';
 import ConfirmationModal from '../../common/ConfirmationModal/ConfirmationModal';
 import strings from '../../localization/Localization';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectorStatusBuyPackage} from '../../store/order/orderSelector';
-import {
-  actionBuyPackage,
-  actionResetBuyPackage,
-} from '../../store/order/orderAction';
+import {buyPackageAction, resetBuyPackage} from '../../store/order/orderAction';
 import Status from '../../common/Status/Status';
 import CustomButton from '../../common/CustomButton/CustomButton';
 
@@ -31,7 +31,6 @@ const PackageDetail = ({navigation, route}) => {
   const dispatch = useDispatch();
   useEffect(() => {
     const {item} = route.params || {};
-    console.log('item:::', item);
     setCurrentPackge(item);
   }, [navigation]);
   const statusBuyPackage = useSelector(state =>
@@ -50,7 +49,7 @@ const PackageDetail = ({navigation, route}) => {
       ],
       customer_id: 7,
     };
-    dispatch(actionBuyPackage(body));
+    dispatch(buyPackageAction(body));
   };
 
   useEffect(() => {
@@ -59,7 +58,7 @@ const PackageDetail = ({navigation, route}) => {
     }
   }, [statusBuyPackage]);
   const confirmSendingRequest = () => {
-    dispatch(actionResetBuyPackage());
+    dispatch(resetBuyPackage());
     setModal(false);
     navigation && navigation.navigate(NAVIGATION_MY_DOCTOR);
   };

@@ -13,7 +13,7 @@ const DoctorItem = ({item, selectItem}) => {
       <View
         style={[
           styles.wrapperProfileDoctor,
-          item.isConnect && styles.wrapperActiveProfileDoctor,
+          item.isActived && styles.wrapperActiveProfileDoctor,
         ]}>
         <Images
           resizeMode="contain"
@@ -32,7 +32,7 @@ const DoctorItem = ({item, selectItem}) => {
               .filter(i => i.product_status === 2)
               .map((line, index) => {
                 return (
-                  <TextSmallTwelve style={styles.textRequest}>
+                  <TextSmallTwelve key={index} style={styles.textRequest}>
                     {line.name}
                   </TextSmallTwelve>
                 );
@@ -46,10 +46,14 @@ const DoctorItem = ({item, selectItem}) => {
           .filter(i => i.product_status === 1)
           .map((line, index) => {
             return (
-              <ProgressLine isDetailDoctor={false} index={index} line={line} />
+              <ProgressLine
+                key={index}
+                isDetailDoctor={false}
+                index={index}
+                line={line}
+              />
             );
           })}
-      {/* {item && item.isConnect && <ProgressLine isDetailDoctor={false} />} */}
     </TouchableOpacity>
   );
 };

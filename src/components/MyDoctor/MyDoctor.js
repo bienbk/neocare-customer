@@ -39,20 +39,22 @@ const MyDoctor = ({navigation}) => {
     statusListDoctorSelector(state),
   );
   useEffect(() => {
-    fetchDoctorData();
-  }, [navigation]);
+    const listenerEvent = navigation.addListener('focus', () => {
+      fetchDoctorData();
+    });
+    return () => listenerEvent;
+  }, []);
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     fetchDoctorData();
   }, []);
   const fetchDoctorData = () => {
-    const query = {
-      patient_id: 7,
-      qr_code: '',
-      size: 1000,
-      page: 1,
-    };
-    dispatch(listDoctorAction(query));
+    dispatch(
+      listDoctorAction({
+        patient_id: 7,
+        qr_code: '',
+      }),
+    );
   };
   useEffect(() => {
     if (
@@ -60,9 +62,9 @@ const MyDoctor = ({navigation}) => {
       listDoctors &&
       listDoctors.length
     ) {
+      showListDoctor();
       setRefreshing(false);
       dispatch(resetListDoctor());
-      showListDoctor();
     }
   }, [statusListDoctor, listDoctors]);
   const showListDoctor = () => {
@@ -70,13 +72,13 @@ const MyDoctor = ({navigation}) => {
     tempListDoctor.map(doc => {
       doc.department = 'Chuyên khoa Tim';
       doc.name = `${doc?.doctor?.last_name} ${doc?.doctor?.first_name}`;
-      const {package_items} = doc || [];
+      doc.isActived = false;
       if (
-        package_items &&
-        package_items.length &&
-        package_items.findIndex(i => i.product_status === 1) !== -1
+        doc?.package_items &&
+        doc?.package_items.length &&
+        doc?.package_items.findIndex(i => i.product_status === 1) !== -1
       ) {
-        doc.isConnect = true;
+        doc.isActived = true;
       }
     });
     setListDoctor(tempListDoctor);
@@ -85,6 +87,7 @@ const MyDoctor = ({navigation}) => {
     return (
       <DoctorItem
         item={item}
+        key={index}
         selectItem={() =>
           navigation.navigate(NAVIGATION_DOCTOR_DETAIL, {currentDoctor: item})
         }
@@ -92,11 +95,13 @@ const MyDoctor = ({navigation}) => {
     );
   };
   const headerFollowingList = () => (
-    <TextSemiBold style={{paddingBottom: 5}}>Bác sĩ đang theo dõi</TextSemiBold>
+    <TextSemiBold style={styles.paddingBottom5}>
+      Bác sĩ đang theo dõi
+    </TextSemiBold>
   );
   const headerActivedList = () =>
-    listDoctor.filter(i => i.isConnect).length > 0 && (
-      <TextSemiBold style={{paddingBottom: 5}}>Bác sĩ của tôi</TextSemiBold>
+    listDoctor.filter(i => i.isActived).length > 0 && (
+      <TextSemiBold style={styles.paddingBottom5}>Bác sĩ của tôi</TextSemiBold>
     );
   return (
     <SafeAreaView style={styles.containerSafeArea}>
@@ -115,34 +120,22 @@ const MyDoctor = ({navigation}) => {
             {listDoctor && listDoctor.length > 0 && (
               <FlatList
                 scrollEnabled={false}
-                data={
-                  listDoctor && listDoctor.length > 0
-                    ? listDoctor.filter(i => i.isConnect)
-                    : []
-                }
+                data={listDoctor.filter(i => i.isActived)}
                 showsVerticalScrollIndicator={false}
                 keyExtractor={(item, index) => `${index}_${item.id}_2`}
                 renderItem={renderDoctorItem}
-                contentContainerStyle={{
-                  marginBottom:
-                    listDoctor.filter(i => i.isConnect).length > 0 ? 15 : 0,
-                }}
+                contentContainerStyle={{marginBottom: 15}}
                 ListHeaderComponent={headerActivedList}
               />
             )}
-            {listDoctor && listDoctor.length > 0 && (
+            {listDoctor && listDoctor.filter(i => !i.isActived).length > 0 && (
               <FlatList
                 scrollEnabled={false}
-                data={
-                  listDoctor && listDoctor.length > 0
-                    ? listDoctor.filter(i => !i.isConnect)
-                    : []
-                }
+                data={listDoctor.filter(i => !i.isActived)}
                 showsVerticalScrollIndicator={false}
                 keyExtractor={(item, index) => `${index}_${item.id}_1`}
                 renderItem={renderDoctorItem}
                 ListHeaderComponent={headerFollowingList}
-                contentContainerStyle={{paddingVertical: 0}}
               />
             )}
             {listDoctor.length === 0 && (

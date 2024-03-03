@@ -28,7 +28,7 @@ class DoctorController {
     }
   };
   listDoctor = async payload => {
-    const {patient_id, qr_code, size, page} = payload;
+    const {patient_id, qr_code, size = 100, page = 1} = payload;
     const query = {
       qr_code,
       size,
@@ -39,7 +39,6 @@ class DoctorController {
         UrlApi.apiListDoctorInfo + `${patient_id}/doctor`,
         {params: query},
       );
-      console.log('LIST DOCTOR :::', data);
       return {success: true, data: data.doctor_of_patients || []};
     } catch (error) {
       console.log('LIST DOCTOR ERROR::', error);
@@ -58,7 +57,6 @@ class DoctorController {
         UrlApi.apiListDoctorInfo + `${patient_id}/doctor`,
         {params: query},
       );
-      console.log('GET DOCTOR DETAIL CONTROLLER::', data);
       if (data.doctor_of_patients && data.doctor_of_patients.length > 0) {
         return {success: true, data: data.doctor_of_patients[0] || []};
       }
