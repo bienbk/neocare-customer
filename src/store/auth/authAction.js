@@ -6,15 +6,22 @@ export const sendPhone = phone => ({
     phone,
   },
 });
+export const reSendPhone = query => ({
+  type: NEOCARE.RESEND_PHONE_REQUEST,
+  payload: {
+    deviceId: query.deviceId,
+    preAuthSessionId: query.preAuthSessionId,
+  },
+});
 export const sendPhoneReset = () => ({
   type: NEOCARE.SEND_PHONE_RESET,
 });
 
-export const confirmOtp = (otp, device_id, push_token) => ({
+export const confirmOtp = (otp, deviceId, push_token) => ({
   type: NEOCARE.CONFIRM_OTP_REQUEST,
   payload: {
     otp,
-    device_id,
+    deviceId,
     push_token,
   },
 });

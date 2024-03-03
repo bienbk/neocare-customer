@@ -26,6 +26,16 @@ export default (state = initializeState, {type, payload}) => {
         ...state,
         statusSendPhone: Status.LOADING,
       };
+    case NEOCARE.RESEND_PHONE_REQUEST:
+      return {
+        ...state,
+        statusSendPhone: Status.LOADING,
+      };
+    case NEOCARE.RESEND_PHONE_SUCCESS:
+      return {
+        ...state,
+        statusSendPhone: Status.SUCCESS,
+      };
     case NEOCARE.SEND_PHONE_SUCCESS:
       return {
         ...state,

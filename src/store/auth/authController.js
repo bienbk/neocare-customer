@@ -5,19 +5,33 @@ class AuthController {
   sendPhoneController = async phone => {
     try {
       console.log('go to confirm phone: ', phone, UrlApi.sendPhone);
-      const {data} = await HttpClient.post(UrlApi.sendPhone, {
+      const result = await HttpClient.post(UrlApi.sendPhone, {
         phoneNumber: phone,
       });
-      console.log('data return confirm phone: ', data);
+      console.log('data return confirm phone: ', result);
+      return {success: true, data: result.data};
+    } catch (error) {
+      return {success: false, error: error.message};
+    }
+  };
+  reSendPhoneController = async payload => {
+    try {
+      console.log('go to resend OTP: ', payload, UrlApi.resendPhone);
+      const {data} = await HttpClient.post(UrlApi.resendPhone, {
+        deviceId: payload.deviceId,
+        preAuthSessionId: payload.preAuthSessionId
+      });
+      console.log('data return resend OTP: ', data);
       return {success: true, data: data};
     } catch (error) {
       return {success: false, error: error.message};
     }
   };
   confirmOtpController = async query => {
-    const result = await HttpClient.put(UrlApi.confirmPhone, query);
-    console.log('RESULT CONFIRM OTP CONTROLLER', result, query);
-    return result.data;
+    console.log('controller Auth:::::', query, UrlApi.confirmPhone)
+    const result = await HttpClient.post(UrlApi.confirmPhone, query);
+    console.log('RESULT CONFIRM OTP CONTROLLER', result);
+    return result;
   };
 
   loginPhoneController = async phone => {

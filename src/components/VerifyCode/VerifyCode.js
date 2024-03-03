@@ -1,4 +1,8 @@
-import {heightDevice, widthDevice} from 'assets/constans';
+// import {heightDevice, widthDevice} from 'assets/constans';
+// import SeparatorLine from 'common/SeparatorLine/SeparatorLine';
+// import {NAVIGATION_ACCESS_LOCATION, NAVIGATION_LOGIN} from 'navigation/routes';
+import {heightDevice, smart_phone, widthDevice} from 'assets/constans';
+import Images from 'common/Images/Images';
 import SeparatorLine from 'common/SeparatorLine/SeparatorLine';
 import {NAVIGATION_ACCESS_LOCATION, NAVIGATION_LOGIN} from 'navigation/routes';
 import {React, useState, useEffect, useRef} from 'react';
@@ -15,10 +19,13 @@ import CodeInput from './CodeInput';
 import {
   confirmOtp,
   sendPhone,
+  reSendPhone,
   confirmOtpReset,
   getDeleteAccount,
   resetDeleteOtp,
+  // resetGetListProduct,
   deleteAccountReset,
+  resetOrder,
   confirmDeleteAccountOtp,
   logout,
 } from 'store/actions';
@@ -28,6 +35,8 @@ import {
   isStatusConfirmOtp,
   statusConfirmOtpDelete,
   getErrorMessageConfirm,
+  getDeviceId,
+  getPreAuthSessionId,
 } from 'store/selectors';
 import Status from 'common/Status/Status';
 import {
@@ -49,7 +58,7 @@ const VerifyCode = ({navigation, route}) => {
   const dispatch = useDispatch();
   const [code, setCode] = useState('');
   const [pinReady, setPinReady] = useState(false);
-  const deviceId = useRef(null);
+  // const deviceId = useRef(null);
   const pushToken = useRef(null);
   const statusConfirmOtp = useSelector(state => isStatusConfirmOtp(state));
   const errorConfirmOtp = useSelector(state => isErrorConfirm(state));
@@ -82,17 +91,17 @@ const VerifyCode = ({navigation, route}) => {
         resendTimes < 3 ? timeLogin?.levels[resendTimes].count_down : -1,
       );
     } else {
-    setTimer(60);
-    await asyncStorage.setTimeLogin({
-      last_login_at: new Date().getTime(),
-      last_phone: phone,
-      resend_times: 0,
-      levels: [
-        {level: 0, count_down: 60},
-        {level: 1, count_down: 120},
-        {level: 2, count_down: 180},
-      ],
-    });
+      setTimer(60);
+      await asyncStorage.setTimeLogin({
+        last_login_at: new Date().getTime(),
+        last_phone: phone,
+        resend_times: 0,
+        levels: [
+          {level: 0, count_down: 60},
+          {level: 1, count_down: 120},
+          {level: 2, count_down: 180},
+        ],
+      });
     }
   };
   const statusDeleteAccount = useSelector(state =>
@@ -104,6 +113,8 @@ const VerifyCode = ({navigation, route}) => {
   const messageConfirmDelete = useSelector(state =>
     getErrorMessageConfirm(state),
   );
+  const deviceId = useSelector(state => getDeviceId(state));
+  const preAuthSessionId = useSelector(state => getPreAuthSessionId(state));
   const handleAuthenticate = () => {
     if (pinReady) {
       navigation.navigate(NAVIGATION_ACCESS_LOCATION);
@@ -129,7 +140,9 @@ const VerifyCode = ({navigation, route}) => {
     //   // dispatch(sendPhone('+84' + phone.replace(/^0/, '')));
     // }
     setDisableSendAgainButton(true);
-    dispatch(sendPhone('+84' + phone.replace(/^0/, '')));
+    dispatch(
+      reSendPhone({deviceId: deviceId, preAuthSessionId: preAuthSessionId}),
+    );
   };
   useEffect(() => {
     if (disableSendAgainButton === true) {
@@ -143,7 +156,7 @@ const VerifyCode = ({navigation, route}) => {
 
   useEffect(() => {
     if (pinReady) {
-      dispatch(confirmOtp(code, deviceId.current, pushToken.current));
+      dispatch(confirmOtp(code, deviceId, preAuthSessionId));
       // navigation.navigate(NAVIGATION_PROFILE_HEALTH, {phone: phone});
     }
   }, [pinReady]);
@@ -151,13 +164,14 @@ const VerifyCode = ({navigation, route}) => {
   useEffect(() => {
     if (statusConfirmOtp === Status.SUCCESS) {
       resetTimeLogin();
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [{name: NAVIGATION_ACCESS_LOCATION}],
-        }),
-      );
       dispatch(confirmOtpReset());
+      navigation.navigate(NAVIGATION_PROFILE_HEALTH, {phone: phone});
+      // navigation.dispatch(
+      //   CommonActions.reset({
+      //     index: 0,
+      //     routes: [{name: NAVIGATION_PROFILE_HEALTH}],
+      //   }),
+      // );
     }
   }, [statusConfirmOtp]);
   const resetTimeLogin = async () => {
@@ -186,23 +200,23 @@ const VerifyCode = ({navigation, route}) => {
       );
     }
   }, [statusDeleteAccount]);
-  useEffect(() => {
-    getDeviceId();
-    setTimeout(() => {
-      Keyboard.dismiss;
-    }, 300);
-  }, []);
-  const getDeviceId = async () => {
-    try {
-      const id = await OneSignal.User.pushSubscription.getPushSubscriptionId();
-      const token =
-        await OneSignal.User.pushSubscription.getPushSubscriptionToken();
-      deviceId.current = id;
-      pushToken.current = token;
-    } catch (error) {
-      console.error('Lỗi khi lấy Subscription ID:', error);
-    }
-  };
+  // useEffect(() => {
+  //   getDeviceId();
+  //   setTimeout(() => {
+  //     Keyboard.dismiss;
+  //   }, 300);
+  // }, []);
+  // const getDeviceId = async () => {
+  //   try {
+  //     const id = await OneSignal.User.pushSubscription.getPushSubscriptionId();
+  //     const token =
+  //       await OneSignal.User.pushSubscription.getPushSubscriptionToken();
+  //     deviceId.current = id;
+  //     pushToken.current = token;
+  //   } catch (error) {
+  //     console.error('Lỗi khi lấy Subscription ID:', error);
+  //   }
+  // };
   return (
     <SafeAreaView style={styles.safeView}>
       <Pressable style={styles.safeView} onPress={Keyboard.dismiss}>
