@@ -33,3 +33,9 @@ export const resetRegisterUser = () => ({
 //   type: NEOCARE.SET_LANGUAGE_REQUEST,
 //   payload,
 // });
+export const getUserInfoAction = () => ({
+  type: NEOCARE.GET_USER_INFO_REQUEST,
+});
+export const resetGetUserInfo = () => ({
+  type: NEOCARE.GET_USER_INFO_RESET,
+});

@@ -4,12 +4,13 @@ import {NEOCARE} from 'store/actionsTypes';
 const initializeState = {
   // currentUser: {},
   // statusSetUser: Status.DEFAULT,
+  currentUser: -1,
+  statusGetUserInfo: Status.DEFAULT,
 
   // statusDeleteAccount: Status.DEFAULT,
 
   // statusConfirmDelete: Status.DEFAULT,
   // errorDeleteAccount: '',
-  currentUser: {id: -1},
   statusRegisterUser: Status.DEFAULT,
   messageRegisterUser: '',
 
@@ -79,6 +80,29 @@ export default (state = initializeState, {type, payload}) => {
     //     statusConfirmDelete: Status.DEFAULT,
     //     errorDeleteAccount: '',
     //   };
+    // ------------ GET USER INFO ---
+    case NEOCARE.GET_USER_INFO_REQUEST:
+      return {
+        ...state,
+        statusGetUserInfo: Status.LOADING,
+      };
+    case NEOCARE.GET_USER_INFO_SUCCESS:
+      return {
+        ...state,
+        statusGetUserInfo: Status.SUCCESS,
+      };
+    case NEOCARE.GET_USER_INFO_ERROR:
+      return {
+        ...state,
+        statusGetUserInfo: Status.ERROR,
+        currentUser: payload,
+      };
+    case NEOCARE.GET_USER_INFO_RESET:
+      return {
+        ...state,
+        statusGetUserInfo: Status.DEFAULT,
+      };
+    // ---------- REGISTER USER ----
     case NEOCARE.REGISTER_USER_REQUEST:
       return {
         ...state,
@@ -87,7 +111,6 @@ export default (state = initializeState, {type, payload}) => {
     case NEOCARE.REGISTER_USER_SUCCESS:
       return {
         ...state,
-        currentUser: payload,
         statusRegisterUser: Status.SUCCESS,
       };
     case NEOCARE.REGISTER_USER_ERROR:
@@ -102,6 +125,7 @@ export default (state = initializeState, {type, payload}) => {
         statusRegisterUser: Status.DEFAULT,
         messageRegisterUser: '',
       };
+    // -------- UPDATE USER INFO -----------
     case NEOCARE.UPDATE_USER_INFO_REQUEST:
       return {
         ...state,

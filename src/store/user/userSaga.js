@@ -116,10 +116,8 @@ function* registerUserSaga({payload}) {
   try {
     const result = yield call(UserController.registerUser, payload);
     if (result.success === true) {
-      asyncStorage.setUser(result.data);
       yield put({
         type: NEOCARE.REGISTER_USER_SUCCESS,
-        payload: result.data,
       });
     } else {
       yield put({
@@ -134,6 +132,27 @@ function* registerUserSaga({payload}) {
     });
   }
 }
+function* getUserInfoSaga() {
+  try {
+    const result = yield call(UserController.getUserInfo);
+    if (result.success === true) {
+      asyncStorage.setUser(result.data);
+      yield put({
+        type: NEOCARE.GET_USER_INFO_SUCCESS,
+      });
+    } else {
+      yield put({
+        type: NEOCARE.GET_USER_INFO_ERROR,
+        payload: result.message,
+      });
+    }
+  } catch (error) {
+    yield put({
+      type: NEOCARE.GET_USER_INFO_ERROR,
+      payload: error.message,
+    });
+  }
+}
 
 export default function* watcherSaga() {
   // yield takeLatest(NEOCARE.GET_DELETE_ACCOUNT_REQUEST, getDeleteAccount);
@@ -141,6 +160,8 @@ export default function* watcherSaga() {
   //   NEOCARE.CONFIRM_DELETE_OTP_REQUEST,
   //   confirmDeleteAccountSaga,
   // );
+
+  yield takeLatest(NEOCARE.GET_USER_INFO_REQUEST, getUserInfoSaga)
   yield takeLatest(NEOCARE.REGISTER_USER_REQUEST, registerUserSaga);
   yield takeLatest(NEOCARE.UPDATE_USER_INFO_REQUEST, updateUserSaga);
 }

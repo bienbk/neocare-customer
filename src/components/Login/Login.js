@@ -12,32 +12,26 @@ import {useDispatch, useSelector} from 'react-redux';
 import {sendPhone} from 'store/actions';
 import styles from './styles';
 import {isErrorSendOtp, isStatusSendPhone} from 'store/selectors';
-import {TextNormal, TextSemiBold} from '../../common/Text/TextFont';
-import SeparatorLine from '../../common/SeparatorLine/SeparatorLine';
+import {TextNormal} from '../../common/Text/TextFont';
 import Svg from 'common/Svg/Svg';
 import Colors from 'theme/Colors';
 import Status from 'common/Status/Status';
 import {heightDevice} from 'assets/constans';
-import Images from '../../common/Images/Images';
-import {icon_vietnam} from '../../assets/constans';
 import {NAVIGATION_VERIFY_CODE} from '../../navigation/routes';
 import CheckBox from '@react-native-community/checkbox';
 import CustomButton from '../../common/CustomButton/CustomButton';
 import strings from '../../localization/Localization';
-
+const FOMART = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 const Login = props => {
   const dispatch = useDispatch();
   const refInput = useRef(null);
   const statusSendPhone = useSelector(state => isStatusSendPhone(state));
   const errorSendPhone = useSelector(state => isErrorSendOtp(state));
   const [showError, setShowError] = useState(false);
-  const [phone, setPhone] = useState('0123123');
+  const [phone, setPhone] = useState('');
   const [isAgreePolicy, setAgreePolicy] = useState(true);
-  console.log('statusSendPhone', statusSendPhone);
-  console.log('errorSendPhone', errorSendPhone);
 
   useEffect(() => {
-    console.log('get here useEffect');
     if (statusSendPhone === Status.SUCCESS) {
       props.navigation.navigate(NAVIGATION_VERIFY_CODE, {
         phone: phone.replace(/^0/, ''),
@@ -52,11 +46,7 @@ const Login = props => {
       return 0;
     }
     dispatch(sendPhone('+84' + phone.replace(/^0/, '')));
-    // navigation.navigate(NAVIGATION_VERIFY_CODE, {
-    //   phone: phone.replace(/^0/, ''),
-    // });
   };
-
   return (
     <SafeAreaView style={styles.safeView}>
       <Pressable style={styles.safeView} onPress={Keyboard.dismiss}>
@@ -97,9 +87,11 @@ const Login = props => {
                   onChangeText={text => setPhone(text)}
                 />
               </TouchableOpacity>
-              <TextNormal style={styles.errorMessage}>
-                {'Số điện thoại không hợp lệ'}
-              </TextNormal>
+              {(phone.match(/[a-z]/i) || FOMART.test(phone)) && (
+                <TextNormal style={styles.errorMessage}>
+                  {'Số điện thoại không hợp lệ'}
+                </TextNormal>
+              )}
             </View>
           </View>
           <View style={[styles.viewButtonSubmitPhone]}>

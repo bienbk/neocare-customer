@@ -34,12 +34,12 @@ export const NEOCARE = createRequestTypes(
     'UPDATE_USER_INFO',
     'SET_LANGUAGE',
     'REGISTER_USER',
+    'GET_USER_INFO',
 
     // Doctor
     'GET_PACKAGE_OF_DOCTOR',
     'FOLLOW_DOCTOR',
     'LIST_DOCTOR',
-    'GET_DOCTOR_DETAIL',
 
     // Order
     'BUY_PACKAGE',

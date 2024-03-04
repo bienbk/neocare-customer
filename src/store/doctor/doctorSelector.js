@@ -10,12 +10,8 @@ export const statusFollowDoctorSelector = state =>
   state.doctor.statusFollowDoctor;
 export const messageFollowDoctorSelector = state =>
   state.doctor.messageFollowDoctor;
+export const followedDoctorSelector = state => state.doctor.followedDoctor;
 
 // ------------------- LIST DOCTOR SELECTOR ----------------------
 export const listDoctorSelector = state => state.doctor.listDoctor;
 export const statusListDoctorSelector = state => state.doctor.statusListDoctor;
-
-// ---------------------- DOCTOR DETAIL SELECTOR -----------------
-export const doctorDetailSelector = state => state.doctor.currentDoctor;
-export const statusGetDoctorDetailSelector = state =>
-  state.doctor.statusGetDoctorDetail;

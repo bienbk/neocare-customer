@@ -50,7 +50,11 @@ import Svg from 'common/Svg/Svg';
 import {OneSignal} from 'react-native-onesignal';
 import {asyncStorage} from 'store/index';
 import strings from 'localization/Localization';
-import {NAVIGATION_PROFILE_HEALTH} from '../../navigation/routes';
+import {
+  NAVIGATION_MAIN,
+  NAVIGATION_PROFILE_HEALTH,
+} from '../../navigation/routes';
+import {getUserInfoAction} from '../../store/user/userAction';
 
 const VerifyCode = ({navigation, route}) => {
   const {phone, type} = route.params;
@@ -165,13 +169,14 @@ const VerifyCode = ({navigation, route}) => {
     if (statusConfirmOtp === Status.SUCCESS) {
       resetTimeLogin();
       dispatch(confirmOtpReset());
-      navigation.navigate(NAVIGATION_PROFILE_HEALTH, {phone: phone});
-      // navigation.dispatch(
-      //   CommonActions.reset({
-      //     index: 0,
-      //     routes: [{name: NAVIGATION_PROFILE_HEALTH}],
-      //   }),
-      // );
+      dispatch(getUserInfoAction());
+      // navigation.navigate(NAVIGATION_PROFILE_HEALTH, {phone: phone});
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{name: NAVIGATION_MAIN}],
+        }),
+      );
     }
   }, [statusConfirmOtp]);
   const resetTimeLogin = async () => {

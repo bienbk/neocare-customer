@@ -49,12 +49,7 @@ const MyDoctor = ({navigation}) => {
     fetchDoctorData();
   }, []);
   const fetchDoctorData = () => {
-    dispatch(
-      listDoctorAction({
-        patient_id: 7,
-        qr_code: '',
-      }),
-    );
+    dispatch(listDoctorAction());
   };
   useEffect(() => {
     if (
@@ -63,9 +58,9 @@ const MyDoctor = ({navigation}) => {
       listDoctors.length
     ) {
       showListDoctor();
-      setRefreshing(false);
       dispatch(resetListDoctor());
     }
+    setRefreshing(false);
   }, [statusListDoctor, listDoctors]);
   const showListDoctor = () => {
     const tempListDoctor = JSON.parse(JSON.stringify(listDoctors));
@@ -88,6 +83,7 @@ const MyDoctor = ({navigation}) => {
       <DoctorItem
         item={item}
         key={index}
+        index={index}
         selectItem={() =>
           navigation.navigate(NAVIGATION_DOCTOR_DETAIL, {currentDoctor: item})
         }
@@ -117,7 +113,7 @@ const MyDoctor = ({navigation}) => {
         />
         <View style={styles.container}>
           <View style={styles.wrapperMydoctor}>
-            {listDoctor && listDoctor.length > 0 && (
+            {listDoctor && listDoctor.filter(i => i.isActived).length > 0 && (
               <FlatList
                 scrollEnabled={false}
                 data={listDoctor.filter(i => i.isActived)}

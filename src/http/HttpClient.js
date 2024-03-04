@@ -35,10 +35,10 @@ HttpClient.interceptors.request.use(
     const tokens = await asyncStorage.getToken();
     // console.log('getToken: ', tokens);
     if (tokens && tokens.stAccessToken) {
-      config.headers.rid = 'session'
+      config.headers.rid = 'session';
       config.headers.authorization = 'Bearer ' + tokens.stAccessToken || '';
     } else {
-      config.headers.rid = 'passwordless'
+      config.headers.rid = 'passwordless';
     }
     // console.log('REQUEST API:', config);
     return config;

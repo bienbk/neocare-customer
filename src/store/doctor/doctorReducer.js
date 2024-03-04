@@ -10,14 +10,11 @@ const initializeState = {
   // FOLLOW DOCTOR
   statusFollowDoctor: Status.DEFAULT,
   messageFollowDoctor: '',
+  followedDoctor: {},
 
   // LIST DOCTOR
   listDoctor: [],
   statusListDoctor: Status.DEFAULT,
-
-  // DOCTOR DETAIL
-  currentDoctor: {},
-  statusGetDoctorDetail: Status.DEFAULT,
 };
 
 export default (state = initializeState, {type, payload}) => {
@@ -54,6 +51,7 @@ export default (state = initializeState, {type, payload}) => {
       return {
         ...state,
         statusFollowDoctor: Status.SUCCESS,
+        followedDoctor: payload,
       };
     case NEOCARE.FOLLOW_DOCTOR_ERROR:
       return {
@@ -66,28 +64,6 @@ export default (state = initializeState, {type, payload}) => {
         ...state,
         statusFollowDoctor: Status.DEFAULT,
         messageFollowDoctor: '',
-      };
-    // --------------------- GET ALL PACKAGE OF DOCTOR -----------------------
-    case NEOCARE.GET_DOCTOR_DETAIL_REQUEST:
-      return {
-        ...state,
-        statusGetDoctorDetail: Status.LOADING,
-      };
-    case NEOCARE.GET_DOCTOR_DETAIL_SUCCESS:
-      return {
-        ...state,
-        currentDoctor: payload,
-        statusGetDoctorDetail: Status.SUCCESS,
-      };
-    case NEOCARE.GET_DOCTOR_DETAIL_ERROR:
-      return {
-        ...state,
-        statusGetDoctorDetail: Status.ERROR,
-      };
-    case NEOCARE.GET_DOCTOR_DETAIL_RESET:
-      return {
-        ...state,
-        statusGetDoctorDetail: Status.DEFAULT,
       };
     default: {
       return state;

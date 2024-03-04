@@ -70,6 +70,16 @@ class UserController {
       return {success: false, message: error.toString()};
     }
   };
+  getUserInfo = async () => {
+    try {
+      const {data} = await HttpClient.get(UrlApi.apiGetUserInfo);
+      console.log('DATA RETURN:::', data);
+      return {success: true, data: data.user};
+    } catch (error) {
+      console.log('GET USER INFO ERROR:', error);
+      return {success: false, message: error.toString()};
+    }
+  };
   // updateLanguage = async query => {
   //   console.log('QUERY UPDATE LANGUAGE:::', query);
   //   try {

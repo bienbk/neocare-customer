@@ -5,8 +5,8 @@ import Images from '../../common/Images/Images';
 import styles from './styles';
 import {doctor_avatar} from '../../assets/constans';
 import ProgressLine from '../../common/ProgressLine/ProgressLine';
-
-const DoctorItem = ({item, selectItem}) => {
+const AVATAR_URL = 'https://i.pravatar.cc/?img=';
+const DoctorItem = ({item, selectItem, index}) => {
   const {package_items} = item || [];
   return (
     <TouchableOpacity onPress={selectItem} style={[styles.wrapperDoctorItem]}>
@@ -18,7 +18,7 @@ const DoctorItem = ({item, selectItem}) => {
         <Images
           resizeMode="contain"
           style={styles.imageDoctor}
-          source={doctor_avatar}
+          source={{uri: `${AVATAR_URL}${Math.round(Math.random() * 100)}`}}
         />
         <View style={styles.wrapperProfileContent}>
           <TextSemiBold style={styles.textDoctorName}>{item.name}</TextSemiBold>

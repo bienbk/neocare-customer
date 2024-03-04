@@ -47,7 +47,6 @@ const PackageDetail = ({navigation, route}) => {
           quantity: 1,
         },
       ],
-      customer_id: 7,
     };
     dispatch(buyPackageAction(body));
   };

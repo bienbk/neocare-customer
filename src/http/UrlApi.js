@@ -1,22 +1,23 @@
 import {
   BASE_PATH_CAFE,
-  BASE_PATH_MENU,
+  BASE_NEOCARE_AUTH,
   BASE_NEOCARE_CUSTOMER,
 } from 'assets/config';
 
 export const UrlApi = {
   // ---------------------- USER -AUTH  ---------------------------
-  baseApi: BASE_PATH_MENU,
-  getUserInfo: BASE_PATH_MENU + 'userinfo',
+  baseApi: BASE_NEOCARE_AUTH,
+  getUserInfo: BASE_NEOCARE_AUTH + 'userinfo',
   getVersion: BASE_PATH_CAFE + 'version',
-  sendPhone: BASE_PATH_MENU + 'patients/auth/signinup/code',
-  resendPhone: BASE_PATH_MENU + 'patients/auth/signinup/code/resend',
-  confirmPhone: BASE_PATH_MENU + 'patients/auth/signinup/code/consume',
-  loginPhone: BASE_PATH_MENU + 'customerloginphone',
-  deleteAccount: BASE_PATH_MENU + 'deleteAccount',
-  confirmOtpDelete: BASE_PATH_MENU + 'confirmPhone',
-  updateUserInfo: BASE_PATH_MENU + 'updateCustomerInfo',
-  updateLanguageUrl: BASE_PATH_MENU + 'updatelanguages',
+  sendPhone: BASE_NEOCARE_AUTH + 'patients/auth/signinup/code',
+  resendPhone: BASE_NEOCARE_AUTH + 'patients/auth/signinup/code/resend',
+  confirmPhone: BASE_NEOCARE_AUTH + 'patients/auth/signinup/code/consume',
+  loginPhone: BASE_NEOCARE_AUTH + 'customerloginphone',
+  deleteAccount: BASE_NEOCARE_AUTH + 'deleteAccount',
+  confirmOtpDelete: BASE_NEOCARE_AUTH + 'confirmPhone',
+  updateUserInfo: BASE_NEOCARE_AUTH + 'updateCustomerInfo',
+  updateLanguageUrl: BASE_NEOCARE_AUTH + 'updatelanguages',
+  apiGetUserInfo: BASE_NEOCARE_CUSTOMER + 'users/info',
   // --------------------- PACKAGE OF DOCTOR --------------------
   apiGetPackageOfDoctor: BASE_NEOCARE_CUSTOMER + 'products/doctors',
   apiFollowDoctor: BASE_NEOCARE_CUSTOMER,

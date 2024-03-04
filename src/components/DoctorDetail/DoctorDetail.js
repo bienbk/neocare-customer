@@ -26,59 +26,30 @@ import PackageItem from './PackageItem';
 import LinearGradient from 'react-native-linear-gradient';
 import {useDispatch, useSelector} from 'react-redux';
 import Status from '../../common/Status/Status';
-import {
-  getDoctorDetailAction,
-  resetGetDoctorDetail,
-} from '../../store/doctor/doctorAction';
-import {
-  doctorDetailSelector,
-  statusGetDoctorDetailSelector,
-} from '../../store/doctor/doctorSelector';
+import {resetGetDoctorDetail} from '../../store/doctor/doctorAction';
+import {followedDoctorSelector} from '../../store/doctor/doctorSelector';
+
 const DoctorDetail = ({navigation, route}) => {
+  const AVATAR_URL = 'https://i.pravatar.cc/?img=';
   const [showDescription, setShowDescription] = useState(false);
   const [descriptionHeight, setdescriptionHeight] = useState(0);
   const [removeModal, setRemoveModal] = useState(-1);
   const [doctor, setDoctor] = useState();
   const [listPackage, setListPackage] = useState([]);
+  const followedDoctor = useSelector(state => followedDoctorSelector(state));
   const dispatch = useDispatch();
-  const currentDoctorDetail = useSelector(state => doctorDetailSelector(state));
-  const statusGetDoctor = useSelector(state =>
-    statusGetDoctorDetailSelector(state),
-  );
   useEffect(() => {
     const {currentDoctor} = route.params;
-    if (currentDoctor) {
+    if (currentDoctor || followedDoctor) {
       setListPackage(
-        currentDoctor?.package_items ? currentDoctor?.package_items : [],
+        currentDoctor?.package_items
+          ? currentDoctor?.package_items
+          : followedDoctor.package_items,
       );
-      setDoctor(currentDoctor);
-    }
-    const {connected} = route.params;
-    if (connected) {
-      fetchDoctorData(connected.patient_id, connected.code);
+      setDoctor(currentDoctor ? currentDoctor : followedDoctor);
     }
   }, [navigation]);
-  const fetchDoctorData = (patient_id, code) => {
-    dispatch(
-      getDoctorDetailAction({
-        patient_id,
-        qr_code: code,
-      }),
-    );
-  };
-  useEffect(() => {
-    if (statusGetDoctor === Status.SUCCESS) {
-      setDoctor(currentDoctorDetail);
-      setListPackage(
-        currentDoctorDetail?.package_items
-          ? currentDoctorDetail?.package_items
-          : [],
-      );
-      setTimeout(() => {
-        dispatch(resetGetDoctorDetail());
-      }, 1000);
-    }
-  }, [statusGetDoctor]);
+
   const renderPackageOfDoctor = ({item, index}) => {
     return (
       <PackageItem packageItem={item} index={index} navigation={navigation} />
@@ -100,7 +71,10 @@ const DoctorDetail = ({navigation, route}) => {
       <ScrollView
         style={styles.scrollContainer}
         showsVerticalScrollIndicator={false}>
-        <ImageBackground source={doctor_detail} style={styles.imageDoctor}>
+        <ImageBackground
+          resizeMode={'cover'}
+          source={{uri: `${AVATAR_URL}${Math.round(Math.random() * 100)}`}}
+          style={styles.imageDoctor}>
           <TouchableOpacity
             onPress={() => navigation.navigate(NAVIGATION_MY_DOCTOR)}
             style={styles.closeIcon}>
