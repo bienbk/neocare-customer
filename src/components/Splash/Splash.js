@@ -14,6 +14,7 @@ const Splash = ({navigation}) => {
   }, []);
   const checkUser = async () => {
     const token = (await asyncStorage.getToken()) || -1;
+
     if (token !== -1 && token && token?.frontToken) {
       navigation.navigate(NAVIGATION_MAIN);
     } else {

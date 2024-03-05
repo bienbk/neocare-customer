@@ -44,12 +44,12 @@ const DoctorItem = ({item, selectItem, index}) => {
         package_items.length > 0 &&
         package_items
           .filter(i => i.product_status === 1)
-          .map((line, index) => {
+          .map((line, ind) => {
             return (
               <ProgressLine
                 key={index}
                 isDetailDoctor={false}
-                index={index}
+                index={ind}
                 line={line}
               />
             );
