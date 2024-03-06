@@ -2,7 +2,7 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import * as Screens from 'components';
 import {NAVIGATION_HOME} from 'navigation/routes';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import Colors from 'theme/Colors';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -73,7 +73,7 @@ const Main = () => {
       }
     };
     return (
-      <TouchableOpacity style={styles.inactiveTab}>
+      <View style={styles.inactiveTab}>
         <Svg
           name={icons[route.name]}
           size={25}
@@ -86,7 +86,7 @@ const Main = () => {
           }}>
           {title(route.name)}
         </TextSmallEleven>
-      </TouchableOpacity>
+      </View>
     );
   };
 

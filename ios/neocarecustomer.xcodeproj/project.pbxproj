@@ -14,6 +14,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-neocarecustomer-neocarecustomerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-neocarecustomer-neocarecustomerTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		96A571242B97B5F80091F3D7 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96A571232B97B5F80091F3D7 /* Feather.ttf */; };
 		96D6C8FD2B8D79A600C8A70B /* SVN-Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96D6C8EA2B8D79A600C8A70B /* SVN-Poppins-Medium.ttf */; };
 		96D6C8FE2B8D79A600C8A70B /* SVN-Poppins-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96D6C8EB2B8D79A600C8A70B /* SVN-Poppins-BlackItalic.ttf */; };
 		96D6C8FF2B8D79A600C8A70B /* SVN-Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96D6C8EC2B8D79A600C8A70B /* SVN-Poppins-Italic.ttf */; };
@@ -30,7 +31,6 @@
 		96D6C90A2B8D79A600C8A70B /* SVN-Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96D6C8F72B8D79A600C8A70B /* SVN-Poppins-SemiBold.ttf */; };
 		96D6C90B2B8D79A600C8A70B /* SVN-Poppins-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96D6C8F82B8D79A600C8A70B /* SVN-Poppins-LightItalic.ttf */; };
 		96D6C90C2B8D79A600C8A70B /* SVN-Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96D6C8F92B8D79A600C8A70B /* SVN-Poppins-Bold.ttf */; };
-		96D6C90D2B8D79A600C8A70B /* SF-Pro-Display-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96D6C8FA2B8D79A600C8A70B /* SF-Pro-Display-Bold.ttf */; };
 		96D6C90E2B8D79A600C8A70B /* SVN-Poppins-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96D6C8FB2B8D79A600C8A70B /* SVN-Poppins-ExtraBoldItalic.ttf */; };
 		96D6C90F2B8D79A600C8A70B /* SVN-Poppins-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96D6C8FC2B8D79A600C8A70B /* SVN-Poppins-Thin.ttf */; };
 /* End PBXBuildFile section */
@@ -62,6 +62,7 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-neocarecustomer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-neocarecustomer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = neocarecustomer/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-neocarecustomer-neocarecustomerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-neocarecustomer-neocarecustomerTests.release.xcconfig"; path = "Target Support Files/Pods-neocarecustomer-neocarecustomerTests/Pods-neocarecustomer-neocarecustomerTests.release.xcconfig"; sourceTree = "<group>"; };
+		96A571232B97B5F80091F3D7 /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Feather.ttf; path = ../src/assets/fonts/Feather.ttf; sourceTree = "<group>"; };
 		96D6C8EA2B8D79A600C8A70B /* SVN-Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-Medium.ttf"; path = "../src/assets/fonts/SVN-Poppins-Medium.ttf"; sourceTree = "<group>"; };
 		96D6C8EB2B8D79A600C8A70B /* SVN-Poppins-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-BlackItalic.ttf"; path = "../src/assets/fonts/SVN-Poppins-BlackItalic.ttf"; sourceTree = "<group>"; };
 		96D6C8EC2B8D79A600C8A70B /* SVN-Poppins-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-Italic.ttf"; path = "../src/assets/fonts/SVN-Poppins-Italic.ttf"; sourceTree = "<group>"; };
@@ -78,7 +79,6 @@
 		96D6C8F72B8D79A600C8A70B /* SVN-Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-SemiBold.ttf"; path = "../src/assets/fonts/SVN-Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		96D6C8F82B8D79A600C8A70B /* SVN-Poppins-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-LightItalic.ttf"; path = "../src/assets/fonts/SVN-Poppins-LightItalic.ttf"; sourceTree = "<group>"; };
 		96D6C8F92B8D79A600C8A70B /* SVN-Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-Bold.ttf"; path = "../src/assets/fonts/SVN-Poppins-Bold.ttf"; sourceTree = "<group>"; };
-		96D6C8FA2B8D79A600C8A70B /* SF-Pro-Display-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Display-Bold.ttf"; path = "../src/assets/fonts/SF-Pro-Display-Bold.ttf"; sourceTree = "<group>"; };
 		96D6C8FB2B8D79A600C8A70B /* SVN-Poppins-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-ExtraBoldItalic.ttf"; path = "../src/assets/fonts/SVN-Poppins-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		96D6C8FC2B8D79A600C8A70B /* SVN-Poppins-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-Thin.ttf"; path = "../src/assets/fonts/SVN-Poppins-Thin.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -154,7 +154,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				96D6C8FA2B8D79A600C8A70B /* SF-Pro-Display-Bold.ttf */,
+				96A571232B97B5F80091F3D7 /* Feather.ttf */,
 				96D6C8F02B8D79A600C8A70B /* SVN-Poppins-Black.ttf */,
 				96D6C8EB2B8D79A600C8A70B /* SVN-Poppins-BlackItalic.ttf */,
 				96D6C8F92B8D79A600C8A70B /* SVN-Poppins-Bold.ttf */,
@@ -301,6 +301,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				96A571242B97B5F80091F3D7 /* Feather.ttf in Resources */,
 				96D6C8FD2B8D79A600C8A70B /* SVN-Poppins-Medium.ttf in Resources */,
 				96D6C8FE2B8D79A600C8A70B /* SVN-Poppins-BlackItalic.ttf in Resources */,
 				96D6C8FF2B8D79A600C8A70B /* SVN-Poppins-Italic.ttf in Resources */,
@@ -317,7 +318,6 @@
 				96D6C90A2B8D79A600C8A70B /* SVN-Poppins-SemiBold.ttf in Resources */,
 				96D6C90B2B8D79A600C8A70B /* SVN-Poppins-LightItalic.ttf in Resources */,
 				96D6C90C2B8D79A600C8A70B /* SVN-Poppins-Bold.ttf in Resources */,
-				96D6C90D2B8D79A600C8A70B /* SF-Pro-Display-Bold.ttf in Resources */,
 				96D6C90E2B8D79A600C8A70B /* SVN-Poppins-ExtraBoldItalic.ttf in Resources */,
 				96D6C90F2B8D79A600C8A70B /* SVN-Poppins-Thin.ttf in Resources */,
 			);
@@ -565,7 +565,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = WZUVY28PG4;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = neocarecustomer/Info.plist;
@@ -596,7 +596,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = WZUVY28PG4;
 				INFOPLIST_FILE = neocarecustomer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

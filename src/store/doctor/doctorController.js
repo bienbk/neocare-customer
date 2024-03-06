@@ -5,8 +5,10 @@ class DoctorController {
   followDoctor = async query => {
     const {qr_code} = query;
     try {
+      const url = `${UrlApi.apiFollowDoctor}follow/doctor/${qr_code}`;
+      console.log('URLLLL:', url);
       const {data} = await HttpClient.get(
-        `${UrlApi.apiFollowDoctor}follow/doctor/${qr_code}/`,
+        `${UrlApi.apiFollowDoctor}follow/doctor/${qr_code}`,
       );
       console.log(
         'Controller---follow doctor data:::',
