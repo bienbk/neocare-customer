@@ -5,6 +5,7 @@ import styles from './styles';
 // import {useDispatch} from 'react-redux';
 import {TextMoneyBold} from '../../common/Text/TextFont';
 import {NAVIGATION_LOGIN, NAVIGATION_MAIN} from '../../navigation/routes';
+import SuperTokens from 'supertokens-react-native';
 import {asyncStorage} from '../../store';
 
 const Splash = ({navigation}) => {
@@ -12,15 +13,24 @@ const Splash = ({navigation}) => {
   useEffect(() => {
     checkUser();
   }, []);
-  const checkUser = async () => {
-    const token = (await asyncStorage.getToken()) || -1;
 
-    if (token !== -1 && token && token?.frontToken) {
+  async function doesSessionExist() {
+    if (await SuperTokens.doesSessionExist()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  const checkUser = async () => {
+    // const token = (await asyncStorage.getToken()) || -1;
+    const hasToken = await doesSessionExist();
+
+    if (hasToken) {
       navigation.navigate(NAVIGATION_MAIN);
     } else {
       setTimeout(() => {
         navigation && navigation.navigate(NAVIGATION_LOGIN);
-      }, 2000);
+      }, 500);
     }
   };
   return (

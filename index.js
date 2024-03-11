@@ -11,5 +11,6 @@ SuperTokens.init({
   apiDomain: 'https://dev-api.neocare.vn',
   apiBasePath: '/patients/auth',
 });
+console.log('SuperTokens index: ', SuperTokens);
 
 AppRegistry.registerComponent(appName, () => App);
