@@ -47,7 +47,6 @@ const Connection = ({navigation, route}) => {
   );
   useEffect(() => {
     if (statusFollowDoctor === Status.SUCCESS) {
-      dispatch(resetFollowDoctor());
       const connected = {
         code,
         patient_id: 7,
@@ -57,11 +56,15 @@ const Connection = ({navigation, route}) => {
   }, [statusFollowDoctor]);
   const handleOnBlur = () => {
     setInputContainerFocus(false);
+    setInputContainerFocus(false);
   };
   useEffect(() => {
     const {type} = route.params;
     setTypeShow(type);
     checkUser();
+    return () => {
+      dispatch(resetFollowDoctor());
+    };
   }, []);
   const checkUser = async () => {
     const user = (await asyncStorage.getUser()) || {id: -1};

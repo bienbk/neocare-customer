@@ -1,44 +1,27 @@
 /* eslint-disable react-native/no-inline-styles */
-import {React, useState, useRef, useEffect} from 'react';
-import {View, TouchableOpacity, FlatList} from 'react-native';
+import {React, useState} from 'react';
+import {View, TouchableOpacity} from 'react-native';
 // import {useDispatch, useSelector} from 'react-redux';
 import styles from './styles';
-import {
-  TextMoneyBold,
-  TextNormal,
-  TextSemiBold,
-} from '../../common/Text/TextFont';
+import {TextMoneyBold, TextNormal} from '../../common/Text/TextFont';
 // import Colors from '../../theme/Colors';
 import strings from '../../localization/Localization';
-import {widthDevice} from '../../assets/constans';
+
 import Icons from '../../common/Icons/Icons';
 import Svg from '../../common/Svg/Svg';
 import HorizontalRange from '../../common/HorizontalRange/HorizontalRange';
 import CustomButton from '../../common/CustomButton/CustomButton';
-const weightValues = type => {
-  const result = [];
-  for (let i = 0; i < 100; i++) {
-    result.push(type === 1 ? i : parseInt(i * 2.2, 10));
-  }
-  return result;
-};
 const WeightScreen = ({nextStep}) => {
-  const [weight, setWeight] = useState(0);
+  const [weight, setWeight] = useState(50);
   const [typeWeight, setTypeWeight] = useState(1);
-  const [dataWeight, setDataWeight] = useState([]);
-  useEffect(() => {
-    const tempList = weightValues(1) || [];
-    setDataWeight(tempList);
-    setWeight(50);
-  }, []);
+  const [weightChanged, setWeightChanged] = useState(0);
 
   const handleWeightType = type => {
-    const tempWeight = weightValues(type === 1 ? 1 : 2);
-    setDataWeight(tempWeight);
     setTypeWeight(type);
     setWeight(0);
   };
   const handleWeightVal = type => {
+    setWeightChanged(type === 0 ? -1 : 1);
     setWeight(prev => (prev = type === 0 ? prev - 1 : prev + 1));
   };
   return (
@@ -80,6 +63,7 @@ const WeightScreen = ({nextStep}) => {
         {/* VALUE OF WEIGHT */}
         <View style={styles.wrapperWeightButton}>
           <TouchableOpacity
+            disabled={typeWeight === 2}
             onPress={() => handleWeightVal(0)}
             style={styles.weightValueButton}>
             <Icons type={'Feather'} name={'minus'} size={26} color={'white'} />
@@ -88,6 +72,7 @@ const WeightScreen = ({nextStep}) => {
             {parseInt(weight, 10)}
           </TextMoneyBold>
           <TouchableOpacity
+            disabled={typeWeight === 2}
             onPress={() => handleWeightVal(1)}
             style={styles.weightValueButton}>
             <Icons type={'Feather'} name={'plus'} size={26} color={'white'} />
@@ -96,8 +81,9 @@ const WeightScreen = ({nextStep}) => {
       </View>
       {/* SLIDER */}
       <HorizontalRange
-        dataRange={dataWeight}
-        value={weight}
+        onChangeValue={weightChanged}
+        onChangeFinished={() => setWeightChanged(0)}
+        initValue={weight}
         setValue={setWeight}
         type={typeWeight === 1 ? 'kg' : 'lbs'}
       />

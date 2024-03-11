@@ -12,3 +12,4 @@ export const NAVIGATION_DOCTOR_DETAIL = 'DoctorDetail';
 export const NAVIGATION_HEALTH_MANUAL = 'HealthManual';
 export const NAVIGATION_PACKAGE_DETAIL = 'PackageDetail';
 export const NAVIGATION_CONNECTION = 'Connection';
+export const NAVIGATION_PRESCRIPTION = 'Prescription';

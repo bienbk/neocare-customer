@@ -121,8 +121,8 @@ const BloodSugar = ({navigation}) => {
           />
         </View>
         <HorizontalRange
-          dataRange={dataValues()}
-          value={bloodSugar}
+          type={'kg'}
+          initValue={bloodSugar}
           setValue={setBloodSugar}
         />
         <TextNormalSemiBold style={styles.textNoteSlider}>

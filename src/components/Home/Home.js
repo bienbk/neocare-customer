@@ -1,26 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {
-  FlatList,
-  SafeAreaView,
-  View,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import {FlatList, SafeAreaView, View, ScrollView} from 'react-native';
 import styles from './styles';
-import {
-  MIDDLE_DOT,
-  heightDevice,
-  home_img,
-  widthDevice,
-} from '../../assets/constans';
-import {
-  TextMoneyBold,
-  TextNormal,
-  TextSemiBold,
-} from '../../common/Text/TextFont';
-import Images from '../../common/Images/Images';
-import Icons from '../../common/Icons/Icons';
-import Colors from '../../theme/Colors';
 import DiseaseCard from './DiseaseCard';
 import CustomeHeader from './CustomeHeader';
 import {NAVIGATION_HEALTH_MANUAL} from '../../navigation/routes';

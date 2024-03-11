@@ -15,6 +15,7 @@ import DoctorDetail from './DoctorDetail/DoctorDetail';
 import Account from './Account/Account';
 import PackageDetail from './PackageDetail/PackageDetail';
 import Connection from './Connection/Connection';
+import Prescription from './Prescription/Prescription';
 export {
   Splash,
   Main,
@@ -22,6 +23,7 @@ export {
   Login,
   VerifyCode,
   ProfileHealth,
+  Prescription,
   Connection,
   HealthManual,
   PackageDetail,

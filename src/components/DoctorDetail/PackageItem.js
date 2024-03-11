@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import Icons from '../../common/Icons/Icons';
 import {FlatList, View, TouchableOpacity, ImageBackground} from 'react-native';
@@ -12,67 +13,13 @@ import {card_blue, card_pink, formatMoney} from '../../assets/constans';
 import Colors from '../../theme/Colors';
 import {NAVIGATION_PACKAGE_DETAIL} from '../../navigation/routes';
 import ProgressLine from '../../common/ProgressLine/ProgressLine';
-
-const PackageItem = ({packageItem, index, navigation}) => {
-  // ACTIVE
-  if (packageItem?.product_status === 1) {
-    const leftDay =
-      (new Date().getTime() - new Date(packageItem?.purchased_date).getTime()) /
-      60000 /
-      (24 * 60);
-    const totalDay = packageItem.name
-      ? parseInt(packageItem.name.match(/\d+/)[0], 10) * 30
-      : -1;
-
-    const convertDate = date => {
-      const splited = date.split('-');
-      return `${splited[2]}-${splited[1]}-${splited[0]}`;
-    };
-    return (
-      <ImageBackground
-        imageStyle={{borderRadius: 20}}
-        source={card_pink}
-        style={styles.wrapperActivePackage}>
-        {/* <View style={styles.decorationActived} /> */}
-        <View style={{paddingHorizontal: 10}}>
-          <TextNormal style={{paddingTop: 5, fontWeight: 'bold'}}>
-            {`Chăm sóc đặc biệt ${packageItem.name.match(/\d+/)[0]} tháng`}
-          </TextNormal>
-          <TextSmallTwelve style={{paddingVertical: 5}}>
-            {`Giá gói: ${formatMoney(packageItem.price)}`}
-          </TextSmallTwelve>
-          <TextSmallTwelve style={{paddingBottom: 5}}>
-            {'Ngày tham gia: ' +
-              convertDate(packageItem.purchased_date.substring(0, 10))}
-          </TextSmallTwelve>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              paddingVertical: 6,
-            }}>
-            <ProgressLine isDetailDoctor={true} line={packageItem} />
-            <TextSmallTwelve
-              style={{
-                textAlign: 'right',
-                fontWeight: 'bold',
-                color: '#4C0C23',
-                paddingLeft: 10,
-              }}>
-              {`${totalDay - parseInt(leftDay, 10)} ngày`}
-            </TextSmallTwelve>
-          </View>
-        </View>
-      </ImageBackground>
-    );
-  }
-  // FOLLOWING || REQUESTING
+const AvailablePackage = ({packageItem, navigation}) => {
   return (
     <ImageBackground
       imageStyle={{borderRadius: 20}}
       source={card_blue}
       style={styles.wrapperActivePackage}>
-      <TextNormal style={{padding: 5, fontWeight: 'bold'}}>
+      <TextNormal style={{padding: 5, fontWeight: 'bold', color: 'white'}}>
         {packageItem.name}
       </TextNormal>
       <FlatList
@@ -83,15 +30,15 @@ const PackageItem = ({packageItem, index, navigation}) => {
               type={'Feather'}
               name={'check'}
               size={19}
-              color={'black'}
+              color={'white'}
               style={{paddingHorizontal: 5}}
             />
-            <TextSmallTwelve>{item}</TextSmallTwelve>
+            <TextSmallTwelve style={{color: 'white'}}>{item}</TextSmallTwelve>
           </View>
         )}
       />
       <View style={styles.wrapperFooterCard}>
-        <TextSemiBold style={{color: '#2544BD'}}>
+        <TextSemiBold style={{color: 'white'}}>
           {formatMoney(packageItem.price) + 'đ'}
         </TextSemiBold>
         <TouchableOpacity
@@ -120,6 +67,74 @@ const PackageItem = ({packageItem, index, navigation}) => {
         </TouchableOpacity>
       </View>
     </ImageBackground>
+  );
+};
+const ActivedPackage = ({packageItem, leftDay, totalDay}) => {
+  return (
+    <ImageBackground
+      imageStyle={{borderRadius: 20}}
+      source={card_pink}
+      style={styles.wrapperActivePackage}>
+      {/* <View style={styles.decorationActived} /> */}
+      <View style={{paddingHorizontal: 10}}>
+        <TextNormal style={{paddingTop: 5, fontWeight: 'bold'}}>
+          {`Chăm sóc đặc biệt ${packageItem.name.match(/\d+/)[0]} tháng`}
+        </TextNormal>
+        <TextSmallTwelve style={{paddingVertical: 5}}>
+          {`Giá gói: ${formatMoney(packageItem.price)}`}
+        </TextSmallTwelve>
+        <TextSmallTwelve style={{paddingBottom: 5}}>
+          {'Ngày tham gia: ' +
+            convertDate(packageItem.purchased_date.substring(0, 10))}
+        </TextSmallTwelve>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingVertical: 6,
+          }}>
+          <ProgressLine isDetailDoctor={true} line={packageItem} />
+          <TextSmallTwelve
+            style={{
+              textAlign: 'right',
+              fontWeight: 'bold',
+              color: '#4C0C23',
+              paddingLeft: 10,
+            }}>
+            {`${totalDay - parseInt(leftDay, 10)} ngày`}
+          </TextSmallTwelve>
+        </View>
+      </View>
+    </ImageBackground>
+  );
+};
+const convertDate = date => {
+  const splited = date.split('-');
+  return `${splited[2]}-${splited[1]}-${splited[0]}`;
+};
+const PackageItem = ({packageItem, index, navigation}) => {
+  const leftDay =
+    (new Date().getTime() - new Date(packageItem?.purchased_date).getTime()) /
+    60000 /
+    (24 * 60);
+  const totalDay = packageItem.name
+    ? parseInt(packageItem.name.match(/\d+/)[0], 10) * 30
+    : -1;
+
+  // FOLLOWING || REQUESTING
+  return (
+    <View>
+      {packageItem?.product_status === 1 && (
+        <ActivedPackage
+          packageItem={packageItem}
+          leftDay={leftDay}
+          totalDay={totalDay}
+        />
+      )}
+      {packageItem?.product_status !== 1 && (
+        <AvailablePackage packageItem={packageItem} navigation={navigation} />
+      )}
+    </View>
   );
 };
 

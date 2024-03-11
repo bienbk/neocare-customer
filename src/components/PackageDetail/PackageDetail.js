@@ -2,21 +2,18 @@ import React, {useEffect, useState} from 'react';
 import {SafeAreaView, View, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import {
-  TextMoneyBold,
   TextNormal,
   TextNormalSemiBold,
   TextSemiBold,
-  TextSmallMedium,
   TextSmallTwelve,
 } from '../../common/Text/TextFont';
 import Icons from '../../common/Icons/Icons';
 import Colors from '../../theme/Colors';
-import Svg from '../../common/Svg/Svg';
 import {
   NAVIGATION_DOCTOR_DETAIL,
   NAVIGATION_MY_DOCTOR,
 } from '../../navigation/routes';
-import {formatMoney, heightDevice, widthDevice} from '../../assets/constans';
+import {formatMoney, heightDevice} from '../../assets/constans';
 import ConfirmationModal from '../../common/ConfirmationModal/ConfirmationModal';
 import strings from '../../localization/Localization';
 import {useDispatch, useSelector} from 'react-redux';

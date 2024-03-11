@@ -14,6 +14,7 @@ import {
   NAVIGATION_ACCOUNT,
   NAVIGATION_DOCTOR_DETAIL,
   NAVIGATION_MY_DOCTOR,
+  NAVIGATION_PRESCRIPTION,
 } from '../../navigation/routes';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -56,7 +57,7 @@ const Main = () => {
     const icons = {
       [NAVIGATION_HOME]: 'icon_heart_main',
       [NAVIGATION_MY_DOCTOR]: 'icon_mydoctor_main',
-      ['NAVIGATION_PRESCRIBED']: 'icon_medicine_main',
+      [NAVIGATION_PRESCRIPTION]: 'icon_medicine_main',
       [NAVIGATION_ACCOUNT]: 'icon_account_main',
     };
     const title = router => {
@@ -65,7 +66,7 @@ const Main = () => {
           return 'Sổ sức khoẻ';
         case NAVIGATION_MY_DOCTOR:
           return 'Bác sĩ';
-        case 'NAVIGATION_PRESCRIBED':
+        case NAVIGATION_PRESCRIPTION:
           return 'Chỉ định';
         case NAVIGATION_ACCOUNT:
           return strings.common.user;
@@ -77,7 +78,7 @@ const Main = () => {
         <Svg
           name={icons[route.name]}
           size={25}
-          color={focused ? Colors.backgroundColor : 'black'}
+          color={focused ? Colors.buttonBackground : 'black'}
         />
         <TextSmallEleven
           style={{
@@ -92,7 +93,7 @@ const Main = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName={NAVIGATION_MY_DOCTOR}
+      initialRouteName={NAVIGATION_PRESCRIPTION}
       screenOptions={screenOption}>
       <Tab.Screen
         name={NAVIGATION_HOME}
@@ -107,8 +108,8 @@ const Main = () => {
         options={{title: () => null}}
       />
       <Tab.Screen
-        name={'NAVIGATION_PRESCRIBED'}
-        component={Screens.Home}
+        name={NAVIGATION_PRESCRIPTION}
+        component={Screens.Prescription}
         options={{title: () => null}}
       />
       <Tab.Screen
