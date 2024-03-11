@@ -9,7 +9,7 @@ import {
   BASE_PATH_CAFE,
   BASE_NEOCARE_AUTH,
   BASE_NEOCARE_CUSTOMER,
-} from 'assets/config';
+} from './src/assets/config';
 import App from './src/app';
 import {name as appName} from './app.json';
 SuperTokens.init({
