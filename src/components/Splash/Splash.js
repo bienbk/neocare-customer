@@ -4,7 +4,11 @@ import styles from './styles';
 
 // import {useDispatch} from 'react-redux';
 import {TextMoneyBold} from '../../common/Text/TextFont';
-import {NAVIGATION_LOGIN, NAVIGATION_MAIN} from '../../navigation/routes';
+import {
+  NAVIGATION_LOGIN,
+  NAVIGATION_MAIN,
+  NAVIGATION_PROFILE_HEALTH,
+} from '../../navigation/routes';
 import SuperTokens from 'supertokens-react-native';
 import {asyncStorage} from '../../store';
 
@@ -24,8 +28,12 @@ const Splash = ({navigation}) => {
   const checkUser = async () => {
     // const token = (await asyncStorage.getToken()) || -1;
     const hasToken = await doesSessionExist();
+    const user = (await asyncStorage.getUser()) || {id: -1};
+    // console.log('user async storeage::: ', user);
 
-    if (hasToken) {
+    if (hasToken && !user.info_submitted) {
+      navigation.navigate(NAVIGATION_PROFILE_HEALTH);
+    } else if (hasToken) {
       navigation.navigate(NAVIGATION_MAIN);
     } else {
       setTimeout(() => {
