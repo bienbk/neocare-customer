@@ -18,7 +18,7 @@ const DoctorItem = ({item, selectItem, index}) => {
         <Images
           resizeMode="contain"
           style={styles.imageDoctor}
-          source={{uri: `${AVATAR_URL}${Math.round(Math.random() * 100)}`}}
+          source={{uri: `${AVATAR_URL}${Math.round(Math.random() * 20)}`}}
         />
         <View style={styles.wrapperProfileContent}>
           <TextSemiBold style={styles.textDoctorName}>{item.name}</TextSemiBold>
