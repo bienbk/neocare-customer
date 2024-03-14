@@ -64,8 +64,17 @@ const Feature = ({
       onPress={handleNavigation}>
       <View style={styles.content}>
         {/* <Images resizeMode={'contain'} source={icon} style={styles.image} /> */}
-        {/* <Svg name={icon} size={36} color={Colors.textGrayColor} /> */}
-        {name === 'Đăng xuất' && isNotUser ? (
+        {name === 'Đăng xuất' ? (
+          <Svg
+            name={icon}
+            size={16}
+            color={Colors.textGrayColor}
+            // style={styles.iconLogout}
+          />
+        ) : (
+          <Svg name={icon} size={16} color={Colors.textGrayColor} />
+        )}
+        {/* {name === 'Đăng xuất' && isNotUser ? (
           <TextNormal style={styles.textName}>Đăng nhập</TextNormal>
         ) : name === 'Mã giới thiệu' && codeAffiliate?.ref_phone ? (
           <TextNormal style={styles.textName}>
@@ -74,10 +83,23 @@ const Feature = ({
           </TextNormal>
         ) : (
           <TextNormal style={styles.textName}>{name}</TextNormal>
+        )} */}
+        {name === 'Đăng xuất' ? (
+          <TextNormal style={styles.textLogout}>Đăng xuất</TextNormal>
+        ) : (
+          <TextNormal style={styles.textName}>{name}</TextNormal>
+        )}
+        {name === 'Đăng xuất' ? null : (
+          <Svg
+            name={'icon_right_arrow'}
+            size={16}
+            color={Colors.textGrayColor}
+            style={styles.iconRight}
+          />
         )}
       </View>
       {codeAffiliate?.ref_phone && name === 'Mã giới thiệu' ? null : (
-        <Icons type={'AntDesign'} name={'right'} size={18} />
+        <Icons type={'AntDesign'} name={'right'} size={16} />
       )}
     </TouchableOpacity>
   );
@@ -100,12 +122,38 @@ const styles = StyleSheet.create({
   content: {
     flexDirection: 'row',
     alignItems: 'center',
+    // justifyContent: 'space-between',
   },
   image: {
     height: 25,
     width: 25,
   },
+  iconRight: {
+    // alignItems: 'right',
+    // marginRight: 5,
+    position: 'absolute',
+    marginLeft: widthDevice - widthDevice / 4.5,
+    // marginLeft: widthDevice - 80,
+  },
+  lineStyle: {
+    borderWidth: 0.5,
+    borderColor: 'black',
+    margin: 10,
+    width: '100%',
+  },
   textName: {
-    marginLeft: 20,
+    // marginTop: 20,
+    textAlign: 'center',
+    marginLeft: 10,
+  },
+  textLogout: {
+    // position: 'absolute',
+    // marginLeft: widthDevice / 2 - 55,
+    marginLeft: 10,
+    color: '#EF0000',
+  },
+  iconLogout: {
+    position: 'absolute',
+    marginLeft: widthDevice / 2 - 75,
   },
 });

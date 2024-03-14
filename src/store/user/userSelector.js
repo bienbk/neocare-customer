@@ -2,6 +2,7 @@ export const isStatusDeleteAccount = state => state.user.statusDeleteAccount;
 export const statusConfirmOtpDelete = state => state.user.statusConfirmDelete;
 export const getErrorMessageConfirm = state => state.user.errorDeleteAccount;
 // ------------ UPDATE USER ---------------------------
+export const getStatusGetUserInfo = state => state.user.statusGetUserInfo;
 export const statusUpdateUserSelector = state => state.user.statusUpdateUser;
 export const errorUpdateUserSelector = state => state.user.errorUpdateUser;
 export const updatedUserSelector = state => state.user.updatedUser;

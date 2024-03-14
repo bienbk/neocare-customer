@@ -41,25 +41,25 @@ class UserController {
   //     };
   //   }
   // };
-  updateUserInfo = async userInfo => {
-    const query = {
-      ...userInfo,
-      cust_city: '',
-      cust_cmnd: '',
-      cust_ngaycap: '',
-      cust_noicap: '',
-    };
-    try {
-      const {data} = await HttpClient.post(UrlApi.updateUserInfo, query);
-      console.log(data);
-      if (data.status === false) {
-        return {success: false, message: data.error};
-      }
-      return {success: true, user: data};
-    } catch (error) {
-      return {success: false, errorMessage: error};
-    }
-  };
+  // updateUserInfo = async userInfo => {
+  //   const query = {
+  //     ...userInfo,
+  //     cust_city: '',
+  //     cust_cmnd: '',
+  //     cust_ngaycap: '',
+  //     cust_noicap: '',
+  //   };
+  //   try {
+  //     const {data} = await HttpClient.post(UrlApi.updateUserInfo, query);
+  //     console.log(data);
+  //     if (data.status === false) {
+  //       return {success: false, message: data.error};
+  //     }
+  //     return {success: true, user: data};
+  //   } catch (error) {
+  //     return {success: false, errorMessage: error};
+  //   }
+  // };
   registerUser = async payload => {
     try {
       const {data} = await HttpClient.post(UrlApi.apiRegisterUser, payload);
@@ -77,6 +77,17 @@ class UserController {
       return {success: true, data: data.user};
     } catch (error) {
       console.log('GET USER INFO ERROR:', error);
+      return {success: false, message: error.toString()};
+    }
+  };
+  updateUserInfo = async payload => {
+    console.log('payload update', payload);
+    try {
+      const {data} = await HttpClient.put(UrlApi.apiGetUserInfo, payload);
+      console.log('data from controller put user:::', data);
+      return {success: true, data: data};
+    } catch (error) {
+      console.log(error);
       return {success: false, message: error.toString()};
     }
   };

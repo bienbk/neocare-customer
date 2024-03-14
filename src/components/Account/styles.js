@@ -14,16 +14,34 @@ const styles = StyleSheet.create({
     flex: 1,
     // backgroundColor: 'white',
   },
+  // flatlistContainer: {
+  //   marginTop: -30,
+  // },
   content: {
     // backgroundColor: 'red',
     flex: 1,
+    // flexDirection: 'column',
     // alignItems: 'center',
     // //
     // justifyContent: 'center',
   },
+  content1: {
+    height: heightDevice * 0.336,
+    backgroundColor: '#05102A',
+    // marginTop: -30,
+  },
+  content2: {
+    marginTop: -30,
+    backgroundColor: '#F4F4F4',
+    height: 120,
+  },
+  content3: {
+    marginTop: 40,
+    backgroundColor: '#F4F4F4',
+    // height: 180,
+  },
   flatlistContainer: {
-    // height: heightDevice * 0.9,
-    // marginTop: 10,
+    marginTop: -30,
   },
   textVersion: {
     color: Colors.buttonTextColor,

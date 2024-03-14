@@ -4,6 +4,7 @@ const Colors = {
   textGrayColor: '#909090',
   numberColor: '#F1DCB1',
   backgroundColor: '#FBF8FF',
+  textInkColor: '#1B1B21',
   redColor: '#D80001',
   black: '#000000',
   textLink: '#00A2F3',

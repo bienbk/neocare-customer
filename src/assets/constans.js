@@ -15,6 +15,7 @@ export const GOOGLE_MAP_KEY = 'AIzaSyDy_5NNS-DwcZkcIYMar-wcspaL9fWJbQ0';
 export const doctor_avatar = require('assets/images/doctor.png');
 export const doctor_detail = require('assets/images/doctor_detail.png');
 export const empty_logo = require('assets/images/empty_logo.png');
+export const user_example = require('assets/images/user_example.png');
 export const card_blue = require('assets/images/card_blue.jpg');
 export const card_pink = require('assets/images/card_pink.jpg');
 export const home_image = require('assets/images/home.png');

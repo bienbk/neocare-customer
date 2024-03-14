@@ -10,13 +10,25 @@ import {
   NAVIGATION_PROFILE_HEALTH,
 } from '../../navigation/routes';
 import SuperTokens from 'supertokens-react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {statusUpdateUserSelector, getStatusGetUserInfo} from 'store/selectors';
+import {getUserInfoAction} from '../../store/user/userAction';
 import {asyncStorage} from '../../store';
 
 const Splash = ({navigation}) => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const statusUpdateUser = useSelector(state =>
+    statusUpdateUserSelector(state),
+  );
+  const statusGetUserInfo = useSelector(state => getStatusGetUserInfo(state));
+  useEffect(() => {
+    dispatch(getUserInfoAction());
+    // checkUser();
+  }, []);
+
   useEffect(() => {
     checkUser();
-  }, []);
+  }, [statusUpdateUser, statusGetUserInfo]);
 
   async function doesSessionExist() {
     if (await SuperTokens.doesSessionExist()) {
@@ -29,7 +41,7 @@ const Splash = ({navigation}) => {
     // const token = (await asyncStorage.getToken()) || -1;
     const hasToken = await doesSessionExist();
     const user = (await asyncStorage.getUser()) || {id: -1};
-    // console.log('user async storeage::: ', user);
+    console.log('user async storeage:::@@@@@@@@@@@@@@@@@@', user);
 
     if (hasToken && !user.info_submitted) {
       navigation.navigate(NAVIGATION_PROFILE_HEALTH);

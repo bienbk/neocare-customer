@@ -23,9 +23,13 @@ import MyModal from '../../common/MyModal/MyModal';
 import {heightDevice, widthDevice} from '../../assets/constans';
 import {NAVIGATION_PROFILE_HEALTH} from '../../navigation/routes';
 import Svg from '../../common/Svg/Svg';
+import {updateUserInformation} from 'store/actions';
+import {asyncStorage} from '../../store';
+import {statusUpdateUserSelector} from 'store/selectors';
 import CustomButton from '../../common/CustomButton/CustomButton';
 
 const BaseProfile = ({nextStep, navigation}) => {
+  const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [invalidName, setInvalidName] = useState('');
   const [birthday, setBirthday] = useState('');
@@ -34,14 +38,47 @@ const BaseProfile = ({nextStep, navigation}) => {
   const [modal, setModal] = useState(-1);
   const [timeValue, setTimeValue] = useState(new Date());
   const refBirthday = useRef({isChanged: false, val: -1});
-  const handleSubmitInfo = () => {
-    nextStep({
-      first_name: name.split(' ')[0] || '',
-      last_name: name.split(' ')[1] || '',
-      gender: gender === 'Nam' ? 1 : 0,
-      birthday,
-      address,
+  const statusUpdateUser = useSelector(state =>
+    statusUpdateUserSelector(state),
+  );
+  function formatBirthday(birthdayInput) {
+    const bdArr = birthdayInput.split('-');
+    return `${bdArr[2]}-${bdArr[1]}-${bdArr[0]}T00:00:00Z`;
+  }
+  const handleSubmitInfo = async () => {
+    // nextStep({
+    //   first_name: name.split(' ')[0] || '',
+    //   last_name: name.split(' ')[1] || '',
+    //   gender: gender === 'Nam' ? 1 : 0,
+    //   birthday,
+    //   address,
+    // });
+    if (name === '' || birthday === '') {
+      return;
+    }
+    const user = (await asyncStorage.getUser()) || {id: -1};
+    console.log('user::', user);
+    // if (!user.phone) {
+    //   return;
+    // }
+    const nameArr = name.split(' ');
+    var lastName = '';
+    nameArr.map((a, index) => {
+      if (index > 0 && index < nameArr.length - 1) {
+        lastName += a + ' ';
+      } else if (index > 0) {
+        lastName += a;
+      }
     });
+    const payload = {
+      first_name: nameArr[0] || '',
+      last_name: lastName,
+      // phone: '+84819238596',
+      gender: gender === 'Nam' ? 1 : 0,
+      info_submitted: 1,
+      birthday: formatBirthday(birthday),
+    };
+    dispatch(updateUserInformation(payload));
   };
   const onChangeDate = (e, v) => {
     console.log('BIENNNNNNNN:::', e, v);
@@ -63,6 +100,7 @@ const BaseProfile = ({nextStep, navigation}) => {
       setModal(-1);
     }
   };
+  useEffect(() => {}, [statusUpdateUserSelector]);
   return (
     <SafeAreaView style={styles.safeView}>
       <Pressable style={styles.safeView} onPress={Keyboard.dismiss}>
@@ -84,11 +122,12 @@ const BaseProfile = ({nextStep, navigation}) => {
               onChangeText={setName}
               underlineColorAndroid="transparent"
             />
-            <TextSmallTwelve style={{color: Colors.redColor, fontStyle: 'italic'}}>
+            <TextSmallTwelve
+              style={{color: Colors.redColor, fontStyle: 'italic'}}>
               {invalidName || 'Tên không đuợc có ký tự đặc biệt'}
             </TextSmallTwelve>
           </View>
-          <View style={styles.wrapperSection}>
+          {/* <View style={styles.wrapperSection}>
             <TextNormal style={{fontSize: 15}}>Địa chỉ:</TextNormal>
             <TextInput
               style={styles.textInput}
@@ -100,7 +139,7 @@ const BaseProfile = ({nextStep, navigation}) => {
               onChangeText={setAddress}
               underlineColorAndroid="transparent"
             />
-          </View>
+          </View> */}
 
           <View style={styles.wrapperSection}>
             <TextNormal>Ngày sinh:</TextNormal>

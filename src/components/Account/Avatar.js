@@ -1,7 +1,7 @@
-import {logo} from 'assets/constans';
+import {user_example} from 'assets/constans';
 import Images from 'common/Images/Images';
 import Svg from 'common/Svg/Svg';
-import {TextNormalSemiBold} from 'common/Text/TextFont';
+import {TextNormalSemiBold, TextSemiBold} from 'common/Text/TextFont';
 import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
@@ -13,13 +13,23 @@ import {
 } from 'react-native';
 import Colors from 'theme/Colors';
 import {heightDevice, widthDevice} from '../../assets/constans';
+import {asyncStorage} from '../../store';
 
 const Avatar = ({}) => {
   const [refreshing, setRefreshing] = React.useState(false);
+  const [user, setUser] = React.useState({id: -1, username: ''});
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
   }, []);
+  async function getUserStorage() {
+    const userStore = (await asyncStorage.getUser()) || {id: -1};
+    console.log('User store: ', userStore);
+    setUser(userStore);
+  }
+
+  // getUserStorage();
   useEffect(() => {
+    getUserStorage();
     if (refreshing) {
       setTimeout(() => {
         setRefreshing(false);
@@ -36,14 +46,21 @@ const Avatar = ({}) => {
         }>
         {/* <View style={styles.container}> */}
         <View style={styles.content}>
-          <Images source={logo} style={styles.image} />
-          <TouchableOpacity style={styles.button}>
-            {/* <Svg name={'icon_edit1'} size={32} color={Colors.textGrayColor} /> */}
-          </TouchableOpacity>
+          <Images source={user_example} style={styles.image} />
+          {/* <TouchableOpacity style={styles.button}>
+            <Svg name={'icon_edit1'} size={28} color={Colors.textGrayColor} />
+          </TouchableOpacity> */}
         </View>
         <View style={styles.textBalance}>
-          <TextNormalSemiBold style={{color: Colors.buttonTextColor}}>
-            ID: {'888888'}
+          <TextSemiBold style={{color: Colors.whiteColor}}>
+            {user.first_name !== ''
+              ? user.first_name + ' ' + user.last_name
+              : 'Username'}
+          </TextSemiBold>
+        </View>
+        <View style={styles.textBalance}>
+          <TextNormalSemiBold style={{color: Colors.whiteColor}}>
+            {user.id}
           </TextNormalSemiBold>
         </View>
       </ScrollView>
@@ -154,6 +171,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   container: {
+    marginTop: heightDevice * 0.02,
     paddingVertical: 10,
     width: widthDevice,
     alignItems: 'center',
@@ -161,7 +179,7 @@ const styles = StyleSheet.create({
   },
   content: {
     borderWidth: 1,
-    borderColor: Colors.button2Color,
+    borderColor: '#FFC51B',
     width: 92,
     height: 92,
     borderRadius: 92,
@@ -169,14 +187,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    width: 88,
-    height: 88,
-    borderRadius: 88,
+    width: 90,
+    height: 90,
+    borderRadius: 90,
+    // color: '#FFC51B',
   },
   button: {
     position: 'absolute',
-    top: -5,
-    right: -25,
+    top: 65,
+    right: 0,
+    // backgroundColor: '#FFFFFFF',
   },
   icon: {
     height: 32,
