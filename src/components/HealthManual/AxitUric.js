@@ -8,7 +8,11 @@ import {
   Pressable,
 } from 'react-native';
 import styles from './styles';
-import {TextNormalSemiBold, TextSemiBold} from '../../common/Text/TextFont';
+import {
+  TextNormalSemiBold,
+  TextSemiBold,
+  TextSmallMedium,
+} from '../../common/Text/TextFont';
 import Icons from '../../common/Icons/Icons';
 import Colors from '../../theme/Colors';
 import strings from '../../localization/Localization';
@@ -139,7 +143,7 @@ const AxitUric = ({navigation}) => {
             </View>
             {conclusion !== -1 && !inputFocused && axitUric && (
               <TextNormalSemiBold style={styles.labelAxit}>
-                {messure ? 'mg/dL' : 'mmol/L'}
+                {messure === 1 ? 'mg/dL' : 'Umol/L'}
               </TextNormalSemiBold>
             )}
             <TextInput
@@ -155,6 +159,13 @@ const AxitUric = ({navigation}) => {
               style={styles.inputCholesterol}
             />
           </TouchableOpacity>
+          {conclusion === -1 && (
+            <TextNormalSemiBold style={styles.textAxitLabel}>
+              {messure === 1
+                ? 'Axit uric đơn vị md/dL (0 ~ 13)'
+                : 'Axit uric đơn vị Umol/L (200 ~ 700)'}
+            </TextNormalSemiBold>
+          )}
         </View>
         {conclusion && conclusion?.content && (
           <View style={[styles.wrapperConclusion]}>

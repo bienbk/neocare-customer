@@ -9,79 +9,49 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+
 import {
   TextMoneyBold,
   TextNormal,
   TextSemiBold,
-  TextSmallTwelve,
 } from '../../common/Text/TextFont';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Colors from '../../theme/Colors';
 import strings from '../../localization/Localization';
 import MyModal from '../../common/MyModal/MyModal';
 import {heightDevice, widthDevice} from '../../assets/constans';
-import {NAVIGATION_PROFILE_HEALTH} from '../../navigation/routes';
+
 import Svg from '../../common/Svg/Svg';
-import {updateUserInformation} from 'store/actions';
-import {asyncStorage} from '../../store';
-import {statusUpdateUserSelector} from 'store/selectors';
+
 import CustomButton from '../../common/CustomButton/CustomButton';
 
-const BaseProfile = ({nextStep, navigation}) => {
-  const dispatch = useDispatch();
-  const [name, setName] = useState('');
-  const [invalidName, setInvalidName] = useState('');
+const BaseProfile = ({next}) => {
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
   const [birthday, setBirthday] = useState('');
-  const [address, setAddress] = useState('');
+  // const [address, setAddress] = useState('');
   const [gender, setGender] = useState('Nam');
   const [modal, setModal] = useState(-1);
   const [timeValue, setTimeValue] = useState(new Date());
   const refBirthday = useRef({isChanged: false, val: -1});
-  const statusUpdateUser = useSelector(state =>
-    statusUpdateUserSelector(state),
-  );
   function formatBirthday(birthdayInput) {
     const bdArr = birthdayInput.split('-');
     return `${bdArr[2]}-${bdArr[1]}-${bdArr[0]}T00:00:00Z`;
   }
   const handleSubmitInfo = async () => {
-    // nextStep({
-    //   first_name: name.split(' ')[0] || '',
-    //   last_name: name.split(' ')[1] || '',
-    //   gender: gender === 'Nam' ? 1 : 0,
-    //   birthday,
-    //   address,
-    // });
-    if (name === '' || birthday === '') {
+    if (!firstname || !lastname) {
       return;
     }
-    const user = (await asyncStorage.getUser()) || {id: -1};
-    console.log('user::', user);
-    // if (!user.phone) {
-    //   return;
-    // }
-    const nameArr = name.split(' ');
-    var lastName = '';
-    nameArr.map((a, index) => {
-      if (index > 0 && index < nameArr.length - 1) {
-        lastName += a + ' ';
-      } else if (index > 0) {
-        lastName += a;
-      }
-    });
     const payload = {
-      first_name: nameArr[0] || '',
-      last_name: lastName,
-      // phone: '+84819238596',
+      first_name: firstname,
+      last_name: lastname,
       gender: gender === 'Nam' ? 1 : 0,
       info_submitted: 1,
       birthday: formatBirthday(birthday),
     };
-    dispatch(updateUserInformation(payload));
+    next(payload);
   };
   const onChangeDate = (e, v) => {
-    console.log('BIENNNNNNNN:::', e, v);
     setTimeValue(v);
     const {timestamp} = e.nativeEvent;
     if (e.type === 'set') {
@@ -100,7 +70,7 @@ const BaseProfile = ({nextStep, navigation}) => {
       setModal(-1);
     }
   };
-  useEffect(() => {}, [statusUpdateUserSelector]);
+
   return (
     <SafeAreaView style={styles.safeView}>
       <Pressable style={styles.safeView} onPress={Keyboard.dismiss}>
@@ -111,35 +81,31 @@ const BaseProfile = ({nextStep, navigation}) => {
             </TextMoneyBold>
           </View>
           <View style={styles.wrapperSection}>
-            <TextNormal style={{fontSize: 15}}>Họ tên:</TextNormal>
+            <TextNormal style={{fontSize: 15}}>Họ:</TextNormal>
             <TextInput
               style={styles.textInput}
               placeholder={'Nhập họ và tên của bạn'}
               returnKeyType={'done'}
               placeholderTextColor={Colors.textGrayColor}
               onSubmitEditing={Keyboard.dismiss}
-              value={name}
-              onChangeText={setName}
+              value={firstname}
+              onChangeText={setFirstname}
               underlineColorAndroid="transparent"
             />
-            <TextSmallTwelve
-              style={{color: Colors.redColor, fontStyle: 'italic'}}>
-              {invalidName || 'Tên không đuợc có ký tự đặc biệt'}
-            </TextSmallTwelve>
           </View>
-          {/* <View style={styles.wrapperSection}>
-            <TextNormal style={{fontSize: 15}}>Địa chỉ:</TextNormal>
+          <View style={styles.wrapperSection}>
+            <TextNormal style={{fontSize: 15}}>Tên:</TextNormal>
             <TextInput
               style={styles.textInput}
-              placeholder={'Nhập địa chỉ của bạn'}
+              placeholder={'Nhập tên của bạn'}
               returnKeyType={'done'}
               placeholderTextColor={Colors.textGrayColor}
               onSubmitEditing={Keyboard.dismiss}
-              value={address}
-              onChangeText={setAddress}
+              value={lastname}
+              onChangeText={setLastname}
               underlineColorAndroid="transparent"
             />
-          </View> */}
+          </View>
 
           <View style={styles.wrapperSection}>
             <TextNormal>Ngày sinh:</TextNormal>

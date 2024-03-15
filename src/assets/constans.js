@@ -1,6 +1,77 @@
 import {Dimensions, Platform} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import Colors from '../theme/Colors';
+import { NAVIGATION_LOGIN } from '../navigation/routes';
+export const LIST_OPTION = [
+  {
+    title: 'Chung',
+    id: 1,
+    items: [
+      {
+        name: 'Hồ sơ',
+        icon: 'icon_user',
+        link: '',
+      },
+      {
+        name: 'Thông tin thân nhân',
+        icon: 'icon_profile',
+        link: '',
+      },
+      {
+        name: 'Tài khoản & dữ liệu',
+        icon: 'icon_profile',
+        link: '',
+      },
+    ],
+  },
+  {
+    title: 'Sức khoẻ',
+    id: 2,
+    items: [
+      {
+        name: 'Tình trạng sức khoẻ',
+        icon: 'icon_user',
+        link: '',
+      },
+      {
+        name: 'Nhà thuốc & Chuyên gia',
+        icon: 'icon_profile',
+        link: '',
+      },
+      {
+        name: 'Đơn vị',
+        icon: 'icon_profile',
+        link: '',
+      },
+    ],
+  },
+  {
+    title: 'Cài đặt & Hỗ trợ',
+    id: 3,
+    items: [
+      {
+        name: 'Ngôn ngữ',
+        icon: 'icon_language',
+        link: '',
+      },
+      {
+        name: 'Hotline 0901234567',
+        icon: 'icon_hotline',
+        link: '',
+      },
+      {
+        name: 'Chính sách và quyền riêng tư',
+        icon: 'icon_policy',
+        link: '',
+      },
+      {
+        name: 'Đăng xuất',
+        icon: 'icon_logout_red',
+        link: NAVIGATION_LOGIN,
+      },
+    ],
+  },
+];
 
 const BLOOD_PRESSURE = [
   {

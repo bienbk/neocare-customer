@@ -59,8 +59,8 @@ const Avatar = ({}) => {
           </TextSemiBold>
         </View>
         <View style={styles.textBalance}>
-          <TextNormalSemiBold style={{color: Colors.whiteColor}}>
-            {user.id}
+          <TextNormalSemiBold style={styles.label}>
+            {user?.phone}
           </TextNormalSemiBold>
         </View>
       </ScrollView>
@@ -71,6 +71,12 @@ const Avatar = ({}) => {
 export default Avatar;
 
 const styles = StyleSheet.create({
+  label: {
+    backgroundColor: Colors.whiteColor,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 20,
+  },
   voucherSection: {
     flexDirection: 'row',
     width: '100%',
@@ -171,7 +177,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   container: {
-    marginTop: heightDevice * 0.02,
+    marginTop: 10,
     paddingVertical: 10,
     width: widthDevice,
     alignItems: 'center',

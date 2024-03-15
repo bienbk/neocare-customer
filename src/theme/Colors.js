@@ -7,7 +7,9 @@ const Colors = {
   textInkColor: '#1B1B21',
   redColor: '#D80001',
   black: '#000000',
+  yellowColor: '#ffdf00',
   textLink: '#00A2F3',
+  greenColor: '#50C878',
   whiteColor: '#FFFFFF',
   pinkColor: '#d30c7b',
   green: {

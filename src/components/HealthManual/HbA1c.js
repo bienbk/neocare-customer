@@ -21,7 +21,7 @@ const MIN_MOL = 9;
 const HbA1c = ({navigation}) => {
   const [loading, setLoading] = useState(true);
   const [messure, setMessure] = useState(1);
-  const [hba1c, setHba1c] = useState(50.0);
+  const [hba1c, setHba1c] = useState(0);
   const inputTransition = new Animated.Value(-widthDevice);
   const conclusionTransition = new Animated.Value(widthDevice);
   const [conclusion, setConclusion] = useState(-1);
@@ -29,7 +29,7 @@ const HbA1c = ({navigation}) => {
     if (loading) {
       setTimeout(() => {
         setLoading(false);
-      }, 100);
+      }, 500);
     }
   }, [loading]);
 
