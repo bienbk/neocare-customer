@@ -69,9 +69,10 @@ function* updateUserSaga({payload}) {
   try {
     const result = yield call(UserController.updateUserInfo, payload);
     if (result.success === true) {
+      yield asyncStorage.setUser(result.data);
       yield put({
         type: NEOCARE.UPDATE_USER_INFO_SUCCESS,
-        payload: result.user,
+        payload: result.data,
       });
     } else {
       yield put({

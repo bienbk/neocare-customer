@@ -1,75 +1,34 @@
-import {React, useEffect, useState} from 'react';
-import {SafeAreaView, View, TouchableOpacity} from 'react-native';
-// import {useDispatch, useSelector} from 'react-redux';
+import React from 'react';
+import {SafeAreaView, View} from 'react-native';
+import {NAVIGATION_MAIN} from 'navigation/routes';
 import styles from './styles';
-
-import Icons from '../../common/Icons/Icons';
-import WeightScreen from './WeightScreen';
-import HeightScreen from './HeightScreen';
-import HealthStatus from './HealthStatus';
-import {NAVIGATION_MAIN} from '../../navigation/routes';
-import BaseProfile from './BaseProfile';
 import {useDispatch, useSelector} from 'react-redux';
-import {registerUserAction, resetRegisterUser} from '../../store/user/userAction';
-import { statusRegisterSelector } from '../../store/user/userSelector';
-import Status from '../../common/Status/Status';
-import { asyncStorage } from '../../store';
-const Profile = ({navigation, route}) => {
-  const [step, setStep] = useState(0);
-  const statusRegister = useSelector(state => statusRegisterSelector(state));
+import BaseProfile from './BaseProfile';
+import {updateUserInformation} from 'store/actions';
+import Status from 'common/Status/Status';
+import {resetUpdateUser} from 'store/user/userAction';
+import {statusUpdateUserSelector} from 'store/selectors';
+const Profile = ({navigation}) => {
   const dispatch = useDispatch();
-  const [profile, setProfile] = useState(null);
-  const onPressBack = () => {
-    if (step === 0) {
-      return;
+  const statusUpdateUser = useSelector(state =>
+    statusUpdateUserSelector(state),
+  );
+  React.useEffect(() => {
+    if (statusUpdateUser === Status.SUCCESS) {
+      dispatch(resetUpdateUser());
+      navigation && navigation.navigate(NAVIGATION_MAIN);
     }
-    setStep(prev => (prev -= 1));
-  };
-  const handleComplete = val => {
-    const temp = {
-      ...profile,
-      ...val,
-    };
-    setProfile(temp);
-    dispatch(registerUserAction(temp));
-  };
-  const updateProfile = user => {
-    if (!profile) {
-      setProfile({...user, phone: route.params.phone});
-    } else {
-      const tempProfile = {
-        ...profile,
-        ...user,
-      };
-      setProfile(tempProfile);
-    }
-    setStep(prev => (prev += 1));
-  };
-  useEffect(() => {
-    if (statusRegister === Status.SUCCESS) {
-      onRegisterSuccess();
-    }
-  }, [statusRegister]);
-  const onRegisterSuccess = () => {
-    dispatch(resetRegisterUser());
-    navigation.navigate(NAVIGATION_MAIN);
+  }, [statusUpdateUser]);
+  const submitUserInfo = payload => {
+    dispatch(updateUserInformation(payload));
   };
   return (
     <SafeAreaView style={styles.safeView}>
       <View style={styles.container}>
-        {/* BUTTON BACK */}
-        <TouchableOpacity onPress={onPressBack} style={styles.buttonBack}>
-          <Icons
-            type={'Feather'}
-            name={'arrow-left'}
-            size={24}
-            color={'#3C3C3C'}
-          />
-        </TouchableOpacity>
-        {step === 0 && <BaseProfile nextStep={val => updateProfile(val)} />}
-        {step === 1 && <WeightScreen nextStep={val => updateProfile(val)} />}
+        <BaseProfile next={payload => submitUserInfo(payload)} />
+        {/* {step === 1 && <WeightScreen nextStep={val => updateProfile(val)} />}
         {step === 2 && <HeightScreen nextStep={val => updateProfile(val)} />}
-        {step === 3 && <HealthStatus nextStep={val => handleComplete(val)} />}
+        {step === 3 && <HealthStatus nextStep={val => handleComplete(val)} />} */}
       </View>
     </SafeAreaView>
   );

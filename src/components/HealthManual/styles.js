@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     minHeight: 100,
     backgroundColor: Colors.whiteColor,
     borderRadius: 16,
-    marginTop: 15,
+    marginTop: 10,
     marginHorizontal: 15,
   },
   wrapperInputHeath: {
@@ -172,9 +172,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   textAxitUric: {
-    fontSize: 50,
+    fontSize: 55,
   },
-  editButton: {padding: 10, position: 'absolute', top: 15, right: 10},
+  editButton: {padding: 10, position: 'absolute', top: 25, right: 10},
   wrapperMainContent: {
     marginHorizontal: 10,
     marginTop: 20,
@@ -188,12 +188,13 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     alignSelf: 'center',
     paddingHorizontal: 20,
+    marginVertical: 10,
     borderRadius: 16,
   },
   inputAxitUric: {
     width: widthDevice * 0.4,
     borderRadius: 26,
-    height: 100,
+    height: 130,
     marginVertical: 20,
     justifyContent: 'center',
     alignSelf: 'center',
@@ -218,11 +219,16 @@ const styles = StyleSheet.create({
     color: 'white',
     borderRadius: 20,
   },
+  textAxitLabel: {
+    alignSelf: 'center',
+    color: Colors.gray.gray40,
+    marginVertical: 10,
+  },
   wrapperAxitUric: {
     marginHorizontal: 20,
     marginTop: 20,
     paddingVertical: 20,
-    marginBottom: 10,
+    marginBottom: 20,
     backgroundColor: Colors.whiteColor,
     borderRadius: 30,
   },

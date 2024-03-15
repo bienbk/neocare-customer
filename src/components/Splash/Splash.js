@@ -31,24 +31,21 @@ const Splash = ({navigation}) => {
     checkUser();
   }, [statusUpdateUser, statusGetUserInfo]);
 
-  async function doesSessionExist() {
-    if (await SuperTokens.doesSessionExist()) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  const doesSessionExist = async () => {
+    const data = await SuperTokens.doesSessionExist();
+    return data;
+  };
   const checkUser = async () => {
     strings.setLanguage('vi');
-    // const token = (await asyncStorage.getToken()) || -1;
     const hasToken = await doesSessionExist();
     const user = (await asyncStorage.getUser()) || {id: -1};
-    console.log('user async storeage:::@@@@@@@@@@@@@@@@@@', user);
 
-    if (hasToken && !user.info_submitted) {
-      navigation.navigate(NAVIGATION_PROFILE_HEALTH);
-    } else if (hasToken) {
-      navigation.navigate(NAVIGATION_MAIN);
+    if (hasToken) {
+      navigation.navigate(
+        user?.info_submitted === 0
+          ? NAVIGATION_PROFILE_HEALTH
+          : NAVIGATION_MAIN,
+      );
     } else {
       setTimeout(() => {
         navigation && navigation.navigate(NAVIGATION_LOGIN);
