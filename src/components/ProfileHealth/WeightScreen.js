@@ -12,17 +12,17 @@ import Svg from '../../common/Svg/Svg';
 import HorizontalRange from '../../common/HorizontalRange/HorizontalRange';
 import CustomButton from '../../common/CustomButton/CustomButton';
 const WeightScreen = ({nextStep}) => {
-  const [weight, setWeight] = useState(50);
+  const [weight, setWeight] = useState(50.0);
   const [typeWeight, setTypeWeight] = useState(1);
-  const [weightChanged, setWeightChanged] = useState(0);
 
   const handleWeightType = type => {
     setTypeWeight(type);
     setWeight(0);
   };
   const handleWeightVal = type => {
-    setWeightChanged(type === 0 ? -1 : 1);
-    setWeight(prev => (prev = type === 0 ? prev - 1 : prev + 1));
+    if (parseInt(weight, 10) === 0 && type === 0) {
+      return;
+    }
   };
   return (
     <View style={{flex: 1}}>
@@ -40,7 +40,10 @@ const WeightScreen = ({nextStep}) => {
         {/* TYPE OF WEIGHT */}
         <View style={[styles.wrapperWeightButton, {paddingHorizontal: 40}]}>
           <TouchableOpacity
-            onPress={() => handleWeightType(1)}
+            onPress={() => {
+              handleWeightType(1);
+              setWeight(50.0);
+            }}
             style={[
               styles.weightButton,
               typeWeight === 1 && styles.activeWeightButton,
@@ -50,7 +53,10 @@ const WeightScreen = ({nextStep}) => {
             </TextNormal>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => handleWeightType(2)}
+            onPress={() => {
+              handleWeightType(2);
+              setWeight(5.0);
+            }}
             style={[
               styles.weightButton,
               typeWeight === 2 && styles.activeWeightButton,
@@ -69,7 +75,7 @@ const WeightScreen = ({nextStep}) => {
             <Icons type={'Feather'} name={'minus'} size={26} color={'white'} />
           </TouchableOpacity>
           <TextMoneyBold style={{fontSize: 60}}>
-            {parseInt(weight, 10)}
+            {parseFloat(weight).toFixed(1)}
           </TextMoneyBold>
           <TouchableOpacity
             disabled={typeWeight === 2}
@@ -81,8 +87,6 @@ const WeightScreen = ({nextStep}) => {
       </View>
       {/* SLIDER */}
       <HorizontalRange
-        onChangeValue={weightChanged}
-        onChangeFinished={() => setWeightChanged(0)}
         initValue={weight}
         setValue={setWeight}
         type={typeWeight === 1 ? 'kg' : 'lbs'}

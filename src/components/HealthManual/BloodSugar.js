@@ -1,61 +1,43 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {
   FlatList,
-  Keyboard,
   Platform,
-  Pressable,
-  SafeAreaView,
+  Animated,
   TouchableOpacity,
   View,
+  ActivityIndicator,
 } from 'react-native';
 import styles from './styles';
-import {
-  TextMoneyBold,
-  TextNormalSemiBold,
-  TextSemiBold,
-} from '../../common/Text/TextFont';
+import {TextMoneyBold, TextNormalSemiBold} from '../../common/Text/TextFont';
 import Icons from '../../common/Icons/Icons';
 import Colors from '../../theme/Colors';
 import strings from '../../localization/Localization';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import HorizontalRange from '../../common/HorizontalRange/HorizontalRange';
-import {NAVIGATION_HOME} from '../../navigation/routes';
 import CustomButton from '../../common/CustomButton/CustomButton';
-import {widthDevice} from '../../assets/constans';
+import {
+  BLOOD_SUGAR_MG,
+  BLOOD_SUGAR_MOL,
+  widthDevice,
+} from '../../assets/constans';
 import UnitSelector from '../../common/UnitSelector/UnitSelector';
-const dataValues = () => {
-  const result = [];
-  for (let i = 0; i < 100; i++) {
-    result.push(i);
-  }
-  return result;
-};
+import ConclusionInput from './ConclusionInput';
+import CustomHeader from './CustomHeader';
+const MIN_MG = 36;
+const MIN_MOL = 2.0;
 const BloodSugar = ({navigation}) => {
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const refDate = useRef(null);
-  const [date, setDate] = useState('');
+  const [loading, setLoading] = useState(true);
   const [messure, setMessure] = useState(1);
-  const [bloodSugar, setBloodSugar] = useState(1);
+  const [bloodSugar, setBloodSugar] = useState(40);
   const [timeMessure, setTimeMessure] = useState(1);
+  const [conclusion, setConclusion] = useState(-1);
+  useEffect(() => {
+    if (loading) {
+      setTimeout(() => {
+        setLoading(false);
+      }, 100);
+    }
+  }, [loading]);
 
-  const onChangeDate = e => {
-    const {timestamp} = e.nativeEvent;
-    if (e.type === 'set') {
-      const tempRef = {
-        val: timestamp,
-        isChanged: true,
-      };
-      refDate.current = tempRef;
-      setDate(
-        new Date(refDate.current.val)
-          .toLocaleDateString('en-GB')
-          .replaceAll('/', '-'),
-      );
-    }
-    if (Platform.OS === 'android') {
-      setShowDatePicker(false);
-    }
-  };
   const renderTimerItem = ({item, index}) => {
     return (
       <TouchableOpacity
@@ -63,15 +45,13 @@ const BloodSugar = ({navigation}) => {
         style={[
           styles.wrapperTime,
           timeMessure === index + 1 && {
-            backgroundColor: Colors.red.red80,
-            borderColor: Colors.pink.pink90,
+            backgroundColor: '#d30c7b',
           },
         ]}>
         <TextNormalSemiBold
           style={
             timeMessure === index + 1 && {
               color: Colors.whiteColor,
-              fontWeight: 'bold',
             }
           }>
           {item.name}
@@ -79,79 +59,161 @@ const BloodSugar = ({navigation}) => {
       </TouchableOpacity>
     );
   };
+  const processInput = () => {
+    if (messure === 1 && parseFloat(bloodSugar) < MIN_MG) {
+      return;
+    }
+    if (messure === 2 && parseFloat(bloodSugar) < MIN_MOL) {
+      return;
+    }
+    let result;
+    const checkList = messure === 1 ? BLOOD_SUGAR_MG : BLOOD_SUGAR_MOL;
+    checkList.map(item => {
+      if (
+        timeMessure === 1 &&
+        item.type_1.min <= parseFloat(bloodSugar) &&
+        parseFloat(bloodSugar) <= item.type_1.max
+      ) {
+        result = item;
+      }
+      if (
+        timeMessure === 2 &&
+        item.type_2.min <= parseFloat(bloodSugar) &&
+        parseFloat(bloodSugar) <= item.type_2.max
+      ) {
+        result = item;
+      }
+      if (
+        timeMessure === 3 &&
+        item.type_3.min <= parseFloat(bloodSugar) &&
+        parseFloat(bloodSugar) <= item.type_3.max
+      ) {
+        result = item;
+      }
+    });
+    if (result) {
+      setConclusion({content: result.key, color: result.type_1.color});
+    }
+  };
+  useEffect(() => {
+    if (conclusion !== -1) {
+      conclusionTransition && animatedAction(conclusionTransition);
+    } else {
+      inputTransition && animatedAction(inputTransition);
+    }
+  }, [conclusion]);
+  const animatedAction = val => {
+    Animated.timing(val, {
+      duration: 600,
+      toValue: 0,
+      useNativeDriver: true,
+    }).start();
+  };
+  const conclusionTransition = new Animated.Value(widthDevice);
+  const inputTransition = new Animated.Value(-widthDevice);
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => navigation.navigate(NAVIGATION_HOME)}
-        style={styles.wrapperClose}>
-        <Icons type={'Feather'} name={'x'} size={20} color={'white'} />
-      </TouchableOpacity>
-      <TextSemiBold style={styles.textTitle}>
-        {'Thông tin đuờng huyết'}
-      </TextSemiBold>
-      <View style={styles.containerBloodSugar}>
-        <View style={{alignItems: 'center'}}>
-          <TouchableOpacity
-            onPress={() => setShowDatePicker(true)}
-            style={styles.wrapperDatePicker}>
-            <Icons
-              type={'Feather'}
-              name={'calendar'}
-              size={18}
-              color={'black'}
-            />
-            <TextNormalSemiBold style={styles.textToday}>
-              {date
-                ? date
-                : new Date().toLocaleDateString('en-GB').replaceAll('/', '-') +
-                  ', ' +
-                  new Date().getHours() +
-                  ':' +
-                  new Date().getMinutes()}
-            </TextNormalSemiBold>
-          </TouchableOpacity>
-          <TextMoneyBold style={styles.bloodSugarText}>
-            {bloodSugar}
-          </TextMoneyBold>
-          <UnitSelector
-            firstOption={'mg/dL'}
-            secondOption={'mmol/L'}
-            onPressSelector={val => setMessure(val)}
-            isSelected={messure}
+      {conclusion === -1 && (
+        <Animated.View
+          style={{flex: 1, transform: [{translateX: inputTransition}]}}>
+          <CustomHeader
+            conclusion={''}
+            title={'Đuờng huyết'}
+            navigation={navigation}
+            showTextarea={false}
           />
-        </View>
-        <HorizontalRange
-          type={'kg'}
-          initValue={bloodSugar}
-          setValue={setBloodSugar}
-        />
-        <TextNormalSemiBold style={styles.textNoteSlider}>
-          {'Đuờng huyết đơn vị mg/dL (0 - 100)'}
-        </TextNormalSemiBold>
-        <View style={{paddingVertical: 15, alignItems: 'center'}}>
-          <FlatList
-            data={[{name: 'Nhịn ăn'}, {name: 'Sau ăn '}, {name: 'Truớc ăn'}]}
-            contentContainerStyle={styles.wrapperTimerFlatlist}
-            horizontal={true}
-            renderItem={renderTimerItem}
-          />
-          <View style={{alignItems: 'center'}}>
-            <TextNormalSemiBold style={{color: Colors.gray.gray50}}>
-              {'8 giờ hoặc hơn kể từ sau bữa ăn gần nhất'}
+          <Animated.View style={[styles.containerBloodSugar]}>
+            <View style={{alignItems: 'center', marginTop: 20}}>
+              <TouchableOpacity
+                onPress={() => console.log()}
+                style={styles.wrapperDatePicker}>
+                <Icons
+                  type={'Feather'}
+                  name={'calendar'}
+                  size={18}
+                  color={'black'}
+                />
+                <TextNormalSemiBold style={styles.textToday}>
+                  {new Date().toUTCString()}
+                </TextNormalSemiBold>
+              </TouchableOpacity>
+              <TextMoneyBold style={styles.bloodSugarText}>
+                {bloodSugar}
+              </TextMoneyBold>
+              <UnitSelector
+                firstOption={'mg/dL'}
+                secondOption={'mmol/L'}
+                onPressSelector={val => {
+                  setBloodSugar(val === 1 ? 45.0 : 5.5);
+                  setMessure(val);
+                }}
+                isSelected={messure}
+              />
+            </View>
+            {loading ? (
+              <ActivityIndicator
+                style={{alignSelf: 'center', marginVertical: 20}}
+                size={'large'}
+                color={Colors.buttonBackground}
+              />
+            ) : (
+              <HorizontalRange
+                type={messure === 1 ? 'mg' : 'mol'}
+                initValue={bloodSugar}
+                setValue={setBloodSugar}
+                max={messure === 2 ? 50 * 10 : 200 * 10}
+              />
+            )}
+            <TextNormalSemiBold style={styles.textNoteSlider}>
+              {messure === 1
+                ? 'Đuờng huyết đơn vị mg/dL (36 ~ 240)'
+                : 'Đuờng huyết đơn vị mmol/L (2.0 ~ 49.9)'}
             </TextNormalSemiBold>
-          </View>
-        </View>
-      </View>
-      <CustomButton label={strings.common.complete} />
-      {showDatePicker && (
-        <DateTimePicker
-          value={new Date()}
-          mode={'date'}
-          display={Platform.OS === 'android' ? 'default' : 'spinner'}
-          onChange={onChangeDate}
-          textColor="black"
-          // style={styles.datePicker}
-        />
+            <View style={{paddingVertical: 15, alignItems: 'center'}}>
+              <FlatList
+                data={[{name: 'Nhịn ăn'}, {name: 'Sau ăn'}, {name: 'Truớc ăn'}]}
+                contentContainerStyle={styles.wrapperTimerFlatlist}
+                horizontal={true}
+                renderItem={renderTimerItem}
+              />
+              <TextNormalSemiBold style={styles.textTimeMessure}>
+                {timeMessure === 1
+                  ? '8 giờ hoặc hơn kể từ sau bữa ăn gần nhất'
+                  : timeMessure === 2
+                  ? '2 giờ sau ăn'
+                  : 'Bất cứ khi nào'}
+              </TextNormalSemiBold>
+            </View>
+          </Animated.View>
+          <CustomButton
+            onPress={() => processInput()}
+            styled={{marginBottom: 20}}
+            label={strings.common.continue}
+          />
+        </Animated.View>
+      )}
+
+      {conclusion && conclusion !== -1 && (
+        <Animated.View
+          style={[
+            {
+              flex: 1,
+              transform: [{translateX: conclusionTransition}],
+            },
+          ]}>
+          <ConclusionInput
+            navigation={navigation}
+            conclusion={conclusion}
+            title={'Đuờng huyết'}
+            resetConclusion={() => {
+              setLoading(true);
+              setConclusion(-1);
+            }}
+            value={bloodSugar}
+            unit={messure ? 'mg/dL' : 'mmol/L'}
+            time={timeMessure}
+          />
+        </Animated.View>
       )}
     </View>
   );

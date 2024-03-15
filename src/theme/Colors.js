@@ -9,6 +9,7 @@ const Colors = {
   black: '#000000',
   textLink: '#00A2F3',
   whiteColor: '#FFFFFF',
+  pinkColor: '#d30c7b',
   green: {
     green30: '#11463E',
     green40: '#006B5E',

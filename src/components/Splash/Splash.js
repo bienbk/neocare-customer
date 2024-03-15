@@ -14,6 +14,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {statusUpdateUserSelector, getStatusGetUserInfo} from 'store/selectors';
 import {getUserInfoAction} from '../../store/user/userAction';
 import {asyncStorage} from '../../store';
+import strings from '../../localization/Localization';
 
 const Splash = ({navigation}) => {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ const Splash = ({navigation}) => {
     }
   }
   const checkUser = async () => {
+    strings.setLanguage('vi');
     // const token = (await asyncStorage.getToken()) || -1;
     const hasToken = await doesSessionExist();
     const user = (await asyncStorage.getUser()) || {id: -1};
