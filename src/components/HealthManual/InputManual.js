@@ -2,9 +2,18 @@ import React, {useEffect, useRef, useState} from 'react';
 import {TextInput, View} from 'react-native';
 import styles from './styles';
 import {TextSemiBold} from '../../common/Text/TextFont';
+import Colors from '../../theme/Colors';
 const MAX_LENGTH = 3;
 const MIN_LENGTH = 1;
-const InputManual = ({setPinReady, code, setCode, isFocused}) => {
+const InputManual = ({
+  setPinReady,
+  code,
+  setCode,
+  isFocused,
+  min,
+  max,
+  onWarning,
+}) => {
   const codeDigitsArray = new Array(MAX_LENGTH).fill(0);
   const [inputContainerFocus, setInputContainerFocus] = useState(false);
   const toCodeDigitInput = (value, index) => {
@@ -16,17 +25,24 @@ const InputManual = ({setPinReady, code, setCode, isFocused}) => {
     const isDigitFocused = isCurrentDigit || (isLastDigit && isCodeFull);
     const styleOTPInput = inputContainerFocus && isDigitFocused ? true : false;
     return (
-      <View key={index} style={styles.otpInputView}>
+      <View
+        key={index}
+        style={[styles.otpInputView, code && {paddingHorizontal: 0}]}>
         {code ? (
           <TextSemiBold
-            style={[
-              styles.otpInputText,
-              isFocused.value && styles.activeInputText,
-            ]}>
+            style={[styles.otpInputText, isFocused && styles.activeInputText]}>
             {digit}
           </TextSemiBold>
         ) : (
-          <View style={styles.placeholderInput} />
+          <View
+            style={[
+              styles.placeholderInput,
+              isFocused && {
+                backgroundColor: Colors.blue.blue30,
+                height: 3.5,
+              },
+            ]}
+          />
         )}
       </View>
     );
@@ -41,11 +57,19 @@ const InputManual = ({setPinReady, code, setCode, isFocused}) => {
     return () => setPinReady(false);
   }, [code]);
   const checkCodeValue = () => {
-    console.log(typeof code);
-    setPinReady(code.length <= MAX_LENGTH);
+    if (parseInt(code, 10) < min || parseInt(code, 10) > max) {
+      onWarning(true);
+    } else {
+      onWarning(false);
+    }
+    setPinReady(
+      code.length === MAX_LENGTH &&
+        parseInt(code, 10) >= min &&
+        parseInt(code, 10) <= max,
+    );
   };
   useEffect(() => {
-    if (isFocused && isFocused.value) {
+    if (isFocused) {
       setInputContainerFocus(true);
       textInputRef?.current?.focus();
     }

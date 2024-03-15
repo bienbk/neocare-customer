@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import Icons from '../Icons/Icons';
-import {TextNormal, TextSemiBold} from '../Text/TextFont';
+import {TextNormal, TextNormalSemiBold, TextSemiBold} from '../Text/TextFont';
 import {widthDevice} from '../../assets/constans';
 import Colors from '../../theme/Colors';
 
@@ -15,26 +15,26 @@ const UnitSelector = ({
 }) => {
   // const [value, setValue] = useState(false);
   return (
-    <View style={styledWrapper ? styledWrapper : styles.typeMessureSelector}>
+    <View style={[styledWrapper, styles.typeMessureSelector]}>
       <TouchableOpacity
         onPress={() => onPressSelector(1)}
         style={[
           styledOption ? styledOption : styles.messureButton,
-          isSelected === 1 && {backgroundColor: Colors.blue.blue80},
+          isSelected === 1 && {backgroundColor: Colors.gray.gray40},
         ]}>
-        <TextSemiBold style={isSelected === 1 && {color: Colors.blue.blue30}}>
+        <TextNormalSemiBold style={isSelected === 1 && styles.activeText}>
           {firstOption}
-        </TextSemiBold>
+        </TextNormalSemiBold>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => onPressSelector(2)}
         style={[
           styledOption ? styledOption : styles.messureButton,
-          isSelected === 2 && {backgroundColor: Colors.blue.blue80},
+          isSelected === 2 && {backgroundColor: Colors.gray.gray40},
         ]}>
-        <TextSemiBold style={isSelected === 2 && {color: Colors.blue.blue30}}>
+        <TextNormalSemiBold style={isSelected === 2 && styles.activeText}>
           {secondOption}
-        </TextSemiBold>
+        </TextNormalSemiBold>
       </TouchableOpacity>
     </View>
   );
@@ -43,18 +43,21 @@ const UnitSelector = ({
 export default UnitSelector;
 
 const styles = StyleSheet.create({
+  activeText: {color: Colors.whiteColor, fontWeight: 'bold', fontSize: 16},
   typeMessureSelector: {
     flexDirection: 'row',
     padding: 5,
     justifyContent: 'center',
-    width: widthDevice / 1.5,
+    width: widthDevice * 0.6,
+    // flex: 1,
     alignItems: 'center',
+    alignSelf: 'center',
     marginBottom: 10,
-    backgroundColor: Colors.gray.gray95,
+    backgroundColor: Colors.whiteColor,
     borderRadius: 30,
   },
   messureButton: {
-    paddingVertical: 10,
+    paddingVertical: 5,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 20,

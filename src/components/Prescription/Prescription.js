@@ -1,227 +1,113 @@
 /* eslint-disable react-native/no-inline-styles */
-import {React, useState, useRef, useEffect} from 'react';
-import {View, TouchableOpacity, StyleSheet, Animated} from 'react-native';
-
-import {
-  TextMoneyBold,
-  TextNormal,
-  TextNormalSemiBold,
-} from '../../common/Text/TextFont';
-import Colors from '../../theme/Colors';
+import {React, useRef, useState} from 'react';
+import {View, TouchableOpacity, StyleSheet} from 'react-native';
+// import {useDispatch, useSelector} from 'react-redux';
+// import styles from './styles';
+import {TextMoneyBold, TextNormal} from '../../common/Text/TextFont';
+// import Colors from '../../theme/Colors';
 import strings from '../../localization/Localization';
+
 import Icons from '../../common/Icons/Icons';
 import Svg from '../../common/Svg/Svg';
+import HorizontalRange from '../../common/HorizontalRange/HorizontalRange';
 import CustomButton from '../../common/CustomButton/CustomButton';
-const min = 50;
-const segmentsLength = 160;
-const segmentHeight = 3;
-const segmentSpacing = 14;
-const snapSegment = segmentHeight + segmentSpacing;
-const indicatorWidth = 100;
-const Ruler = ({current, data}) => {
-  return (
-    <View style={styles.ruler}>
-      <View style={styles.spacer} />
-      {data.map((i, id) => {
-        const tenth = id % 5 === 0;
-        return (
-          <View key={i} style={styles.wrapperRulerItem}>
-            <View
-              style={[
-                {
-                  height: segmentHeight,
-                  backgroundColor: Colors.gray.gray80,
-                  borderRadius: 10,
-                  width: tenth ? 50 : 25,
-                  marginBottom: segmentSpacing,
-                },
-              ]}
-            />
-            {id % 10 === 0 && (
-              <View style={styles.wrapperNumberItem}>
-                <TextNormalSemiBold
-                  style={{
-                    fontWeight: 'bold',
-                    color: current === i ? Colors.buttonBackground : 'gray',
-                  }}>
-                  {i}
-                </TextNormalSemiBold>
-              </View>
-            )}
-          </View>
-        );
-      })}
-      <View style={styles.spacer} />
-    </View>
-  );
-};
-const HeightScreen = ({nextStep}) => {
-  const [height, setHeight] = useState(0);
-  const [heightData, setHeightData] = useState([]);
-  const positionY = useRef(new Animated.Value(0)).current;
-  const scrollViewRef = useRef();
-  const [heightType, setHeightType] = useState(1);
-  useEffect(() => {
-    setHeight(160);
-    const dt = [...Array(segmentsLength).keys()].map(i => i + min);
-    setHeightData(dt);
-  }, []);
-  positionY.addListener(event => {
-    if (heightType === 1) {
-      setHeight(Math.round(parseInt(event.value, 10) / snapSegment + min));
-    }
-    if (heightType === 2) {
-      setHeight(
-        (
-          Math.round(parseInt(event.value, 10) / snapSegment + min) * 0.03
-        ).toFixed(2),
-      );
-    }
-  });
+import Colors from '../../theme/Colors';
+const Prescription = ({nextStep}) => {
+  const [weight, setWeight] = useState(50.0);
+  const [typeWeight, setTypeWeight] = useState(1);
+  const refWeight = useRef(0);
+  const [weightChanged, setWeightChanged] = useState(0);
 
-  useEffect(() => {
-    if (heightData && heightData.length > 0) {
-      setTimeout(() => {
-        scrollToValue();
-      }, 1000);
-    }
-  }, [heightData]);
   const handleWeightType = type => {
-    setHeightType(type);
-    const dt = [...Array(segmentsLength).keys()].map(i =>
-      type === 2 ? parseFloat((i + min) * 0.03).toFixed(2) : i + min,
-    );
-    setHeightData(dt);
-    setHeight(type === 2 ? 4.8 : 160);
+    setTypeWeight(type);
+    setWeight(0);
   };
-  const handleWeightVal = val => {
-    scrollViewRef.current.scrollTo({
-      x: 0,
-      y: (height + val - min) * snapSegment,
-      animated: true,
-    });
-    if (val === 1) {
-      setHeight(prev => (prev += 1));
-    } else if (val === 0) {
-      setHeight(prev => (prev -= 1));
+  const handleWeightVal = type => {
+    if (parseInt(weight, 10) === 0 && type === 0) {
+      return;
     }
-  };
-  const scrollToValue = () => {
-    if (scrollViewRef && scrollViewRef.current) {
-      scrollViewRef.current.scrollTo({
-        x: 0,
-        y:
-          heightType === 1
-            ? (height - min) * snapSegment
-            : (parseFloat(height / 0.03).toFixed(2) - min) * snapSegment,
-        animated: true,
-      });
-    }
+    refWeight.current = type === 0 ? -0.1 : 0.1
   };
   return (
     <View style={{flex: 1}}>
       {/* TITLE SECTION */}
       <View style={styles.wrapperTitle}>
         <TextMoneyBold style={{fontSize: 24, marginBottom: 5}}>
-          {'Chiều cao của bạn'}
+          {'Cân nặng của bạn'}
         </TextMoneyBold>
         <TextNormal style={{textAlign: 'center'}}>
-          {
-            'Thông tin này rất quan trọng để tính toán sự trao đổi chất cơ bản của bạn'
-          }
+          {'Thông tin này rất quan trọng để tính chỉ số khối cơ thể của bạn'}
         </TextNormal>
       </View>
-      {/* HeightScreen SECTION */}
-      <View style={styles.wrapperHeightSection}>
-        {/* TYPE OF HEIGHT */}
+      {/* WEIGHT SECTION */}
+      <View style={styles.wrapperWeightSection}>
+        {/* TYPE OF WEIGHT */}
         <View style={[styles.wrapperWeightButton, {paddingHorizontal: 40}]}>
           <TouchableOpacity
-            onPress={() => handleWeightType(1)}
+            onPress={() => {
+              handleWeightType(1);
+              setWeight(50.0);
+            }}
             style={[
               styles.weightButton,
-              heightType === 1 && styles.activeWeightButton,
+              typeWeight === 1 && styles.activeWeightButton,
             ]}>
-            <TextNormal style={[heightType === 1 && styles.activeTextWeight]}>
-              CM
+            <TextNormal style={[typeWeight === 1 && styles.activeTextWeight]}>
+              KG
             </TextNormal>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => handleWeightType(2)}
+            onPress={() => {
+              handleWeightType(2);
+              setWeight(5.0);
+            }}
             style={[
               styles.weightButton,
-              heightType === 2 && styles.activeWeightButton,
+              typeWeight === 2 && styles.activeWeightButton,
             ]}>
-            <TextNormal style={[heightType === 2 && styles.activeTextWeight]}>
-              FT
+            <TextNormal style={[typeWeight === 2 && styles.activeTextWeight]}>
+              LBS
             </TextNormal>
           </TouchableOpacity>
         </View>
-        {/* VALUE OF HEIGHT */}
-        <View style={styles.wrapperHeightButton}>
+        {/* VALUE OF WEIGHT */}
+        <View style={styles.wrapperWeightButton}>
           <TouchableOpacity
+            disabled={typeWeight === 2}
             onPress={() => handleWeightVal(0)}
-            disabled={heightType === 2}
             style={styles.weightValueButton}>
             <Icons type={'Feather'} name={'minus'} size={26} color={'white'} />
           </TouchableOpacity>
-          <TextMoneyBold style={{fontSize: 40}}>{height}</TextMoneyBold>
+          <TextMoneyBold style={{fontSize: 60}}>
+            {parseFloat(weight).toFixed(1)}
+          </TextMoneyBold>
           <TouchableOpacity
+            disabled={typeWeight === 2}
             onPress={() => handleWeightVal(1)}
-            disabled={heightType === 2}
             style={styles.weightValueButton}>
             <Icons type={'Feather'} name={'plus'} size={26} color={'white'} />
           </TouchableOpacity>
         </View>
       </View>
       {/* SLIDER */}
-      <View
-        style={{
-          flexDirection: 'row',
-          paddingTop: 10,
-          justifyContent: 'space-around',
-          marginBottom: 60,
-          flex: 1,
-        }}>
-        <Svg
-          name={'icon_height'}
-          size={200}
-          style={{minHeight: 350, marginLeft: 10}}
-        />
-        <View>
-          <Animated.ScrollView
-            ref={scrollViewRef}
-            onScroll={Animated.event(
-              [{nativeEvent: {contentOffset: {y: positionY}}}],
-              {useNativeDriver: true},
-            )}
-            vertical={true}
-            snapToInterval={snapSegment}
-            contentContainerStyle={styles.scrollViewContainerStyle}
-            bounces={false}
-            showsVerticalScrollIndicator={false}
-            scrollEventThrottle={16}>
-            <Ruler current={height} data={heightData} />
-          </Animated.ScrollView>
-          <View style={styles.indicatorWrapper}>
-            <View style={[styles.segment, styles.segmentIndicator]} />
-            <Icons
-              type={'Feather'}
-              name={'chevrons-left'}
-              color={Colors.buttonBackground}
-              size={20}
-            />
-          </View>
-        </View>
+      <HorizontalRange
+        initValue={weight}
+        setValue={setWeight}
+        type={typeWeight === 1 ? 'kg' : 'lbs'}
+      />
+
+      <View style={{flex: 1, alignItems: 'center'}}>
+        <Svg name={'icon_weight'} size={220} />
       </View>
       <CustomButton
-        onPress={() => nextStep({height: height})}
+        onPress={() => nextStep({weight})}
         label={strings.common.continue}
       />
     </View>
   );
 };
 
-export default HeightScreen;
+export default Prescription;
 
 const styles = StyleSheet.create({
   wrapperRulerItem: {
@@ -246,21 +132,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 10,
   },
-  indicatorWrapper: {
-    position: 'absolute',
-    left: 50,
-    top: 100,
-    alignItems: 'center',
-    flexDirection: 'row',
-    width: indicatorWidth,
-    // backgroundColor: 'green',
-  },
-  segmentIndicator: {
-    height: 5,
-    width: indicatorWidth - 20,
-    borderRadius: 20,
-    backgroundColor: Colors.buttonBackground,
-  },
+  // indicatorWrapper: {
+  //   position: 'absolute',
+  //   left: 50,
+  //   top: 100,
+  //   alignItems: 'center',
+  //   flexDirection: 'row',
+  //   width: indicatorWidth,
+  //   // backgroundColor: 'green',
+  // },
+  // segmentIndicator: {
+  //   height: 5,
+  //   width: indicatorWidth - 20,
+  //   borderRadius: 20,
+  //   backgroundColor: Colors.buttonBackground,
+  // },
   ruler: {
     width: 170,
     // height: heightRuler,
@@ -316,7 +202,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     width: '100%',
     paddingVertical: 10,
-    marginTop: 10,
     alignItems: 'center',
   },
   wrapperHeightButton: {

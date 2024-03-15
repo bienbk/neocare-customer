@@ -7,6 +7,7 @@ import {TextMoneyBold} from '../../common/Text/TextFont';
 import {NAVIGATION_LOGIN, NAVIGATION_MAIN} from '../../navigation/routes';
 import SuperTokens from 'supertokens-react-native';
 import {asyncStorage} from '../../store';
+import strings from '../../localization/Localization';
 
 const Splash = ({navigation}) => {
   // const dispatch = useDispatch();
@@ -22,6 +23,7 @@ const Splash = ({navigation}) => {
     }
   }
   const checkUser = async () => {
+    strings.setLanguage('vi');
     // const token = (await asyncStorage.getToken()) || -1;
     const hasToken = await doesSessionExist();
 

@@ -16,6 +16,14 @@ const fakeData = [
     subVal: '80',
   },
   {
+    id: 4,
+    name: 'HbA1c',
+    status: 'Cao bất thường',
+    created_at: '27/02/2024, 10:02',
+    value: '6.2',
+    unit: '%',
+  },
+  {
     id: 2,
     name: 'Đường huyết',
     status: 'Bình thường',
@@ -32,6 +40,14 @@ const fakeData = [
     value: '6.2',
     unit: '%',
   },
+  {
+    id: 5,
+    name: 'Axit Uric',
+    status: 'Cao bất thường',
+    created_at: '27/02/2024, 10:02',
+    value: '6.2',
+    unit: '%',
+  },
 ];
 
 const Home = ({navigation}) => {
@@ -42,8 +58,8 @@ const Home = ({navigation}) => {
     const user = await asyncStorage.getUser();
     console.log('STORAGE USER:::', user);
   };
-  const handlePressCard = index => {
-    navigation.navigate(NAVIGATION_HEALTH_MANUAL, {id: index + 1});
+  const handlePressCard = item => {
+    navigation.navigate(NAVIGATION_HEALTH_MANUAL, {id: item?.id});
   };
   const renderCardItem = ({item, index}) => (
     <DiseaseCard
@@ -54,7 +70,7 @@ const Home = ({navigation}) => {
       unit={item.unit}
       subValue={item.subVal}
       index={index}
-      onPressItem={() => handlePressCard(index)}
+      onPressItem={() => handlePressCard(item)}
     />
   );
   return (

@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {
+  Animated,
   FlatList,
   Keyboard,
   Platform,
@@ -17,37 +18,85 @@ import {TextNormalSemiBold, TextSemiBold} from '../../common/Text/TextFont';
 import {NAVIGATION_HOME} from '../../navigation/routes';
 import Icons from '../../common/Icons/Icons';
 import Colors from '../../theme/Colors';
-import {widthDevice} from '../../assets/constans';
+import {
+  CHOLESTEROL_MG,
+  CHOLESTEROL_MOL,
+  heightDevice,
+  widthDevice,
+} from '../../assets/constans';
 import strings from '../../localization/Localization';
 import UnitSelector from '../../common/UnitSelector/UnitSelector';
 import CustomButton from '../../common/CustomButton/CustomButton';
+import CustomHeader from './CustomHeader';
+import ConclusionInput from './ConclusionInput';
 
 const items = [
   {id: 1, name: 'HDL-C'},
   {id: 2, name: 'LDL-C'},
   {id: 3, name: 'Triglycerides'},
+  {id: 4, name: 'Toàn phần'},
 ];
 
 const Cholesterol = ({navigation, route}) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const refDate = useRef(null);
   const [date, setDate] = useState('');
-  const [HDL, setHDL] = useState('-');
-  const [LDL, setLDL] = useState('-');
-  const [Triglycerides, setTriglycerides] = useState('-');
+  const [HDL, setHDL] = useState('');
+  const [LDL, setLDL] = useState('');
+  const [Triglycerides, setTriglycerides] = useState('');
+  const [total, setTotal] = useState(0);
   const [inputActive, setInputActive] = useState(-1);
   const textInputRef = useRef(null);
   const [messure, setMessure] = useState(1);
+  const [warning, setWarning] = useState(false);
+  const [conclusion, setConclusion] = useState(-1);
 
+  Keyboard.addListener('keyboardDidHide', () => setInputActive(-1));
   const handleInput = (val, index) => {
-    if (index === 0) {
-      setHDL(val);
-    } else if (index === 1) {
-      setLDL(val);
-    } else {
-      setTriglycerides(val);
+    const value =
+      messure === 2 ? val.replace(/\D\./g, '') : val.replace(/\D/g, '');
+    switch (index) {
+      case 0:
+        setHDL(value ? value : '');
+        break;
+      case 1:
+        setLDL(value ? value : '');
+        break;
+      case 2:
+        setTriglycerides(value ? value : '');
+        break;
+      default:
+        break;
     }
   };
+  useEffect(() => {
+    if (HDL) {
+      messure === 1
+        ? setHDL(prev => (prev = Math.round(prev * 38.67).toFixed(0)))
+        : setHDL(prev => (prev = parseFloat(prev / 38.67).toFixed(2)));
+    }
+    if (LDL) {
+      messure === 1
+        ? setLDL(prev => (prev = Math.round(prev * 38.67).toFixed(0)))
+        : setLDL(prev => (prev = parseFloat(prev / 38.67).toFixed(2)));
+    }
+    if (Triglycerides) {
+      messure === 1
+        ? setTriglycerides(prev =>
+            Math.round((prev = parseFloat(prev * 88.57396))),
+          )
+        : setTriglycerides(
+            prev => (prev = parseFloat(prev * 0.01129).toFixed(2)),
+          );
+    }
+  }, [messure]);
+  useEffect(() => {
+    if (LDL && HDL && Triglycerides) {
+      setTotal(
+        parseFloat(LDL) + parseFloat(HDL) + parseFloat(Triglycerides) * 0.2,
+      );
+    }
+  }, [LDL, HDL, Triglycerides]);
   const onChangeDate = e => {
     const {timestamp} = e.nativeEvent;
     if (e.type === 'set') {
@@ -68,7 +117,7 @@ const Cholesterol = ({navigation, route}) => {
   };
   const footerComponent = () => {
     return (
-      <View style={{alignItems: 'center', paddingVertical: 20}}>
+      <View style={{alignItems: 'center', paddingTop: 20}}>
         <UnitSelector
           firstOption={'mg/dL'}
           secondOption={'mmol/L'}
@@ -79,91 +128,210 @@ const Cholesterol = ({navigation, route}) => {
     );
   };
   const handleBlurInput = () => {
-    console.log('textInputRef.current;:::', textInputRef.current);
-    Keyboard.dismiss();
-    setInputActive(-1);
+    if (inputActive === -1) {
+      Keyboard.dismiss();
+      setInputActive(-1);
+    }
   };
   const renderInputItem = ({item, index}) => {
+    if (!item) {
+      return;
+    }
     return (
       <View style={styles.wrapperDataItem}>
-        <TextSemiBold>{item.name}</TextSemiBold>
+        <TextSemiBold>{item?.name.toUpperCase()}</TextSemiBold>
         <View style={styles.wrapperRowItem}>
           <TouchableOpacity
             style={[
               styles.wrapperInputCholesterol,
-              inputActive === index && {
-                backgroundColor: Colors.blue.blue80,
-              },
+              inputActive === index && styles.activeInputCholesterol,
             ]}>
             <View style={styles.inputContainerPressable}>
-              <TextSemiBold style={[styles.otpInputText]}>
-                {index === 0 ? HDL : index === 1 ? LDL : Triglycerides}
+              <TextSemiBold style={styles.textCholesterol}>
+                {index === 0
+                  ? HDL
+                    ? HDL
+                    : '-'
+                  : index === 1
+                  ? LDL
+                    ? LDL
+                    : '-'
+                  : index === 2
+                  ? Triglycerides
+                    ? Triglycerides
+                    : '-'
+                  : total}
               </TextSemiBold>
             </View>
-            <TextInput
-              onChangeText={e => handleInput(e, index)}
-              maxLength={3}
-              keyboardType="number-pad"
-              returnKeyType="done"
-              textContentType="oneTimeCode"
-              ref={textInputRef}
-              onFocus={() => setInputActive(index)}
-              onBlur={handleBlurInput}
-              style={styles.inputCholesterol}
-            />
+            {index !== 3 && (
+              <TextInput
+                onChangeText={e => handleInput(e, index)}
+                maxLength={5}
+                keyboardType="number-pad"
+                returnKeyType="done"
+                textContentType="oneTimeCode"
+                ref={textInputRef}
+                onFocus={() => setInputActive(index)}
+                onBlur={handleBlurInput}
+                style={styles.inputCholesterol}
+              />
+            )}
           </TouchableOpacity>
 
           <Icons
-            type={'Feather'}
-            name={'alert-circle'}
-            size={25}
+            type={'AntDesign'}
+            name={'questioncircleo'}
+            size={20}
             color={'gray'}
           />
         </View>
       </View>
     );
   };
+  const processInput = () => {
+    const checkList = messure === 1 ? CHOLESTEROL_MG : CHOLESTEROL_MOL;
+    console.log(checkList);
+    let conclusions = {
+      unit: messure === 1 ? 'mg/dL' : 'mmol/L',
+      HDL: {
+        value: HDL,
+        name: 'HDL-C',
+        review: '',
+        color: '',
+      },
+      LDL: {
+        value: LDL,
+        review: '',
+        name: 'LDL-C',
+        color: '',
+      },
+      Trig: {
+        value: Triglycerides,
+        review: '',
+        name: 'Triglycerides',
+        color: '',
+      },
+      Total: {
+        value: total,
+        review: '',
+        name: 'TOTAL',
+        color: '',
+      },
+    };
+    checkList.map(item => {
+      if (item.name === 'HDL') {
+        conclusions.HDL.review =
+          parseFloat(HDL) >= item.average ? 'Bình thuờng ' : 'Thấp';
+        conclusions.HDL.color =
+          parseFloat(HDL) >= item.average ? '#50C878' : '#f73e3a';
+      }
+      if (item.name === 'LDL') {
+        conclusions.LDL.review =
+          parseFloat(LDL) <= item.average ? 'Bình thuờng ' : 'Cao';
+        conclusions.LDL.color =
+          parseFloat(LDL) <= item.average ? '#50C878' : '#f73e3a';
+      }
+      if (item.name === 'TRIG') {
+        conclusions.Trig.review =
+          parseFloat(Triglycerides) <= item.average ? 'Bình thuờng ' : 'Cao';
+        conclusions.Trig.color =
+          parseFloat(Triglycerides) <= item.average ? '#50C878' : '#f73e3a';
+      } else {
+        conclusions.Total.review = parseFloat(total) <= item.average ? 'Bình thuờng ' : 'Cao';
+        conclusions.Total.color = parseFloat(total) <= item.average ? '#50C878' : '#f73e3a';
+      }
+    });
+    setConclusion(conclusions);
+  };
+  useEffect(() => {
+    if (conclusion && conclusion !== -1) {
+      animatedAction(conclusionTransition);
+    } else {
+      animatedAction(inputTransition);
+    }
+  }, [conclusion]);
+  const animatedAction = val => {
+    Animated.timing(val, {
+      duration: 600,
+      toValue: 0,
+      useNativeDriver: true,
+    }).start();
+  };
+  const conclusionTransition = new Animated.Value(widthDevice);
+  const inputTransition = new Animated.Value(-widthDevice);
   return (
-    <Pressable onPress={() => handleBlurInput()} style={styles.container}>
-      <TouchableOpacity
-        onPress={() => navigation.navigate(NAVIGATION_HOME)}
-        style={styles.wrapperClose}>
-        <Icons type={'Feather'} name={'x'} size={20} color={'white'} />
-      </TouchableOpacity>
-      <TextSemiBold style={styles.textTitle}>{'Thông tin mỡ máu'}</TextSemiBold>
-      <View style={{paddingBottom: 10, alignItems: 'center', marginBottom: 10}}>
-        <TouchableOpacity
-          onPress={() => setShowDatePicker(true)}
-          style={styles.wrapperDatePicker}>
-          <Icons type={'Feather'} name={'calendar'} size={18} color={'black'} />
-          <TextNormalSemiBold style={styles.textToday}>
-            {date
-              ? date
-              : new Date().toLocaleDateString('en-GB').replaceAll('/', '-') +
-                ', ' +
-                new Date().getHours() +
-                ':' +
-                new Date().getMinutes()}
-          </TextNormalSemiBold>
-        </TouchableOpacity>
-      </View>
-      <FlatList
-        data={items}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={(_, index) => index.toString()}
-        renderItem={renderInputItem}
-        ListFooterComponent={footerComponent}
-      />
-      <CustomButton label={strings.common.complete} />
-      {showDatePicker && (
-        <DateTimePicker
-          value={new Date()}
-          mode={'date'}
-          display={Platform.OS === 'android' ? 'default' : 'spinner'}
-          onChange={onChangeDate}
-          textColor="black"
-          // style={styles.datePicker}
-        />
+    <Pressable onPress={Keyboard.dismiss} style={styles.container}>
+      {conclusion === -1 && (
+        <Animated.View
+          style={{flex: 1, transform: [{translateX: inputTransition}]}}>
+          <CustomHeader
+            conclusion={{color: '#FFE600'}}
+            title={'Mỡ máu'}
+            navigation={navigation}
+            showTextarea={false}
+          />
+          <View style={{paddingVertical: 20, alignItems: 'center'}}>
+            <TouchableOpacity
+              onPress={() => setShowDatePicker(true)}
+              style={styles.wrapperDatePicker}>
+              <Icons
+                type={'Feather'}
+                name={'calendar'}
+                size={18}
+                color={'black'}
+              />
+              <TextNormalSemiBold style={styles.textToday}>
+                {new Date().toUTCString()}
+              </TextNormalSemiBold>
+            </TouchableOpacity>
+          </View>
+          <FlatList
+            data={items}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={(_, index) => index.toString()}
+            renderItem={renderInputItem}
+            ListFooterComponent={footerComponent}
+          />
+          <CustomButton
+            isDisabled={total === 0}
+            onPress={processInput}
+            styled={{
+              backgroundColor:
+                total === 0 ? Colors.gray.gray80 : Colors.buttonBackground,
+              marginBottom: 20,
+            }}
+            label={strings.common.continue}
+          />
+          {showDatePicker && (
+            <DateTimePicker
+              value={new Date()}
+              mode={'date'}
+              display={Platform.OS === 'android' ? 'default' : 'spinner'}
+              onChange={onChangeDate}
+              textColor="black"
+              // style={styles.datePicker}
+            />
+          )}
+        </Animated.View>
+      )}
+      {conclusion !== -1 && (
+        <Animated.View
+          style={[
+            {
+              flex: 1,
+              transform: [{translateX: conclusionTransition}],
+            },
+          ]}>
+          <ConclusionInput
+            navigation={navigation}
+            conclusion={conclusion}
+            title={'Mỡ máu'}
+            resetConclusion={() => setConclusion(-1)}
+            value={conclusion}
+            unit={messure === 1 ? 'mg/dL' : 'mmol/L'}
+            time={''}
+          />
+        </Animated.View>
       )}
     </Pressable>
   );
