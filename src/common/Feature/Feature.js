@@ -6,11 +6,19 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import Colors from 'theme/Colors';
 import Svg from 'common/Svg/Svg';
 const Feature = ({icon, name, navigation, link, onPress, index, lastIndex}) => {
+  const handlePress = () => {
+    if (navigation && link) {
+      console.log('LINK:', link);
+      // onPress && onPress();
+    }
+  };
   return (
-    <TouchableOpacity style={[styles.container]} onPress={() => {}}>
-      <View style={[styles.content, lastIndex && {borderBottomWidth: 0}]}>
+    <TouchableOpacity
+      style={[styles.container, lastIndex && {borderBottomWidth: 0}]}
+      onPress={handlePress}>
+      <View style={[styles.content]}>
         <View style={{flexDirection: 'row'}}>
-          <Svg name={icon} size={16} color={Colors.textGrayColor} />
+          <Svg name={icon} size={16} color={Colors.gray.gray90} />
           {name === 'Đăng xuất' ? (
             <TextNormal style={styles.textLogout}>Đăng xuất</TextNormal>
           ) : (
@@ -38,12 +46,12 @@ const styles = StyleSheet.create({
     width: widthDevice - 60,
     justifyContent: 'space-between',
     alignItems: 'center',
-
+    borderRadius: 10,
     height: 60,
     borderBottomColor: Colors.gray.gray95,
     borderBottomWidth: 1,
     borderStyle: 'solid',
-    paddingHorizontal: 5,
+    paddingHorizontal: 10,
     marginHorizontal: 5,
   },
   content: {

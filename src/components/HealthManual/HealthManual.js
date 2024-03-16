@@ -6,6 +6,7 @@ import BloodSugar from './BloodSugar';
 import Cholesterol from './Cholesterol';
 import HbA1c from './HbA1c';
 import AxitUric from './AxitUric';
+import Weight from './Weight';
 
 const HealthManual = ({navigation, route}) => {
   // 1 - HUYET AP, 2 - DUONG HUYET, 3 - MO MAU, 4 - HbA1c
@@ -21,6 +22,7 @@ const HealthManual = ({navigation, route}) => {
       {typeManual === 3 && <Cholesterol navigation={navigation} />}
       {typeManual === 4 && <HbA1c navigation={navigation} />}
       {typeManual === 5 && <AxitUric navigation={navigation} />}
+      {typeManual === 6 && <Weight navigation={navigation} />}
     </SafeAreaView>
   );
 };

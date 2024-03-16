@@ -16,6 +16,7 @@ const DiseaseCard = ({
   status,
   unit,
   value,
+  label,
   subValue,
   created_at,
   onPressItem,
@@ -57,7 +58,9 @@ const DiseaseCard = ({
           {unit && <TextNormal style={styles.unitText}>{unit}</TextNormal>}
         </View>
         <TouchableOpacity onPress={onPressItem}>
-          <TextNormal style={styles.navigationText}>Nhập thủ công</TextNormal>
+          <TextNormal style={styles.navigationText}>
+            {label || 'Nhập thủ công'}
+          </TextNormal>
         </TouchableOpacity>
       </View>
     </View>

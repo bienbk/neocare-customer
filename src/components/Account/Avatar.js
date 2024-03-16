@@ -1,6 +1,5 @@
 import {user_example} from 'assets/constans';
 import Images from 'common/Images/Images';
-import Svg from 'common/Svg/Svg';
 import {TextNormalSemiBold, TextSemiBold} from 'common/Text/TextFont';
 import React, {useEffect, useState} from 'react';
 import {
@@ -77,111 +76,16 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     borderRadius: 20,
   },
-  voucherSection: {
-    flexDirection: 'row',
-    width: '100%',
-    paddingVertical: 1,
-    alignItems: 'center',
-    alignContent: 'center',
-    justifyContent: 'space-between',
-  },
-  textVoucher: {
-    color: Colors.redColor,
-    fontSize: 14,
-    textAlign: 'right',
-    paddingRight: 5,
-  },
-  containerSeparatorLine: {
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-  separatorLine: {
-    height: 100,
-    width: 1,
-  },
+
   containerInfo: {
     width: '50%',
     alignItems: 'center',
     marginRight: 10,
   },
-  buttonClose: {
-    position: 'absolute',
-    top: 5,
-    right: 0,
-    paddingRight: 5,
-    paddingTop: 5,
-  },
-  iconFire: {
-    width: 30,
-    height: 30,
-  },
-  freeshipText: {
-    fontWeight: 'bold',
-    marginTop: 7,
-    color: '#B71C1C',
-  },
-  listShopText: {
-    fontWeight: 'bold',
-    marginLeft: 15,
-    color: '#255D54',
-  },
-  freeship: {
-    justifyContent: 'space-between',
-    borderStyle: 'solid',
-    flexDirection: 'row',
-    borderWidth: 2,
-    borderColor: '#B71C1C',
-    borderRadius: 10,
-    backgroundColor: '#FFEBEE',
-    width: 100,
-    height: 35,
-    marginTop: 3,
-    marginHorizontal: 5,
-  },
-  textListShop: {
-    textAlign: 'center',
-  },
-  headerModal: {
-    // height: 50,
-    // backgroundColor: '#255D54',
-    borderRadius: 20,
-    paddingTop: 10,
-    paddingBottom: 5,
-    // paddingHorizontal: 10,
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  bodyModal: {
-    height: 150,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  listShop: {
-    justifyContent: 'space-between',
-    borderStyle: 'solid',
-    flexDirection: 'row',
-    borderWidth: 2,
-    borderColor: '#255D54',
-    borderRadius: 10,
-    backgroundColor: '#bce8e1',
-    width: 100,
-    height: 35,
-    marginTop: 3,
-  },
-  containerModalListShop: {
-    // paddingTop: 20,
-    backgroundColor: Colors.backgroundColor,
-    width: widthDevice - 24,
-    borderRadius: 20,
-    maxHeight: heightDevice * 0.63,
-    paddingBottom: 10,
-  },
   container: {
-    marginTop: 10,
-    paddingVertical: 10,
+    marginTop: 20,
     width: widthDevice,
     alignItems: 'center',
-    // backgroundColor: 'red',
   },
   content: {
     borderWidth: 1,
@@ -198,42 +102,9 @@ const styles = StyleSheet.create({
     borderRadius: 90,
     // color: '#FFC51B',
   },
-  button: {
-    position: 'absolute',
-    top: 65,
-    right: 0,
-    // backgroundColor: '#FFFFFFF',
-  },
-  icon: {
-    height: 32,
-    width: 32,
-  },
-  textAccount: {
-    color: Colors.buttonTextColor,
-  },
   textBalance: {
     // height: 69,
     marginTop: 5,
     marginBottom: 5,
-  },
-  textBal1: {
-    color: 'black',
-  },
-  viewIconRefresh: {
-    position: 'absolute',
-    top: 10,
-    right: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  buttonIconRefresh: {
-    backgroundColor: 'white',
-    padding: 2,
-    borderRadius: 25,
-  },
-  iconRefresh: {
-    // position: 'absolute',
-    // top: 10,
-    // right: 10,
   },
 });

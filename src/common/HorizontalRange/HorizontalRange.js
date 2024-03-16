@@ -29,7 +29,7 @@ const Ruler = ({type, data}) => {
                   width: segmentWidth,
                   backgroundColor: Colors.gray.gray80,
                   borderRadius: 10,
-                  height: tenth ? 55 : 25,
+                  height: tenth ? 40 : 25,
                   marginBottom: tenth === 0 ? 10 : 0,
                   alignSelf: 'center',
                   marginRight: segmentSpacing,
@@ -41,11 +41,9 @@ const Ruler = ({type, data}) => {
                 <TextNormalSemiBold
                   style={{
                     fontWeight: 'bold',
-                    color: 'gray',
+                    color: Colors.gray.gray60,
                   }}>
-                  {type === 'lbs'
-                    ? parseFloat(i * 2.2).toFixed(1)
-                    : parseFloat(i).toFixed(1)}
+                  {parseFloat(i).toFixed(1)}
                 </TextNormalSemiBold>
               </View>
             )}
@@ -65,15 +63,7 @@ const HorizontalRange = ({setValue, type, initValue, max}) => {
     if (!event) {
       return;
     }
-    if (type === 'lbs') {
-      setValue(
-        parseFloat(
-          (parseInt(event.value, 10) / snapSegment / 10) * 2.2,
-        ).toFixed(1),
-      );
-    } else {
-      setValue(parseFloat(event.value / snapSegment / 10).toFixed(1));
-    }
+    setValue(parseFloat(event?.value / snapSegment / 10).toFixed(1));
   });
   useEffect(() => {
     initRange();
@@ -84,10 +74,7 @@ const HorizontalRange = ({setValue, type, initValue, max}) => {
   const scrollToValue = () => {
     if (scrollViewRef && scrollViewRef.current) {
       scrollViewRef.current.scrollTo({
-        x:
-          type !== 'lbs'
-            ? initValue * 10 * snapSegment
-            : initValue * 10 * snapSegment * 2.2,
+        x: initValue * 10 * snapSegment,
         y: 0,
         animated: true,
       });
@@ -104,24 +91,15 @@ const HorizontalRange = ({setValue, type, initValue, max}) => {
     setData(dt);
     setTimeout(() => {
       scrollToValue();
-    }, 1000);
+    }, 100);
   };
   const handleLoadMore = ({nativeEvent}) => {
     if (
-      type !== 'lbs' &&
       data.length <= max &&
       data.length - nativeEvent.contentOffset.x / snapSegment <= 50
     ) {
       const dt = [...Array(segmentsLength).keys()].map(
         i => parseFloat(i / 10) + data.length / 10,
-      );
-      setData([...data, ...dt]);
-    } else if (
-      type === 'lbs' &&
-      data.length - nativeEvent.contentOffset.x / snapSegment / 2.2 <= 50
-    ) {
-      const dt = [...Array(segmentsLength).keys()].map(
-        i => parseFloat((i / 10) * 2.2).toFixed(1) + data.length / 10,
       );
       setData([...data, ...dt]);
     }
@@ -176,18 +154,18 @@ const styles = StyleSheet.create({
   scrollViewContainerStyle: {
     justifyContent: 'center',
     alignItems: 'center',
+    // backgroundColor: 'red',
     paddingBottom: 20,
-    paddingTop: 10,
     // width: '100%',
   },
   indicatorWrapper: {
     position: 'absolute',
     left: (widthDevice - indicatorWidth - 20) / 2,
-    bottom: 20,
+    top: 10,
     alignItems: 'center',
     justifyContent: 'center',
     width: indicatorWidth,
-    // backgroundColor: 'red',
+    // backgroundColor: 'green',
   },
   segmentIndicator: {
     height: indicatorHeight,

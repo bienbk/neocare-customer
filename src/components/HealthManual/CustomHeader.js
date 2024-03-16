@@ -14,7 +14,7 @@ const CustomHeader = ({conclusion, showTextarea, title, navigation}) => {
       ]}>
       {!showTextarea && (
         <Icons
-          type={'Fontisto'}
+          type={conclusion?.type || 'Fontisto'}
           name={conclusion?.icon || 'blood-drop'}
           size={28}
           color={conclusion?.color || '#d30c7b'}

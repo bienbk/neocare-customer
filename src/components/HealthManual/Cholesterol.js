@@ -3,17 +3,12 @@ import {
   Animated,
   FlatList,
   Keyboard,
-  Platform,
   Pressable,
-  SafeAreaView,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import styles from './styles';
-import BloodPressure from './BloodPressure';
-import BloodSugar from './BloodSugar';
 import {TextNormalSemiBold, TextSemiBold} from '../../common/Text/TextFont';
 import {NAVIGATION_HOME} from '../../navigation/routes';
 import Icons from '../../common/Icons/Icons';
@@ -21,7 +16,10 @@ import Colors from '../../theme/Colors';
 import {
   CHOLESTEROL_MG,
   CHOLESTEROL_MOL,
-  heightDevice,
+  CODE_CHOLESTEROL,
+  UNIT_MG_DL,
+  UNIT_MMOL_MOL,
+  convertDate,
   widthDevice,
 } from '../../assets/constans';
 import strings from '../../localization/Localization';
@@ -29,7 +27,14 @@ import UnitSelector from '../../common/UnitSelector/UnitSelector';
 import CustomButton from '../../common/CustomButton/CustomButton';
 import CustomHeader from './CustomHeader';
 import ConclusionInput from './ConclusionInput';
-
+import {useDispatch, useSelector} from 'react-redux';
+import {statusCreateParamSelector} from 'store/selectors';
+import {
+  createParameterAction,
+  resetCreationParameter,
+} from '../../store/parameter/parameterAction';
+import Status from '../../common/Status/Status';
+import DateTimePicker from '../../common/DateTImePicker/DateTimePicker';
 const items = [
   {id: 1, name: 'HDL-C'},
   {id: 2, name: 'LDL-C'},
@@ -38,9 +43,8 @@ const items = [
 ];
 
 const Cholesterol = ({navigation, route}) => {
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const refDate = useRef(null);
-  const [date, setDate] = useState('');
+  const [openDatePicker, setOpenDatePicker] = useState(false);
+  const [date, setDate] = useState(new Date());
   const [HDL, setHDL] = useState('');
   const [LDL, setLDL] = useState('');
   const [Triglycerides, setTriglycerides] = useState('');
@@ -50,7 +54,10 @@ const Cholesterol = ({navigation, route}) => {
   const [messure, setMessure] = useState(1);
   const [warning, setWarning] = useState(false);
   const [conclusion, setConclusion] = useState(-1);
-
+  const dispatch = useDispatch();
+  const statusCreateParameter = useSelector(state =>
+    statusCreateParamSelector(state),
+  );
   Keyboard.addListener('keyboardDidHide', () => setInputActive(-1));
   const handleInput = (val, index) => {
     const value =
@@ -97,24 +104,6 @@ const Cholesterol = ({navigation, route}) => {
       );
     }
   }, [LDL, HDL, Triglycerides]);
-  const onChangeDate = e => {
-    const {timestamp} = e.nativeEvent;
-    if (e.type === 'set') {
-      const tempRef = {
-        val: timestamp,
-        isChanged: true,
-      };
-      refDate.current = tempRef;
-      setDate(
-        new Date(refDate.current.val)
-          .toLocaleDateString('en-GB')
-          .replaceAll('/', '-'),
-      );
-    }
-    if (Platform.OS === 'android') {
-      setShowDatePicker(false);
-    }
-  };
   const footerComponent = () => {
     return (
       <View style={{alignItems: 'center', paddingTop: 20}}>
@@ -237,8 +226,10 @@ const Cholesterol = ({navigation, route}) => {
         conclusions.Trig.color =
           parseFloat(Triglycerides) <= item.average ? '#50C878' : '#f73e3a';
       } else {
-        conclusions.Total.review = parseFloat(total) <= item.average ? 'Bình thuờng ' : 'Cao';
-        conclusions.Total.color = parseFloat(total) <= item.average ? '#50C878' : '#f73e3a';
+        conclusions.Total.review =
+          parseFloat(total) <= item.average ? 'Bình thuờng ' : 'Cao';
+        conclusions.Total.color =
+          parseFloat(total) <= item.average ? '#50C878' : '#f73e3a';
       }
     });
     setConclusion(conclusions);
@@ -259,6 +250,26 @@ const Cholesterol = ({navigation, route}) => {
   };
   const conclusionTransition = new Animated.Value(widthDevice);
   const inputTransition = new Animated.Value(-widthDevice);
+
+  const saveParameter = () => {
+    const payload = {
+      cholesterol: {
+        unit: conclusion.unit === 1 ? UNIT_MG_DL : UNIT_MMOL_MOL,
+        index_hdlc: parseFloat(HDL),
+        index_ldlc: parseFloat(LDL),
+        triglycerides: parseFloat(Triglycerides),
+        total: parseFloat(total),
+      },
+      parameters_monitor_code: CODE_CHOLESTEROL,
+    };
+    dispatch(createParameterAction(payload));
+  };
+  useEffect(() => {
+    if (statusCreateParameter === Status.SUCCESS) {
+      dispatch(resetCreationParameter());
+      navigation && navigation.navigate(NAVIGATION_HOME);
+    }
+  }, [statusCreateParameter]);
   return (
     <Pressable onPress={Keyboard.dismiss} style={styles.container}>
       {conclusion === -1 && (
@@ -272,16 +283,18 @@ const Cholesterol = ({navigation, route}) => {
           />
           <View style={{paddingVertical: 20, alignItems: 'center'}}>
             <TouchableOpacity
-              onPress={() => setShowDatePicker(true)}
-              style={styles.wrapperDatePicker}>
+              onPress={() => {
+                setOpenDatePicker(true);
+              }}
+              style={styles.wrapperDateAxit}>
               <Icons
-                type={'Feather'}
+                type={'Fontisto'}
                 name={'calendar'}
                 size={18}
-                color={'black'}
+                color={Colors.gray.gray40}
               />
-              <TextNormalSemiBold style={styles.textToday}>
-                {new Date().toUTCString()}
+              <TextNormalSemiBold style={styles.textTodayAxit}>
+                {`${convertDate(date)} ${date.getHours()}:${date.getMinutes()}`}
               </TextNormalSemiBold>
             </TouchableOpacity>
           </View>
@@ -302,16 +315,6 @@ const Cholesterol = ({navigation, route}) => {
             }}
             label={strings.common.continue}
           />
-          {showDatePicker && (
-            <DateTimePicker
-              value={new Date()}
-              mode={'date'}
-              display={Platform.OS === 'android' ? 'default' : 'spinner'}
-              onChange={onChangeDate}
-              textColor="black"
-              // style={styles.datePicker}
-            />
-          )}
         </Animated.View>
       )}
       {conclusion !== -1 && (
@@ -325,6 +328,8 @@ const Cholesterol = ({navigation, route}) => {
           <ConclusionInput
             navigation={navigation}
             conclusion={conclusion}
+            onSave={saveParameter}
+            date={date}
             title={'Mỡ máu'}
             resetConclusion={() => setConclusion(-1)}
             value={conclusion}
@@ -333,6 +338,15 @@ const Cholesterol = ({navigation, route}) => {
           />
         </Animated.View>
       )}
+      <DateTimePicker
+        isOpen={openDatePicker}
+        maxDate={new Date()}
+        onConfirm={v => {
+          setDate(v);
+          setOpenDatePicker(false);
+        }}
+        onClose={() => setOpenDatePicker(false)}
+      />
     </Pressable>
   );
 };

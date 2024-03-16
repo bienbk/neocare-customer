@@ -12,7 +12,6 @@ import Colors from 'theme/Colors';
 import strings from 'localization/Localization';
 import HorizontalRange from 'common/HorizontalRange/HorizontalRange';
 import CustomButton from 'common/CustomButton/CustomButton';
-import {HBA1C_MOL, HBA1C_PERCENT, widthDevice, convertDate} from 'assets/constans';
 import UnitSelector from 'common/UnitSelector/UnitSelector';
 import ConclusionInput from './ConclusionInput';
 import {useDispatch, useSelector} from 'react-redux';
@@ -22,18 +21,17 @@ import {
   createParameterAction,
   resetCreationParameter,
 } from 'store/parameter/parameterAction';
-import DateTimePicker from '../../common/DateTImePicker/DateTimePicker';
-import {CODE_HBA1C, UNIT_MMOL_MOL, UNIT_PERCENTER} from 'assets/constans';
+import {convertDate, CODE_WEIGHT, UNIT_KG, UNIT_LBS, widthDevice} from 'assets/constans';
 import {NAVIGATION_HOME} from 'navigation/routes';
 import Status from 'common/Status/Status';
-const MIN_PERCENT = 3;
-const MIN_MOL = 9;
-const HbA1c = ({navigation}) => {
+import {} from '../../assets/constans';
+import DateTimePicker from '../../common/DateTImePicker/DateTimePicker';
+const Weight = ({navigation}) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const [date, setDate] = useState(new Date());
   const [loading, setLoading] = useState(true);
   const [messure, setMessure] = useState(1);
-  const [hba1c, setHba1c] = useState(0);
+  const [weight, setWeight] = useState(40);
   const inputTransition = new Animated.Value(-widthDevice);
   const conclusionTransition = new Animated.Value(widthDevice);
   const [conclusion, setConclusion] = useState(-1);
@@ -45,31 +43,17 @@ const HbA1c = ({navigation}) => {
     if (loading) {
       setTimeout(() => {
         setLoading(false);
-      }, 500);
+      }, 100);
     }
   }, [loading]);
 
   const processInput = () => {
-    if (messure === 1 && parseFloat(hba1c) < MIN_MOL) {
-      return;
-    }
-    if (messure === 2 && parseFloat(hba1c) < MIN_PERCENT) {
-      return;
-    }
-    const checkList = messure === 1 ? HBA1C_MOL : HBA1C_PERCENT;
-    let result = 0;
-    checkList.map(item => {
-      if (parseFloat(hba1c) >= item.min && parseFloat(hba1c) <= item.max) {
-        result = item;
-      }
+    setConclusion({
+      content: 'Bình thuờng',
+      icon: 'weight',
+      color: Colors.greenColor,
+      type: 'FontAwesome5',
     });
-    if (result) {
-      setConclusion({
-        content: result.key,
-        color: result.color,
-        icon: 'test-tube',
-      });
-    }
   };
   useEffect(() => {
     if (conclusion !== -1) {
@@ -86,11 +70,11 @@ const HbA1c = ({navigation}) => {
   };
   const saveParameter = () => {
     const payload = {
-      a1c_lab_test: {
-        unit: messure === 1 ? UNIT_MMOL_MOL : UNIT_PERCENTER,
-        index: parseFloat(hba1c),
+      weight: {
+        unit: messure === 1 ? UNIT_KG : UNIT_LBS,
+        index: parseFloat(weight),
       },
-      parameters_monitor_code: CODE_HBA1C,
+      parameters_monitor_code: CODE_WEIGHT,
     };
     dispatch(createParameterAction(payload));
   };
@@ -107,15 +91,22 @@ const HbA1c = ({navigation}) => {
         <Animated.View
           style={{flex: 1, transform: [{translateX: inputTransition}]}}>
           <CustomHeader
-            conclusion={{icon: 'test-tube', color: Colors.blue.blue50}}
-            title={'Xét nghiệm HbA1c'}
+            conclusion={{
+              icon: 'weight',
+              color: Colors.greenColor,
+              type: 'FontAwesome5',
+            }}
+            title={'Cân nặng'}
             navigation={navigation}
             showTextarea={false}
           />
           <Animated.View style={[styles.containerBloodSugar]}>
-            <View style={{alignItems: 'center', marginTop: 30}}>
+            <View
+              style={{alignItems: 'center', marginTop: 30, marginBottom: 20}}>
               <TouchableOpacity
-                onPress={() => setOpenDatePicker(true)}
+                onPress={() => {
+                  setOpenDatePicker(true);
+                }}
                 style={styles.wrapperDateAxit}>
                 <Icons
                   type={'Fontisto'}
@@ -130,13 +121,12 @@ const HbA1c = ({navigation}) => {
                 </TextNormalSemiBold>
               </TouchableOpacity>
               <TextMoneyBold style={styles.bloodSugarText}>
-                {hba1c}
+                {parseFloat(weight)}
               </TextMoneyBold>
               <UnitSelector
-                firstOption={'mmol/mol'}
-                secondOption={'%'}
+                firstOption={'kg'}
+                secondOption={'lbs'}
                 onPressSelector={val => {
-                  setHba1c(val === 1 ? 45.0 : 5.5);
                   setMessure(val);
                 }}
                 isSelected={messure}
@@ -150,17 +140,11 @@ const HbA1c = ({navigation}) => {
               />
             ) : (
               <HorizontalRange
-                type={messure === 2 ? '%' : 'mmol/mol'}
-                initValue={hba1c}
-                setValue={setHba1c}
-                max={messure === 2 ? 18 * 10 : 162 * 10}
+                type={messure === 1 ? 'kg' : 'lbs'}
+                initValue={weight}
+                setValue={setWeight}
               />
             )}
-            <TextNormalSemiBold style={styles.textNoteSlider}>
-              {messure === 2
-                ? 'A1C  đơn vị % (3.0 ~ 17.0)'
-                : 'A1C  đơn vị mmol/mol (9 ~ 162)'}
-            </TextNormalSemiBold>
           </Animated.View>
           <CustomButton
             onPress={() => processInput()}
@@ -181,16 +165,16 @@ const HbA1c = ({navigation}) => {
           <ConclusionInput
             navigation={navigation}
             conclusion={conclusion}
-            title={'Xét nghiệm HbA1c'}
+            title={'Cân nặng'}
             resetConclusion={() => {
               setLoading(true);
               setConclusion(-1);
             }}
             onSave={saveParameter}
-            value={hba1c}
+            value={weight}
             date={date}
-            unit={messure === 2 ? '%' : 'mmol/mol'}
-            type={4}
+            unit={messure === 2 ? 'lbs' : 'kg'}
+            type={5}
           />
         </Animated.View>
       )}
@@ -206,4 +190,4 @@ const HbA1c = ({navigation}) => {
     </View>
   );
 };
-export default HbA1c;
+export default Weight;
