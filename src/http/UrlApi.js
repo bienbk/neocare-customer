@@ -32,4 +32,7 @@ export const UrlApi = {
   apiRegisterUser: BASE_NEOCARE_CUSTOMER,
   // ------------------------ DISEASES -------------------------
   apiListAllDisease: BASE_NEOCARE_CUSTOMER + 'diseases/list/',
+  // ----------------------- PARAMETER ---------------------
+  apiCreateParameter: BASE_NEOCARE_CUSTOMER + 'parameters/',
+  apiListParameter: BASE_NEOCARE_CUSTOMER + 'parameters/list/',
 };

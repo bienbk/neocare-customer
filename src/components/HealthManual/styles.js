@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   wrapperDateSelector: {
     justifyContent: 'center',
     alignSelf: 'center',
-    paddingVertical: 5,
+    paddingVertical: 10,
     paddingHorizontal: 10,
     // backgroundColor: 'red',
   },
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
   wrapperMainContent: {
     marginHorizontal: 10,
     marginTop: 20,
-    paddingVertical: 10,
+    paddingVertical: 15,
     // backgroundColor: Colors.whiteColor,
     borderRadius: 16,
   },
@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
   containerInputHealth: {
     // padding: 10,
     marginTop: 20,
-    paddingVertical: 10,
+    paddingVertical: 15,
     justifyContent: 'space-between',
     flexDirection: 'row',
     // backgroundColor: 'red',
@@ -286,11 +286,11 @@ const styles = StyleSheet.create({
   },
   textLabelInput: {textAlign: 'center', color: Colors.gray.gray40},
   textNoteSlider: {
-    color: Colors.gray.gray40,
+    color: Colors.gray.gray50,
     textAlign: 'center',
     // width: '100%',
     paddingVertical: 10,
-    marginTop: 10,
+    marginTop: 20,
   },
   bloodSugarText: {
     fontSize: 45,
@@ -304,6 +304,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.whiteColor,
+    borderStyle: 'solid',
+    borderColor: Colors.gray.gray95,
+    borderWidth: 1,
     borderRadius: 20,
   },
   textToday: {

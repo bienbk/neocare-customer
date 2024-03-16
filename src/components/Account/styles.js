@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginVertical: 10,
     paddingHorizontal: 5,
+    // paddingVertical: 5,
     borderRadius: 20,
   },
   containerFlatOption: {

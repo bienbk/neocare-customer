@@ -13,19 +13,20 @@ import {
   TextNormalSemiBold,
   TextSemiBold,
   TextSmallMedium,
-} from '../../common/Text/TextFont';
-import Icons from '../../common/Icons/Icons';
-import Colors from '../../theme/Colors';
-import {heightDevice, widthDevice} from '../../assets/constans';
-import strings from '../../localization/Localization';
-import CustomButton from '../../common/CustomButton/CustomButton';
-import {NAVIGATION_HOME} from '../../navigation/routes';
+} from 'common/Text/TextFont';
+import Icons from 'common/Icons/Icons';
+import Colors from 'theme/Colors';
+import {heightDevice, widthDevice, today} from 'assets/constans';
+import strings from 'localization/Localization';
+import CustomButton from 'common/CustomButton/CustomButton';
+import {NAVIGATION_HOME} from 'navigation/routes';
 import CustomHeader from './CustomHeader';
 const PLACEHOLDER =
   'Ghi chú trạng thái cảm giác của bạn khi đo, chất luợng giấc ngủ, chế độ dinh duỡng, bài tập thể dục gần đây của bạn...';
 const ConclusionInput = ({
   navigation,
   conclusion,
+  onSave,
   value,
   title,
   unit,
@@ -145,9 +146,7 @@ const ConclusionInput = ({
           },
         ]}>
         <TouchableOpacity style={styles.wrapperDateSelector}>
-          <TextNormalSemiBold>
-            {new Date().toLocaleString('en-GB').replaceAll('/', '-')}
-          </TextNormalSemiBold>
+          <TextNormalSemiBold>{today}</TextNormalSemiBold>
         </TouchableOpacity>
         <TouchableOpacity onPress={resetConclusion} style={styles.editButton}>
           <Icons
@@ -163,14 +162,16 @@ const ConclusionInput = ({
               {parseFloat(value).toFixed(1)}
             </TextNormal>
             <TextNormal style={{fontSize: 17}}>{unit}</TextNormal>
-            <TextNormal style={styles.textTimeMessure}>
+            <TextNormal style={[styles.textTimeMessure, type > 3 && {backgroundColor: Colors.gray.gray70}]}>
               {type === 1
                 ? 'Nhịn ăn'
                 : type === 2
                 ? 'Sau ăn'
                 : type === 3
                 ? 'Truớc ăn'
-                : 'Xét nghiệm'}
+                : type === 4
+                ? 'Xét nghiệm'
+                : 'Thủ công'}
             </TextNormal>
           </View>
         )}
@@ -287,7 +288,7 @@ const ConclusionInput = ({
       </Animated.View>
       {!showTextarea && (
         <CustomButton
-          onPress={() => console.log()}
+          onPress={onSave}
           styled={{marginBottom: title === 'Mỡ máu' ? 0 : 20}}
           label={strings.common.save}
         />

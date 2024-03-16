@@ -46,6 +46,10 @@ export const NEOCARE = createRequestTypes(
 
     // DISEASES
     'LIST_ALL_DISEASE',
+
+    // PARAMETER
+    'CREATE_PARAMETER',
+    'LIST_PARAMETER',
   ],
   suffixTypes,
 );

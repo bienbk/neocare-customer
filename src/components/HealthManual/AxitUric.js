@@ -12,19 +12,32 @@ import {
   TextNormalSemiBold,
   TextSemiBold,
   TextSmallMedium,
-} from '../../common/Text/TextFont';
-import Icons from '../../common/Icons/Icons';
-import Colors from '../../theme/Colors';
-import strings from '../../localization/Localization';
-import CustomButton from '../../common/CustomButton/CustomButton';
+} from 'common/Text/TextFont';
+import Icons from 'common/Icons/Icons';
+import Colors from 'theme/Colors';
+import strings from 'localization/Localization';
+import CustomButton from 'common/CustomButton/CustomButton';
 import {
   AXIT_URIC_MG,
   AXIT_URIC_MOL,
+  CODE_AXIT_URIC,
+  UNIT_MG_DL,
+  UNIT_UMOLL,
   heightDevice,
   widthDevice,
-} from '../../assets/constans';
+  today,
+} from 'assets/constans';
 import CustomHeader from './CustomHeader';
-import UnitSelector from '../../common/UnitSelector/UnitSelector';
+import UnitSelector from 'common/UnitSelector/UnitSelector';
+import {NAVIGATION_HOME} from 'navigation/routes';
+import {useDispatch, useSelector} from 'react-redux';
+import {statusCreateParamSelector} from 'store/selectors';
+import {
+  createParameterAction,
+  resetCreationParameter,
+} from 'store/parameter/parameterAction';
+import Status from 'common/Status/Status';
+
 const PLACEHOLDER =
   'Ghi chú trạng thái cảm giác của bạn khi đo huyết áp, chất luợng giấc ngủ, chế độ dinh duỡng, bài tập thể dục gần đây của bạn...';
 const AxitUric = ({navigation}) => {
@@ -39,6 +52,10 @@ const AxitUric = ({navigation}) => {
   const cardTransition = new Animated.Value(0);
   const inputTransition = new Animated.Value(0);
   const textInputRef = useRef();
+  const dispatch = useDispatch();
+  const statusCreateParameter = useSelector(state =>
+    statusCreateParamSelector(state),
+  );
   Keyboard.addListener('keyboardDidHide', () => {
     setShowTextarea(false);
     setInputFocused(false);
@@ -62,6 +79,9 @@ const AxitUric = ({navigation}) => {
   };
 
   const handleSubmit = () => {
+    if (conclusion !== -1) {
+      saveParameter();
+    }
     if (warningMessage || !axitUric) {
       return;
     }
@@ -82,6 +102,22 @@ const AxitUric = ({navigation}) => {
       setConclusion({content: result?.key, color: result?.color});
     }
   };
+  const saveParameter = () => {
+    const payload = {
+      acid_uric: {
+        index: parseFloat(axitUric),
+        unit: messure === 1 ? UNIT_MG_DL : UNIT_UMOLL,
+      },
+      parameters_monitor_code: CODE_AXIT_URIC,
+    };
+    dispatch(createParameterAction(payload));
+  };
+  useEffect(() => {
+    if (statusCreateParameter === Status.SUCCESS) {
+      dispatch(resetCreationParameter());
+      navigation && navigation.navigate(NAVIGATION_HOME);
+    }
+  }, [statusCreateParameter]);
   const handleFocusInput = () => {
     textInputRef.current.focus();
     setAxitUric('');
@@ -126,9 +162,7 @@ const AxitUric = ({navigation}) => {
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.wrapperDateAxit}>
-          <TextNormalSemiBold>
-            {new Date().toLocaleString('en-GB')}
-          </TextNormalSemiBold>
+          <TextNormalSemiBold>{today}</TextNormalSemiBold>
         </TouchableOpacity>
         <View>
           <TouchableOpacity

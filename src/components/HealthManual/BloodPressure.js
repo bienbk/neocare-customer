@@ -8,34 +8,42 @@ import {
   Pressable,
 } from 'react-native';
 import styles from './styles';
-import {TextNormalSemiBold, TextSemiBold} from '../../common/Text/TextFont';
-import Icons from '../../common/Icons/Icons';
-import Colors from '../../theme/Colors';
+import {TextNormalSemiBold, TextSemiBold} from 'common/Text/TextFont';
+import Icons from 'common/Icons/Icons';
+import Colors from 'theme/Colors';
 import InputManual from './InputManual';
-import strings from '../../localization/Localization';
-import CustomButton from '../../common/CustomButton/CustomButton';
+import strings from 'localization/Localization';
+import CustomButton from 'common/CustomButton/CustomButton';
 import {
   BLOOD_PRESSURE_DATA,
-  heightDevice,
+  CODE_BLOOD_PRESSURE,
+  UNIT_BEAT_MIN,
+  UNIT_MMHG,
+  today,
   widthDevice,
-} from '../../assets/constans';
+} from 'assets/constans';
 import CustomHeader from './CustomHeader';
+import {statusCreateParamSelector} from 'store/parameter/parameterSelector';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  createParameterAction,
+  resetCreationParameter,
+} from 'store/parameter/parameterAction';
+import {NAVIGATION_HOME} from 'navigation/routes';
+import Status from 'common/Status/Status';
 const PLACEHOLDER =
   'Ghi chú trạng thái cảm giác của bạn khi đo huyết áp, chất luợng giấc ngủ, chế độ dinh duỡng, bài tập thể dục gần đây của bạn...';
 const BloodPressure = ({navigation}) => {
-  const [firstInput, setFirstInput] = useState('');
+  const [systolic, setSystolic] = useState('');
   const [firstReady, setFirstReady] = useState(false);
-  const [secondInput, setSecondInput] = useState('');
+  const [diastolic, setDiastolic] = useState('');
   const [secondReady, setSecondReady] = useState(false);
-  const [thirdInput, setThirdInput] = useState('');
+  const [heartbeat, setHeartbeat] = useState('');
   const [thirdReady, setThirdReady] = useState(false);
   const [warningMessage, setWarningMessage] = useState('');
-  const [conclusion, setConclusion] = useState(null);
+  const [conclusion, setConclusion] = useState(-1);
   const [showTextarea, setShowTextarea] = useState(false);
-  const refCardHeight = React.useRef({
-    init: 0,
-    changed: 0,
-  });
+  const refCardHeight = React.useRef(0);
   const [note, setNote] = useState('');
   const cardTransition = new Animated.Value(0);
   const inputTransition = new Animated.Value(0);
@@ -53,7 +61,7 @@ const BloodPressure = ({navigation}) => {
       }).start();
       Animated.timing(inputTransition, {
         duration: 500,
-        toValue: -(heightDevice / 2) + 70,
+        toValue: -refCardHeight.current,
         useNativeDriver: true,
       }).start();
     }
@@ -82,6 +90,9 @@ const BloodPressure = ({navigation}) => {
     setActiveInput(type);
   };
   const handleSubmit = () => {
+    if (conclusion !== -1) {
+      saveParameter();
+    }
     if (warningMessage) {
       return;
     }
@@ -91,14 +102,14 @@ const BloodPressure = ({navigation}) => {
     let resultSecond;
     for (let [key, value] of BLOOD_PRESSURE_DATA.entries()) {
       if (
-        key.min_tam_thu <= parseInt(firstInput, 10) &&
-        parseInt(firstInput, 10) <= key.max_tam_thu
+        key.min_tam_thu <= parseInt(systolic, 10) &&
+        parseInt(systolic, 10) <= key.max_tam_thu
       ) {
         resultFirst = {key, value};
       }
       if (
-        key.min_tam_truong <= parseInt(secondInput, 10) &&
-        parseInt(secondInput, 10) <= key.max_tam_truong
+        key.min_tam_truong <= parseInt(diastolic, 10) &&
+        parseInt(diastolic, 10) <= key.max_tam_truong
       ) {
         resultSecond = {key, value};
       }
@@ -118,27 +129,41 @@ const BloodPressure = ({navigation}) => {
   const handleSelectInput = index => {
     handleActiveInput(index);
     if (index === 1) {
-      setFirstInput('');
-      setConclusion('');
+      setSystolic('');
+      setConclusion(-1);
     } else if (index === 2) {
-      setSecondInput('');
-      setConclusion('');
+      setDiastolic('');
+      setConclusion(-1);
     } else {
-      setThirdInput('');
+      setHeartbeat('');
     }
   };
+  const dispatch = useDispatch();
+  const statusCreateParameter = useSelector(state =>
+    statusCreateParamSelector(state),
+  );
+  const saveParameter = () => {
+    const payload = {
+      blood_pressure: {
+        index_dia: parseInt(diastolic, 10),
+        index_pulse: parseInt(heartbeat, 10),
+        index_sys: parseInt(systolic, 10),
+        unit_dia: UNIT_MMHG,
+        unit_pulse: UNIT_BEAT_MIN,
+        unit_sys: UNIT_MMHG,
+      },
+      parameters_monitor_code: CODE_BLOOD_PRESSURE,
+    };
+    dispatch(createParameterAction(payload));
+  };
+  useEffect(() => {
+    if (statusCreateParameter === Status.SUCCESS) {
+      dispatch(resetCreationParameter());
+      navigation && navigation.navigate(NAVIGATION_HOME);
+    }
+  }, [statusCreateParameter]);
   return (
     <Pressable onPress={Keyboard.dismiss} style={styles.container}>
-      {/* {!showTextarea && (
-        <TouchableOpacity
-          onPress={() => navigation.navigate(NAVIGATION_HOME)}
-          style={styles.wrapperClose}>
-          <Icons type={'Feather'} name={'x'} size={20} color={'white'} />
-        </TouchableOpacity>
-      )} */}
-      {/* <TextSemiBold style={styles.textTitle}>
-        {showTextarea ? 'Bạn đang cảm thấy thế nào?' : 'Nhập số đo huyết áp'}
-      </TextSemiBold> */}
       <CustomHeader
         conclusion={conclusion}
         title={'Huyết áp'}
@@ -148,12 +173,12 @@ const BloodPressure = ({navigation}) => {
       <Animated.View
         onLayout={({nativeEvent}) => {
           if (conclusion) {
-            refCardHeight.current.changed = nativeEvent.layout.height;
+            refCardHeight.current = nativeEvent.layout.height;
           }
         }}
         style={[
           styles.wrapperMainContent,
-          conclusion && {
+          conclusion !== -1 && {
             backgroundColor: Colors.whiteColor,
             marginHorizontal: 15,
           },
@@ -165,25 +190,38 @@ const BloodPressure = ({navigation}) => {
             ],
           },
         ]}>
-        {conclusion && conclusion?.content && (
+        {conclusion && conclusion !== -1 && (
           <TouchableOpacity style={styles.wrapperDateSelector}>
-            <TextNormalSemiBold>
-              {new Date().toLocaleString('en-GB')}
-            </TextNormalSemiBold>
+            <TextNormalSemiBold>{today}</TextNormalSemiBold>
+          </TouchableOpacity>
+        )}
+        {conclusion !== -1 && (
+          <TouchableOpacity
+            onPress={() => setConclusion(-1)}
+            style={[styles.editButton, {top: 10}]}>
+            <Icons
+              type={'FontAwesome5'}
+              name={'pencil-alt'}
+              size={20}
+              color={'black'}
+            />
           </TouchableOpacity>
         )}
         <View
-          style={[styles.containerInputHealth, conclusion && {marginTop: 0}]}>
+          style={[
+            styles.containerInputHealth,
+            conclusion !== -1 && {marginTop: 0},
+          ]}>
           <TouchableOpacity
             onPress={() => handleSelectInput(1)}
             style={[
               styles.wrapperInputHeath,
-              conclusion && {backgroundColor: 'white'},
+              conclusion !== -1 && {backgroundColor: 'white'},
               activeInput === 1 && styles.wrapperActiveInputHealth,
             ]}>
             <InputManual
-              code={firstInput}
-              setCode={setFirstInput}
+              code={systolic}
+              setCode={setSystolic}
               setPinReady={setFirstReady}
               min={30}
               max={300}
@@ -204,12 +242,12 @@ const BloodPressure = ({navigation}) => {
             onPress={() => handleSelectInput(2)}
             style={[
               styles.wrapperInputHeath,
-              conclusion && {backgroundColor: 'white'},
+              conclusion !== -1 && {backgroundColor: 'white'},
               activeInput === 2 && styles.wrapperActiveInputHealth,
             ]}>
             <InputManual
-              code={secondInput}
-              setCode={setSecondInput}
+              code={diastolic}
+              setCode={setDiastolic}
               setPinReady={setSecondReady}
               min={20}
               max={250}
@@ -232,12 +270,12 @@ const BloodPressure = ({navigation}) => {
             onPress={() => handleSelectInput(3)}
             style={[
               styles.wrapperInputHeath,
-              conclusion && {backgroundColor: 'white'},
+              conclusion !== -1 && {backgroundColor: 'white'},
               activeInput === 3 && styles.wrapperActiveInputHealth,
             ]}>
             <InputManual
-              code={thirdInput}
-              setCode={setThirdInput}
+              code={heartbeat}
+              setCode={setHeartbeat}
               setPinReady={setThirdReady}
               min={45}
               max={240}
@@ -257,21 +295,27 @@ const BloodPressure = ({navigation}) => {
             </TextNormalSemiBold>
           </TouchableOpacity>
         </View>
-        <View style={styles.wrapperManualText}>
-          <TextNormalSemiBold style={{color: Colors.gray.gray50}}>
-            {activeInput === 1
-              ? 'Tầm thu theo mmHg (30 ~ 300)'
-              : activeInput === 3
-              ? 'Nhịp tim theo nhịp/phút (45 - 240)'
-              : 'Tầm truơng theo mmHg (20 ~ 250)'}
-          </TextNormalSemiBold>
-          {warningMessage && (
-            <TextNormalSemiBold style={styles.textWarning}>
-              {warningMessage}
+        {conclusion === -1 ? (
+          <View style={styles.wrapperManualText}>
+            <TextNormalSemiBold style={{color: Colors.gray.gray50}}>
+              {activeInput === 1
+                ? 'Tầm thu theo mmHg (30 ~ 300)'
+                : activeInput === 3
+                ? 'Nhịp tim theo nhịp/phút (45 - 240)'
+                : 'Tầm truơng theo mmHg (20 ~ 250)'}
             </TextNormalSemiBold>
-          )}
-        </View>
-        {conclusion && conclusion?.content && (
+            {warningMessage && (
+              <TextNormalSemiBold style={styles.textWarning}>
+                {warningMessage}
+              </TextNormalSemiBold>
+            )}
+          </View>
+        ) : (
+          <TextNormalSemiBold style={[styles.labelAxit, {marginBottom: 20}]}>
+            {'Thủ công'}
+          </TextNormalSemiBold>
+        )}
+        {conclusion !== -1 && (
           <View style={[styles.wrapperConclusion]}>
             <View style={styles.line}>
               <Icons
@@ -297,11 +341,11 @@ const BloodPressure = ({navigation}) => {
           </View>
         )}
       </Animated.View>
-      {conclusion && conclusion?.content && (
+      {conclusion !== -1 && (
         <Animated.View
           style={[
             showTextarea && {
-              height: heightDevice / 2,
+              // height: heightDevice / 2,
               transform: [
                 {
                   translateY: inputTransition,
@@ -350,13 +394,13 @@ const BloodPressure = ({navigation}) => {
           styled={{
             marginBottom: 10,
             backgroundColor:
-              !firstInput || !secondInput
-                ? 'lightgray'
-                : Colors.buttonBackground,
+              !systolic || !diastolic ? 'lightgray' : Colors.buttonBackground,
           }}
-          onPress={() => handleSubmit()}
-          isDisabled={!firstInput || !secondInput}
-          label={conclusion ? strings.common.save : strings.common.continue}
+          onPress={handleSubmit}
+          isDisabled={!systolic || !diastolic}
+          label={
+            conclusion !== -1 ? strings.common.save : strings.common.continue
+          }
         />
       )}
     </Pressable>

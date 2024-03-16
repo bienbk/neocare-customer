@@ -1,7 +1,14 @@
 import {Dimensions, Platform} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import Colors from '../theme/Colors';
-import { NAVIGATION_LOGIN } from '../navigation/routes';
+import {NAVIGATION_LOGIN} from '../navigation/routes';
+export const today = new Intl.DateTimeFormat('vi', {
+  month: 'long',
+  day: 'numeric',
+  hour12: false,
+  weekday: 'long',
+  year: 'numeric',
+}).format(new Date());
 export const LIST_OPTION = [
   {
     title: 'Chung',
@@ -82,11 +89,11 @@ const BLOOD_PRESSURE = [
       max_tam_thu: 100,
       min_tam_truong: 0,
       max_tam_truong: 60,
-      color: '#7B2EC2',
+      color: Colors.blue.blue40,
     },
   },
   {
-    key: 'Tối uư',
+    key: 'Tối ưu',
     value: {
       id: 2,
       min_tam_thu: 100,
@@ -290,3 +297,19 @@ export const dates = () => {
   }
   return rangeDate;
 };
+// ----------- UNIT ------------
+export const UNIT_PERCENTER = 0;
+export const UNIT_MMOL_MOL = 1;
+export const UNIT_MG_DL = 2;
+export const UNIT_MMHG = 3;
+export const UNIT_BEAT_MIN = 4;
+export const UNIT_KG = 5;
+export const UNIT_LBS = 6;
+export const UNIT_UMOLL = 8;
+// --------- CODE DISEASE -------------
+export const CODE_HBA1C = 'A1C';
+export const CODE_BLOOD_PRESSURE = 'BLP';
+export const CODE_BLOOD_SUGAR = 'BLG';
+export const CODE_CHOLESTEROL = 'CLR';
+export const CODE_WEIGHT = 'WEI';
+export const CODE_AXIT_URIC = 'ACU';

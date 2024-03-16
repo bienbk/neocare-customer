@@ -17,6 +17,7 @@ import {
   TextMoneyBold,
   TextNormal,
   TextSemiBold,
+  TextSmallMedium,
 } from '../../common/Text/TextFont';
 import {widthDevice} from '../../assets/constans';
 
@@ -26,24 +27,24 @@ const Account = ({navigation}) => {
   const positionY = useRef(new Animated.Value(0)).current;
   const imageAnimation = {
     transform: [
-      {
-        translateY: positionY.interpolate({
-          inputRange: [0, IMAGE_HEIGHT],
-          outputRange: [0, -IMAGE_HEIGHT / 3],
-          extrapolate: 'clamp',
-        }),
-      },
+      // {
+      //   translateY: positionY.interpolate({
+      //     inputRange: [0, IMAGE_HEIGHT],
+      //     outputRange: [0, -IMAGE_HEIGHT / 3],
+      //     extrapolate: 'clamp',
+      //   }),
+      // },
       {
         scaleY: positionY.interpolate({
           inputRange: [0, IMAGE_HEIGHT],
-          outputRange: [1, 0],
+          outputRange: [1, 0.5],
           extrapolate: 'clamp',
         }),
       },
     ],
   };
   const opacityHeader = positionY.interpolate({
-    inputRange: [IMAGE_HEIGHT * 0.2, IMAGE_HEIGHT * 0.6],
+    inputRange: [IMAGE_HEIGHT * 0.3, IMAGE_HEIGHT * 0.5],
     outputRange: [0, 1],
     extrapolate: 'clamp',
   });
@@ -59,6 +60,11 @@ const Account = ({navigation}) => {
         link={item.link}
       />
     ));
+  const renderFooter = () => (
+    <TextSmallMedium style={{color: Colors.gray.gray60, alignSelf: 'center'}}>
+      Phiên bản 1.0 build 2445
+    </TextSmallMedium>
+  );
   return (
     <SafeAreaView style={styles.container}>
       <Animated.View
@@ -97,6 +103,7 @@ const Account = ({navigation}) => {
           keyExtractor={(_, id) => id.toString()}
           contentContainerStyle={styles.containerFlatOption}
           showsVerticalScrollIndicator={false}
+          ListFooterComponent={renderFooter}
           renderItem={({item}) => {
             return (
               <View>

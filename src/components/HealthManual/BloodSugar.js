@@ -8,20 +8,32 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import styles from './styles';
-import {TextMoneyBold, TextNormalSemiBold} from '../../common/Text/TextFont';
-import Icons from '../../common/Icons/Icons';
-import Colors from '../../theme/Colors';
-import strings from '../../localization/Localization';
-import HorizontalRange from '../../common/HorizontalRange/HorizontalRange';
-import CustomButton from '../../common/CustomButton/CustomButton';
+import {TextMoneyBold, TextNormalSemiBold} from 'common/Text/TextFont';
+import Icons from 'common/Icons/Icons';
+import Colors from 'theme/Colors';
+import strings from 'localization/Localization';
+import HorizontalRange from 'common/HorizontalRange/HorizontalRange';
+import CustomButton from 'common/CustomButton/CustomButton';
 import {
   BLOOD_SUGAR_MG,
   BLOOD_SUGAR_MOL,
+  CODE_BLOOD_SUGAR,
+  UNIT_MG_DL,
+  today,
+  UNIT_MMOL_MOL,
   widthDevice,
-} from '../../assets/constans';
-import UnitSelector from '../../common/UnitSelector/UnitSelector';
+} from 'assets/constans';
+import UnitSelector from 'common/UnitSelector/UnitSelector';
 import ConclusionInput from './ConclusionInput';
 import CustomHeader from './CustomHeader';
+import {useDispatch, useSelector} from 'react-redux';
+import {statusCreateParamSelector} from 'store/selectors';
+import {
+  createParameterAction,
+  resetCreationParameter,
+} from 'store/parameter/parameterAction';
+import Status from 'common/Status/Status';
+import {NAVIGATION_HOME} from 'navigation/routes';
 const MIN_MG = 36;
 const MIN_MOL = 2.0;
 const BloodSugar = ({navigation}) => {
@@ -30,6 +42,10 @@ const BloodSugar = ({navigation}) => {
   const [bloodSugar, setBloodSugar] = useState(40);
   const [timeMessure, setTimeMessure] = useState(1);
   const [conclusion, setConclusion] = useState(-1);
+  const dispatch = useDispatch();
+  const statusCreateParameter = useSelector(state =>
+    statusCreateParamSelector(state),
+  );
   useEffect(() => {
     if (loading) {
       setTimeout(() => {
@@ -95,6 +111,23 @@ const BloodSugar = ({navigation}) => {
       setConclusion({content: result.key, color: result.type_1.color});
     }
   };
+  const saveParameter = () => {
+    const payload = {
+      blood_glucose: {
+        unit: conclusion.unit === 1 ? UNIT_MG_DL : UNIT_MMOL_MOL,
+        index: parseFloat(bloodSugar),
+        eating_status: timeMessure,
+      },
+      parameters_monitor_code: CODE_BLOOD_SUGAR,
+    };
+    dispatch(createParameterAction(payload));
+  };
+  useEffect(() => {
+    if (statusCreateParameter === Status.SUCCESS) {
+      dispatch(resetCreationParameter());
+      navigation && navigation.navigate(NAVIGATION_HOME);
+    }
+  }, [statusCreateParameter]);
   useEffect(() => {
     if (conclusion !== -1) {
       conclusionTransition && animatedAction(conclusionTransition);
@@ -134,7 +167,7 @@ const BloodSugar = ({navigation}) => {
                   color={'black'}
                 />
                 <TextNormalSemiBold style={styles.textToday}>
-                  {new Date().toUTCString()}
+                  {today}
                 </TextNormalSemiBold>
               </TouchableOpacity>
               <TextMoneyBold style={styles.bloodSugarText}>
@@ -174,6 +207,7 @@ const BloodSugar = ({navigation}) => {
                 data={[{name: 'Nhịn ăn'}, {name: 'Sau ăn'}, {name: 'Truớc ăn'}]}
                 contentContainerStyle={styles.wrapperTimerFlatlist}
                 horizontal={true}
+                keyExtractor={(_, id) => id.toString()}
                 renderItem={renderTimerItem}
               />
               <TextNormalSemiBold style={styles.textTimeMessure}>
@@ -209,9 +243,10 @@ const BloodSugar = ({navigation}) => {
               setLoading(true);
               setConclusion(-1);
             }}
+            onSave={saveParameter}
             value={bloodSugar}
-            unit={messure ? 'mg/dL' : 'mmol/L'}
-            time={timeMessure}
+            unit={messure === 1 ? 'mg/dL' : 'mmol/L'}
+            type={timeMessure}
           />
         </Animated.View>
       )}
