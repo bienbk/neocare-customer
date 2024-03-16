@@ -12,7 +12,7 @@ import Colors from 'theme/Colors';
 import strings from 'localization/Localization';
 import HorizontalRange from 'common/HorizontalRange/HorizontalRange';
 import CustomButton from 'common/CustomButton/CustomButton';
-import {HBA1C_MOL, HBA1C_PERCENT, widthDevice} from 'assets/constans';
+import {HBA1C_MOL, HBA1C_PERCENT, widthDevice, convertDate} from 'assets/constans';
 import UnitSelector from 'common/UnitSelector/UnitSelector';
 import ConclusionInput from './ConclusionInput';
 import {useDispatch, useSelector} from 'react-redux';
@@ -22,12 +22,15 @@ import {
   createParameterAction,
   resetCreationParameter,
 } from 'store/parameter/parameterAction';
+import DateTimePicker from '../../common/DateTImePicker/DateTimePicker';
 import {CODE_HBA1C, UNIT_MMOL_MOL, UNIT_PERCENTER} from 'assets/constans';
 import {NAVIGATION_HOME} from 'navigation/routes';
 import Status from 'common/Status/Status';
 const MIN_PERCENT = 3;
 const MIN_MOL = 9;
 const HbA1c = ({navigation}) => {
+  const [openDatePicker, setOpenDatePicker] = useState(false);
+  const [date, setDate] = useState(new Date());
   const [loading, setLoading] = useState(true);
   const [messure, setMessure] = useState(1);
   const [hba1c, setHba1c] = useState(0);
@@ -112,16 +115,18 @@ const HbA1c = ({navigation}) => {
           <Animated.View style={[styles.containerBloodSugar]}>
             <View style={{alignItems: 'center', marginTop: 30}}>
               <TouchableOpacity
-                onPress={() => {}}
-                style={styles.wrapperDatePicker}>
+                onPress={() => setOpenDatePicker(true)}
+                style={styles.wrapperDateAxit}>
                 <Icons
-                  type={'Feather'}
+                  type={'Fontisto'}
                   name={'calendar'}
                   size={18}
-                  color={'black'}
+                  color={Colors.gray.gray40}
                 />
-                <TextNormalSemiBold style={styles.textToday}>
-                  {new Date().toUTCString()}
+                <TextNormalSemiBold style={styles.textTodayAxit}>
+                  {`${convertDate(
+                    date,
+                  )} ${date.getHours()}:${date.getMinutes()}`}
                 </TextNormalSemiBold>
               </TouchableOpacity>
               <TextMoneyBold style={styles.bloodSugarText}>
@@ -183,11 +188,21 @@ const HbA1c = ({navigation}) => {
             }}
             onSave={saveParameter}
             value={hba1c}
+            date={date}
             unit={messure === 2 ? '%' : 'mmol/mol'}
             type={4}
           />
         </Animated.View>
       )}
+      <DateTimePicker
+        isOpen={openDatePicker}
+        maxDate={new Date()}
+        onConfirm={v => {
+          setDate(v);
+          setOpenDatePicker(false);
+        }}
+        onClose={() => setOpenDatePicker(false)}
+      />
     </View>
   );
 };

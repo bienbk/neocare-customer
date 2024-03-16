@@ -25,6 +25,7 @@ import {
   UNIT_UMOLL,
   heightDevice,
   widthDevice,
+  convertDate,
   today,
 } from 'assets/constans';
 import CustomHeader from './CustomHeader';
@@ -37,10 +38,13 @@ import {
   resetCreationParameter,
 } from 'store/parameter/parameterAction';
 import Status from 'common/Status/Status';
+import DateTimePicker from '../../common/DateTImePicker/DateTimePicker';
 
 const PLACEHOLDER =
   'Ghi chú trạng thái cảm giác của bạn khi đo huyết áp, chất luợng giấc ngủ, chế độ dinh duỡng, bài tập thể dục gần đây của bạn...';
 const AxitUric = ({navigation}) => {
+  const [openDatePicker, setOpenDatePicker] = useState(false);
+  const [date, setDate] = useState(new Date());
   const [axitUric, setAxitUric] = useState('');
   const [inputFocused, setInputFocused] = useState(false);
   const [warningMessage, setWarningMessage] = useState('');
@@ -153,16 +157,26 @@ const AxitUric = ({navigation}) => {
         ]}>
         <TouchableOpacity
           onPress={handleResetConclusion}
-          style={styles.editButton}>
+          style={[styles.editButton, {padding: 10}]}>
           <Icons
-            type={'FontAwesome5'}
-            name={'pencil-alt'}
+            type={'AntDesign'}
+            name={'edit'}
             size={20}
-            color={'black'}
+            color={Colors.gray.gray40}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.wrapperDateAxit}>
-          <TextNormalSemiBold>{today}</TextNormalSemiBold>
+        <TouchableOpacity
+          onPress={() => setOpenDatePicker(true)}
+          style={styles.wrapperDateAxit}>
+          <Icons
+            type={'Fontisto'}
+            name={'calendar'}
+            size={18}
+            color={Colors.gray.gray40}
+          />
+          <TextNormalSemiBold style={styles.textTodayAxit}>
+            {`${convertDate(date)} ${date.getHours()}:${date.getMinutes()}`}
+          </TextNormalSemiBold>
         </TouchableOpacity>
         <View>
           <TouchableOpacity
@@ -289,6 +303,7 @@ const AxitUric = ({navigation}) => {
           )}
         </Animated.View>
       )}
+
       {!showTextarea && (
         <CustomButton
           styled={{
@@ -302,6 +317,15 @@ const AxitUric = ({navigation}) => {
           }
         />
       )}
+      <DateTimePicker
+        isOpen={openDatePicker}
+        maxDate={new Date()}
+        onConfirm={v => {
+          setDate(v);
+          setOpenDatePicker(false);
+        }}
+        onClose={() => setOpenDatePicker(false)}
+      />
     </Pressable>
   );
 };

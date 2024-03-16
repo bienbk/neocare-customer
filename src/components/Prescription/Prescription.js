@@ -1,9 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
-import {React, useRef, useState} from 'react';
+import {React, useEffect, useRef, useState} from 'react';
 import {View, TouchableOpacity, StyleSheet} from 'react-native';
 // import {useDispatch, useSelector} from 'react-redux';
 // import styles from './styles';
-import {TextMoneyBold, TextNormal} from '../../common/Text/TextFont';
+import {
+  TextMoneyBold,
+  TextNormal,
+  TextNormalSemiBold,
+} from '../../common/Text/TextFont';
 // import Colors from '../../theme/Colors';
 import strings from '../../localization/Localization';
 
@@ -12,24 +16,15 @@ import Svg from '../../common/Svg/Svg';
 import HorizontalRange from '../../common/HorizontalRange/HorizontalRange';
 import CustomButton from '../../common/CustomButton/CustomButton';
 import Colors from '../../theme/Colors';
-const Prescription = ({nextStep}) => {
-  const [weight, setWeight] = useState(50.0);
-  const [typeWeight, setTypeWeight] = useState(1);
-  const refWeight = useRef(0);
-  const [weightChanged, setWeightChanged] = useState(0);
+import {convertDate, today} from '../../assets/constans';
+import DateTimePicker from '../../common/DateTImePicker/DateTimePicker';
 
-  const handleWeightType = type => {
-    setTypeWeight(type);
-    setWeight(0);
-  };
-  const handleWeightVal = type => {
-    if (parseInt(weight, 10) === 0 && type === 0) {
-      return;
-    }
-    refWeight.current = type === 0 ? -0.1 : 0.1
-  };
+const Prescription = ({nextStep}) => {
+  const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
+
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, alignItems: 'center'}}>
       {/* TITLE SECTION */}
       <View style={styles.wrapperTitle}>
         <TextMoneyBold style={{fontSize: 24, marginBottom: 5}}>
@@ -39,69 +34,26 @@ const Prescription = ({nextStep}) => {
           {'Thông tin này rất quan trọng để tính chỉ số khối cơ thể của bạn'}
         </TextNormal>
       </View>
-      {/* WEIGHT SECTION */}
-      <View style={styles.wrapperWeightSection}>
-        {/* TYPE OF WEIGHT */}
-        <View style={[styles.wrapperWeightButton, {paddingHorizontal: 40}]}>
-          <TouchableOpacity
-            onPress={() => {
-              handleWeightType(1);
-              setWeight(50.0);
-            }}
-            style={[
-              styles.weightButton,
-              typeWeight === 1 && styles.activeWeightButton,
-            ]}>
-            <TextNormal style={[typeWeight === 1 && styles.activeTextWeight]}>
-              KG
-            </TextNormal>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              handleWeightType(2);
-              setWeight(5.0);
-            }}
-            style={[
-              styles.weightButton,
-              typeWeight === 2 && styles.activeWeightButton,
-            ]}>
-            <TextNormal style={[typeWeight === 2 && styles.activeTextWeight]}>
-              LBS
-            </TextNormal>
-          </TouchableOpacity>
-        </View>
-        {/* VALUE OF WEIGHT */}
-        <View style={styles.wrapperWeightButton}>
-          <TouchableOpacity
-            disabled={typeWeight === 2}
-            onPress={() => handleWeightVal(0)}
-            style={styles.weightValueButton}>
-            <Icons type={'Feather'} name={'minus'} size={26} color={'white'} />
-          </TouchableOpacity>
-          <TextMoneyBold style={{fontSize: 60}}>
-            {parseFloat(weight).toFixed(1)}
-          </TextMoneyBold>
-          <TouchableOpacity
-            disabled={typeWeight === 2}
-            onPress={() => handleWeightVal(1)}
-            style={styles.weightValueButton}>
-            <Icons type={'Feather'} name={'plus'} size={26} color={'white'} />
-          </TouchableOpacity>
-        </View>
-      </View>
-      {/* SLIDER */}
-      <HorizontalRange
-        initValue={weight}
-        setValue={setWeight}
-        type={typeWeight === 1 ? 'kg' : 'lbs'}
-      />
-
-      <View style={{flex: 1, alignItems: 'center'}}>
-        <Svg name={'icon_weight'} size={220} />
-      </View>
-      <CustomButton
-        onPress={() => nextStep({weight})}
-        label={strings.common.continue}
+      <TouchableOpacity
+        onPress={() => setOpen(true)}
+        style={styles.wrapperDatePicker}>
+        <Icons
+          type={'Fontisto'}
+          name={'calendar'}
+          size={18}
+          color={Colors.greenColor}
+        />
+        <TextNormalSemiBold style={styles.textToday}>
+          {convertDate(date) + ' ' + date.getHours() + ':' + date.getMinutes()}
+        </TextNormalSemiBold>
+      </TouchableOpacity>
+      <DateTimePicker
+        date={date}
+        isOpen={open}
+        setDate={setDate}
+        maxDate={new Date()}
+        onConfirm={() => setOpen(false)}
+        onClose={() => setOpen(false)}
       />
     </View>
   );
@@ -110,6 +62,23 @@ const Prescription = ({nextStep}) => {
 export default Prescription;
 
 const styles = StyleSheet.create({
+  textToday: {
+    marginLeft: 10,
+    color: Colors.gray.gray20,
+  },
+  wrapperDatePicker: {
+    flexDirection: 'row',
+    paddingHorizontal: 25,
+    paddingVertical: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    backgroundColor: Colors.whiteColor,
+    borderStyle: 'solid',
+    borderColor: Colors.gray.gray95,
+    borderWidth: 1,
+    borderRadius: 20,
+  },
   wrapperRulerItem: {
     alignItems: 'center',
     justifyContent: 'center',

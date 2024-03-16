@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     right: 0,
-    opacity: 0.7,
+    opacity: 0.8,
   },
   viewContent: {
     // position: 'absolute',

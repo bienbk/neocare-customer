@@ -15,28 +15,25 @@ import {
   TextNormal,
   TextSemiBold,
 } from '../../common/Text/TextFont';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import Colors from '../../theme/Colors';
 import strings from '../../localization/Localization';
 import MyModal from '../../common/MyModal/MyModal';
-import {heightDevice, widthDevice} from '../../assets/constans';
+import {convertDate, heightDevice, widthDevice} from '../../assets/constans';
 
 import Svg from '../../common/Svg/Svg';
 
 import CustomButton from '../../common/CustomButton/CustomButton';
+import DateTimePicker from '../../common/DateTImePicker/DateTimePicker';
 
 const BaseProfile = ({next}) => {
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
-  const [birthday, setBirthday] = useState('');
-  // const [address, setAddress] = useState('');
   const [gender, setGender] = useState('Nam');
   const [modal, setModal] = useState(-1);
-  const [timeValue, setTimeValue] = useState(new Date());
-  const refBirthday = useRef({isChanged: false, val: -1});
+  const [date, setDate] = useState(new Date());
   function formatBirthday(birthdayInput) {
-    const bdArr = birthdayInput.split('-');
-    return `${bdArr[2]}-${bdArr[1]}-${bdArr[0]}T00:00:00Z`;
+    const bdArr = birthdayInput.substring(0, 10).split('-');
+    return `${bdArr[0]}-${bdArr[2]}-${bdArr[1]}T00:00:00Z`;
   }
   const handleSubmitInfo = async () => {
     if (!firstname || !lastname) {
@@ -47,29 +44,30 @@ const BaseProfile = ({next}) => {
       last_name: lastname,
       gender: gender === 'Nam' ? 1 : 0,
       info_submitted: 1,
-      birthday: formatBirthday(birthday),
+      birthday: formatBirthday(date.toISOString()),
     };
-    next(payload);
+    console.log(payload);
+    // next(payload);
   };
-  const onChangeDate = (e, v) => {
-    setTimeValue(v);
-    const {timestamp} = e.nativeEvent;
-    if (e.type === 'set') {
-      const tempRef = {
-        val: timestamp,
-        isChanged: true,
-      };
-      refBirthday.current = tempRef;
-      setBirthday(
-        new Date(refBirthday.current.val)
-          .toLocaleDateString('en-GB')
-          .replaceAll('/', '-'),
-      );
-    }
-    if (Platform.OS === 'android') {
-      setModal(-1);
-    }
-  };
+  // const onChangeDate = (e, v) => {
+  //   setTimeValue(v);
+  //   const {timestamp} = e.nativeEvent;
+  //   if (e.type === 'set') {
+  //     const tempRef = {
+  //       val: timestamp,
+  //       isChanged: true,
+  //     };
+  //     refBirthday.current = tempRef;
+  //     setBirthday(
+  //       new Date(refBirthday.current.val)
+  //         .toLocaleDateString('en-GB')
+  //         .replaceAll('/', '-'),
+  //     );
+  //   }
+  //   if (Platform.OS === 'android') {
+  //     setModal(-1);
+  //   }
+  // };
 
   return (
     <SafeAreaView style={styles.safeView}>
@@ -115,9 +113,9 @@ const BaseProfile = ({next}) => {
               <TextNormal
                 style={{
                   paddingLeft: 10,
-                  color: !birthday ? Colors.textGrayColor : 'black',
+                  color: !date ? Colors.textGrayColor : 'black',
                 }}>
-                {!birthday ? 'Nhập ngày sinh của bạn' : birthday}
+                {date.toLocaleDateString() || 'Nhập ngày sinh của bạn'}
               </TextNormal>
             </TouchableOpacity>
           </View>
@@ -143,26 +141,16 @@ const BaseProfile = ({next}) => {
             />
           </View>
         </View>
-        {Platform.OS === 'android' && modal === 1 && (
-          <DateTimePicker
-            value={new Date()}
-            mode={'date'}
-            display={Platform.OS === 'android' ? 'default' : 'spinner'}
-            onChange={onChangeDate}
-            textColor="black"
-            // style={styles.datePicker}
-          />
-        )}
-        {Platform.OS === 'ios' && modal === 1 && (
-          <DateTimePicker
-            value={timeValue}
-            mode={'date'}
-            display={Platform.OS === 'android' ? 'default' : 'spinner'}
-            onChange={onChangeDate}
-            textColor="black"
-            // style={styles.datePicker}
-          />
-        )}
+        <DateTimePicker
+          isOpen={modal === 1}
+          maxDate={new Date()}
+          type={'date'}
+          onConfirm={v => {
+            setDate(v);
+            setModal(-1);
+          }}
+          onClose={() => setModal(-1)}
+        />
         <MyModal visible={modal === 2} onPressOutSide={() => setModal(-1)}>
           <View style={styles.modalView}>
             <View style={{height: heightDevice / 3}}>

@@ -19,7 +19,7 @@ import {
   CODE_BLOOD_PRESSURE,
   UNIT_BEAT_MIN,
   UNIT_MMHG,
-  today,
+  convertDate,
   widthDevice,
 } from 'assets/constans';
 import CustomHeader from './CustomHeader';
@@ -31,9 +31,12 @@ import {
 } from 'store/parameter/parameterAction';
 import {NAVIGATION_HOME} from 'navigation/routes';
 import Status from 'common/Status/Status';
+import DateTimePicker from '../../common/DateTImePicker/DateTimePicker';
 const PLACEHOLDER =
   'Ghi chú trạng thái cảm giác của bạn khi đo huyết áp, chất luợng giấc ngủ, chế độ dinh duỡng, bài tập thể dục gần đây của bạn...';
 const BloodPressure = ({navigation}) => {
+  const [openDatePicker, setOpenDatePicker] = useState(false);
+  const [date, setDate] = useState(new Date());
   const [systolic, setSystolic] = useState('');
   const [firstReady, setFirstReady] = useState(false);
   const [diastolic, setDiastolic] = useState('');
@@ -190,20 +193,33 @@ const BloodPressure = ({navigation}) => {
             ],
           },
         ]}>
-        {conclusion && conclusion !== -1 && (
-          <TouchableOpacity style={styles.wrapperDateSelector}>
-            <TextNormalSemiBold>{today}</TextNormalSemiBold>
-          </TouchableOpacity>
-        )}
+        <TouchableOpacity
+          onPress={() => {
+            setActiveInput(-1);
+            Keyboard.dismiss();
+            showTextarea && setShowTextarea(false);
+            setOpenDatePicker(true);
+          }}
+          style={styles.wrapperDateAxit}>
+          <Icons
+            type={'Fontisto'}
+            name={'calendar'}
+            size={18}
+            color={Colors.gray.gray40}
+          />
+          <TextNormalSemiBold style={styles.textTodayAxit}>
+            {`${convertDate(date)} ${date.getHours()}:${date.getMinutes()}`}
+          </TextNormalSemiBold>
+        </TouchableOpacity>
         {conclusion !== -1 && (
           <TouchableOpacity
             onPress={() => setConclusion(-1)}
-            style={[styles.editButton, {top: 10}]}>
+            style={[styles.editButton]}>
             <Icons
-              type={'FontAwesome5'}
-              name={'pencil-alt'}
+              type={'AntDesign'}
+              name={'edit'}
               size={20}
-              color={'black'}
+              color={Colors.gray.gray40}
             />
           </TouchableOpacity>
         )}
@@ -403,6 +419,15 @@ const BloodPressure = ({navigation}) => {
           }
         />
       )}
+      <DateTimePicker
+        isOpen={openDatePicker}
+        maxDate={new Date()}
+        onConfirm={v => {
+          setDate(v);
+          setOpenDatePicker(false);
+        }}
+        onClose={() => setOpenDatePicker(false)}
+      />
     </Pressable>
   );
 };

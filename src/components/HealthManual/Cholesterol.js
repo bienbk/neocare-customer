@@ -19,7 +19,7 @@ import {
   CODE_CHOLESTEROL,
   UNIT_MG_DL,
   UNIT_MMOL_MOL,
-  heightDevice,
+  convertDate,
   widthDevice,
 } from '../../assets/constans';
 import strings from '../../localization/Localization';
@@ -29,9 +29,12 @@ import CustomHeader from './CustomHeader';
 import ConclusionInput from './ConclusionInput';
 import {useDispatch, useSelector} from 'react-redux';
 import {statusCreateParamSelector} from 'store/selectors';
-import { createParameterAction, resetCreationParameter } from '../../store/parameter/parameterAction';
+import {
+  createParameterAction,
+  resetCreationParameter,
+} from '../../store/parameter/parameterAction';
 import Status from '../../common/Status/Status';
-
+import DateTimePicker from '../../common/DateTImePicker/DateTimePicker';
 const items = [
   {id: 1, name: 'HDL-C'},
   {id: 2, name: 'LDL-C'},
@@ -40,6 +43,8 @@ const items = [
 ];
 
 const Cholesterol = ({navigation, route}) => {
+  const [openDatePicker, setOpenDatePicker] = useState(false);
+  const [date, setDate] = useState(new Date());
   const [HDL, setHDL] = useState('');
   const [LDL, setLDL] = useState('');
   const [Triglycerides, setTriglycerides] = useState('');
@@ -277,15 +282,19 @@ const Cholesterol = ({navigation, route}) => {
             showTextarea={false}
           />
           <View style={{paddingVertical: 20, alignItems: 'center'}}>
-            <TouchableOpacity style={styles.wrapperDatePicker}>
+            <TouchableOpacity
+              onPress={() => {
+                setOpenDatePicker(true);
+              }}
+              style={styles.wrapperDateAxit}>
               <Icons
-                type={'Feather'}
+                type={'Fontisto'}
                 name={'calendar'}
                 size={18}
-                color={'black'}
+                color={Colors.gray.gray40}
               />
-              <TextNormalSemiBold style={styles.textToday}>
-                {new Date().toUTCString()}
+              <TextNormalSemiBold style={styles.textTodayAxit}>
+                {`${convertDate(date)} ${date.getHours()}:${date.getMinutes()}`}
               </TextNormalSemiBold>
             </TouchableOpacity>
           </View>
@@ -320,6 +329,7 @@ const Cholesterol = ({navigation, route}) => {
             navigation={navigation}
             conclusion={conclusion}
             onSave={saveParameter}
+            date={date}
             title={'Mỡ máu'}
             resetConclusion={() => setConclusion(-1)}
             value={conclusion}
@@ -328,6 +338,15 @@ const Cholesterol = ({navigation, route}) => {
           />
         </Animated.View>
       )}
+      <DateTimePicker
+        isOpen={openDatePicker}
+        maxDate={new Date()}
+        onConfirm={v => {
+          setDate(v);
+          setOpenDatePicker(false);
+        }}
+        onClose={() => setOpenDatePicker(false)}
+      />
     </Pressable>
   );
 };

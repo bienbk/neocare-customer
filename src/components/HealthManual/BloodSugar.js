@@ -19,7 +19,7 @@ import {
   BLOOD_SUGAR_MOL,
   CODE_BLOOD_SUGAR,
   UNIT_MG_DL,
-  today,
+  convertDate,
   UNIT_MMOL_MOL,
   widthDevice,
 } from 'assets/constans';
@@ -34,9 +34,12 @@ import {
 } from 'store/parameter/parameterAction';
 import Status from 'common/Status/Status';
 import {NAVIGATION_HOME} from 'navigation/routes';
+import DateTimePicker from '../../common/DateTImePicker/DateTimePicker';
 const MIN_MG = 36;
 const MIN_MOL = 2.0;
 const BloodSugar = ({navigation}) => {
+  const [openDatePicker, setOpenDatePicker] = useState(false);
+  const [date, setDate] = useState(new Date());
   const [loading, setLoading] = useState(true);
   const [messure, setMessure] = useState(1);
   const [bloodSugar, setBloodSugar] = useState(40);
@@ -158,16 +161,20 @@ const BloodSugar = ({navigation}) => {
           <Animated.View style={[styles.containerBloodSugar]}>
             <View style={{alignItems: 'center', marginTop: 20}}>
               <TouchableOpacity
-                onPress={() => console.log()}
-                style={styles.wrapperDatePicker}>
+                onPress={() => {
+                  setOpenDatePicker(true);
+                }}
+                style={styles.wrapperDateAxit}>
                 <Icons
-                  type={'Feather'}
+                  type={'Fontisto'}
                   name={'calendar'}
                   size={18}
-                  color={'black'}
+                  color={Colors.gray.gray40}
                 />
-                <TextNormalSemiBold style={styles.textToday}>
-                  {today}
+                <TextNormalSemiBold style={styles.textTodayAxit}>
+                  {`${convertDate(
+                    date,
+                  )} ${date.getHours()}:${date.getMinutes()}`}
                 </TextNormalSemiBold>
               </TouchableOpacity>
               <TextMoneyBold style={styles.bloodSugarText}>
@@ -244,12 +251,22 @@ const BloodSugar = ({navigation}) => {
               setConclusion(-1);
             }}
             onSave={saveParameter}
+            date={date}
             value={bloodSugar}
             unit={messure === 1 ? 'mg/dL' : 'mmol/L'}
             type={timeMessure}
           />
         </Animated.View>
       )}
+      <DateTimePicker
+        isOpen={openDatePicker}
+        maxDate={new Date()}
+        onConfirm={v => {
+          setDate(v);
+          setOpenDatePicker(false);
+        }}
+        onClose={() => setOpenDatePicker(false)}
+      />
     </View>
   );
 };

@@ -16,7 +16,7 @@ import {
 } from 'common/Text/TextFont';
 import Icons from 'common/Icons/Icons';
 import Colors from 'theme/Colors';
-import {heightDevice, widthDevice, today} from 'assets/constans';
+import {heightDevice, widthDevice, convertDate} from 'assets/constans';
 import strings from 'localization/Localization';
 import CustomButton from 'common/CustomButton/CustomButton';
 import {NAVIGATION_HOME} from 'navigation/routes';
@@ -31,6 +31,7 @@ const ConclusionInput = ({
   title,
   unit,
   type,
+  date,
   resetConclusion,
 }) => {
   const [showTextarea, setShowTextarea] = useState(false);
@@ -145,15 +146,17 @@ const ConclusionInput = ({
             ],
           },
         ]}>
-        <TouchableOpacity style={styles.wrapperDateSelector}>
-          <TextNormalSemiBold>{today}</TextNormalSemiBold>
+        <TouchableOpacity disabled style={styles.wrapperDateSelector}>
+          <TextNormalSemiBold>
+            {`${convertDate(date)} ${date.getHours()}:${date.getMinutes()}`}
+          </TextNormalSemiBold>
         </TouchableOpacity>
         <TouchableOpacity onPress={resetConclusion} style={styles.editButton}>
           <Icons
-            type={'FontAwesome5'}
-            name={'pencil-alt'}
+            type={'AntDesign'}
+            name={'edit'}
             size={20}
-            color={'black'}
+            color={Colors.gray.gray40}
           />
         </TouchableOpacity>
         {title !== 'Mỡ máu' && (

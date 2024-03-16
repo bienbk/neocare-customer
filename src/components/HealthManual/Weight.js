@@ -12,7 +12,6 @@ import Colors from 'theme/Colors';
 import strings from 'localization/Localization';
 import HorizontalRange from 'common/HorizontalRange/HorizontalRange';
 import CustomButton from 'common/CustomButton/CustomButton';
-import {HBA1C_MOL, HBA1C_PERCENT, widthDevice, today} from 'assets/constans';
 import UnitSelector from 'common/UnitSelector/UnitSelector';
 import ConclusionInput from './ConclusionInput';
 import {useDispatch, useSelector} from 'react-redux';
@@ -22,11 +21,14 @@ import {
   createParameterAction,
   resetCreationParameter,
 } from 'store/parameter/parameterAction';
-import {CODE_HBA1C, UNIT_MMOL_MOL, UNIT_PERCENTER} from 'assets/constans';
+import {convertDate, CODE_WEIGHT, UNIT_KG, UNIT_LBS, widthDevice} from 'assets/constans';
 import {NAVIGATION_HOME} from 'navigation/routes';
 import Status from 'common/Status/Status';
-import {CODE_WEIGHT, UNIT_KG, UNIT_LBS} from '../../assets/constans';
+import {} from '../../assets/constans';
+import DateTimePicker from '../../common/DateTImePicker/DateTimePicker';
 const Weight = ({navigation}) => {
+  const [openDatePicker, setOpenDatePicker] = useState(false);
+  const [date, setDate] = useState(new Date());
   const [loading, setLoading] = useState(true);
   const [messure, setMessure] = useState(1);
   const [weight, setWeight] = useState(40);
@@ -102,16 +104,20 @@ const Weight = ({navigation}) => {
             <View
               style={{alignItems: 'center', marginTop: 30, marginBottom: 20}}>
               <TouchableOpacity
-                onPress={() => {}}
-                style={styles.wrapperDatePicker}>
+                onPress={() => {
+                  setOpenDatePicker(true);
+                }}
+                style={styles.wrapperDateAxit}>
                 <Icons
-                  type={'Feather'}
+                  type={'Fontisto'}
                   name={'calendar'}
                   size={18}
-                  color={'black'}
+                  color={Colors.gray.gray40}
                 />
-                <TextNormalSemiBold style={styles.textToday}>
-                  {today}
+                <TextNormalSemiBold style={styles.textTodayAxit}>
+                  {`${convertDate(
+                    date,
+                  )} ${date.getHours()}:${date.getMinutes()}`}
                 </TextNormalSemiBold>
               </TouchableOpacity>
               <TextMoneyBold style={styles.bloodSugarText}>
@@ -166,11 +172,21 @@ const Weight = ({navigation}) => {
             }}
             onSave={saveParameter}
             value={weight}
+            date={date}
             unit={messure === 2 ? 'lbs' : 'kg'}
             type={5}
           />
         </Animated.View>
       )}
+      <DateTimePicker
+        isOpen={openDatePicker}
+        maxDate={new Date()}
+        onConfirm={v => {
+          setDate(v);
+          setOpenDatePicker(false);
+        }}
+        onClose={() => setOpenDatePicker(false)}
+      />
     </View>
   );
 };

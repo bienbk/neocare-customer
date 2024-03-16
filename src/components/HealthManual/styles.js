@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
   textAxitUric: {
     fontSize: 55,
   },
-  editButton: {padding: 10, position: 'absolute', top: 25, right: 10},
+  editButton: {padding: 5, position: 'absolute', top: 25, right: 10},
   wrapperMainContent: {
     marginHorizontal: 10,
     marginTop: 20,
@@ -184,12 +184,21 @@ const styles = StyleSheet.create({
   },
   wrapperDateAxit: {
     flexDirection: 'row',
-    backgroundColor: 'whitesmoke',
+    borderColor: 'whitesmoke',
+    borderWidth: 1,
+    borderStyle: 'solid',
     paddingVertical: 10,
+    backgroundColor: 'white',
     alignSelf: 'center',
-    paddingHorizontal: 20,
-    marginVertical: 10,
-    borderRadius: 16,
+    paddingHorizontal: 12,
+    marginVertical: 5,
+    borderRadius: 12,
+  },
+  textTodayAxit: {
+    marginLeft: 10,
+    fontSize: 12,
+    color: Colors.gray.gray40,
+    fontWeight: 'normal',
   },
   inputAxitUric: {
     width: widthDevice * 0.4,
@@ -302,6 +311,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingVertical: 8,
     justifyContent: 'center',
+    alignSelf: 'center',
     alignItems: 'center',
     backgroundColor: Colors.whiteColor,
     borderStyle: 'solid',

@@ -9,6 +9,13 @@ export const today = new Intl.DateTimeFormat('vi', {
   weekday: 'long',
   year: 'numeric',
 }).format(new Date());
+export const convertDate = date => {
+  return new Intl.DateTimeFormat('vi', {
+    month: 'long',
+    day: 'numeric',
+    weekday: 'long',
+  }).format(date);
+};
 export const LIST_OPTION = [
   {
     title: 'Chung',
