@@ -11,7 +11,7 @@ const HeaderList = ({onPressOption}) => {
       <TouchableOpacity
         onPress={onPressOption}
         style={styles.wrapperOptionIcon}>
-        <Svg name={'icon_option'} size={20} color={'back'} />
+        <Svg name={'icon_option'} size={20} color={'black'} />
       </TouchableOpacity>
     </View>
   );

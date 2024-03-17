@@ -57,11 +57,9 @@ const Avatar = ({}) => {
               : 'Username'}
           </TextSemiBold>
         </View>
-        <View style={styles.textBalance}>
-          <TextNormalSemiBold style={styles.label}>
-            {user?.phone}
-          </TextNormalSemiBold>
-        </View>
+        <TextNormalSemiBold style={styles.label}>
+          {user?.phone}
+        </TextNormalSemiBold>
       </ScrollView>
     </View>
   );
@@ -88,9 +86,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   content: {
-    borderWidth: 1,
-    borderColor: '#FFC51B',
+    borderWidth: 2,
+    borderColor: Colors.primary,
     width: 92,
+    backgroundColor: Colors.gray.gray90,
     height: 92,
     borderRadius: 92,
     justifyContent: 'center',

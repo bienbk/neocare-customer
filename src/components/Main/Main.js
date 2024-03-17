@@ -14,6 +14,7 @@ import {
   NAVIGATION_ACCOUNT,
   NAVIGATION_DOCTOR_DETAIL,
   NAVIGATION_MY_DOCTOR,
+  NAVIGATION_MY_PROFILE,
   NAVIGATION_PRESCRIPTION,
 } from '../../navigation/routes';
 const Tab = createBottomTabNavigator();
@@ -23,20 +24,8 @@ const StackAccount = () => {
   return (
     <Stack.Navigator
       screenOptions={{header: () => null}}
-      initialRouteName={NAVIGATION_DOCTOR_DETAIL}>
-      {/* <Stack.Screen name={NAVIGATION_ACCOUNT} component={Screens.Account} />
-      <Stack.Screen
-        name={NAVIGATION_ACCOUNT_INFO}
-        component={Screens.AccountInfo}
-      />
-      <Stack.Screen
-        name={NAVIGATION_ACCOUNT_ORDER_HISTORY}
-        component={Screens && Screens.HistoryOrder ? Screens.HistoryOrder : ''}
-      /> */}
-      {/* <Stack.Screen
-        name={NAVIGATION_DOCTOR_DETAIL}
-        component={Screens.DoctorDetail}
-      /> */}
+      initialRouteName={NAVIGATION_ACCOUNT}>
+      <Stack.Screen name={NAVIGATION_ACCOUNT} component={Screens.Account} />
     </Stack.Navigator>
   );
 };
@@ -114,7 +103,7 @@ const Main = () => {
       />
       <Tab.Screen
         name={NAVIGATION_ACCOUNT}
-        component={Screens.Account}
+        component={StackAccount}
         options={{title: () => null}}
       />
     </Tab.Navigator>

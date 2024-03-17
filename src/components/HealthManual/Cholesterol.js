@@ -294,7 +294,7 @@ const Cholesterol = ({navigation, route}) => {
                 color={Colors.gray.gray40}
               />
               <TextNormalSemiBold style={styles.textTodayAxit}>
-                {`${convertDate(date)} ${date.getHours()}:${date.getMinutes()}`}
+                {`${convertDate(date, true)}`}
               </TextNormalSemiBold>
             </TouchableOpacity>
           </View>
@@ -329,6 +329,7 @@ const Cholesterol = ({navigation, route}) => {
             navigation={navigation}
             conclusion={conclusion}
             onSave={saveParameter}
+            withTime={false}
             date={date}
             title={'Mỡ máu'}
             resetConclusion={() => setConclusion(-1)}
@@ -340,6 +341,7 @@ const Cholesterol = ({navigation, route}) => {
       )}
       <DateTimePicker
         isOpen={openDatePicker}
+        type={'date'}
         maxDate={new Date()}
         onConfirm={v => {
           setDate(v);

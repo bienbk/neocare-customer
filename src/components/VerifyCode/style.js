@@ -114,9 +114,10 @@ const styles = StyleSheet.create({
   textSend: {
     textAlign: 'center',
     marginTop: 10,
+    fontWeight: 'bold',
     fontSize: 16,
     textDecorationLine: 'underline',
-    color: Colors.buttonBackground,
+    color: Colors.black,
   },
   questionSendback: {
     textAlign: 'center',

@@ -21,7 +21,13 @@ import {
   createParameterAction,
   resetCreationParameter,
 } from 'store/parameter/parameterAction';
-import {convertDate, CODE_WEIGHT, UNIT_KG, UNIT_LBS, widthDevice} from 'assets/constans';
+import {
+  convertDate,
+  CODE_WEIGHT,
+  UNIT_KG,
+  UNIT_LBS,
+  widthDevice,
+} from 'assets/constans';
 import {NAVIGATION_HOME} from 'navigation/routes';
 import Status from 'common/Status/Status';
 import {} from '../../assets/constans';
@@ -115,9 +121,7 @@ const Weight = ({navigation}) => {
                   color={Colors.gray.gray40}
                 />
                 <TextNormalSemiBold style={styles.textTodayAxit}>
-                  {`${convertDate(
-                    date,
-                  )} ${date.getHours()}:${date.getMinutes()}`}
+                  {`${convertDate(date, true)}`}
                 </TextNormalSemiBold>
               </TouchableOpacity>
               <TextMoneyBold style={styles.bloodSugarText}>
@@ -181,6 +185,7 @@ const Weight = ({navigation}) => {
       <DateTimePicker
         isOpen={openDatePicker}
         maxDate={new Date()}
+        type={'date'}
         onConfirm={v => {
           setDate(v);
           setOpenDatePicker(false);

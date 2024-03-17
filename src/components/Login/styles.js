@@ -50,15 +50,15 @@ const styles = StyleSheet.create({
   checkboxSection: {flexDirection: 'row', paddingVertical: 15},
   linkText1: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: 'bold',
     textDecorationLine: 'underline',
-    color: '#0A3CA0',
+    color: Colors.black,
   },
   linkText: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: 'bold',
     textDecorationLine: 'underline',
-    color: '#0A3CA0',
+    color: Colors.black,
     marginTop: 20,
   },
   contentPolicySection: {
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     width: widthDevice - 50,
     height: 48,
     borderRadius: 30,
-    backgroundColor: Colors.buttonBackground,
+    backgroundColor: Colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
   },

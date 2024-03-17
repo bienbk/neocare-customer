@@ -9,7 +9,7 @@ import {
 
 import {NAVIGATION_LOGIN} from 'navigation/routes';
 import styles from './styles';
-import Feature from '../../common/Feature/Feature';
+import Feature from 'common/Feature/Feature';
 import Avatar from './Avatar';
 import Colors from 'theme/Colors';
 import {heightDevice, LIST_OPTION} from 'assets/constans';
@@ -18,8 +18,7 @@ import {
   TextNormal,
   TextSemiBold,
   TextSmallMedium,
-} from '../../common/Text/TextFont';
-import {widthDevice} from '../../assets/constans';
+} from 'common/Text/TextFont';
 
 const IMAGE_HEIGHT = heightDevice * 0.336;
 
@@ -86,7 +85,7 @@ const Account = ({navigation}) => {
         <Animated.View style={[styles.wrapperHeader, imageAnimation]}>
           <Avatar />
         </Animated.View>
-        <TouchableOpacity style={styles.wrapperPackage}>
+        <View style={styles.wrapperPackage}>
           <TextSemiBold>Gói chăm sóc sức khoẻ của tôi</TextSemiBold>
           <TextNormal
             style={[
@@ -95,7 +94,7 @@ const Account = ({navigation}) => {
             ]}>
             {'Đã kết nối (2)'}
           </TextNormal>
-        </TouchableOpacity>
+        </View>
         <FlatList
           data={LIST_OPTION}
           scrollEnabled={false}

@@ -24,6 +24,7 @@ import Svg from '../../common/Svg/Svg';
 
 import CustomButton from '../../common/CustomButton/CustomButton';
 import DateTimePicker from '../../common/DateTImePicker/DateTimePicker';
+import GenderModal from '../MyProfile/GenderModal';
 
 const BaseProfile = ({next}) => {
   const [firstname, setFirstname] = useState('');
@@ -46,158 +47,102 @@ const BaseProfile = ({next}) => {
       info_submitted: 1,
       birthday: formatBirthday(date.toISOString()),
     };
-    console.log(payload);
-    // next(payload);
+    // console.log(payload);
+    next(payload);
   };
-  // const onChangeDate = (e, v) => {
-  //   setTimeValue(v);
-  //   const {timestamp} = e.nativeEvent;
-  //   if (e.type === 'set') {
-  //     const tempRef = {
-  //       val: timestamp,
-  //       isChanged: true,
-  //     };
-  //     refBirthday.current = tempRef;
-  //     setBirthday(
-  //       new Date(refBirthday.current.val)
-  //         .toLocaleDateString('en-GB')
-  //         .replaceAll('/', '-'),
-  //     );
-  //   }
-  //   if (Platform.OS === 'android') {
-  //     setModal(-1);
-  //   }
-  // };
 
   return (
     <SafeAreaView style={styles.safeView}>
-      <Pressable style={styles.safeView} onPress={Keyboard.dismiss}>
-        <View style={styles.container}>
-          <View style={styles.wrapperTitle}>
-            <TextMoneyBold style={{fontSize: 24}}>
-              {'Thông tin cơ bản'}
-            </TextMoneyBold>
-          </View>
-          <View style={styles.wrapperSection}>
-            <TextNormal style={{fontSize: 15}}>Họ:</TextNormal>
-            <TextInput
-              style={styles.textInput}
-              placeholder={'Nhập họ và tên của bạn'}
-              returnKeyType={'done'}
-              placeholderTextColor={Colors.textGrayColor}
-              onSubmitEditing={Keyboard.dismiss}
-              value={firstname}
-              onChangeText={setFirstname}
-              underlineColorAndroid="transparent"
-            />
-          </View>
-          <View style={styles.wrapperSection}>
-            <TextNormal style={{fontSize: 15}}>Tên:</TextNormal>
-            <TextInput
-              style={styles.textInput}
-              placeholder={'Nhập tên của bạn'}
-              returnKeyType={'done'}
-              placeholderTextColor={Colors.textGrayColor}
-              onSubmitEditing={Keyboard.dismiss}
-              value={lastname}
-              onChangeText={setLastname}
-              underlineColorAndroid="transparent"
-            />
-          </View>
+      <View onTouchStart={Keyboard.dismiss} style={styles.container}>
+        <View style={styles.wrapperTitle}>
+          <TextMoneyBold style={{fontSize: 24}}>
+            {'Thông tin cơ bản'}
+          </TextMoneyBold>
+        </View>
+        <View style={styles.wrapperSection}>
+          <TextNormal style={{fontSize: 15}}>Họ:</TextNormal>
+          <TextInput
+            style={styles.textInput}
+            placeholder={'Nhập họ của bạn'}
+            returnKeyType={'done'}
+            placeholderTextColor={Colors.textGrayColor}
+            onSubmitEditing={Keyboard.dismiss}
+            value={firstname}
+            onChangeText={setFirstname}
+            underlineColorAndroid="transparent"
+          />
+        </View>
+        <View style={styles.wrapperSection}>
+          <TextNormal style={{fontSize: 15}}>Tên:</TextNormal>
+          <TextInput
+            style={styles.textInput}
+            placeholder={'Nhập tên của bạn'}
+            returnKeyType={'done'}
+            placeholderTextColor={Colors.textGrayColor}
+            onSubmitEditing={Keyboard.dismiss}
+            value={lastname}
+            onChangeText={setLastname}
+            underlineColorAndroid="transparent"
+          />
+        </View>
 
-          <View style={styles.wrapperSection}>
-            <TextNormal>Ngày sinh:</TextNormal>
-            <TouchableOpacity
-              style={styles.birthSection}
-              onPress={() => setModal(1)}>
-              <TextNormal
-                style={{
-                  paddingLeft: 10,
-                  color: !date ? Colors.textGrayColor : 'black',
-                }}>
-                {date.toLocaleDateString() || 'Nhập ngày sinh của bạn'}
-              </TextNormal>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.wrapperSection}>
-            <TextNormal>Giới tính:</TextNormal>
-            <TouchableOpacity
-              style={styles.birthSection}
-              onPress={() => setModal(2)}>
-              <TextNormal
-                style={{
-                  paddingLeft: 10,
-                  color: !gender ? Colors.textGrayColor : 'black',
-                }}>
-                {!gender ? 'Chọn giới tính của bạn' : gender}
-              </TextNormal>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.wrapperButton}>
-            <CustomButton
-              onPress={handleSubmitInfo}
-              label={strings.common.continue}
-              styledButton={styles.btnContinue}
+        <View style={styles.wrapperSection}>
+          <TextNormal>Ngày sinh:</TextNormal>
+          <TouchableOpacity
+            style={styles.birthSection}
+            onPress={() => setModal(1)}>
+            <TextNormal
+              style={{
+                paddingLeft: 10,
+                color: !date ? Colors.textGrayColor : 'black',
+              }}>
+              {date.toLocaleDateString() || 'Nhập ngày sinh của bạn'}
+            </TextNormal>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.wrapperSection}>
+          <TextNormal>Giới tính:</TextNormal>
+          <TouchableOpacity
+            style={styles.birthSection}
+            onPress={() => setModal(2)}>
+            <TextNormal
+              style={{
+                paddingLeft: 10,
+                color: !gender ? Colors.textGrayColor : 'black',
+              }}>
+              {!gender ? 'Chọn giới tính của bạn' : gender}
+            </TextNormal>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.wrapperButton}>
+          <CustomButton
+            onPress={handleSubmitInfo}
+            label={strings.common.continue}
+            styledButton={styles.btnContinue}
+          />
+        </View>
+      </View>
+      <DateTimePicker
+        isOpen={modal === 1}
+        maxDate={new Date()}
+        type={'date'}
+        onConfirm={v => {
+          setDate(v);
+          setModal(-1);
+        }}
+        onClose={() => setModal(-1)}
+      />
+      <MyModal visible={modal === 2} onPressOutSide={() => setModal(-1)}>
+        <View style={styles.modalView}>
+          <View style={{height: heightDevice / 3}}>
+            <GenderModal
+              gender={gender}
+              setGender={setGender}
+              onConfirm={() => setModal(-1)}
             />
           </View>
         </View>
-        <DateTimePicker
-          isOpen={modal === 1}
-          maxDate={new Date()}
-          type={'date'}
-          onConfirm={v => {
-            setDate(v);
-            setModal(-1);
-          }}
-          onClose={() => setModal(-1)}
-        />
-        <MyModal visible={modal === 2} onPressOutSide={() => setModal(-1)}>
-          <View style={styles.modalView}>
-            <View style={{height: heightDevice / 3}}>
-              <View style={styles.wrapperContentModal}>
-                <TextSemiBold style={styles.textTitleModal}>
-                  Giới tính
-                </TextSemiBold>
-                <View style={styles.wrapperContentGender}>
-                  <TouchableOpacity
-                    onPress={() => setGender('Nam')}
-                    style={[
-                      styles.wrapperItemGender,
-                      gender === 'Nam' && styles.activeGenderMale,
-                    ]}>
-                    <Svg
-                      name={'icon_male'}
-                      size={90}
-                      style={styles.avatarIcon}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => setGender('Nữ')}
-                    style={[
-                      styles.wrapperItemGender,
-                      gender !== 'Nam' && styles.activeGenderFemale,
-                    ]}>
-                    <Svg
-                      name={'icon_female'}
-                      size={90}
-                      style={styles.avatarIcon}
-                    />
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.safeView}>
-                  <TouchableOpacity
-                    onPress={() => setModal(-1)}
-                    style={styles.btnSelectGender}>
-                    <TextNormal style={styles.textButton}>
-                      {strings.common.save}
-                    </TextNormal>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-          </View>
-        </MyModal>
-      </Pressable>
+      </MyModal>
     </SafeAreaView>
   );
 };
@@ -210,7 +155,7 @@ const styles = StyleSheet.create({
   },
 
   container: {
-    paddingHorizontal: 15,
+    paddingHorizontal: 10,
     flex: 1,
     paddingVertical: 10,
     backgroundColor: Colors.backgroundColor,
@@ -225,12 +170,12 @@ const styles = StyleSheet.create({
   textInput: {
     backgroundColor: 'white',
     marginTop: 5,
-    borderRadius: 50,
+    borderRadius: 16,
     height: 48,
-    paddingHorizontal: 20,
+    paddingHorizontal: 15,
     color: 'black',
     borderWidth: 1,
-    borderColor: Colors.textGrayColor,
+    borderColor: Colors.gray.gray90,
   },
   wrapperSection: {
     paddingVertical: 15,
@@ -238,22 +183,23 @@ const styles = StyleSheet.create({
   },
   birthSection: {
     backgroundColor: 'white',
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
     paddingVertical: 10,
     justifyContent: 'center',
     marginTop: 5,
     height: 50,
-    borderRadius: 50,
+    borderRadius: 16,
     borderWidth: 1,
-    borderColor: Colors.textGrayColor,
+    borderColor: Colors.gray.gray90,
   },
   btnContinue: {
     paddingVertical: 13,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.buttonBackground,
-    borderRadius: 40,
-    width: widthDevice - 30,
+    alignSelf: 'center',
+    backgroundColor: Colors.primary,
+    borderRadius: 16,
+    width: widthDevice - 50,
   },
   wrapperButton: {
     justifyContent: 'center',
@@ -263,7 +209,7 @@ const styles = StyleSheet.create({
   textButton: {
     fontSize: 16,
     fontWeight: '700',
-    color: Colors.whiteColor,
+    color: Colors.black,
   },
   modalView: {
     backgroundColor: 'white',
@@ -324,7 +270,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     borderRadius: 40,
-    backgroundColor: Colors.buttonBackground,
+    backgroundColor: Colors.primary,
     width: '90%',
   },
 });

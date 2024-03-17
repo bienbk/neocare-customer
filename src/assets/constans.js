@@ -1,20 +1,29 @@
 import {Dimensions, Platform} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import Colors from '../theme/Colors';
-import {NAVIGATION_LOGIN} from '../navigation/routes';
+import {NAVIGATION_LOGIN, NAVIGATION_MY_PROFILE} from '../navigation/routes';
 export const today = new Intl.DateTimeFormat('vi', {
   month: 'long',
   day: 'numeric',
   hour12: false,
   weekday: 'long',
-  year: 'numeric',
 }).format(new Date());
-export const convertDate = date => {
-  return new Intl.DateTimeFormat('vi', {
-    month: 'long',
-    day: 'numeric',
-    weekday: 'long',
-  }).format(date);
+export const convertDate = (date, year) => {
+  return new Intl.DateTimeFormat(
+    'vi',
+    year
+      ? {
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric',
+          weekday: 'long',
+        }
+      : {
+          month: 'long',
+          day: 'numeric',
+          weekday: 'long',
+        },
+  ).format(date);
 };
 export const LIST_OPTION = [
   {
@@ -22,9 +31,9 @@ export const LIST_OPTION = [
     id: 1,
     items: [
       {
-        name: 'Hồ sơ',
+        name: 'Hồ sơ của tôi',
         icon: 'icon_user',
-        link: '',
+        link: NAVIGATION_MY_PROFILE,
       },
       {
         name: 'Thông tin thân nhân',

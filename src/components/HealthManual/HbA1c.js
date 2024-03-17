@@ -12,7 +12,12 @@ import Colors from 'theme/Colors';
 import strings from 'localization/Localization';
 import HorizontalRange from 'common/HorizontalRange/HorizontalRange';
 import CustomButton from 'common/CustomButton/CustomButton';
-import {HBA1C_MOL, HBA1C_PERCENT, widthDevice, convertDate} from 'assets/constans';
+import {
+  HBA1C_MOL,
+  HBA1C_PERCENT,
+  widthDevice,
+  convertDate,
+} from 'assets/constans';
 import UnitSelector from 'common/UnitSelector/UnitSelector';
 import ConclusionInput from './ConclusionInput';
 import {useDispatch, useSelector} from 'react-redux';
@@ -124,9 +129,7 @@ const HbA1c = ({navigation}) => {
                   color={Colors.gray.gray40}
                 />
                 <TextNormalSemiBold style={styles.textTodayAxit}>
-                  {`${convertDate(
-                    date,
-                  )} ${date.getHours()}:${date.getMinutes()}`}
+                  {`${convertDate(date, true)}`}
                 </TextNormalSemiBold>
               </TouchableOpacity>
               <TextMoneyBold style={styles.bloodSugarText}>
@@ -189,6 +192,7 @@ const HbA1c = ({navigation}) => {
             onSave={saveParameter}
             value={hba1c}
             date={date}
+            withTime={false}
             unit={messure === 2 ? '%' : 'mmol/mol'}
             type={4}
           />
@@ -197,6 +201,7 @@ const HbA1c = ({navigation}) => {
       <DateTimePicker
         isOpen={openDatePicker}
         maxDate={new Date()}
+        type={'date'}
         onConfirm={v => {
           setDate(v);
           setOpenDatePicker(false);

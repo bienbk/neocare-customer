@@ -43,12 +43,12 @@ const UnitSelector = ({
 export default UnitSelector;
 
 const styles = StyleSheet.create({
-  activeText: {color: Colors.whiteColor, fontWeight: 'bold', fontSize: 16},
+  activeText: {color: Colors.whiteColor},
   typeMessureSelector: {
     flexDirection: 'row',
-    padding: 5,
+    padding: 4,
     justifyContent: 'center',
-    width: widthDevice * 0.6,
+    width: widthDevice * 0.5,
     // flex: 1,
     alignItems: 'center',
     borderStyle: 'solid',
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   messureButton: {
-    paddingVertical: 5,
+    paddingVertical: 7,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 20,

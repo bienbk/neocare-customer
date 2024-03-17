@@ -11,6 +11,7 @@ import {
 // import Colors from '../Colors/Colors';
 import Icons from '../Icons/Icons';
 import {TextNormal} from '../Text/TextFont';
+import Colors from '../../theme/Colors';
 
 const CustomCheckbox = ({value, setValue}) => {
   // const [value, setValue] = useState(false);
@@ -18,11 +19,11 @@ const CustomCheckbox = ({value, setValue}) => {
     <TouchableOpacity
       onPress={setValue}
       style={[styles.container, value && styles.activeContainer]}>
-      <View style={[styles.wrapper]}>
+      <View style={[styles.wrapper, value && {borderWidth: 0}]}>
         <Icons
-          type={'Feather'}
-          name={value ? 'check' : 'circle'}
-          size={16}
+          type={value ? 'FontAwesome' : 'MaterialIcons'}
+          name={value ? 'check-circle-o' : 'radio-button-checked'}
+          size={20}
           color={value ? 'green' : 'red'}
         />
       </View>
@@ -34,16 +35,14 @@ export default CustomCheckbox;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#3D3D3C',
-    zIndex: -999,
+    backgroundColor: Colors.gray.gray80,
     width: 60,
     padding: 3,
     borderRadius: 20,
     alignItems: 'flex-start',
   },
   activeContainer: {
-    backgroundColor: '#72FF50',
-    zIndex: -100,
+    backgroundColor: 'rgb(0,250,170)',
     width: 60,
     padding: 3,
     borderRadius: 20,
@@ -53,7 +52,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 25,
     width: 28,
-    elevation: 20,
+    elevation: 1,
+    borderWidth: 1,
+    borderColor: Colors.gray.gray95,
+    borderStyle: 'solid',
     height: 26,
     alignItems: 'center',
     justifyContent: 'center',

@@ -5,10 +5,12 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import Colors from 'theme/Colors';
 import Svg from 'common/Svg/Svg';
+import {NAVIGATION_MY_PROFILE} from '../../navigation/routes';
 const Feature = ({icon, name, navigation, link, onPress, index, lastIndex}) => {
   const handlePress = () => {
     if (navigation && link) {
       console.log('LINK:', link);
+      navigation.navigate(NAVIGATION_MY_PROFILE);
       // onPress && onPress();
     }
   };
@@ -69,6 +71,7 @@ const styles = StyleSheet.create({
   textName: {
     // marginTop: 20,
     textAlign: 'center',
+    fontSize: 14,
     marginLeft: 10,
   },
   textLogout: {

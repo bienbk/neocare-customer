@@ -16,6 +16,7 @@ import {
   resetListingParameter,
 } from 'store/parameter/parameterAction';
 import Status from 'common/Status/Status';
+import {NAVIGATION_SHOW_MANAGER} from '../../navigation/routes';
 const fakeData = [
   {
     id: 1,
@@ -130,7 +131,13 @@ const Home = ({navigation}) => {
             showsVerticalScrollIndicator={false}
             keyExtractor={i => i.name}
             renderItem={renderCardItem}
-            ListHeaderComponent={<HeaderList onPressOption={() => {}} />}
+            ListHeaderComponent={
+              <HeaderList
+                onPressOption={() =>
+                  navigation.navigate(NAVIGATION_SHOW_MANAGER)
+                }
+              />
+            }
           />
         </View>
       </ScrollView>

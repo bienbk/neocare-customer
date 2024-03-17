@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
   buttonContinue: {
     width: widthDevice - 40,
     paddingVertical: 13,
-    borderRadius: 40,
-    backgroundColor: Colors.buttonBackground,
+    borderRadius: 16,
+    backgroundColor: Colors.primary,
     marginTop: 10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     bottom: 10,
   },
   textContinueButton: {
-    color: 'white',
+    color: Colors.whiteColor,
     fontWeight: 'bold',
     fontSize: 17,
   },

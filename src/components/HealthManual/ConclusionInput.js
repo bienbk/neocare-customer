@@ -31,6 +31,7 @@ const ConclusionInput = ({
   title,
   unit,
   type,
+  withTime,
   date,
   resetConclusion,
 }) => {
@@ -148,7 +149,11 @@ const ConclusionInput = ({
         ]}>
         <TouchableOpacity disabled style={styles.wrapperDateSelector}>
           <TextNormalSemiBold>
-            {`${convertDate(date)} ${date.getHours()}:${date.getMinutes()}`}
+            {!withTime
+              ? `${convertDate(date, true)}`
+              : `${convertDate(date)} ${date
+                  .toLocaleTimeString()
+                  .substring(0, 5)}`}
           </TextNormalSemiBold>
         </TouchableOpacity>
         <TouchableOpacity onPress={resetConclusion} style={styles.editButton}>
@@ -165,7 +170,11 @@ const ConclusionInput = ({
               {parseFloat(value).toFixed(1)}
             </TextNormal>
             <TextNormal style={{fontSize: 17}}>{unit}</TextNormal>
-            <TextNormal style={[styles.textTimeMessure, type > 3 && {backgroundColor: Colors.gray.gray70}]}>
+            <TextNormal
+              style={[
+                styles.textTimeMessure,
+                type > 3 && {backgroundColor: Colors.gray.gray70},
+              ]}>
               {type === 1
                 ? 'Nhịn ăn'
                 : type === 2

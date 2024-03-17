@@ -253,6 +253,7 @@ const BloodSugar = ({navigation}) => {
             onSave={saveParameter}
             date={date}
             value={bloodSugar}
+            withTime={true}
             unit={messure === 1 ? 'mg/dL' : 'mmol/L'}
             type={timeMessure}
           />

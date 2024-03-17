@@ -6,9 +6,11 @@ import {
   NAVIGATION_HEALTH_MANUAL,
   NAVIGATION_LOGIN,
   NAVIGATION_MAIN,
+  NAVIGATION_MY_PROFILE,
   NAVIGATION_PACKAGE_DETAIL,
   NAVIGATION_PROFILE,
   NAVIGATION_PROFILE_HEALTH,
+  NAVIGATION_SHOW_MANAGER,
   NAVIGATION_SPLASH,
   NAVIGATION_VERIFY_CODE,
 } from './routes';
@@ -50,6 +52,14 @@ const StackNavigator = () => {
       <Stack.Screen
         name={NAVIGATION_CONNECTION}
         component={Screens.Connection}
+      />
+      <Stack.Screen
+        name={NAVIGATION_MY_PROFILE}
+        component={Screens.MyProfile}
+      />
+      <Stack.Screen
+        name={NAVIGATION_SHOW_MANAGER}
+        component={Screens.ShowManager}
       />
     </Stack.Navigator>
   );

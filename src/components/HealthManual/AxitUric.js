@@ -175,7 +175,7 @@ const AxitUric = ({navigation}) => {
             color={Colors.gray.gray40}
           />
           <TextNormalSemiBold style={styles.textTodayAxit}>
-            {`${convertDate(date)} ${date.getHours()}:${date.getMinutes()}`}
+            {`${convertDate(date, true)}`}
           </TextNormalSemiBold>
         </TouchableOpacity>
         <View>
@@ -320,6 +320,7 @@ const AxitUric = ({navigation}) => {
       <DateTimePicker
         isOpen={openDatePicker}
         maxDate={new Date()}
+        type={'date'}
         onConfirm={v => {
           setDate(v);
           setOpenDatePicker(false);

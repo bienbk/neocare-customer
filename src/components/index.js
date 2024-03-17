@@ -16,6 +16,8 @@ import Account from './Account/Account';
 import PackageDetail from './PackageDetail/PackageDetail';
 import Connection from './Connection/Connection';
 import Prescription from './Prescription/Prescription';
+import MyProfile from './MyProfile/MyProfile';
+import ShowManager from './ShowManager/ShowManager';
 export {
   Splash,
   Main,
@@ -26,8 +28,10 @@ export {
   Prescription,
   Connection,
   HealthManual,
+  MyProfile,
   PackageDetail,
   MyDoctor,
+  ShowManager,
   DoctorDetail,
   Account,
 };

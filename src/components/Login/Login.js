@@ -103,10 +103,10 @@ const Login = props => {
                   boxType={'square'}
                   lineWidth={2}
                   style={styles.styleCheckbox}
-                  onTintColor={Colors.buttonBackground}
-                  onFillColor={Colors.buttonBackground}
+                  onTintColor={Colors.primary}
+                  onFillColor={Colors.primary}
                   tintColors={{
-                    true: Colors.buttonBackground,
+                    true: Colors.primary,
                     false: 'black',
                   }}
                   onCheckColor={Colors.whiteColor}

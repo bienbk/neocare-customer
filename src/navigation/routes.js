@@ -13,3 +13,5 @@ export const NAVIGATION_HEALTH_MANUAL = 'HealthManual';
 export const NAVIGATION_PACKAGE_DETAIL = 'PackageDetail';
 export const NAVIGATION_CONNECTION = 'Connection';
 export const NAVIGATION_PRESCRIPTION = 'Prescription';
+export const NAVIGATION_SHOW_MANAGER = 'ShowManager';
+export const NAVIGATION_MY_PROFILE = 'MyProfile';
