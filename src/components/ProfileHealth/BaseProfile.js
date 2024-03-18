@@ -36,7 +36,7 @@ const BaseProfile = ({next}) => {
   const [height, setHeight] = useState(165);
   function formatBirthday(birthdayInput) {
     const bdArr = birthdayInput.substring(0, 10).split('-');
-    return `${bdArr[0]}-${bdArr[2]}-${bdArr[1]}T00:00:00Z`;
+    return `${bdArr[0]}-${bdArr[1]}-${bdArr[2]}T00:00:00Z`;
   }
   const handleSubmitInfo = async () => {
     if (!firstname || !lastname) {
@@ -47,7 +47,7 @@ const BaseProfile = ({next}) => {
       last_name: lastname,
       gender: gender === 'Nam' ? 1 : 0,
       info_submitted: 1,
-      height: parseFloat(height),
+      // height: parseFloat(height),
       birthday: formatBirthday(date.toISOString()),
     };
     // console.log(payload);
@@ -145,7 +145,7 @@ const BaseProfile = ({next}) => {
         }}
         onClose={() => setModal(-1)}
       />
-      <MyModal visible={modal !== -1} onPressOutSide={() => setModal(-1)}>
+      <MyModal visible={modal > 1} onPressOutSide={() => setModal(-1)}>
         <View style={styles.modalView}>
           <View style={{height: heightDevice / 3}}>
             {modal === 2 && (

@@ -35,6 +35,7 @@ const MIN_PERCENT = 3;
 const MIN_MOL = 9;
 const HbA1c = ({navigation}) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
+  const [invalid, setInvalid] = useState(false);
   const [date, setDate] = useState(new Date());
   const [loading, setLoading] = useState(true);
   const [messure, setMessure] = useState(1);
@@ -53,12 +54,23 @@ const HbA1c = ({navigation}) => {
       }, 500);
     }
   }, [loading]);
-
-  const processInput = () => {
-    if (messure === 1 && parseFloat(hba1c) < MIN_MOL) {
+  useEffect(() => {
+    setTimeout(() => {
+      checkValid();
+    }, 100);
+  }, [hba1c]);
+  const checkValid = () => {
+    if (!hba1c) {
       return;
     }
-    if (messure === 2 && parseFloat(hba1c) < MIN_PERCENT) {
+    if (messure === 1) {
+      setInvalid(parseFloat(hba1c) < parseFloat(MIN_MOL));
+    } else {
+      setInvalid(parseFloat(hba1c) < parseFloat(MIN_PERCENT));
+    }
+  };
+  const processInput = () => {
+    if (invalid === true) {
       return;
     }
     const checkList = messure === 1 ? HBA1C_MOL : HBA1C_PERCENT;
@@ -167,7 +179,12 @@ const HbA1c = ({navigation}) => {
           </Animated.View>
           <CustomButton
             onPress={() => processInput()}
-            styled={[{marginBottom: 20}]}
+            isDisabled={invalid}
+            labelStyled={invalid && {color: Colors.whiteColor}}
+            styled={{
+              marginBottom: 20,
+              backgroundColor: !invalid ? Colors.primary : Colors.gray.gray80,
+            }}
             label={strings.common.continue}
           />
         </Animated.View>

@@ -39,6 +39,7 @@ const MIN_MG = 36;
 const MIN_MOL = 2.0;
 const BloodSugar = ({navigation}) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
+  const [invalid, setInvalid] = useState(false);
   const [date, setDate] = useState(new Date());
   const [loading, setLoading] = useState(true);
   const [messure, setMessure] = useState(1);
@@ -56,6 +57,12 @@ const BloodSugar = ({navigation}) => {
       }, 100);
     }
   }, [loading]);
+  useEffect(() => {
+    if (bloodSugar) {
+      messure === 1 && setInvalid(parseFloat(bloodSugar) < parseFloat(MIN_MG));
+      messure === 2 && setInvalid(parseFloat(bloodSugar) < parseFloat(MIN_MOL));
+    }
+  }, [bloodSugar]);
 
   const renderTimerItem = ({item, index}) => {
     return (
@@ -228,7 +235,12 @@ const BloodSugar = ({navigation}) => {
           </Animated.View>
           <CustomButton
             onPress={() => processInput()}
-            styled={{marginBottom: 20}}
+            isDisabled={invalid}
+            labelStyled={invalid && {color: Colors.whiteColor}}
+            styled={{
+              marginBottom: 20,
+              backgroundColor: !invalid ? Colors.primary : Colors.gray.gray80,
+            }}
             label={strings.common.continue}
           />
         </Animated.View>

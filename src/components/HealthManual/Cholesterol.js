@@ -308,6 +308,7 @@ const Cholesterol = ({navigation, route}) => {
           <CustomButton
             isDisabled={total === 0}
             onPress={processInput}
+            labelStyled={total === 0 && {color: 'white'}}
             styled={{
               backgroundColor:
                 total === 0 ? Colors.gray.gray80 : Colors.primary,

@@ -29,6 +29,8 @@ const Avatar = ({}) => {
   // getUserStorage();
   useEffect(() => {
     getUserStorage();
+  }, []);
+  useEffect(() => {
     if (refreshing) {
       setTimeout(() => {
         setRefreshing(false);

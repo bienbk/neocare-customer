@@ -16,7 +16,7 @@ import styles from './styles';
 import CustomButton from 'common/CustomButton/CustomButton';
 import DateTimePicker from 'common/DateTImePicker/DateTimePicker';
 import {useDispatch, useSelector} from 'react-redux';
-import {updateUserInformation, resetUpdateUser} from 'store/user/userAction';
+import {updateUserInformation, resetUpdateUser} from 'store/actions';
 import {asyncStorage} from 'store';
 import GenderModal from './GenderModal';
 import HeightSelector from './HeightSelector';
@@ -57,9 +57,7 @@ const MyProfile = ({navigation}) => {
   };
   function formatBirthday(birthdayInput) {
     const bdArr = birthdayInput.split('/');
-    return `${bdArr[2]}-${bdArr[1]}-${
-      parseFloat(bdArr[0]) < 10 ? `0${bdArr[0]}` : bdArr[0]
-    }T00:00:00Z`;
+    return `${bdArr[2]}-${bdArr[1]}-${bdArr[0]}T00:00:00Z`;
   }
   const handleSubmitInfo = () => {
     if (!firstname || !lastname) {

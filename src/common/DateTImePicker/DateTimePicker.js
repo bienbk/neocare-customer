@@ -29,6 +29,9 @@ const DateTimePicker = ({isOpen, type, title, onConfirm, maxDate, onClose}) => {
           locale={'vi'}
           is24hourSource={'locale'}
           maximumDate={maxDate}
+          textColor={Colors.main}
+          fadeToColor={'whitesmoke'}
+          // style={{backgroundColor: Colors.main}}
           onDateChange={setCurrentDate}
           androidVariant={'iosClone'}
           date={currentDate}
@@ -50,7 +53,7 @@ export default DateTimePicker;
 const styles = StyleSheet.create({
   title: {paddingBottom: 20},
   containerModal: {
-    backgroundColor: 'white',
+    backgroundColor: 'whitesmoke',
     padding: 10,
     position: 'relative',
     top: heightDevice / 4,

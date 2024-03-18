@@ -89,8 +89,8 @@ const Home = ({navigation}) => {
     const query = {
       size: 100,
       page: 1,
-      // fromAt: '2024-03-12T00:00:00Z',
-      // toAt: '2024-03-14T00:00:00Z',
+      from_at: '2024-02-12T00:00:00Z',
+      to_at: '2024-03-14T00:00:00Z',
     };
     dispatch(listParameterAction(query));
   };

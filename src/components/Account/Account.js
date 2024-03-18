@@ -21,7 +21,7 @@ import {
   TextSmallMedium,
 } from 'common/Text/TextFont';
 import {getStatusGetUserInfo} from 'store/selectors';
-import {getUserInfoAction} from 'store/user/userAction';
+import {getUserInfoAction, resetGetUserInfo} from 'store/user/userAction';
 import Status from 'common/Status/Status';
 
 const IMAGE_HEIGHT = heightDevice * 0.336;
@@ -30,22 +30,20 @@ const Account = ({navigation}) => {
   const statusGetUser = useSelector(state => getStatusGetUserInfo(state));
   const dispatch = useDispatch();
   useEffect(() => {
-    if (statusGetUser === Status.DEFAULT) {
-      console.log('fetch');
+    const listener = navigation.addListener('focus', () => {
       fetchUserData();
+    });
+    return listener;
+  }, [navigation]);
+  useEffect(() => {
+    if (statusGetUser === Status.SUCCESS) {
+      dispatch(resetGetUserInfo());
     }
-  }, []);
+  }, [statusGetUser]);
   const fetchUserData = () => dispatch(getUserInfoAction());
   const positionY = useRef(new Animated.Value(0)).current;
   const imageAnimation = {
     transform: [
-      // {
-      //   translateY: positionY.interpolate({
-      //     inputRange: [0, IMAGE_HEIGHT],
-      //     outputRange: [0, -IMAGE_HEIGHT / 3],
-      //     extrapolate: 'clamp',
-      //   }),
-      // },
       {
         scaleY: positionY.interpolate({
           inputRange: [0, IMAGE_HEIGHT],
