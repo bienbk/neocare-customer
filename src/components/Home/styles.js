@@ -5,7 +5,7 @@ import Colors from 'theme/Colors';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.backgroundColor,
+    backgroundColor: 'white',
   },
   fontSize29: {fontSize: 29},
   wrapperHeader: {
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.backgroundColor,
     borderTopRightRadius: 32,
     borderTopLeftRadius: 32,
-    marginTop: -55,
+    marginTop: 0,
   },
 });
 

@@ -17,6 +17,15 @@ import {
 } from 'store/parameter/parameterAction';
 import Status from 'common/Status/Status';
 import {NAVIGATION_SHOW_MANAGER} from '../../navigation/routes';
+import {
+  TextNormal,
+  TextSemiBold,
+  TextSmallMedium,
+} from '../../common/Text/TextFont';
+import Colors from '../../theme/Colors';
+import Images from '../../common/Images/Images';
+import {doctor_avatar, user_example, widthDevice} from '../../assets/constans';
+import Icons from '../../common/Icons/Icons';
 const fakeData = [
   {
     id: 1,
@@ -122,8 +131,76 @@ const Home = ({navigation}) => {
   );
   return (
     <SafeAreaView style={styles.container}>
+      <View
+        style={{
+          // position: 'absolute',
+          // zIndex: 100,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          backgroundColor: 'white',
+          height: 70,
+          paddingHorizontal: 15,
+          width: widthDevice,
+        }}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Images
+            source={user_example}
+            style={{
+              height: 45,
+              width: 45,
+              borderRadius: 20,
+              backgroundColor: 'lightgray',
+            }}
+          />
+          <View style={{paddingHorizontal: 10}}>
+            <TextSemiBold>Xin chào Tran,</TextSemiBold>
+            <TextSmallMedium>Sức khoẻ bạn hôm nay thế nào?</TextSmallMedium>
+          </View>
+        </View>
+        <Icons type={'Feather'} name={'bell'} size={29} color={'black'} />
+      </View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <CustomeHeader />
+        {/* <CustomeHeader /> */}
+
+        <View style={{marginHorizontal: 15, paddingTop: 10}}>
+          <TextSemiBold>{'Chuyên gia tư vấn'}</TextSemiBold>
+          <View
+            style={{
+              padding: 15,
+              marginVertical: 10,
+              backgroundColor: Colors.primary,
+              borderRadius: 16,
+            }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                borderBottomColor: Colors.whiteColor,
+                borderBottomWidth: 1,
+                borderStyle: 'solid',
+                paddingBottom: 10,
+              }}>
+              <Images
+                source={doctor_avatar}
+                style={{height: 70, width: 70, borderRadius: 10}}
+              />
+              <View style={{paddingHorizontal: 10}}>
+                <TextNormal
+                  style={{
+                    fontWeight: 'bold',
+                    fontSize: 16,
+                    paddingVertical: 5,
+                  }}>
+                  {'BS Nguyễn Hữu Duơng'}
+                </TextNormal>
+                <TextSmallMedium>{'Chuyên khoa tim mạch'}</TextSmallMedium>
+              </View>
+            </View>
+            <TextNormal style={{paddingTop: 10}}>
+              Gói chăm sóc đặc biệt 6 tháng còn lại 250 ngày
+            </TextNormal>
+          </View>
+        </View>
         <View style={styles.wrapperListCard}>
           <FlatList
             data={fakeData}
