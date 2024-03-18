@@ -1,22 +1,20 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import * as Screens from 'components';
-import {NAVIGATION_HOME} from 'navigation/routes';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+  NAVIGATION_HOME,
+  NAVIGATION_ACCOUNT,
+  NAVIGATION_DOCTOR_DETAIL,
+  NAVIGATION_MY_DOCTOR,
+  NAVIGATION_PRESCRIPTION,
+} from 'navigation/routes';
+import {StyleSheet, View} from 'react-native';
 import Colors from 'theme/Colors';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Svg from 'common/Svg/Svg';
 import {TextSmallEleven} from 'common/Text/TextFont';
-import {widthDevice} from 'assets/constans';
 import strings from 'localization/Localization';
-import {
-  NAVIGATION_ACCOUNT,
-  NAVIGATION_DOCTOR_DETAIL,
-  NAVIGATION_MY_DOCTOR,
-  NAVIGATION_MY_PROFILE,
-  NAVIGATION_PRESCRIPTION,
-} from '../../navigation/routes';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -45,16 +43,16 @@ const Main = () => {
   const renderItemTab = ({focused}, route) => {
     const icons = {
       [NAVIGATION_HOME]: 'icon_heart_main',
-      [NAVIGATION_MY_DOCTOR]: 'icon_mydoctor_main',
+      // [NAVIGATION_MY_DOCTOR]: 'icon_mydoctor_main',
       [NAVIGATION_PRESCRIPTION]: 'icon_medicine_main',
       [NAVIGATION_ACCOUNT]: 'icon_account_main',
     };
     const title = router => {
       switch (router) {
         case NAVIGATION_HOME:
-          return 'Sổ sức khoẻ';
-        case NAVIGATION_MY_DOCTOR:
-          return 'Bác sĩ';
+          return 'Trang chủ';
+        // case NAVIGATION_MY_DOCTOR:
+        //   return 'Bác sĩ';
         case NAVIGATION_PRESCRIPTION:
           return 'Chỉ định';
         case NAVIGATION_ACCOUNT:
@@ -71,7 +69,7 @@ const Main = () => {
         />
         <TextSmallEleven
           style={{
-            color: focused ? Colors.blue.blue20 : Colors.textGrayColor,
+            color: focused ? Colors.black : Colors.textGrayColor,
             fontWeight: focused ? 'bold' : '600',
           }}>
           {title(route.name)}
@@ -91,11 +89,11 @@ const Main = () => {
           title: () => null,
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name={NAVIGATION_MY_DOCTOR}
         component={Screens.MyDoctor}
         options={{title: () => null}}
-      />
+      /> */}
       <Tab.Screen
         name={NAVIGATION_PRESCRIPTION}
         component={Screens.Prescription}
@@ -103,7 +101,7 @@ const Main = () => {
       />
       <Tab.Screen
         name={NAVIGATION_ACCOUNT}
-        component={StackAccount}
+        component={Screens.Account}
         options={{title: () => null}}
       />
     </Tab.Navigator>

@@ -39,7 +39,7 @@ const ShowManager = ({navigation}) => {
   const renderSelector = () =>
     listDiseases.map(item => {
       return (
-        <View style={styled.wrapperCheckbox}>
+        <View key={item.id} style={styled.wrapperCheckbox}>
           <TextNormalSemiBold
             style={{fontWeight: 'bold', color: Colors.gray.gray50}}>
             {item.name}

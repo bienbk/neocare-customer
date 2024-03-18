@@ -308,7 +308,7 @@ const AxitUric = ({navigation}) => {
         <CustomButton
           styled={{
             marginBottom: 10,
-            backgroundColor: !axitUric ? 'lightgray' : Colors.buttonBackground,
+            backgroundColor: !axitUric ? 'lightgray' : Colors.primary,
           }}
           onPress={() => handleSubmit()}
           isDisabled={!axitUric}

@@ -20,11 +20,11 @@ const Avatar = ({}) => {
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
   }, []);
-  async function getUserStorage() {
+  const getUserStorage = async () => {
     const userStore = (await asyncStorage.getUser()) || {id: -1};
     console.log('User store: ', userStore);
     setUser(userStore);
-  }
+  };
 
   // getUserStorage();
   useEffect(() => {
@@ -43,12 +43,8 @@ const Avatar = ({}) => {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
-        {/* <View style={styles.container}> */}
         <View style={styles.content}>
           <Images source={user_example} style={styles.image} />
-          {/* <TouchableOpacity style={styles.button}>
-            <Svg name={'icon_edit1'} size={28} color={Colors.textGrayColor} />
-          </TouchableOpacity> */}
         </View>
         <View style={styles.textBalance}>
           <TextSemiBold style={{color: Colors.whiteColor}}>
@@ -72,7 +68,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.whiteColor,
     paddingHorizontal: 10,
     paddingVertical: 5,
-    borderRadius: 20,
+    borderRadius: 16,
   },
 
   containerInfo: {

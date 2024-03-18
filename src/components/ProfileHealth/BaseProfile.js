@@ -25,6 +25,7 @@ import Svg from '../../common/Svg/Svg';
 import CustomButton from '../../common/CustomButton/CustomButton';
 import DateTimePicker from '../../common/DateTImePicker/DateTimePicker';
 import GenderModal from '../MyProfile/GenderModal';
+import HeightSelector from '../MyProfile/HeightSelector';
 
 const BaseProfile = ({next}) => {
   const [firstname, setFirstname] = useState('');
@@ -32,6 +33,7 @@ const BaseProfile = ({next}) => {
   const [gender, setGender] = useState('Nam');
   const [modal, setModal] = useState(-1);
   const [date, setDate] = useState(new Date());
+  const [height, setHeight] = useState(165);
   function formatBirthday(birthdayInput) {
     const bdArr = birthdayInput.substring(0, 10).split('-');
     return `${bdArr[0]}-${bdArr[2]}-${bdArr[1]}T00:00:00Z`;
@@ -45,6 +47,7 @@ const BaseProfile = ({next}) => {
       last_name: lastname,
       gender: gender === 'Nam' ? 1 : 0,
       info_submitted: 1,
+      height: parseFloat(height),
       birthday: formatBirthday(date.toISOString()),
     };
     // console.log(payload);
@@ -91,34 +94,44 @@ const BaseProfile = ({next}) => {
           <TouchableOpacity
             style={styles.birthSection}
             onPress={() => setModal(1)}>
-            <TextNormal
-              style={{
-                paddingLeft: 10,
-                color: !date ? Colors.textGrayColor : 'black',
-              }}>
+            <TextNormal>
               {date.toLocaleDateString() || 'Nhập ngày sinh của bạn'}
             </TextNormal>
           </TouchableOpacity>
         </View>
-        <View style={styles.wrapperSection}>
-          <TextNormal>Giới tính:</TextNormal>
-          <TouchableOpacity
-            style={styles.birthSection}
-            onPress={() => setModal(2)}>
-            <TextNormal
-              style={{
-                paddingLeft: 10,
-                color: !gender ? Colors.textGrayColor : 'black',
-              }}>
-              {!gender ? 'Chọn giới tính của bạn' : gender}
-            </TextNormal>
-          </TouchableOpacity>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <View style={[styles.wrapperSection, {width: '48%'}]}>
+            <TextNormal>Giới tính:</TextNormal>
+            <TouchableOpacity
+              style={styles.birthSection}
+              onPress={() => setModal(2)}>
+              <TextNormal>
+                {!gender ? 'Chọn giới tính của bạn' : gender}
+              </TextNormal>
+            </TouchableOpacity>
+          </View>
+          <View style={[styles.wrapperSection, {width: '50%'}]}>
+            <TextNormal style={styles.titleText}>Chiều cao</TextNormal>
+            <TouchableOpacity
+              style={styles.birthSection}
+              onPress={() => setModal(3)}>
+              <TextNormal>{height ? `${height} cm` : '165 cm'}</TextNormal>
+            </TouchableOpacity>
+          </View>
         </View>
         <View style={styles.wrapperButton}>
           <CustomButton
             onPress={handleSubmitInfo}
+            isDisabled={!lastname || !firstname}
             label={strings.common.continue}
-            styledButton={styles.btnContinue}
+            labelStyled={(!lastname || !firstname) && {color: 'white'}}
+            styledButton={[
+              styles.btnContinue,
+              {
+                backgroundColor:
+                  !lastname || !firstname ? 'lightgray' : Colors.primary,
+              },
+            ]}
           />
         </View>
       </View>
@@ -132,14 +145,23 @@ const BaseProfile = ({next}) => {
         }}
         onClose={() => setModal(-1)}
       />
-      <MyModal visible={modal === 2} onPressOutSide={() => setModal(-1)}>
+      <MyModal visible={modal !== -1} onPressOutSide={() => setModal(-1)}>
         <View style={styles.modalView}>
           <View style={{height: heightDevice / 3}}>
-            <GenderModal
-              gender={gender}
-              setGender={setGender}
-              onConfirm={() => setModal(-1)}
-            />
+            {modal === 2 && (
+              <GenderModal
+                gender={gender}
+                setGender={setGender}
+                onConfirm={() => setModal(-1)}
+              />
+            )}
+            {modal === 3 && (
+              <HeightSelector
+                height={height}
+                setHeight={setHeight}
+                onClose={() => setModal(-1)}
+              />
+            )}
           </View>
         </View>
       </MyModal>
@@ -183,7 +205,7 @@ const styles = StyleSheet.create({
   },
   birthSection: {
     backgroundColor: 'white',
-    paddingHorizontal: 5,
+    paddingHorizontal: 15,
     paddingVertical: 10,
     justifyContent: 'center',
     marginTop: 5,

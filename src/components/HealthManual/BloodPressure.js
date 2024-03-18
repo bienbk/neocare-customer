@@ -208,7 +208,9 @@ const BloodPressure = ({navigation}) => {
             color={Colors.gray.gray40}
           />
           <TextNormalSemiBold style={styles.textTodayAxit}>
-            {`${convertDate(date)} ${date.getHours()}:${date.getMinutes()}`}
+            {`${convertDate(date)} ${date
+              .toLocaleTimeString('vi-VN')
+              .substring(0, 5)}`}
           </TextNormalSemiBold>
         </TouchableOpacity>
         {conclusion !== -1 && (
@@ -249,7 +251,7 @@ const BloodPressure = ({navigation}) => {
             <TextNormalSemiBold
               style={[
                 styles.textLabelInput,
-                activeInput === 1 && {color: Colors.gray.gray20},
+                activeInput === 1 && {color: Colors.main},
               ]}>
               {'Tầm thu'}
             </TextNormalSemiBold>
@@ -410,7 +412,7 @@ const BloodPressure = ({navigation}) => {
           styled={{
             marginBottom: 10,
             backgroundColor:
-              !systolic || !diastolic ? 'lightgray' : Colors.buttonBackground,
+              !systolic || !diastolic ? 'lightgray' : Colors.primary,
           }}
           onPress={handleSubmit}
           isDisabled={!systolic || !diastolic}

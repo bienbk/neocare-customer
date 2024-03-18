@@ -38,7 +38,7 @@ const InputManual = ({
             style={[
               styles.placeholderInput,
               isFocused && {
-                backgroundColor: Colors.blue.blue30,
+                backgroundColor: Colors.primary,
                 height: 3.5,
               },
             ]}

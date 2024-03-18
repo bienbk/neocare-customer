@@ -64,7 +64,7 @@ const BloodSugar = ({navigation}) => {
         style={[
           styles.wrapperTime,
           timeMessure === index + 1 && {
-            backgroundColor: '#d30c7b',
+            backgroundColor: Colors.main,
           },
         ]}>
         <TextNormalSemiBold
@@ -172,9 +172,9 @@ const BloodSugar = ({navigation}) => {
                   color={Colors.gray.gray40}
                 />
                 <TextNormalSemiBold style={styles.textTodayAxit}>
-                  {`${convertDate(
-                    date,
-                  )} ${date.getHours()}:${date.getMinutes()}`}
+                  {`${convertDate(date)} ${date
+                    .toLocaleTimeString('vi-VN')
+                    .substring(0, 5)}`}
                 </TextNormalSemiBold>
               </TouchableOpacity>
               <TextMoneyBold style={styles.bloodSugarText}>

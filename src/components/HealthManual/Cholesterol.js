@@ -310,7 +310,7 @@ const Cholesterol = ({navigation, route}) => {
             onPress={processInput}
             styled={{
               backgroundColor:
-                total === 0 ? Colors.gray.gray80 : Colors.buttonBackground,
+                total === 0 ? Colors.gray.gray80 : Colors.primary,
               marginBottom: 20,
             }}
             label={strings.common.continue}

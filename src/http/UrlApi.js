@@ -31,8 +31,8 @@ export const UrlApi = {
   // ---------------------- USER ( PATIENT ) ---------------------
   apiRegisterUser: BASE_NEOCARE_CUSTOMER,
   // ------------------------ DISEASES -------------------------
-  apiListAllDisease: BASE_NEOCARE_CUSTOMER + 'diseases/list/',
+  apiListAllDisease: BASE_NEOCARE_CUSTOMER + 'diseases/list',
   // ----------------------- PARAMETER ---------------------
-  apiCreateParameter: BASE_NEOCARE_CUSTOMER + 'parameters/',
-  apiListParameter: BASE_NEOCARE_CUSTOMER + 'parameters/list/',
+  apiCreateParameter: BASE_NEOCARE_CUSTOMER + 'parameters',
+  apiListParameter: BASE_NEOCARE_CUSTOMER + 'parameters/list',
 };

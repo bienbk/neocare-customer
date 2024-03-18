@@ -126,7 +126,7 @@ const HorizontalRange = ({setValue, type, initValue, max}) => {
         <Icons
           type={'Feather'}
           name={'navigation-2'}
-          color={Colors.buttonBackground}
+          color={Colors.primary}
           size={20}
         />
       </View>
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
     height: indicatorHeight,
     width: 6,
     borderRadius: 20,
-    backgroundColor: Colors.buttonBackground,
+    backgroundColor: Colors.primary,
   },
   container: {
     flex: 1,

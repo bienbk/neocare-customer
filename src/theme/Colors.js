@@ -6,6 +6,7 @@ const Colors = {
   backgroundColor: '#FBF8FF',
   textInkColor: '#1B1B21',
   primary: '#FFC51B',
+  main: '#05102A',
   redColor: '#D80001',
   black: '#2E2F3E',
   yellowColor: '#ffdf00',

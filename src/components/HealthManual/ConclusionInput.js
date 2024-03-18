@@ -152,7 +152,7 @@ const ConclusionInput = ({
             {!withTime
               ? `${convertDate(date, true)}`
               : `${convertDate(date)} ${date
-                  .toLocaleTimeString()
+                  .toLocaleTimeString('vi-VN')
                   .substring(0, 5)}`}
           </TextNormalSemiBold>
         </TouchableOpacity>
@@ -365,7 +365,7 @@ const styles = StyleSheet.create({
   textTimeMessure: {
     paddingHorizontal: 20,
     paddingVertical: 8,
-    backgroundColor: '#d30c7b',
+    backgroundColor: Colors.main,
     borderRadius: 16,
     fontWeight: 'bold',
     color: 'white',
@@ -392,7 +392,7 @@ const styles = StyleSheet.create({
   btnSaveNote: {
     paddingVertical: 10,
     paddingHorizontal: 40,
-    backgroundColor: Colors.blue.blue30,
+    backgroundColor: Colors.main,
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',

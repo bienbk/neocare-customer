@@ -13,16 +13,29 @@ import Feature from 'common/Feature/Feature';
 import Avatar from './Avatar';
 import Colors from 'theme/Colors';
 import {heightDevice, LIST_OPTION} from 'assets/constans';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   TextMoneyBold,
   TextNormal,
   TextSemiBold,
   TextSmallMedium,
 } from 'common/Text/TextFont';
+import {getStatusGetUserInfo} from 'store/selectors';
+import {getUserInfoAction} from 'store/user/userAction';
+import Status from 'common/Status/Status';
 
 const IMAGE_HEIGHT = heightDevice * 0.336;
 
 const Account = ({navigation}) => {
+  const statusGetUser = useSelector(state => getStatusGetUserInfo(state));
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (statusGetUser === Status.DEFAULT) {
+      console.log('fetch');
+      fetchUserData();
+    }
+  }, []);
+  const fetchUserData = () => dispatch(getUserInfoAction());
   const positionY = useRef(new Animated.Value(0)).current;
   const imageAnimation = {
     transform: [

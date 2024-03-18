@@ -15,10 +15,11 @@ const styles = StyleSheet.create({
     top: 5,
     right: 15,
   },
+  phoneText: {color: Colors.gray.gray60, fontSize: 14, fontWeight: 'bold'},
   inputPhone: {
     paddingHorizontal: 15,
     borderRadius: 16,
-    backgroundColor: 'white',
+    backgroundColor: 'whitesmoke',
     color: 'black',
     marginTop: 5,
     justifyContent: 'center',
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.gray.gray90,
   },
   wrapperSection: {
-    paddingVertical: 15,
+    paddingVertical: 10,
     // paddingHorizontal: 15,
   },
   birthSection: {

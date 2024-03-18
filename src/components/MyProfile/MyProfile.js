@@ -29,7 +29,8 @@ import {user_example} from 'assets/constans';
 import Svg from 'common/Svg/Svg';
 
 const MyProfile = ({navigation}) => {
-  const [name, setName] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [firstname, setFirstname] = useState('');
   const [gender, setGender] = useState('Nam');
   const [phone, setPhone] = useState('');
   const [modal, setModal] = useState(-1);
@@ -42,12 +43,17 @@ const MyProfile = ({navigation}) => {
   useEffect(() => {
     checkUser();
   }, []);
+
   const checkUser = async () => {
-    const user = await asyncStorage.getUser();
-    setName(`${user?.last_name} ${user?.first_name}`);
-    setPhone(user?.phone);
+    const user = (await asyncStorage.getUser()) || {id: -1};
+    setLastname(user?.last_name || '');
+    setFirstname(user?.first_name || '');
+    setPhone(user?.phone || '');
     setGender(user?.gender === 1 ? 'Nam' : 'Nữ');
-    setDate(new Date(user?.birthday).toLocaleDateString());
+    const tempBirthday = user?.birthday
+      ? user.birthday.substring(0, 10).split('-').reverse().join('/')
+      : '';
+    setDate(tempBirthday);
   };
   function formatBirthday(birthdayInput) {
     const bdArr = birthdayInput.split('/');
@@ -55,18 +61,17 @@ const MyProfile = ({navigation}) => {
       parseFloat(bdArr[0]) < 10 ? `0${bdArr[0]}` : bdArr[0]
     }T00:00:00Z`;
   }
-  const handleSubmitInfo = async () => {
-    if (!name) {
+  const handleSubmitInfo = () => {
+    if (!firstname || !lastname) {
       return;
     }
     const payload = {
-      first_name: name.split(' ').length >= 1 && name.split(' ')[1],
-      last_name: name.split(' ').length >= 1 && name.split(' ')[0],
+      first_name: firstname,
+      last_name: lastname,
       gender: gender === 'Nam' ? 1 : 0,
       info_submitted: 1,
       birthday: formatBirthday(date),
     };
-    console.log(payload);
     dispatch(updateUserInformation(payload));
   };
   useEffect(() => {
@@ -99,22 +104,35 @@ const MyProfile = ({navigation}) => {
           </View>
         </TouchableOpacity>
         <View style={styles.wrapperSection}>
-          <TextNormal style={styles.titleText}>Họ tên:</TextNormal>
+          <TextNormal style={styles.titleText}>Họ của bạn:</TextNormal>
           <TextInput
             style={styles.textInput}
-            placeholder={'Nhập họ và tên của bạn'}
+            placeholder={'Nhập họ của bạn'}
             returnKeyType={'done'}
             placeholderTextColor={Colors.textGrayColor}
             onSubmitEditing={Keyboard.dismiss}
-            value={name}
-            onChangeText={setName}
+            value={lastname}
+            onChangeText={setLastname}
+            underlineColorAndroid="transparent"
+          />
+        </View>
+        <View style={styles.wrapperSection}>
+          <TextNormal style={styles.titleText}>Tên của bạn:</TextNormal>
+          <TextInput
+            style={styles.textInput}
+            placeholder={'Nhập tên của bạn'}
+            returnKeyType={'done'}
+            placeholderTextColor={Colors.textGrayColor}
+            onSubmitEditing={Keyboard.dismiss}
+            value={firstname}
+            onChangeText={setFirstname}
             underlineColorAndroid="transparent"
           />
         </View>
         <View style={styles.wrapperSection}>
           <TextNormal style={styles.titleText}>Số điện thoại</TextNormal>
           <View style={styles.inputPhone}>
-            <TextNormal>{phone}</TextNormal>
+            <TextNormal style={styles.phoneText}>{phone}</TextNormal>
           </View>
         </View>
         <View style={styles.wrapperLine}>
@@ -159,7 +177,7 @@ const MyProfile = ({navigation}) => {
         maxDate={new Date()}
         type={'date'}
         onConfirm={v => {
-          setDate(v.toLocaleDateString());
+          setDate(v.toLocaleDateString('en-GB'));
           setModal(-1);
         }}
         onClose={() => setModal(-1)}

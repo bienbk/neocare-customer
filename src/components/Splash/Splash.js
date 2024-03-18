@@ -3,24 +3,25 @@ import {View, SafeAreaView} from 'react-native';
 import styles from './styles';
 
 // import {useDispatch} from 'react-redux';
-import {TextMoneyBold} from '../../common/Text/TextFont';
+import {TextMoneyBold} from 'common/Text/TextFont';
 import {
   NAVIGATION_LOGIN,
   NAVIGATION_MAIN,
   NAVIGATION_PROFILE_HEALTH,
-} from '../../navigation/routes';
+} from 'navigation/routes';
 import SuperTokens from 'supertokens-react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {statusUpdateUserSelector, getStatusGetUserInfo} from 'store/selectors';
-import {getUserInfoAction} from '../../store/user/userAction';
-import {asyncStorage} from '../../store';
-import strings from '../../localization/Localization';
+import {getUserInfoAction, resetGetUserInfo} from 'store/user/userAction';
+import {asyncStorage} from 'store';
+import strings from 'localization/Localization';
+import Status from '../../common/Status/Status';
 
 const Splash = ({navigation}) => {
   const dispatch = useDispatch();
-  const statusUpdateUser = useSelector(state =>
-    statusUpdateUserSelector(state),
-  );
+  // const statusUpdateUser = useSelector(state =>
+  //   statusUpdateUserSelector(state),
+  // );
   const statusGetUserInfo = useSelector(state => getStatusGetUserInfo(state));
   useEffect(() => {
     dispatch(getUserInfoAction());
@@ -28,8 +29,14 @@ const Splash = ({navigation}) => {
   }, []);
 
   useEffect(() => {
-    checkUser();
-  }, [statusUpdateUser, statusGetUserInfo]);
+    if (
+      statusGetUserInfo === Status.SUCCESS ||
+      statusGetUserInfo === Status.ERROR
+    ) {
+      dispatch(resetGetUserInfo());
+      checkUser();
+    }
+  }, [statusGetUserInfo]);
 
   const doesSessionExist = async () => {
     const data = await SuperTokens.doesSessionExist();

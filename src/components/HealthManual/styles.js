@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
   otpInputText: {
     fontSize: 40,
-    color: Colors.gray.gray30,
+    color: Colors.main,
     fontWeight: 'bold',
   },
   otpInputView: {
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
   },
   activeInputText: {
-    color: Colors.blue.blue30,
+    color: Colors.main,
   },
   inputSection: {
     alignItems: 'center',
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   btnSaveNote: {
     paddingVertical: 10,
     paddingHorizontal: 40,
-    backgroundColor: Colors.blue.blue30,
+    backgroundColor: Colors.main,
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 15,
     fontWeight: '600',
-    backgroundColor: Colors.pinkColor,
+    backgroundColor: Colors.main,
     paddingHorizontal: 20,
     paddingVertical: 5,
     marginTop: 10,
@@ -282,8 +282,8 @@ const styles = StyleSheet.create({
   },
   wrapperActiveInputHealth: {
     backgroundColor: Colors.whiteColor,
-    borderColor: Colors.blue.blue30,
-    borderWidth: 1,
+    borderColor: Colors.primary,
+    borderWidth: 1.5,
     borderStyle: 'solid',
   },
   wrapperTitle: {paddingVertical: 10, flexDirection: 'row'},
