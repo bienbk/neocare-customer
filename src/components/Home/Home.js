@@ -102,11 +102,8 @@ const Home = ({navigation}) => {
   const listDoctors = useSelector(state => listDoctorSelector(state));
   const [currentDoctor, setCurrentDoctor] = useState(-1);
   useEffect(() => {
-    const valid = checkUser();
-    if (valid) {
-      getParameterData();
-      dispatch(listDoctorAction());
-    }
+    getParameterData();
+    dispatch(listDoctorAction());
   }, []);
   useEffect(() => {
     if (listDoctors && listDoctors.length) {
@@ -127,10 +124,6 @@ const Home = ({navigation}) => {
       dispatch(resetListingParameter());
     }
   }, [statusListing]);
-  const checkUser = async () => {
-    const user = (await asyncStorage.getUser()) || -1;
-    return user !== -1;
-  };
 
   const handlePressCard = item => {
     navigation.navigate(NAVIGATION_HEALTH_MANUAL, {id: item?.id});
@@ -196,9 +189,11 @@ const Home = ({navigation}) => {
                     fontSize: 16,
                     paddingVertical: 5,
                   }}>
-                  {currentDoctor?.doctor?.last_name +
-                    ' ' +
-                    currentDoctor?.doctor?.first_name}
+                  {currentDoctor?.doctor?.last_name
+                    ? currentDoctor?.doctor?.last_name +
+                      ' ' +
+                      currentDoctor?.doctor?.first_name
+                    : 'Nguyen Tran'}
                 </TextNormal>
                 <TextSmallMedium>{'Chuyên khoa tim mạch'}</TextSmallMedium>
               </View>

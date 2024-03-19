@@ -73,7 +73,20 @@ const DoctorDetail = ({navigation, route}) => {
           />
           {/* OPTIONS & EXTRA SECTION */}
           <FlatList
-            data={listPackage}
+            data={
+              listPackage
+                ? listPackage
+                : [
+                    {
+                      name: ' Gói chăm sóc sức khoẻ 6 tháng',
+                      id: 1,
+                      product_status: 2,
+                      price: 2000000,
+                      order_id: 0,
+                      desc: 'Kiểm tra sức khoẻ dựa theo chỉ số hằng tuần,Không giới hạn số lần khám,Khám tại nhà không cần chờ đợi',
+                    },
+                  ]
+            }
             scrollEnabled={false}
             showsVerticalScrollIndicator={false}
             ListHeaderComponent={headerFlatlist}

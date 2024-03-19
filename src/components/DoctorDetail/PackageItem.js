@@ -46,6 +46,7 @@ const AvailablePackage = ({packageItem, navigation}) => {
               item: packageItem,
             })
           }
+          disabled={packageItem?.product_status === 2}
           style={[
             styles.buyPackageButton,
             packageItem?.product_status === 2 && {
