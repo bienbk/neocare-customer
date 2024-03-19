@@ -30,13 +30,14 @@ const DoctorDetail = ({navigation, route}) => {
   const followedDoctor = useSelector(state => followedDoctorSelector(state));
   useEffect(() => {
     const {currentDoctor} = route.params;
+    console.log('DETAIL SCREEN::::', currentDoctor.doctor);
     if (currentDoctor || followedDoctor) {
       setListPackage(
         currentDoctor?.package_items
           ? currentDoctor?.package_items
           : followedDoctor.package_items,
       );
-      setDoctor(currentDoctor ? currentDoctor : followedDoctor);
+      setDoctor(currentDoctor ? currentDoctor?.doctor : followedDoctor);
     }
   }, [navigation]);
 

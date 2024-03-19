@@ -1,5 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {FlatList, SafeAreaView, View, ScrollView} from 'react-native';
+import {
+  FlatList,
+  SafeAreaView,
+  View,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import styles from './styles';
 import DiseaseCard from './DiseaseCard';
 import CustomeHeader from './CustomeHeader';
@@ -10,13 +16,18 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   listParameterSelector,
   statusListingParam,
-} from 'store/parameter/parameterSelector';
+  listDoctorSelector,
+} from 'store/selectors';
 import {
   listParameterAction,
+  listDoctorAction,
   resetListingParameter,
-} from 'store/parameter/parameterAction';
+} from 'store/actions';
 import Status from 'common/Status/Status';
-import {NAVIGATION_SHOW_MANAGER} from '../../navigation/routes';
+import {
+  NAVIGATION_DOCTOR_DETAIL,
+  NAVIGATION_SHOW_MANAGER,
+} from '../../navigation/routes';
 import {
   TextNormal,
   TextSemiBold,
@@ -88,18 +99,26 @@ const Home = ({navigation}) => {
   const dispatch = useDispatch();
   const listParameter = useSelector(state => listParameterSelector(state));
   const statusListing = useSelector(state => statusListingParam(state));
+  const listDoctors = useSelector(state => listDoctorSelector(state));
+  const [currentDoctor, setCurrentDoctor] = useState(-1);
   useEffect(() => {
     const valid = checkUser();
     if (valid) {
       getParameterData();
+      dispatch(listDoctorAction());
     }
   }, []);
+  useEffect(() => {
+    if (listDoctors && listDoctors.length) {
+      setCurrentDoctor({...listDoctors[0]});
+    }
+  }, [listDoctors]);
   const getParameterData = () => {
     const query = {
       size: 100,
       page: 1,
-      from_at: '2024-02-12T00:00:00Z',
-      to_at: '2024-03-14T00:00:00Z',
+      // from_at: '2024-02-12T00:00:00Z',
+      // to_at: '2024-03-14T00:00:00Z',
     };
     dispatch(listParameterAction(query));
   };
@@ -131,28 +150,9 @@ const Home = ({navigation}) => {
   );
   return (
     <SafeAreaView style={styles.container}>
-      <View
-        style={{
-          // position: 'absolute',
-          // zIndex: 100,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          backgroundColor: 'white',
-          height: 70,
-          paddingHorizontal: 15,
-          width: widthDevice,
-        }}>
+      <View style={styles.wrapperFixedHeader}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Images
-            source={user_example}
-            style={{
-              height: 45,
-              width: 45,
-              borderRadius: 20,
-              backgroundColor: 'lightgray',
-            }}
-          />
+          <Images source={user_example} style={styles.avatarIcon} />
           <View style={{paddingHorizontal: 10}}>
             <TextSemiBold>Xin chào Tran,</TextSemiBold>
             <TextSmallMedium>Sức khoẻ bạn hôm nay thế nào?</TextSmallMedium>
@@ -165,7 +165,12 @@ const Home = ({navigation}) => {
 
         <View style={{marginHorizontal: 15, paddingTop: 10}}>
           <TextSemiBold>{'Chuyên gia tư vấn'}</TextSemiBold>
-          <View
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate(NAVIGATION_DOCTOR_DETAIL, {
+                currentDoctor: currentDoctor,
+              })
+            }
             style={{
               padding: 15,
               marginVertical: 10,
@@ -191,7 +196,9 @@ const Home = ({navigation}) => {
                     fontSize: 16,
                     paddingVertical: 5,
                   }}>
-                  {'BS Nguyễn Hữu Duơng'}
+                  {currentDoctor.doctor.last_name +
+                    ' ' +
+                    currentDoctor.doctor.first_name}
                 </TextNormal>
                 <TextSmallMedium>{'Chuyên khoa tim mạch'}</TextSmallMedium>
               </View>
@@ -199,7 +206,7 @@ const Home = ({navigation}) => {
             <TextNormal style={{paddingTop: 10}}>
               Gói chăm sóc đặc biệt 6 tháng còn lại 250 ngày
             </TextNormal>
-          </View>
+          </TouchableOpacity>
         </View>
         <View style={styles.wrapperListCard}>
           <FlatList

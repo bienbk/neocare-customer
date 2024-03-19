@@ -19,7 +19,7 @@ const CardInformation = ({doctor, onPressDescription, showDescription}) => {
       </TouchableOpacity>
       <View style={styles.inforCard}>
         <TextSemiBold style={{paddingVertical: 5, fontSize: 20}}>
-          {doctor?.doctor.last_name + ' ' + doctor?.doctor.first_name}
+          {doctor?.last_name + ' ' + doctor?.first_name}
         </TextSemiBold>
         <TextSmallTwelve style={{color: Colors.gray.gray50, marginLeft: 5}}>
           {doctor?.department || 'Chuyên khoa Tim'}

@@ -3,6 +3,21 @@ import {StyleSheet} from 'react-native';
 import Colors from 'theme/Colors';
 
 const styles = StyleSheet.create({
+  avatarIcon: {
+    height: 45,
+    width: 45,
+    borderRadius: 20,
+    backgroundColor: 'lightgray',
+  },
+  wrapperFixedHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    height: 70,
+    paddingHorizontal: 15,
+    width: widthDevice,
+  },
   container: {
     flex: 1,
     backgroundColor: 'white',

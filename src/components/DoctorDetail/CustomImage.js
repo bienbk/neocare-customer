@@ -4,17 +4,18 @@ import styles from './styles';
 import Icons from '../../common/Icons/Icons';
 import Colors from '../../theme/Colors';
 import LinearGradient from 'react-native-linear-gradient';
-import {NAVIGATION_MY_DOCTOR} from '../../navigation/routes';
+import {NAVIGATION_HOME, NAVIGATION_MY_DOCTOR} from '../../navigation/routes';
+import { doctor_detail } from '../../assets/constans';
 const AVATAR_URL = 'https://i.pravatar.cc/?img=';
 
 const CustomImage = ({navigation, onPressOption}) => {
   return (
     <ImageBackground
       resizeMode={'cover'}
-      source={{uri: `${AVATAR_URL}${Math.round(Math.random() * 20)}`}}
+      source={doctor_detail}
       style={styles.imageDoctor}>
       <TouchableOpacity
-        onPress={() => navigation.navigate(NAVIGATION_MY_DOCTOR)}
+        onPress={() => navigation.navigate(NAVIGATION_HOME)}
         style={styles.closeIcon}>
         <Icons
           type={'Feather'}

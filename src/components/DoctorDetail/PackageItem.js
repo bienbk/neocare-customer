@@ -15,10 +15,7 @@ import {NAVIGATION_PACKAGE_DETAIL} from '../../navigation/routes';
 import ProgressLine from '../../common/ProgressLine/ProgressLine';
 const AvailablePackage = ({packageItem, navigation}) => {
   return (
-    <ImageBackground
-      imageStyle={{borderRadius: 20}}
-      source={card_blue}
-      style={styles.wrapperActivePackage}>
+    <View style={styles.wrapperActivePackage}>
       <TextNormal style={{padding: 5, fontWeight: 'bold', color: 'white'}}>
         {packageItem.name}
       </TextNormal>
@@ -33,12 +30,14 @@ const AvailablePackage = ({packageItem, navigation}) => {
               color={'white'}
               style={{paddingHorizontal: 5}}
             />
-            <TextSmallTwelve style={{color: 'white'}}>{item}</TextSmallTwelve>
+            <TextSmallTwelve style={{color: 'white'}}>
+              {item.toString().trim()}
+            </TextSmallTwelve>
           </View>
         )}
       />
       <View style={styles.wrapperFooterCard}>
-        <TextSemiBold style={{color: 'white'}}>
+        <TextSemiBold style={{color: Colors.primary}}>
           {formatMoney(packageItem.price) + 'đ'}
         </TextSemiBold>
         <TouchableOpacity
@@ -55,10 +54,7 @@ const AvailablePackage = ({packageItem, navigation}) => {
           ]}>
           <TextNormal
             style={{
-              color:
-                packageItem?.product_status === 2
-                  ? Colors.buttonBackground
-                  : Colors.whiteColor,
+              color: Colors.whiteColor,
               fontWeight: 'bold',
               opacity: packageItem?.product_status === 2 ? 0.5 : 1,
             }}>
@@ -66,7 +62,7 @@ const AvailablePackage = ({packageItem, navigation}) => {
           </TextNormal>
         </TouchableOpacity>
       </View>
-    </ImageBackground>
+    </View>
   );
 };
 const ActivedPackage = ({packageItem, leftDay, totalDay}) => {
