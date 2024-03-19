@@ -196,9 +196,9 @@ const Home = ({navigation}) => {
                     fontSize: 16,
                     paddingVertical: 5,
                   }}>
-                  {currentDoctor.doctor.last_name +
+                  {currentDoctor?.doctor?.last_name +
                     ' ' +
-                    currentDoctor.doctor.first_name}
+                    currentDoctor?.doctor?.first_name}
                 </TextNormal>
                 <TextSmallMedium>{'Chuyên khoa tim mạch'}</TextSmallMedium>
               </View>
