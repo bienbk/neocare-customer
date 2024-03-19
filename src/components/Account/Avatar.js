@@ -55,9 +55,9 @@ const Avatar = ({}) => {
               : 'Username'}
           </TextSemiBold>
         </View>
-        <TextNormalSemiBold style={styles.label}>
-          {user?.phone}
-        </TextNormalSemiBold>
+        <View style={styles.label}>
+          <TextNormalSemiBold>{user?.phone}</TextNormalSemiBold>
+        </View>
       </ScrollView>
     </View>
   );

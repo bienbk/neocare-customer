@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     height: 70,
   },
   wrapperHeader: {
-    height: heightDevice * 0.336,
+    height: heightDevice * 0.3,
     backgroundColor: '#05102A',
   },
   containerContent: {

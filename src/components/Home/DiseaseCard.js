@@ -27,14 +27,21 @@ const DiseaseCard = ({
       <View style={styles.wrapperContentCard}>
         <View style={styles.wrapperNameLine}>
           <TextSemiBold style={styles.diseaseNameText}>{name}</TextSemiBold>
-          <TextNormal
+          <View
             style={
               status === 'Bình thường'
                 ? styles.statusText
                 : styles.statusDangerText
             }>
-            {status}
-          </TextNormal>
+            <TextNormal
+              style={
+                status === 'Bình thường'
+                  ? styles.statusText
+                  : styles.statusDangerText
+              }>
+              {status}
+            </TextNormal>
+          </View>
         </View>
         <TextNormal style={styles.timeText}>{created_at}</TextNormal>
         {index === 1 && (

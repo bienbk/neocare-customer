@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {React, useEffect, useRef, useState} from 'react';
-import {View, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, TouchableOpacity, StyleSheet, SafeAreaView} from 'react-native';
 // import {useDispatch, useSelector} from 'react-redux';
 // import styles from './styles';
 import {
@@ -24,38 +24,44 @@ const Prescription = ({nextStep}) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <View style={{flex: 1, alignItems: 'center'}}>
-      {/* TITLE SECTION */}
-      <View style={styles.wrapperTitle}>
-        <TextMoneyBold style={{fontSize: 24, marginBottom: 5}}>
-          {'Cân nặng của bạn'}
-        </TextMoneyBold>
-        <TextNormal style={{textAlign: 'center'}}>
-          {'Thông tin này rất quan trọng để tính chỉ số khối cơ thể của bạn'}
-        </TextNormal>
-      </View>
-      <TouchableOpacity
-        onPress={() => setOpen(true)}
-        style={styles.wrapperDatePicker}>
-        <Icons
-          type={'Fontisto'}
-          name={'calendar'}
-          size={18}
-          color={Colors.greenColor}
+    <SafeAreaView style={{flex: 1}}>
+      <View style={{flex: 1, alignItems: 'center'}}>
+        {/* TITLE SECTION */}
+        <View style={styles.wrapperTitle}>
+          <TextMoneyBold style={{fontSize: 24, marginBottom: 5}}>
+            {'Cân nặng của bạn'}
+          </TextMoneyBold>
+          <TextNormal style={{textAlign: 'center'}}>
+            {'Thông tin này rất quan trọng để tính chỉ số khối cơ thể của bạn'}
+          </TextNormal>
+        </View>
+        <TouchableOpacity
+          onPress={() => setOpen(true)}
+          style={styles.wrapperDatePicker}>
+          <Icons
+            type={'Fontisto'}
+            name={'calendar'}
+            size={18}
+            color={Colors.greenColor}
+          />
+          <TextNormalSemiBold style={styles.textToday}>
+            {convertDate(date) +
+              ' ' +
+              date.getHours() +
+              ':' +
+              date.getMinutes()}
+          </TextNormalSemiBold>
+        </TouchableOpacity>
+        <DateTimePicker
+          date={date}
+          isOpen={open}
+          setDate={setDate}
+          maxDate={new Date()}
+          onConfirm={() => setOpen(false)}
+          onClose={() => setOpen(false)}
         />
-        <TextNormalSemiBold style={styles.textToday}>
-          {convertDate(date) + ' ' + date.getHours() + ':' + date.getMinutes()}
-        </TextNormalSemiBold>
-      </TouchableOpacity>
-      <DateTimePicker
-        date={date}
-        isOpen={open}
-        setDate={setDate}
-        maxDate={new Date()}
-        onConfirm={() => setOpen(false)}
-        onClose={() => setOpen(false)}
-      />
-    </View>
+      </View>
+    </SafeAreaView>
   );
 };
 

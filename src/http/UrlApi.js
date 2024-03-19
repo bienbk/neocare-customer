@@ -1,12 +1,12 @@
-import {
-  BASE_PATH_CAFE,
-  BASE_NEOCARE_AUTH,
-  BASE_NEOCARE_CUSTOMER,
-} from 'assets/config';
+// import {
+//   BASE_PATH_CAFE,
+//   BASE_NEOCARE_AUTH,
+//   BASE_NEOCARE_CUSTOMER,
+// } from 'assets/config';
 
-// const BASE_NEOCARE_AUTH = 'https://dev-api.neocare.vn/';
-// const BASE_PATH_CAFE = 'https://dev-api.neocafe.tech/v1/';
-// const BASE_NEOCARE_CUSTOMER = 'https://dev-api.neocare.vn/patients/v1/';
+const BASE_NEOCARE_AUTH = 'https://dev-api.neocare.vn/';
+const BASE_PATH_CAFE = 'https://dev-api.neocafe.tech/v1/';
+const BASE_NEOCARE_CUSTOMER = 'https://dev-api.neocare.vn/patients/v1/';
 
 export const UrlApi = {
   // ---------------------- USER -AUTH  ---------------------------

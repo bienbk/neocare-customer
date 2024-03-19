@@ -98,13 +98,15 @@ const Account = ({navigation}) => {
         </Animated.View>
         <View style={styles.wrapperPackage}>
           <TextSemiBold>Gói chăm sóc sức khoẻ của tôi</TextSemiBold>
-          <TextNormal
+          <View
             style={[
               styles.labelMyPackage,
               {backgroundColor: Colors.yellowColor},
             ]}>
-            {'Đã kết nối (2)'}
-          </TextNormal>
+            <TextNormal style={[{backgroundColor: Colors.yellowColor}]}>
+              {'Đã kết nối (2)'}
+            </TextNormal>
+          </View>
         </View>
         <FlatList
           data={LIST_OPTION}
