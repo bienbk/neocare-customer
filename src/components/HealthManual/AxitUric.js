@@ -1,44 +1,21 @@
+/* eslint-disable prettier/prettier */
 import React, {useEffect, useRef, useState} from 'react';
-import {
-  Keyboard,
-  Animated,
-  TextInput,
-  TouchableOpacity,
-  View,
-  Pressable,
-} from 'react-native';
+import {Keyboard, Animated, TextInput, TouchableOpacity, View,Pressable} from 'react-native';
 import styles from './styles';
-import {
-  TextNormalSemiBold,
-  TextSemiBold,
-  TextSmallMedium,
-} from 'common/Text/TextFont';
+import {TextNormalSemiBold, TextSemiBold} from 'common/Text/TextFont';
 import Icons from 'common/Icons/Icons';
 import Colors from 'theme/Colors';
 import strings from 'localization/Localization';
 import CustomButton from 'common/CustomButton/CustomButton';
-import {
-  AXIT_URIC_MG,
-  AXIT_URIC_MOL,
-  CODE_AXIT_URIC,
-  UNIT_MG_DL,
-  UNIT_UMOLL,
-  heightDevice,
-  widthDevice,
-  convertDate,
-  today,
-} from 'assets/constans';
+import {AXIT_URIC_MG, AXIT_URIC_MOL, CODE_AXIT_URIC, UNIT_MG_DL, UNIT_UMOLL, heightDevice,widthDevice,convertDateParameter,convertDate,} from 'assets/constans';
 import CustomHeader from './CustomHeader';
 import UnitSelector from 'common/UnitSelector/UnitSelector';
 import {NAVIGATION_HOME} from 'navigation/routes';
 import {useDispatch, useSelector} from 'react-redux';
 import {statusCreateParamSelector} from 'store/selectors';
-import {
-  createParameterAction,
-  resetCreationParameter,
-} from 'store/parameter/parameterAction';
+import {createParameterAction,resetCreationParameter} from 'store/parameter/parameterAction';
 import Status from 'common/Status/Status';
-import DateTimePicker from '../../common/DateTImePicker/DateTimePicker';
+import DateTimePicker from 'common/DateTImePicker/DateTimePicker';
 
 const PLACEHOLDER =
   'Ghi chú trạng thái cảm giác của bạn khi đo huyết áp, chất luợng giấc ngủ, chế độ dinh duỡng, bài tập thể dục gần đây của bạn...';
@@ -57,6 +34,7 @@ const AxitUric = ({navigation}) => {
   const inputTransition = new Animated.Value(0);
   const textInputRef = useRef();
   const dispatch = useDispatch();
+  const refNoteInput = useRef(-1);
   const statusCreateParameter = useSelector(state =>
     statusCreateParamSelector(state),
   );
@@ -83,9 +61,6 @@ const AxitUric = ({navigation}) => {
   };
 
   const handleSubmit = () => {
-    if (conclusion !== -1) {
-      saveParameter();
-    }
     if (warningMessage || !axitUric) {
       return;
     }
@@ -112,6 +87,8 @@ const AxitUric = ({navigation}) => {
         index: parseFloat(axitUric),
         unit: messure === 1 ? UNIT_MG_DL : UNIT_UMOLL,
       },
+      noted: note,
+      date: convertDateParameter(date.toLocaleString('en-GB')) || '',
       parameters_monitor_code: CODE_AXIT_URIC,
     };
     dispatch(createParameterAction(payload));
@@ -136,6 +113,9 @@ const AxitUric = ({navigation}) => {
     textInputRef.current.focus();
     setAxitUric('');
     setConclusion(-1);
+  };
+  const handleNoteInput = ({nativeEvent}) => {
+    refNoteInput.current = nativeEvent.text;
   };
   return (
     <Pressable onPress={Keyboard.dismiss} style={styles.container}>
@@ -279,8 +259,8 @@ const AxitUric = ({navigation}) => {
               placeholder={PLACEHOLDER}
               numberOfLines={5}
               multiline
-              value={note}
-              onChange={setNote}
+              autoCapitalize={'sentences'}
+              onChange={handleNoteInput}
               onSubmitEditing={Keyboard.dismiss}
               onFocus={() => setShowTextarea(true)}
               onBlur={() => setShowTextarea(false)}
@@ -294,6 +274,7 @@ const AxitUric = ({navigation}) => {
               onPress={() => {
                 Keyboard.dismiss();
                 setShowTextarea(false);
+                setNote(refNoteInput.current);
               }}
               style={styles.btnSaveNote}>
               <TextSemiBold style={{color: Colors.whiteColor}}>
@@ -310,7 +291,10 @@ const AxitUric = ({navigation}) => {
             marginBottom: 10,
             backgroundColor: !axitUric ? 'lightgray' : Colors.primary,
           }}
-          onPress={() => handleSubmit()}
+          onPress={() => {
+            conclusion !== -1 && saveParameter();
+            conclusion === -1 && handleSubmit();
+          }}
           isDisabled={!axitUric}
           label={
             conclusion !== -1 ? strings.common.save : strings.common.continue

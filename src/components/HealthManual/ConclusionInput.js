@@ -1,46 +1,23 @@
-import React, {useEffect, useState} from 'react';
-import {
-  Keyboard,
-  Animated,
-  TextInput,
-  TouchableOpacity,
-  View,
-  Pressable,
-  StyleSheet,
-} from 'react-native';
-import {
-  TextNormal,
-  TextNormalSemiBold,
-  TextSemiBold,
-  TextSmallMedium,
-} from 'common/Text/TextFont';
+/* eslint-disable prettier/prettier */
+import React, {useEffect, useRef, useState} from 'react';
+import { Keyboard,Animated,TextInput,TouchableOpacity,View,Pressable,StyleSheet} from 'react-native';
+import { TextNormal, TextNormalSemiBold, TextSemiBold, TextSmallMedium} from 'common/Text/TextFont';
 import Icons from 'common/Icons/Icons';
 import Colors from 'theme/Colors';
 import {heightDevice, widthDevice, convertDate} from 'assets/constans';
 import strings from 'localization/Localization';
 import CustomButton from 'common/CustomButton/CustomButton';
-import {NAVIGATION_HOME} from 'navigation/routes';
 import CustomHeader from './CustomHeader';
 const PLACEHOLDER =
   'Ghi chú trạng thái cảm giác của bạn khi đo, chất luợng giấc ngủ, chế độ dinh duỡng, bài tập thể dục gần đây của bạn...';
-const ConclusionInput = ({
-  navigation,
-  conclusion,
-  onSave,
-  value,
-  title,
-  unit,
-  type,
-  withTime,
-  date,
-  resetConclusion,
-}) => {
+const ConclusionInput = ({navigation, conclusion, onSave, value, title, unit, type, withTime, date, resetConclusion}) => {
   const [showTextarea, setShowTextarea] = useState(false);
   const refCardHeight = React.useRef();
   const [note, setNote] = useState('');
   const [showDetailCholesterol, setShwoDetailCholesterol] = useState(false);
   const cardTransition = new Animated.Value(0);
   const inputTransition = new Animated.Value(0);
+  const refNoteInput = useRef(-1);
   Keyboard.addListener('keyboardDidHide', () => {
     setShowTextarea(false);
   });
@@ -58,6 +35,9 @@ const ConclusionInput = ({
       }).start();
     }
   });
+  const handleNoteInput = ({nativeEvent}) => {
+    refNoteInput.current = nativeEvent.text;
+  };
   const renderSub = type =>
     Object.values(conclusion)
       .filter(i =>
@@ -79,44 +59,16 @@ const ConclusionInput = ({
         } else {
           item.name = item?.name ? item?.name : 'TOTAL';
           return (
-            <View
-              style={{
-                paddingVertical: 7,
-                marginTop: 3,
-                paddingLeft: 20,
-              }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}>
+            <View style={styles.wrapperCholesterolItem}>
+              <View style={styles.wrapperSubItem}>
                 <View style={styles.line}>
-                  <Icons
-                    type={'Fontisto'}
-                    name={'blood-drop'}
-                    size={18}
-                    color={item?.color}
-                  />
-                  <TextNormal
-                    style={[
-                      {
-                        color: Colors.gray.gray30,
-                        fontSize: 16,
-                        marginLeft: 10,
-                        fontWeight: item?.name === 'TOTAL' ? 'bold' : '500',
-                      },
-                    ]}>
+                  <Icons type={'Fontisto'} name={'blood-drop'}size={18}color={item?.color}/>
+                  <TextNormal style={styles.textSubCholesterol}>
                     {item?.name + ': ' + item?.review}
                   </TextNormal>
                 </View>
                 <TouchableOpacity>
-                  <Icons
-                    type={'AntDesign'}
-                    name={'questioncircleo'}
-                    size={20}
-                    color={'gray'}
-                  />
+                  <Icons type={'AntDesign'} name={'questioncircleo'} size={20} color={'gray'}/>
                 </TouchableOpacity>
               </View>
             </View>
@@ -191,7 +143,7 @@ const ConclusionInput = ({
           <View
             style={[styles.wrapperSubContent, {height: heightDevice / 5.5}]}>
             <TextNormal style={{fontSize: 50, fontWeight: 'bold'}}>
-              {parseFloat(conclusion?.Total?.value).toFixed(2)}
+              {parseFloat(conclusion?.Total?.value).toFixed(1)}
             </TextNormal>
             <TextNormal style={{fontSize: 17}}>{conclusion?.unit}</TextNormal>
           </View>
@@ -257,10 +209,10 @@ const ConclusionInput = ({
       </Animated.View>
       <Animated.View
         style={[
-          showTextarea && {
+          {
             transform: [
               {
-                translateY: inputTransition,
+                translateY: showTextarea ? inputTransition : 0,
               },
             ],
           },
@@ -277,13 +229,13 @@ const ConclusionInput = ({
             placeholder={PLACEHOLDER}
             numberOfLines={5}
             multiline
-            value={note}
-            onChange={setNote}
-            onSubmitEditing={Keyboard.dismiss}
             onFocus={() => setShowTextarea(true)}
             onBlur={() => setShowTextarea(false)}
             style={styles.inputArea}
             textAlignVertical={'top'}
+            autoCapitalize={'sentences'}
+            onSubmitEditing={Keyboard.dismiss}
+            onChange={handleNoteInput}
             placeholderTextColor={'gray'}
           />
         </TouchableOpacity>
@@ -292,6 +244,7 @@ const ConclusionInput = ({
             onPress={() => {
               Keyboard.dismiss();
               setShowTextarea(false);
+              setNote(refNoteInput.current);
             }}
             style={styles.btnSaveNote}>
             <TextSemiBold style={{color: Colors.whiteColor}}>Lưu</TextSemiBold>
@@ -300,7 +253,7 @@ const ConclusionInput = ({
       </Animated.View>
       {!showTextarea && (
         <CustomButton
-          onPress={onSave}
+          onPress={() => onSave(note)}
           styled={{marginBottom: title === 'Mỡ máu' ? 0 : 20}}
           label={strings.common.save}
         />
@@ -313,6 +266,22 @@ export default ConclusionInput;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  textSubCholesterol:                       {
+    color: Colors.gray.gray30,
+    fontSize: 16,
+    marginLeft: 10,
+    fontWeight: '600',
+  },
+  wrapperSubItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  wrapperCholesterolItem: {
+    paddingVertical: 7,
+    marginTop: 3,
+    paddingLeft: 20,
   },
   borderLine: {
     height: 2,

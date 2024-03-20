@@ -17,6 +17,7 @@ import {
   HBA1C_PERCENT,
   widthDevice,
   convertDate,
+  convertDateParameter,
 } from 'assets/constans';
 import UnitSelector from 'common/UnitSelector/UnitSelector';
 import ConclusionInput from './ConclusionInput';
@@ -101,13 +102,15 @@ const HbA1c = ({navigation}) => {
       useNativeDriver: true,
     }).start();
   };
-  const saveParameter = () => {
+  const saveParameter = noted => {
     const payload = {
       a1c_lab_test: {
         unit: messure === 1 ? UNIT_MMOL_MOL : UNIT_PERCENTER,
         index: parseFloat(hba1c),
       },
       parameters_monitor_code: CODE_HBA1C,
+      noted,
+      date: convertDateParameter(date.toLocaleString('en-GB')) || '',
     };
     dispatch(createParameterAction(payload));
   };
@@ -206,7 +209,7 @@ const HbA1c = ({navigation}) => {
               setLoading(true);
               setConclusion(-1);
             }}
-            onSave={saveParameter}
+            onSave={noted => saveParameter(noted)}
             value={hba1c}
             date={date}
             withTime={false}

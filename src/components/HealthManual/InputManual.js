@@ -63,7 +63,8 @@ const InputManual = ({
       onWarning(false);
     }
     setPinReady(
-      code.length === MAX_LENGTH &&
+      code.length >= 2 &&
+        code.length <= MAX_LENGTH &&
         parseInt(code, 10) >= min &&
         parseInt(code, 10) <= max,
     );

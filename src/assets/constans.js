@@ -263,6 +263,63 @@ export const HBA1C_MOL = [
   {key: 'Tiểu đuờng', color: '#f73e3a', min: 48, max: MAX},
   {key: 'Tiền tiểu đuờng', color: '#ffdf00', min: 39, max: 47},
 ];
+export const HOME_DATA = [
+  {
+    id: 1,
+    name: 'Huyết áp',
+    status: 'Bình thường',
+    created_at: '27/02/2024, 10:02',
+    value: '120/80',
+    subVal: '80',
+    label: 'Thêm chỉ số đo',
+  },
+  {
+    id: 4,
+    name: 'HbA1c',
+    status: 'Cao bất thường',
+    created_at: '27/02/2024, 10:02',
+    value: '6.2',
+    unit: '%',
+    label: 'Thêm kết quả',
+  },
+  {
+    id: 2,
+    name: 'Đường huyết',
+    status: 'Bình thường',
+    created_at: '27/02/2024, 10:02',
+    value: '120',
+    unit: 'mg/dL',
+    subVal: '',
+    label: 'Thêm chỉ số đo',
+  },
+  {
+    id: 3,
+    name: 'Mỡ máu',
+    status: 'Cao bất thường',
+    created_at: '27/02/2024, 10:02',
+    value: '6.2',
+    unit: '%',
+    label: 'Thêm kết quả',
+  },
+  {
+    id: 5,
+    name: 'Axit Uric',
+    status: 'Cao bất thường',
+    created_at: '27/02/2024, 10:02',
+    value: '6.2',
+    unit: '%',
+    label: 'Thêm kết quả',
+  },
+  {
+    id: 6,
+    name: 'Cân nặng',
+    status: 'Bình thường',
+    created_at: '27/02/2024, 10:02',
+    value: '78',
+    unit: 'kg',
+    label: 'Thêm chỉ số đo',
+  },
+];
 export const heightDevice = Dimensions.get('window').height;
 export const widthDevice = Dimensions.get('window').width;
 export const versionSystem = DeviceInfo.getSystemVersion();
@@ -281,6 +338,7 @@ export const user_example = require('assets/images/user_example.png');
 export const card_blue = require('assets/images/card_blue.jpg');
 export const card_pink = require('assets/images/card_pink.jpg');
 export const home_image = require('assets/images/home.png');
+export const home_add_doctor = require('assets/images/home_add_doctor.png');
 export const MIDDLE_DOT = '\u25CF';
 export const BLOOD_PRESSURE_DATA = new Map(
   BLOOD_PRESSURE.map(item => {
@@ -290,6 +348,12 @@ export const BLOOD_PRESSURE_DATA = new Map(
 export function formatMoney(x) {
   return x && x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
+export const convertDateParameter = d => {
+  let result;
+  const temp = d.split(', ');
+  result = `${temp[0].split('/').reverse().join('-')}T${temp[1]}Z`;
+  return result;
+};
 export const dates = () => {
   const formatter = new Intl.DateTimeFormat('vi', {
     month: 'long',

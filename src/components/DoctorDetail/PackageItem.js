@@ -1,22 +1,17 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import Icons from '../../common/Icons/Icons';
+import Icons from 'common/Icons/Icons';
 import {FlatList, View, TouchableOpacity, ImageBackground} from 'react-native';
-import {
-  TextNormal,
-  TextNormalSemiBold,
-  TextSemiBold,
-  TextSmallTwelve,
-} from '../../common/Text/TextFont';
+import {TextNormal, TextSemiBold, TextSmallTwelve} from 'common/Text/TextFont';
 import styles from './styles';
-import {card_blue, card_pink, formatMoney} from '../../assets/constans';
-import Colors from '../../theme/Colors';
-import {NAVIGATION_PACKAGE_DETAIL} from '../../navigation/routes';
-import ProgressLine from '../../common/ProgressLine/ProgressLine';
+import {card_pink, formatMoney} from 'assets/constans';
+import Colors from 'theme/Colors';
+import {NAVIGATION_PACKAGE_DETAIL} from 'navigation/routes';
+import ProgressLine from 'common/ProgressLine/ProgressLine';
 const AvailablePackage = ({packageItem, navigation}) => {
   return (
     <View style={styles.wrapperActivePackage}>
-      <TextNormal style={{padding: 5, fontWeight: 'bold', color: 'white'}}>
+      <TextNormal style={{padding: 5, fontWeight: 'bold', color: Colors.main}}>
         {packageItem.name}
       </TextNormal>
       <FlatList
@@ -27,17 +22,17 @@ const AvailablePackage = ({packageItem, navigation}) => {
               type={'Feather'}
               name={'check'}
               size={19}
-              color={'white'}
+              color={'black'}
               style={{paddingHorizontal: 5}}
             />
-            <TextSmallTwelve style={{color: 'white'}}>
+            <TextSmallTwelve style={{color: Colors.main}}>
               {item.toString().trim()}
             </TextSmallTwelve>
           </View>
         )}
       />
       <View style={styles.wrapperFooterCard}>
-        <TextSemiBold style={{color: Colors.primary}}>
+        <TextSemiBold style={{color: Colors.main}}>
           {formatMoney(packageItem.price) + 'đ'}
         </TextSemiBold>
         <TouchableOpacity

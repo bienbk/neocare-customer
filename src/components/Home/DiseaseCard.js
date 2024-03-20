@@ -2,14 +2,15 @@ import React from 'react';
 import {
   TextMoneyBold,
   TextNormal,
-  TextNormalSemiBold,
+  TextSmallTwelve,
   TextSemiBold,
-} from '../../common/Text/TextFont';
+} from 'common/Text/TextFont';
 import {TouchableOpacity, View} from 'react-native';
-// import {MIDDLE_DOT,} from '../../assets/constans';
-import Icons from '../../common/Icons/Icons';
+// import {MIDDLE_DOT,} from 'assets/constans';
+import Icons from 'common/Icons/Icons';
 import styles from './styles';
-// import Colors from '../../theme/Colors';
+import Colors from '../../theme/Colors';
+// import Colors from 'theme/Colors';
 
 const DiseaseCard = ({
   name,
@@ -26,38 +27,39 @@ const DiseaseCard = ({
     <View style={styles.wrapperCardItem}>
       <View style={styles.wrapperContentCard}>
         <View style={styles.wrapperNameLine}>
-          <TextSemiBold style={styles.diseaseNameText}>{name}</TextSemiBold>
+          <TextSemiBold>{name}</TextSemiBold>
           <View
             style={
               status === 'Bình thường'
                 ? styles.statusText
                 : styles.statusDangerText
             }>
-            <TextNormal
-              style={
-                status === 'Bình thường'
-                  ? styles.statusText
-                  : styles.statusDangerText
-              }>
+            <TextSmallTwelve style={{color: Colors.whiteColor}}>
               {status}
-            </TextNormal>
+            </TextSmallTwelve>
           </View>
         </View>
-        <TextNormal style={styles.timeText}>{created_at}</TextNormal>
         {index === 1 && (
           <View style={styles.wrapperTypeTime}>
             <TextNormal style={styles.timeText}>Trạng thái:</TextNormal>
             <TextNormal style={styles.typeTimeText}>Trước ăn</TextNormal>
           </View>
         )}
+        <TextSmallTwelve style={styles.timeText}>{created_at}</TextSmallTwelve>
       </View>
       <View style={styles.wrapperValue}>
         <View style={{flexDirection: 'row'}}>
-          <TextMoneyBold style={styles.fontSize29}>{value}</TextMoneyBold>
+          <TextMoneyBold style={styles.fontSize24}>{value}</TextMoneyBold>
           {subValue && (
             <View style={styles.wrapperSubvalue}>
-              <Icons type={'Feather'} name={'heart'} size={25} color={'red'} />
-              <TextMoneyBold style={styles.fontSize29}>
+              <Icons
+                type={'FontAwesome'}
+                name={'heartbeat'}
+                size={22}
+                style={{paddingHorizontal: 3}}
+                color={'red'}
+              />
+              <TextMoneyBold style={styles.fontSize24}>
                 {subValue}
               </TextMoneyBold>
             </View>

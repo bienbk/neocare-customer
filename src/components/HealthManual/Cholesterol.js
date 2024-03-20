@@ -9,22 +9,23 @@ import {
   View,
 } from 'react-native';
 import styles from './styles';
-import {TextNormalSemiBold, TextSemiBold} from '../../common/Text/TextFont';
-import {NAVIGATION_HOME} from '../../navigation/routes';
-import Icons from '../../common/Icons/Icons';
-import Colors from '../../theme/Colors';
+import {TextNormalSemiBold, TextSemiBold} from 'common/Text/TextFont';
+import {NAVIGATION_HOME} from 'navigation/routes';
+import Icons from 'common/Icons/Icons';
+import Colors from 'theme/Colors';
 import {
   CHOLESTEROL_MG,
   CHOLESTEROL_MOL,
   CODE_CHOLESTEROL,
   UNIT_MG_DL,
+  convertDateParameter,
   UNIT_MMOL_MOL,
   convertDate,
   widthDevice,
-} from '../../assets/constans';
-import strings from '../../localization/Localization';
-import UnitSelector from '../../common/UnitSelector/UnitSelector';
-import CustomButton from '../../common/CustomButton/CustomButton';
+} from 'assets/constans';
+import strings from 'localization/Localization';
+import UnitSelector from 'common/UnitSelector/UnitSelector';
+import CustomButton from 'common/CustomButton/CustomButton';
 import CustomHeader from './CustomHeader';
 import ConclusionInput from './ConclusionInput';
 import {useDispatch, useSelector} from 'react-redux';
@@ -32,9 +33,9 @@ import {statusCreateParamSelector} from 'store/selectors';
 import {
   createParameterAction,
   resetCreationParameter,
-} from '../../store/parameter/parameterAction';
-import Status from '../../common/Status/Status';
-import DateTimePicker from '../../common/DateTImePicker/DateTimePicker';
+} from 'store/parameter/parameterAction';
+import Status from 'common/Status/Status';
+import DateTimePicker from 'common/DateTImePicker/DateTimePicker';
 const items = [
   {id: 1, name: 'HDL-C'},
   {id: 2, name: 'LDL-C'},
@@ -42,7 +43,7 @@ const items = [
   {id: 4, name: 'Toàn phần'},
 ];
 
-const Cholesterol = ({navigation, route}) => {
+const Cholesterol = ({navigation}) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const [date, setDate] = useState(new Date());
   const [HDL, setHDL] = useState('');
@@ -52,7 +53,6 @@ const Cholesterol = ({navigation, route}) => {
   const [inputActive, setInputActive] = useState(-1);
   const textInputRef = useRef(null);
   const [messure, setMessure] = useState(1);
-  const [warning, setWarning] = useState(false);
   const [conclusion, setConclusion] = useState(-1);
   const dispatch = useDispatch();
   const statusCreateParameter = useSelector(state =>
@@ -106,7 +106,7 @@ const Cholesterol = ({navigation, route}) => {
   }, [LDL, HDL, Triglycerides]);
   const footerComponent = () => {
     return (
-      <View style={{alignItems: 'center', paddingTop: 20}}>
+      <View style={styles.cholesterolFooter}>
         <UnitSelector
           firstOption={'mg/dL'}
           secondOption={'mmol/L'}
@@ -138,18 +138,12 @@ const Cholesterol = ({navigation, route}) => {
             <View style={styles.inputContainerPressable}>
               <TextSemiBold style={styles.textCholesterol}>
                 {index === 0
-                  ? HDL
-                    ? HDL
-                    : '-'
+                  ? HDL || '-'
                   : index === 1
-                  ? LDL
-                    ? LDL
-                    : '-'
+                  ? LDL || '-'
                   : index === 2
-                  ? Triglycerides
-                    ? Triglycerides
-                    : '-'
-                  : total}
+                  ? Triglycerides || '-'
+                  : total || 0}
               </TextSemiBold>
             </View>
             {index !== 3 && (
@@ -251,7 +245,7 @@ const Cholesterol = ({navigation, route}) => {
   const conclusionTransition = new Animated.Value(widthDevice);
   const inputTransition = new Animated.Value(-widthDevice);
 
-  const saveParameter = () => {
+  const saveParameter = noted => {
     const payload = {
       cholesterol: {
         unit: conclusion.unit === 1 ? UNIT_MG_DL : UNIT_MMOL_MOL,
@@ -260,6 +254,8 @@ const Cholesterol = ({navigation, route}) => {
         triglycerides: parseFloat(Triglycerides),
         total: parseFloat(total),
       },
+      noted,
+      date: convertDateParameter(date.toLocaleString('en-GB')) || '',
       parameters_monitor_code: CODE_CHOLESTEROL,
     };
     dispatch(createParameterAction(payload));
@@ -329,7 +325,7 @@ const Cholesterol = ({navigation, route}) => {
           <ConclusionInput
             navigation={navigation}
             conclusion={conclusion}
-            onSave={saveParameter}
+            onSave={note => saveParameter(note)}
             withTime={false}
             date={date}
             title={'Mỡ máu'}

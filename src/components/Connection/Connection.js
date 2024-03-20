@@ -17,7 +17,7 @@ import {heightDevice, widthDevice} from '../../assets/constans';
 import Icons from '../../common/Icons/Icons';
 import {
   NAVIGATION_DOCTOR_DETAIL,
-  NAVIGATION_MY_DOCTOR,
+  NAVIGATION_HOME,
 } from '../../navigation/routes';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -31,8 +31,10 @@ import {
 import Status from '../../common/Status/Status';
 import {asyncStorage} from '../../store';
 const maxLength = 6;
+// -------------- TYPE = 1 --->>>>> MANUAL
+// -------------- TYPE = 2 --->>>>> QRCODE
 const Connection = ({navigation, route}) => {
-  const [typeShow, setTypeShow] = useState(0);
+  const [typeShow, setTypeShow] = useState(1);
   const [code, setCode] = useState('');
   const codeDigitsArray = new Array(maxLength).fill(0);
   const textInputRef = useRef(null);
@@ -59,7 +61,7 @@ const Connection = ({navigation, route}) => {
     setInputContainerFocus(false);
   };
   useEffect(() => {
-    const {type} = route.params;
+    const {type} = route ? route?.params : 1;
     setTypeShow(type);
     checkUser();
     return () => {
@@ -106,7 +108,7 @@ const Connection = ({navigation, route}) => {
       {typeShow === 1 && (
         <View style={{flex: 1}}>
           <TouchableOpacity
-            onPress={() => navigation.navigate(NAVIGATION_MY_DOCTOR)}
+            onPress={() => navigation.navigate(NAVIGATION_HOME)}
             style={styles.wrapperClose}>
             <Icons
               type={'Feather'}

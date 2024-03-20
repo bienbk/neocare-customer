@@ -30,8 +30,8 @@ import {
 } from 'assets/constans';
 import {NAVIGATION_HOME} from 'navigation/routes';
 import Status from 'common/Status/Status';
-import {} from '../../assets/constans';
-import DateTimePicker from '../../common/DateTImePicker/DateTimePicker';
+import {} from 'assets/constans';
+import DateTimePicker from 'common/DateTImePicker/DateTimePicker';
 const Weight = ({navigation}) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const [date, setDate] = useState(new Date());

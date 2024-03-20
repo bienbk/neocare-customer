@@ -11,14 +11,14 @@ import {
   TextNormal,
   TextNormalSemiBold,
   TextSemiBold,
-} from '../../common/Text/TextFont';
+} from 'common/Text/TextFont';
 import styles from './styles';
-import Colors from '../../theme/Colors';
-import MyModal from '../../common/MyModal/MyModal';
-import strings from '../../localization/Localization';
+import Colors from 'theme/Colors';
+import MyModal from 'common/MyModal/MyModal';
+import strings from 'localization/Localization';
 import PackageItem from './PackageItem';
 import {useSelector} from 'react-redux';
-import {followedDoctorSelector} from '../../store/doctor/doctorSelector';
+import {followedDoctorSelector} from 'store/selectors';
 import CustomImage from './CustomImage';
 import CardInformation from './CardInformation';
 
@@ -30,7 +30,6 @@ const DoctorDetail = ({navigation, route}) => {
   const followedDoctor = useSelector(state => followedDoctorSelector(state));
   useEffect(() => {
     const {currentDoctor} = route.params;
-    console.log('DETAIL SCREEN::::', currentDoctor.doctor);
     if (currentDoctor || followedDoctor) {
       setListPackage(
         currentDoctor?.package_items
@@ -73,20 +72,7 @@ const DoctorDetail = ({navigation, route}) => {
           />
           {/* OPTIONS & EXTRA SECTION */}
           <FlatList
-            data={
-              listPackage
-                ? listPackage
-                : [
-                    {
-                      name: ' Gói chăm sóc sức khoẻ 6 tháng',
-                      id: 1,
-                      product_status: 2,
-                      price: 2000000,
-                      order_id: 0,
-                      desc: 'Kiểm tra sức khoẻ dựa theo chỉ số hằng tuần,Không giới hạn số lần khám,Khám tại nhà không cần chờ đợi',
-                    },
-                  ]
-            }
+            data={listPackage}
             scrollEnabled={false}
             showsVerticalScrollIndicator={false}
             ListHeaderComponent={headerFlatlist}

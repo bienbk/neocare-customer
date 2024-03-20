@@ -14,6 +14,16 @@ const Colors = {
   greenColor: '#50C878',
   whiteColor: '#FFFFFF',
   pinkColor: '#d30c7b',
+  lime: {
+    lighten5: '#F9FBE7',
+  },
+  yellow: {
+    lighten5: '#FFFDE7',
+    lighten4: '#FFF9C4',
+    lighten3: '#FFF59D',
+    lighten2: '#FFF176',
+    lighten1: '#FFEE58',
+  },
   green: {
     green30: '#11463E',
     green40: '#006B5E',

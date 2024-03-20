@@ -23,21 +23,19 @@ const CardInformation = ({doctor, onPressDescription, showDescription}) => {
             ? doctor?.last_name + ' ' + doctor?.first_name
             : 'Nguyen Tran'}
         </TextSemiBold>
-        <TextSmallTwelve style={{color: Colors.gray.gray50, marginLeft: 5}}>
+        <TextSmallTwelve style={{color: Colors.gray.gray50}}>
           {doctor?.department || 'Chuyên khoa Tim'}
         </TextSmallTwelve>
-        <TextSmallTwelve style={styles.wrapperDepartmentLabel}>
-          {'Tim mạch'}
-        </TextSmallTwelve>
+        <View style={styles.wrapperDepartmentLabel}>
+          <TextSmallTwelve style={{color: Colors.primary, fontWeight: 'bold'}}>
+            {'Tim mạch'}
+          </TextSmallTwelve>
+        </View>
+
         <TouchableOpacity
           onPress={onPressDescription}
           style={styles.toggleIcon}>
-          <TextSmallMedium
-            style={{
-              textDecorationLine: 'underline',
-              color: Colors.blue.blue20,
-              fontWeight: 'bold',
-            }}>
+          <TextSmallMedium style={styles.textShowMore}>
             {showDescription ? 'Rút gọn' : 'Xem thêm'}
           </TextSmallMedium>
         </TouchableOpacity>

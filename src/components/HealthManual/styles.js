@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
   containerSafeArea: {
     flex: 1,
   },
+  cholesterolFooter: {alignItems: 'center', paddingTop: 20},
   container: {
     flex: 1,
     paddingHorizontal: 5,
@@ -119,7 +120,6 @@ const styles = StyleSheet.create({
   inputArea: {
     marginLeft: 40,
     paddingVertical: 15,
-    flex: 1,
     color: Colors.gray.gray40,
   },
   btnSaveNote: {

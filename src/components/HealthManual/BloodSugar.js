@@ -22,6 +22,7 @@ import {
   convertDate,
   UNIT_MMOL_MOL,
   widthDevice,
+  convertDateParameter,
 } from 'assets/constans';
 import UnitSelector from 'common/UnitSelector/UnitSelector';
 import ConclusionInput from './ConclusionInput';
@@ -121,13 +122,15 @@ const BloodSugar = ({navigation}) => {
       setConclusion({content: result.key, color: result.type_1.color});
     }
   };
-  const saveParameter = () => {
+  const saveParameter = noted => {
     const payload = {
       blood_glucose: {
         unit: conclusion.unit === 1 ? UNIT_MG_DL : UNIT_MMOL_MOL,
         index: parseFloat(bloodSugar),
         eating_status: timeMessure,
       },
+      noted,
+      date: convertDateParameter(date.toLocaleString('en-GB')) || '',
       parameters_monitor_code: CODE_BLOOD_SUGAR,
     };
     dispatch(createParameterAction(payload));
@@ -262,7 +265,7 @@ const BloodSugar = ({navigation}) => {
               setLoading(true);
               setConclusion(-1);
             }}
-            onSave={saveParameter}
+            onSave={noted => saveParameter(noted)}
             date={date}
             value={bloodSugar}
             withTime={true}

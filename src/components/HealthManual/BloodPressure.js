@@ -1,11 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   Keyboard,
   Animated,
   TextInput,
   TouchableOpacity,
   View,
-  Pressable,
 } from 'react-native';
 import styles from './styles';
 import {TextNormalSemiBold, TextSemiBold} from 'common/Text/TextFont';
@@ -19,6 +18,8 @@ import {
   CODE_BLOOD_PRESSURE,
   UNIT_BEAT_MIN,
   UNIT_MMHG,
+  heightDevice,
+  convertDateParameter,
   convertDate,
   widthDevice,
 } from 'assets/constans';
@@ -48,6 +49,7 @@ const BloodPressure = ({navigation}) => {
   const [showTextarea, setShowTextarea] = useState(false);
   const refCardHeight = React.useRef(0);
   const [note, setNote] = useState('');
+  const refNoteInput = useRef('');
   const cardTransition = new Animated.Value(0);
   const inputTransition = new Animated.Value(0);
   const [activeInput, setActiveInput] = useState(0);
@@ -70,22 +72,23 @@ const BloodPressure = ({navigation}) => {
     }
   });
   useEffect(() => {
-    setTimeout(() => {
-      setActiveInput(1);
-    }, 1000);
-  }, []);
-  useEffect(() => {
     if (firstReady && !secondReady && !thirdReady && !warningMessage) {
       setActiveInput(2);
-    } else if (firstReady && secondReady && !thirdReady && !warningMessage) {
+    }
+  }, [firstReady]);
+  useEffect(() => {
+    if (firstReady && secondReady && !thirdReady && !warningMessage) {
       setActiveInput(3);
-    } else if (!firstReady && !secondReady && thirdReady && !warningMessage) {
+    }
+  }, [secondReady]);
+  useEffect(() => {
+    if (!firstReady && secondReady && thirdReady && !warningMessage) {
       setActiveInput(1);
     }
     if (firstReady && secondReady && thirdReady && !warningMessage) {
       setActiveInput(0);
     }
-  }, [firstReady, secondReady, thirdReady]);
+  }, [thirdReady]);
   const handleActiveInput = type => {
     if (warningMessage) {
       return;
@@ -93,9 +96,6 @@ const BloodPressure = ({navigation}) => {
     setActiveInput(type);
   };
   const handleSubmit = () => {
-    if (conclusion !== -1) {
-      saveParameter();
-    }
     if (warningMessage) {
       return;
     }
@@ -155,18 +155,25 @@ const BloodPressure = ({navigation}) => {
         unit_pulse: UNIT_BEAT_MIN,
         unit_sys: UNIT_MMHG,
       },
+      noted: note || '',
+      date: convertDateParameter(date.toLocaleString('en-GB')) || '',
       parameters_monitor_code: CODE_BLOOD_PRESSURE,
     };
+
     dispatch(createParameterAction(payload));
   };
+
   useEffect(() => {
     if (statusCreateParameter === Status.SUCCESS) {
       dispatch(resetCreationParameter());
       navigation && navigation.navigate(NAVIGATION_HOME);
     }
   }, [statusCreateParameter]);
+  const handleNoteInput = ({nativeEvent}) => {
+    refNoteInput.current = nativeEvent.text;
+  };
   return (
-    <Pressable onPress={Keyboard.dismiss} style={styles.container}>
+    <View style={styles.container}>
       <CustomHeader
         conclusion={conclusion}
         title={'Huyết áp'}
@@ -363,7 +370,7 @@ const BloodPressure = ({navigation}) => {
         <Animated.View
           style={[
             showTextarea && {
-              // height: heightDevice / 2,
+              height: heightDevice / 2,
               transform: [
                 {
                   translateY: inputTransition,
@@ -383,11 +390,8 @@ const BloodPressure = ({navigation}) => {
               placeholder={PLACEHOLDER}
               numberOfLines={5}
               multiline
-              value={note}
-              onChange={setNote}
-              onSubmitEditing={Keyboard.dismiss}
+              onChange={handleNoteInput}
               onFocus={() => setShowTextarea(true)}
-              onBlur={() => setShowTextarea(false)}
               style={styles.inputArea}
               textAlignVertical={'top'}
               placeholderTextColor={'gray'}
@@ -398,6 +402,7 @@ const BloodPressure = ({navigation}) => {
               onPress={() => {
                 Keyboard.dismiss();
                 setShowTextarea(false);
+                setNote(refNoteInput.current);
               }}
               style={styles.btnSaveNote}>
               <TextSemiBold style={{color: Colors.whiteColor}}>
@@ -414,7 +419,10 @@ const BloodPressure = ({navigation}) => {
             backgroundColor:
               !systolic || !diastolic ? 'lightgray' : Colors.primary,
           }}
-          onPress={handleSubmit}
+          onPress={() => {
+            conclusion !== -1 && saveParameter();
+            conclusion === -1 && handleSubmit();
+          }}
           isDisabled={!systolic || !diastolic}
           label={
             conclusion !== -1 ? strings.common.save : strings.common.continue
@@ -430,7 +438,7 @@ const BloodPressure = ({navigation}) => {
         }}
         onClose={() => setOpenDatePicker(false)}
       />
-    </Pressable>
+    </View>
   );
 };
 export default BloodPressure;
