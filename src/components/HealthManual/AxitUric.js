@@ -39,6 +39,13 @@ const AxitUric = ({navigation}) => {
     statusCreateParamSelector(state),
   );
   Keyboard.addListener('keyboardDidHide', () => {
+    if (
+      showTextarea &&
+      refNoteInput.current &&
+      refNoteInput.current.length > 0
+    ) {
+      setNote(refNoteInput.current);
+    }
     setShowTextarea(false);
     setInputFocused(false);
   });

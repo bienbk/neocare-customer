@@ -339,6 +339,7 @@ export const card_blue = require('assets/images/card_blue.jpg');
 export const card_pink = require('assets/images/card_pink.jpg');
 export const home_image = require('assets/images/home.png');
 export const home_add_doctor = require('assets/images/home_add_doctor.png');
+export const decorator_header = require('assets/images/decorator_home.png');
 export const MIDDLE_DOT = '\u25CF';
 export const BLOOD_PRESSURE_DATA = new Map(
   BLOOD_PRESSURE.map(item => {

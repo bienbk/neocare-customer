@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React, {useEffect, useRef, useState} from 'react';
 import { Keyboard,Animated,TextInput,TouchableOpacity,View,Pressable,StyleSheet} from 'react-native';
-import { TextNormal, TextNormalSemiBold, TextSemiBold, TextSmallMedium} from 'common/Text/TextFont';
+import { TextNormal, TextNormalSemiBold, TextSemiBold, TextSmallMedium, TextSmallTwele} from 'common/Text/TextFont';
 import Icons from 'common/Icons/Icons';
 import Colors from 'theme/Colors';
 import {heightDevice, widthDevice, convertDate} from 'assets/constans';
@@ -19,6 +19,13 @@ const ConclusionInput = ({navigation, conclusion, onSave, value, title, unit, ty
   const inputTransition = new Animated.Value(0);
   const refNoteInput = useRef(-1);
   Keyboard.addListener('keyboardDidHide', () => {
+    if (
+      showTextarea &&
+      refNoteInput.current &&
+      refNoteInput.current.length > 0
+    ) {
+      setNote(refNoteInput.current);
+    }
     setShowTextarea(false);
   });
   Keyboard.addListener('keyboardDidShow', () => {
@@ -38,6 +45,15 @@ const ConclusionInput = ({navigation, conclusion, onSave, value, title, unit, ty
   const handleNoteInput = ({nativeEvent}) => {
     refNoteInput.current = nativeEvent.text;
   };
+  useEffect(() => {
+    if (
+      !showTextarea &&
+      refNoteInput.current &&
+      refNoteInput.current.length > 0
+    ) {
+      setNote(refNoteInput.current);
+    }
+  }, [showTextarea]);
   const renderSub = type =>
     Object.values(conclusion)
       .filter(i =>
@@ -62,7 +78,7 @@ const ConclusionInput = ({navigation, conclusion, onSave, value, title, unit, ty
             <View style={styles.wrapperCholesterolItem}>
               <View style={styles.wrapperSubItem}>
                 <View style={styles.line}>
-                  <Icons type={'Fontisto'} name={'blood-drop'}size={18}color={item?.color}/>
+                  <Icons type={'Fontisto'} name={'blood-drop'}size={15}color={item?.color}/>
                   <TextNormal style={styles.textSubCholesterol}>
                     {item?.name + ': ' + item?.review}
                   </TextNormal>
@@ -217,13 +233,13 @@ const ConclusionInput = ({navigation, conclusion, onSave, value, title, unit, ty
             ],
           },
         ]}>
-        <TouchableOpacity style={styles.wrapperInputArea}>
+        <TouchableOpacity style={[styles.wrapperInputArea, showTextarea && styles.activeTextArea]}>
           <Icons
             type={'Entypo'}
             name={'text'}
             size={18}
             style={styles.iconText}
-            color={'gray'}
+            color={showTextarea ? Colors.primary : 'gray'}
           />
           <TextInput
             placeholder={PLACEHOLDER}
@@ -247,7 +263,7 @@ const ConclusionInput = ({navigation, conclusion, onSave, value, title, unit, ty
               setNote(refNoteInput.current);
             }}
             style={styles.btnSaveNote}>
-            <TextSemiBold style={{color: Colors.whiteColor}}>Lưu</TextSemiBold>
+            <TextSemiBold style={{color: Colors.whiteColor}}>Đóng</TextSemiBold>
           </TouchableOpacity>
         )}
       </Animated.View>
@@ -267,9 +283,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  textSubCholesterol:                       {
-    color: Colors.gray.gray30,
-    fontSize: 16,
+  activeTextArea: {
+    borderWidth: 1.5,
+    borderColor: Colors.primary,
+    borderStyle: 'solid',
+  },
+  textSubCholesterol: {
+    color: Colors.gray.gray50,
+    fontSize: 14,
     marginLeft: 10,
     fontWeight: '600',
   },
@@ -279,7 +300,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   wrapperCholesterolItem: {
-    paddingVertical: 7,
+    paddingVertical: 5,
     marginTop: 3,
     paddingLeft: 20,
   },
@@ -355,12 +376,12 @@ const styles = StyleSheet.create({
   inputArea: {
     marginLeft: 40,
     paddingVertical: 15,
-    flex: 1,
+    paddingRight: 10,
     color: Colors.gray.gray40,
   },
   btnSaveNote: {
     paddingVertical: 10,
-    paddingHorizontal: 40,
+    width: widthDevice / 2.5,
     backgroundColor: Colors.main,
     borderRadius: 20,
     justifyContent: 'center',
@@ -376,7 +397,7 @@ const styles = StyleSheet.create({
   },
   wrapperMainContent: {
     marginHorizontal: 15,
-    marginTop: 0,
+    marginTop: 10,
     alignItems: 'center',
     paddingVertical: 10,
     backgroundColor: Colors.whiteColor,
@@ -386,7 +407,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 10,
   },
-  line: {flexDirection: 'row'},
+  line: {flexDirection: 'row', alignItems: 'center'},
   wrapperConclusion: {
     paddingHorizontal: 15,
     paddingTop: 10,

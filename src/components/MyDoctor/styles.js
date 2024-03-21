@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingVertical: 15,
     borderRadius: 24,
-    backgroundColor: Colors.buttonBackground,
+    backgroundColor: Colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 10,

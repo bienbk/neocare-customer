@@ -32,6 +32,7 @@ import DateTimePicker from '../../common/DateTImePicker/DateTimePicker';
 import {CODE_HBA1C, UNIT_MMOL_MOL, UNIT_PERCENTER} from 'assets/constans';
 import {NAVIGATION_HOME} from 'navigation/routes';
 import Status from 'common/Status/Status';
+import TransitionContainer from '../../common/TransitionContainer/TransitionContainer';
 const MIN_PERCENT = 3;
 const MIN_MOL = 9;
 const HbA1c = ({navigation}) => {
@@ -40,7 +41,7 @@ const HbA1c = ({navigation}) => {
   const [date, setDate] = useState(new Date());
   const [loading, setLoading] = useState(true);
   const [messure, setMessure] = useState(1);
-  const [hba1c, setHba1c] = useState(0);
+  const [hba1c, setHba1c] = useState(40);
   const inputTransition = new Animated.Value(-widthDevice);
   const conclusionTransition = new Animated.Value(widthDevice);
   const [conclusion, setConclusion] = useState(-1);
@@ -52,48 +53,41 @@ const HbA1c = ({navigation}) => {
     if (loading) {
       setTimeout(() => {
         setLoading(false);
-      }, 500);
+      }, 300);
     }
   }, [loading]);
   useEffect(() => {
-    setTimeout(() => {
-      checkValid();
-    }, 100);
+    if (!loading && hba1c) {
+      setTimeout(() => {
+        checkValid();
+      }, 100);
+    }
   }, [hba1c]);
   const checkValid = () => {
-    if (!hba1c) {
-      return;
-    }
-    if (messure === 1) {
-      setInvalid(parseFloat(hba1c) < parseFloat(MIN_MOL));
-    } else {
-      setInvalid(parseFloat(hba1c) < parseFloat(MIN_PERCENT));
-    }
+    messure === 1 && setInvalid(parseFloat(hba1c) < parseFloat(MIN_MOL));
+    messure === 2 && setInvalid(parseFloat(hba1c) < parseFloat(MIN_PERCENT));
   };
   const processInput = () => {
-    if (invalid === true) {
+    if (invalid) {
       return;
     }
     const checkList = messure === 1 ? HBA1C_MOL : HBA1C_PERCENT;
-    let result = 0;
     checkList.map(item => {
       if (parseFloat(hba1c) >= item.min && parseFloat(hba1c) <= item.max) {
-        result = item;
+        setConclusion({
+          content: item.key,
+          color: item.color,
+          icon: 'test-tube',
+        });
+        return;
       }
     });
-    if (result) {
-      setConclusion({
-        content: result.key,
-        color: result.color,
-        icon: 'test-tube',
-      });
-    }
   };
   useEffect(() => {
-    if (conclusion !== -1) {
-      conclusionTransition && animatedAction(conclusionTransition);
-    }
-    inputTransition && animatedAction(inputTransition);
+    conclusion !== -1 &&
+      conclusionTransition &&
+      animatedAction(conclusionTransition);
+    conclusion === -1 && inputTransition && animatedAction(inputTransition);
   }, [conclusion]);
   const animatedAction = val => {
     Animated.timing(val, {
@@ -103,16 +97,17 @@ const HbA1c = ({navigation}) => {
     }).start();
   };
   const saveParameter = noted => {
-    const payload = {
-      a1c_lab_test: {
-        unit: messure === 1 ? UNIT_MMOL_MOL : UNIT_PERCENTER,
-        index: parseFloat(hba1c),
-      },
-      parameters_monitor_code: CODE_HBA1C,
-      noted,
-      date: convertDateParameter(date.toLocaleString('en-GB')) || '',
-    };
-    dispatch(createParameterAction(payload));
+    dispatch(
+      createParameterAction({
+        a1c_lab_test: {
+          unit: messure === 1 ? UNIT_MMOL_MOL : UNIT_PERCENTER,
+          index: parseFloat(hba1c),
+        },
+        parameters_monitor_code: CODE_HBA1C,
+        noted,
+        date: convertDateParameter(date.toLocaleString('en-GB')) || '',
+      }),
+    );
   };
   useEffect(() => {
     if (statusCreateParameter === Status.SUCCESS) {
@@ -218,16 +213,18 @@ const HbA1c = ({navigation}) => {
           />
         </Animated.View>
       )}
-      <DateTimePicker
-        isOpen={openDatePicker}
-        maxDate={new Date()}
-        type={'date'}
-        onConfirm={v => {
-          setDate(v);
-          setOpenDatePicker(false);
-        }}
-        onClose={() => setOpenDatePicker(false)}
-      />
+      <TransitionContainer>
+        <DateTimePicker
+          isOpen={openDatePicker}
+          maxDate={new Date()}
+          type={'date'}
+          onConfirm={v => {
+            setDate(v);
+            setOpenDatePicker(false);
+          }}
+          onClose={() => setOpenDatePicker(false)}
+        />
+      </TransitionContainer>
     </View>
   );
 };

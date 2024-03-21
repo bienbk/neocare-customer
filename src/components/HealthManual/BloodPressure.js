@@ -72,6 +72,15 @@ const BloodPressure = ({navigation}) => {
     }
   });
   useEffect(() => {
+    if (
+      !showTextarea &&
+      refNoteInput.current &&
+      refNoteInput.current.length > 0
+    ) {
+      setNote(refNoteInput.current);
+    }
+  }, [showTextarea]);
+  useEffect(() => {
     if (firstReady && !secondReady && !thirdReady && !warningMessage) {
       setActiveInput(2);
     }
@@ -368,17 +377,12 @@ const BloodPressure = ({navigation}) => {
       </Animated.View>
       {conclusion !== -1 && (
         <Animated.View
-          style={[
-            showTextarea && {
-              height: heightDevice / 2,
-              transform: [
-                {
-                  translateY: inputTransition,
-                },
-              ],
-            },
-          ]}>
-          <TouchableOpacity style={styles.wrapperInputArea}>
+          style={[showTextarea && {transform: [{translateY: inputTransition}]}]}>
+          <TouchableOpacity
+            style={[
+              styles.wrapperInputArea,
+              showTextarea && styles.activeTextArea,
+            ]}>
             <Icons
               type={'Entypo'}
               name={'text'}
@@ -406,7 +410,7 @@ const BloodPressure = ({navigation}) => {
               }}
               style={styles.btnSaveNote}>
               <TextSemiBold style={{color: Colors.whiteColor}}>
-                Lưu
+                Đóng
               </TextSemiBold>
             </TouchableOpacity>
           )}

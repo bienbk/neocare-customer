@@ -1,14 +1,9 @@
 import React from 'react';
-import {View, TouchableOpacity} from 'react-native';
-import {
-  heightDevice,
-  home_image,
-  user_example,
-  widthDevice,
-} from '../../assets/constans';
-import Images from '../../common/Images/Images';
-import Icons from '../../common/Icons/Icons';
-import {TextSmallMedium, TextSemiBold} from '../../common/Text/TextFont';
+import {View, TouchableOpacity, ImageBackground} from 'react-native';
+import {user_example, decorator_header} from 'assets/constans';
+import Images from 'common/Images/Images';
+import Icons from 'common/Icons/Icons';
+import {TextSmallMedium, TextSemiBold} from 'common/Text/TextFont';
 import styles from './styles';
 
 const CustomeHeader = () => {
@@ -25,7 +20,10 @@ const CustomeHeader = () => {
     //     </TextMoneyBold>
     //   </View>
     // </View>
-    <View style={styles.wrapperFixedHeader}>
+    <ImageBackground
+      source={decorator_header}
+      resizeMode={'stretch'}
+      style={styles.wrapperFixedHeader}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <Images source={user_example} style={styles.avatarIcon} />
         <View style={{paddingHorizontal: 10}}>
@@ -34,7 +32,7 @@ const CustomeHeader = () => {
         </View>
       </View>
       <Icons type={'Feather'} name={'bell'} size={29} color={'black'} />
-    </View>
+    </ImageBackground>
   );
 };
 

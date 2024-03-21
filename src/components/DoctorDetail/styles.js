@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
   containerSafeArea: {
     flex: 1,
   },
+  packageName: {paddingVertical: 5, fontWeight: 'bold', color: Colors.main},
   textShowMore: {
     textDecorationLine: 'underline',
     color: Colors.main,
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
     width: 120,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.buttonBackground,
+    backgroundColor: Colors.primary,
   },
   cancelRemoveButton: {
     paddingHorizontal: 10,
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: '#2544BD',
+    borderColor: Colors.main,
   },
   wrapperHeaderFlatlis: {
     paddingHorizontal: 5,
@@ -161,7 +162,8 @@ const styles = StyleSheet.create({
   },
   wrapperActivePackage: {
     backgroundColor: '#FBC02D',
-    padding: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     borderRadius: 30,
     marginTop: 10,
     width: widthDevice - 30,
@@ -174,7 +176,6 @@ const styles = StyleSheet.create({
   wrapperFooterCard: {
     // paddingVertical: 5,
     paddingTop: 5,
-    paddingHorizontal: 5,
     marginTop: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',

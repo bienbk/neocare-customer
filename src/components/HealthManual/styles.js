@@ -19,6 +19,11 @@ const styles = StyleSheet.create({
     height: 1,
     opacity: 0,
   },
+  activeTextArea: {
+    borderWidth: 1.5,
+    borderColor: Colors.primary,
+    borderStyle: 'solid',
+  },
   wrapperTypeMessure: {
     flexDirection: 'row',
     padding: 5,
@@ -107,6 +112,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.whiteColor,
     borderRadius: 16,
     marginTop: 10,
+    paddingRight: 10,
     marginHorizontal: 15,
   },
   wrapperInputHeath: {
@@ -124,7 +130,8 @@ const styles = StyleSheet.create({
   },
   btnSaveNote: {
     paddingVertical: 10,
-    paddingHorizontal: 40,
+    // paddingHorizontal: 40,
+    width: widthDevice / 3,
     backgroundColor: Colors.main,
     borderRadius: 20,
     justifyContent: 'center',
@@ -146,8 +153,8 @@ const styles = StyleSheet.create({
   textCholesterol: {fontSize: 28, fontWeight: 'bold'},
   activeInputCholesterol: {
     borderStyle: 'solid',
-    borderColor: 'lightgray',
-    borderWidth: 1,
+    borderColor: Colors.primary,
+    borderWidth: 1.4,
   },
   wrapperClose: {
     height: 30,

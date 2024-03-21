@@ -14,7 +14,7 @@ import Colors from '../../theme/Colors';
 
 const HeightSelector = ({height, setHeight, onClose}) => {
   return (
-    <View style={{height: heightDevice / 3}}>
+    <View style={{height: heightDevice / 3, paddingVertical: 10,}}>
       <View style={styles.wrapperContentModal}>
         <TouchableOpacity onPress={onClose} style={styles.closeButton}>
           <Icons type={'AntDesign'} name={'close'} size={24} color={'black'} />

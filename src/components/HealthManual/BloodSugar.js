@@ -55,11 +55,11 @@ const BloodSugar = ({navigation}) => {
     if (loading) {
       setTimeout(() => {
         setLoading(false);
-      }, 100);
+      }, 300);
     }
   }, [loading]);
   useEffect(() => {
-    if (bloodSugar) {
+    if (bloodSugar && !loading) {
       messure === 1 && setInvalid(parseFloat(bloodSugar) < parseFloat(MIN_MG));
       messure === 2 && setInvalid(parseFloat(bloodSugar) < parseFloat(MIN_MOL));
     }

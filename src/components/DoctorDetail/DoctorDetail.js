@@ -114,7 +114,7 @@ const DoctorDetail = ({navigation, route}) => {
               <TouchableOpacity
                 onPress={() => setRemoveModal(-1)}
                 style={styles.cancelRemoveButton}>
-                <TextSemiBold style={{fontSize: 14, color: '#2544BD'}}>
+                <TextSemiBold style={{fontSize: 14, color: Colors.main}}>
                   {strings.common.cancel}
                 </TextSemiBold>
               </TouchableOpacity>
@@ -123,7 +123,7 @@ const DoctorDetail = ({navigation, route}) => {
                 style={styles.removeButton}>
                 <TextSemiBold
                   style={{
-                    color: Colors.whiteColor,
+                    color: Colors.main,
                     fontSize: 14,
                   }}>
                   {strings.common.delete}

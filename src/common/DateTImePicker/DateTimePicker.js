@@ -3,15 +3,35 @@ import DatePicker from 'react-native-date-picker';
 import MyModal from '../MyModal/MyModal';
 import {TextSemiBold} from '../Text/TextFont';
 import strings from 'localization/Localization';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, Animated} from 'react-native';
 import Colors from 'theme/Colors';
 import {heightDevice, widthDevice} from 'assets/constans';
 import Icons from '../Icons/Icons';
 const DateTimePicker = ({isOpen, type, title, onConfirm, maxDate, onClose}) => {
   const [currentDate, setCurrentDate] = useState(new Date());
+  const transition = new Animated.Value(heightDevice);
+  React.useEffect(() => {
+    animatedAction(transition);
+  }, [isOpen]);
+  const animatedAction = val => {
+    Animated.timing(val, {
+      duration: 700,
+      toValue: 0,
+      useNativeDriver: true,
+    }).start();
+  };
+  const animatedOpacity = transition.interpolate({
+    inputRange: [0, heightDevice / 2],
+    outputRange: [1, 0],
+    extrapolate: 'clamp',
+  });
   return (
     <MyModal visible={isOpen} onPressOutSide={() => {}}>
-      <View style={styles.containerModal}>
+      <Animated.View
+        style={[
+          styles.containerModal,
+          {transform: [{translateY: transition}], opacity: animatedOpacity},
+        ]}>
         <TouchableOpacity style={{alignSelf: 'flex-end'}} onPress={onClose}>
           <Icons
             type={'AntDesign'}
@@ -31,7 +51,6 @@ const DateTimePicker = ({isOpen, type, title, onConfirm, maxDate, onClose}) => {
           maximumDate={maxDate}
           textColor={Colors.main}
           fadeToColor={'whitesmoke'}
-          // style={{backgroundColor: Colors.main}}
           onDateChange={setCurrentDate}
           androidVariant={'iosClone'}
           date={currentDate}
@@ -43,7 +62,7 @@ const DateTimePicker = ({isOpen, type, title, onConfirm, maxDate, onClose}) => {
             {strings.common.complete}
           </TextSemiBold>
         </TouchableOpacity>
-      </View>
+      </Animated.View>
     </MyModal>
   );
 };
@@ -55,8 +74,9 @@ const styles = StyleSheet.create({
   containerModal: {
     backgroundColor: 'whitesmoke',
     padding: 10,
-    position: 'relative',
-    top: heightDevice / 4,
+    position: 'absolute',
+    top: 0,
+    left: -widthDevice / 2 + 20,
     width: widthDevice - 40,
     alignItems: 'center',
     borderRadius: 20,

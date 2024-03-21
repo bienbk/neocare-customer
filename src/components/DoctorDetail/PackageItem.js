@@ -11,9 +11,7 @@ import ProgressLine from 'common/ProgressLine/ProgressLine';
 const AvailablePackage = ({packageItem, navigation}) => {
   return (
     <View style={styles.wrapperActivePackage}>
-      <TextNormal style={{padding: 5, fontWeight: 'bold', color: Colors.main}}>
-        {packageItem.name}
-      </TextNormal>
+      <TextNormal style={styles.packageName}>{packageItem.name}</TextNormal>
       <FlatList
         data={packageItem?.desc ? packageItem.desc.split(',') : []}
         renderItem={({item}) => (

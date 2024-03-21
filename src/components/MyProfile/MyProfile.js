@@ -3,6 +3,7 @@ import {
   SafeAreaView,
   View,
   TextInput,
+  Animated,
   Keyboard,
   TouchableOpacity,
 } from 'react-native';
@@ -25,7 +26,7 @@ import Status from 'common/Status/Status';
 import {NAVIGATION_ACCOUNT} from 'navigation/routes';
 import Icons from 'common/Icons/Icons';
 import Images from 'common/Images/Images';
-import {user_example} from 'assets/constans';
+import {user_example, heightDevice} from 'assets/constans';
 import Svg from 'common/Svg/Svg';
 
 const MyProfile = ({navigation}) => {
@@ -80,6 +81,19 @@ const MyProfile = ({navigation}) => {
   }, [statusUpdateUser]);
   const onBack = () => {
     navigation && navigation.navigate(NAVIGATION_ACCOUNT);
+  };
+  const transitionModal = new Animated.Value(heightDevice);
+  React.useEffect(() => {
+    if (modal === 2 || modal === 3) {
+      animatedAction(transitionModal);
+    }
+  }, [modal]);
+  const animatedAction = val => {
+    Animated.timing(val, {
+      duration: 700,
+      toValue: 0,
+      useNativeDriver: true,
+    }).start();
   };
   return (
     <SafeAreaView style={styles.safeView}>
@@ -181,7 +195,11 @@ const MyProfile = ({navigation}) => {
         onClose={() => setModal(-1)}
       />
       <MyModal visible={modal === 2 || modal === 3} onPressOutSide={() => {}}>
-        <View style={styles.modalView}>
+        <Animated.View
+          style={[
+            styles.modalView,
+            {transform: [{translateY: transitionModal}]},
+          ]}>
           {modal === 2 && (
             <GenderModal
               onConfirm={() => setModal(-1)}
@@ -197,7 +215,7 @@ const MyProfile = ({navigation}) => {
             />
           )}
           {/* {modal === 4 && <HeightSelector />} */}
-        </View>
+        </Animated.View>
       </MyModal>
     </SafeAreaView>
   );
