@@ -326,7 +326,7 @@ export const versionSystem = DeviceInfo.getSystemVersion();
 export const versionNameApp = DeviceInfo.getVersion();
 export const deviceId = DeviceInfo.getUniqueId();
 export const isAndroid = Platform.OS === 'ios' ? false : true;
-export const KEY_ONE_SIGNAL = 'c107840b-bc7d-416f-8567-fdc22d2f3719';
+export const KEY_ONE_SIGNAL = '7ef05ed3-d514-4300-a463-82c371e4def9';
 export const KEY_GOONG_API = 'VphPkfidhRekSJM2Ff9TPIZSFtwDtgIWoXJ0wHUN';
 // export const GOOGLE_MAP_KEY = 'AIzaSyAAO8W-KytYgmE4BzIXP_dLGZ7ABdO2z54';
 export const GOOGLE_MAP_KEY = 'AIzaSyDy_5NNS-DwcZkcIYMar-wcspaL9fWJbQ0';

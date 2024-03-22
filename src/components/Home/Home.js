@@ -30,6 +30,8 @@ import {
 } from 'navigation/routes';
 import DoctorInfo from './DoctorInfo';
 import {HOME_DATA} from 'assets/constans';
+import {OneSignal} from 'react-native-onesignal';
+import {asyncStorage} from '../../store';
 
 const Home = ({navigation}) => {
   const dispatch = useDispatch();
@@ -86,6 +88,29 @@ const Home = ({navigation}) => {
       navigation.navigate(NAVIGATION_CONNECTION, {type: 1});
     }
   };
+
+  const sendOneSignal = async () => {
+    const tempUser = await asyncStorage.getUser();
+    // const id = await OneSignal.User.pushSubscription.getPushSubscriptionId();
+    // console.log('IDDDDDDDDD:::::::::::::::::::', id);
+    if (tempUser == null) {
+      return;
+    }
+
+    OneSignal.login(tempUser?.id.toString());
+
+    let dataOneSignal = {
+      cid: tempUser?.id,
+      name: tempUser?.first_name + ' ' + tempUser?.last_name,
+    };
+    // console.log('dataOneSignalLLLLLLLLLL::::::::::', dataOneSignal);
+    OneSignal.User.addTags(dataOneSignal);
+  };
+
+  useEffect(() => {
+    sendOneSignal();
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <CustomeHeader />
