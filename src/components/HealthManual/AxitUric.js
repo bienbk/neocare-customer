@@ -85,7 +85,7 @@ const AxitUric = ({navigation}) => {
       }
     });
     if (result) {
-      setConclusion({content: result?.key, color: result?.color});
+      setConclusion({content: result?.key, color: result?.color, status: result?.status});
     }
   };
   const saveParameter = () => {
@@ -95,6 +95,7 @@ const AxitUric = ({navigation}) => {
         unit: messure === 1 ? UNIT_MG_DL : UNIT_UMOLL,
       },
       noted: note,
+      status: conclusion.status,
       date: convertDateParameter(date.toLocaleString('en-GB')) || '',
       parameters_monitor_code: CODE_AXIT_URIC,
     };

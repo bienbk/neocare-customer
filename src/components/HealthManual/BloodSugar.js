@@ -1,7 +1,6 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   FlatList,
-  Platform,
   Animated,
   TouchableOpacity,
   View,
@@ -20,7 +19,7 @@ import {
   CODE_BLOOD_SUGAR,
   UNIT_MG_DL,
   convertDate,
-  UNIT_MMOL_MOL,
+  UNIT_MMOLL,
   widthDevice,
   convertDateParameter,
 } from 'assets/constans';
@@ -35,7 +34,7 @@ import {
 } from 'store/parameter/parameterAction';
 import Status from 'common/Status/Status';
 import {NAVIGATION_HOME} from 'navigation/routes';
-import DateTimePicker from '../../common/DateTImePicker/DateTimePicker';
+import DateTimePicker from 'common/DateTImePicker/DateTimePicker';
 const MIN_MG = 36;
 const MIN_MOL = 2.0;
 const BloodSugar = ({navigation}) => {
@@ -119,17 +118,22 @@ const BloodSugar = ({navigation}) => {
       }
     });
     if (result) {
-      setConclusion({content: result.key, color: result.type_1.color});
+      setConclusion({
+        content: result.key,
+        color: result.type_1.color,
+        status: result.status,
+      });
     }
   };
   const saveParameter = noted => {
     const payload = {
       blood_glucose: {
-        unit: conclusion.unit === 1 ? UNIT_MG_DL : UNIT_MMOL_MOL,
+        unit: conclusion.unit === 1 ? UNIT_MG_DL : UNIT_MMOLL,
         index: parseFloat(bloodSugar),
         eating_status: timeMessure,
       },
       noted,
+      status: conclusion.status,
       date: convertDateParameter(date.toLocaleString('en-GB')) || '',
       parameters_monitor_code: CODE_BLOOD_SUGAR,
     };

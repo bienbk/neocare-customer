@@ -1,248 +1,199 @@
-/* eslint-disable react-native/no-inline-styles */
-import {React, useEffect, useRef, useState} from 'react';
-import {View, TouchableOpacity, StyleSheet, SafeAreaView} from 'react-native';
-// import {useDispatch, useSelector} from 'react-redux';
-// import styles from './styles';
-import {
-  TextMoneyBold,
-  TextNormal,
-  TextNormalSemiBold,
-} from '../../common/Text/TextFont';
-// import Colors from '../../theme/Colors';
-import strings from '../../localization/Localization';
+import React, {useRef} from 'react';
+import {StyleSheet, View, Animated} from 'react-native';
+import Icons from 'common/Icons/Icons';
+import {widthDevice, heightDevice} from 'assets/constans';
 
-import Icons from '../../common/Icons/Icons';
-import Svg from '../../common/Svg/Svg';
-import HorizontalRange from '../../common/HorizontalRange/HorizontalRange';
-import CustomButton from '../../common/CustomButton/CustomButton';
-import Colors from '../../theme/Colors';
-import {convertDate, today} from '../../assets/constans';
-import DateTimePicker from '../../common/DateTImePicker/DateTimePicker';
+export default function Example() {
+  const scrollY = useRef(new Animated.Value(0)).current;
 
-const Prescription = ({nextStep}) => {
-  const [date, setDate] = useState(new Date());
-  const [open, setOpen] = useState(false);
+  const translateHeader = scrollY.interpolate({
+    inputRange: [0, 80],
+    outputRange: [0, -35],
+    extrapolate: 'clamp',
+  });
+  const contanerTransition = scrollY.interpolate({
+    inputRange: [0, 80],
+    outputRange: [0, 100],
+    extrapolate: 'clamp',
+  });
+  const opacityTitle = scrollY.interpolate({
+    inputRange: [0, 50],
+    outputRange: [1, 0],
+    extrapolate: 'clamp',
+  });
+  const translateTitle = scrollY.interpolate({
+    inputRange: [0, 80],
+    outputRange: [1, 0.8],
+    extrapolate: 'clamp',
+  });
+  const translateInput = scrollY.interpolate({
+    inputRange: [0, 80],
+    outputRange: [1, 0.8],
+    extrapolate: 'clamp',
+  });
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <View style={{flex: 1, alignItems: 'center'}}>
-        {/* TITLE SECTION */}
-        <View style={styles.wrapperTitle}>
-          <TextMoneyBold style={{fontSize: 24, marginBottom: 5}}>
-            {'Cân nặng của bạn'}
-          </TextMoneyBold>
-          <TextNormal style={{textAlign: 'center'}}>
-            {'Thông tin này rất quan trọng để tính chỉ số khối cơ thể của bạn'}
-          </TextNormal>
-        </View>
-        <TouchableOpacity
-          onPress={() => setOpen(true)}
-          style={styles.wrapperDatePicker}>
-          <Icons
-            type={'Fontisto'}
-            name={'calendar'}
-            size={18}
-            color={Colors.greenColor}
-          />
-          <TextNormalSemiBold style={styles.textToday}>
-            {convertDate(date) +
-              ' ' +
-              date.getHours() +
-              ':' +
-              date.getMinutes()}
-          </TextNormalSemiBold>
-        </TouchableOpacity>
-        <DateTimePicker
-          date={date}
-          isOpen={open}
-          setDate={setDate}
-          maxDate={new Date()}
-          onConfirm={() => setOpen(false)}
-          onClose={() => setOpen(false)}
-        />
-      </View>
-    </SafeAreaView>
+    <View style={{backgroundColor: 'white', flex: 1}}>
+      <Icons
+        type={'Ionicons'}
+        name={'arrow-back'}
+        size={25}
+        style={{position: 'absolute', zIndex: 2, top: 15, left: 15}}
+        color={'black'}
+      />
+      <Animated.View
+        style={[styles.header, {transform: [{translateY: translateHeader}]}]}>
+        <Animated.Text
+          style={[styles.headerTitle, {transform: [{scale: translateTitle}]}]}>
+          Cheap flights to anywhere
+        </Animated.Text>
+      </Animated.View>
+      <Animated.ScrollView
+        contentContainerStyle={[styles.content, {transform: [{translateY: 0}]}]}
+        onScroll={Animated.event(
+          [{nativeEvent: {contentOffset: {y: scrollY}}}],
+          {
+            useNativeDriver: true,
+          },
+        )}
+        scrollEventThrottle={1}
+      />
+    </View>
   );
-};
-
-export default Prescription;
+}
 
 const styles = StyleSheet.create({
-  textToday: {
-    marginLeft: 10,
-    color: Colors.gray.gray20,
+  content: {
+    padding: 24,
+    backgroundColor: 'red',
+    minHeight: heightDevice,
   },
-  wrapperDatePicker: {
-    flexDirection: 'row',
-    paddingHorizontal: 25,
-    paddingVertical: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'center',
-    backgroundColor: Colors.whiteColor,
-    borderStyle: 'solid',
-    borderColor: Colors.gray.gray95,
-    borderWidth: 1,
-    borderRadius: 20,
-  },
-  wrapperRulerItem: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 0,
-    // height: 100,
-  },
-  wrapperNumberItem: {
-    marginRight: 10,
-    position: 'absolute',
-    // bottom: -20,
-    top: -18,
-    left: -1,
-    alignItems: 'center',
-    // backgroundColor: 'green',
-    width: 50,
-    paddingVertical: 10,
-  },
-  scrollViewContainerStyle: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: 10,
-  },
-  // indicatorWrapper: {
-  //   position: 'absolute',
-  //   left: 50,
-  //   top: 100,
-  //   alignItems: 'center',
-  //   flexDirection: 'row',
-  //   width: indicatorWidth,
-  //   // backgroundColor: 'green',
-  // },
-  // segmentIndicator: {
-  //   height: 5,
-  //   width: indicatorWidth - 20,
-  //   borderRadius: 20,
-  //   backgroundColor: Colors.buttonBackground,
-  // },
-  ruler: {
-    width: 170,
-    // height: heightRuler,
-  },
-
-  ageTextStyle: {
-    fontSize: 42,
-    fontFamily: 'red',
-  },
-  spacer: {
-    height: 100,
-  },
-
-  //
-  safeView: {
-    flex: 1,
-  },
-
-  container: {
-    paddingHorizontal: 15,
-    flex: 1,
-    paddingTop: 10,
-    backgroundColor: Colors.backgroundColor,
-  },
-  buttonBack: {
-    position: 'absolute',
-    top: 16,
-    left: 16,
-    zIndex: 999,
-    // backgroundColor: 'red',
-  },
-  wrapperTitle: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 10,
-    // backgroundColor: 'red',
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-  },
-  subtitleText: {textAlign: 'center', color: Colors.gray.gray50},
-  weightButton: {
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    borderColor: 'lightgray',
-    width: 100,
-    alignItems: 'center',
+  /** Header */
+  header: {
+    // position: 'absolute',
+    width: widthDevice,
+    // zIndex: 1,
+    paddingTop: 15,
+    paddingLeft: 15,
     backgroundColor: 'white',
-    borderRadius: 50,
-    borderWidth: 1,
   },
-  wrapperWeightButton: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '100%',
-    paddingVertical: 10,
-    alignItems: 'center',
-  },
-  wrapperHeightButton: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '100%',
-    paddingVertical: 5,
-    alignItems: 'center',
-  },
-  activeWeightButton: {
-    backgroundColor: '#7189F7',
-  },
-  activeTextWeight: {
-    fontWeight: '700',
-    color: 'white',
-  },
-  weightValueButton: {
-    width: 32,
-    height: 32,
-    borderRadius: 20,
-    backgroundColor: '#7189F7',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  wrapperWeightSection: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    // backgroundColor: 'green',
-    paddingHorizontal: 15,
-    // flexDirection: 'column',
-    paddingVertical: 10,
-  },
-  wrapperHeightSection: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    // backgroundColor: 'green',
-    paddingHorizontal: 15,
-    // flexDirection: 'column',
-  },
-  wrapperSliderItem: {
-    paddingHorizontal: 5,
-    paddingVertical: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  textContinueButton: {
-    color: 'white',
+  headerTitle: {
+    fontSize: 20,
+    // lineHeight: 34,
     fontWeight: 'bold',
-    fontSize: 17,
+    color: 'black',
+    // textAlign: 'center',
+    // marginBottom: 12,
+    paddingTop: 40,
   },
-  wrapperSliderHeight: {
-    paddingHorizontal: 15,
-    // backgroundColor: 'green',
-    paddingVertical: 5,
+  /** Input */
+  input: {
+    height: 44,
+    backgroundColor: 'gray',
+    paddingLeft: 44,
+    paddingRight: 24,
+    borderRadius: 12,
+    fontSize: 15,
+    fontWeight: '500',
+    color: '#222',
+  },
+  inputWrapper: {
+    position: 'relative',
+    width: '100%',
+  },
+  inputIcon: {
+    position: 'absolute',
+    width: 44,
+    height: 44,
+    top: 0,
+    left: 0,
+    bottom: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'row',
   },
-  wrapperCheckbox: {
+  /** Card */
+  card: {
     flexDirection: 'row',
-    paddingHorizontal: 10,
-    paddingVertical: 12,
-    backgroundColor: 'white',
-    marginTop: 5,
-    alignItems: 'center',
-    borderRadius: 20,
+    alignItems: 'stretch',
+    borderRadius: 12,
+    marginBottom: 16,
+    backgroundColor: '#fff',
+  },
+  cardImg: {
+    width: 120,
+    height: 154,
+    borderRadius: 12,
+  },
+  cardBody: {
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: 0,
+    flexDirection: 'column',
     justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+  },
+  cardTitle: {
+    fontSize: 22,
+    fontWeight: '700',
+    color: '#173153',
+    marginRight: 8,
+  },
+  cardAirport: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: '#5f697d',
+  },
+  cardRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: -8,
+    flexWrap: 'wrap',
+  },
+  cardRowItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 6,
+  },
+  cardRowItemText: {
+    marginLeft: 4,
+    fontSize: 12,
+    fontWeight: '500',
+    color: '#5f697d',
+  },
+  cardPrice: {
+    fontSize: 13,
+    fontWeight: '500',
+    color: '#5f697d',
+  },
+  cardPriceValue: {
+    fontSize: 21,
+    fontWeight: '700',
+    color: '#173153',
+  },
+  cardPriceCurrency: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#6f61c4',
+  },
+  /** Button */
+  btn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 8,
+    paddingVertical: 6,
+    paddingHorizontal: 14,
+    borderWidth: 1,
+    backgroundColor: '#173153',
+    borderColor: '#173153',
+  },
+  btnText: {
+    fontSize: 13,
+    lineHeight: 18,
+    fontWeight: '600',
+    color: '#fff',
   },
 });

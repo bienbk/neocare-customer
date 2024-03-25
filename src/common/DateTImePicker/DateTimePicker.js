@@ -3,7 +3,7 @@ import DatePicker from 'react-native-date-picker';
 import MyModal from '../MyModal/MyModal';
 import {TextSemiBold} from '../Text/TextFont';
 import strings from 'localization/Localization';
-import {StyleSheet, TouchableOpacity, Animated} from 'react-native';
+import {StyleSheet, TouchableOpacity, Animated, View} from 'react-native';
 import Colors from 'theme/Colors';
 import {heightDevice, widthDevice} from 'assets/constans';
 import Icons from '../Icons/Icons';
@@ -74,9 +74,10 @@ const styles = StyleSheet.create({
   containerModal: {
     backgroundColor: 'whitesmoke',
     padding: 10,
-    position: 'absolute',
-    top: 0,
-    left: -widthDevice / 2 + 20,
+    position: 'relative',
+    top: heightDevice / 4,
+    left: 0,
+    zIndex: 100,
     width: widthDevice - 40,
     alignItems: 'center',
     borderRadius: 20,

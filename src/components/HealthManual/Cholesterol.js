@@ -42,6 +42,8 @@ const items = [
   {id: 3, name: 'Triglycerides'},
   {id: 4, name: 'Toàn phần'},
 ];
+const STATUS_NORMAL = 0;
+const STATUS_HIGH = 4;
 
 const Cholesterol = ({navigation}) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
@@ -199,29 +201,31 @@ const Cholesterol = ({navigation}) => {
         review: '',
         name: 'TOTAL',
         color: '',
+        status: -1,
       },
     };
     checkList.map(item => {
       if (item.name === 'HDL') {
         conclusions.HDL.review =
-          parseFloat(HDL) >= item.average ? 'Bình thuờng ' : 'Thấp';
+          parseFloat(HDL) >= item.average ? 'Bình thuờng' : 'Thấp';
         conclusions.HDL.color =
           parseFloat(HDL) >= item.average ? '#50C878' : '#f73e3a';
       }
       if (item.name === 'LDL') {
         conclusions.LDL.review =
-          parseFloat(LDL) <= item.average ? 'Bình thuờng ' : 'Cao';
+          parseFloat(LDL) <= item.average ? 'Bình thuờng' : 'Cao';
         conclusions.LDL.color =
           parseFloat(LDL) <= item.average ? '#50C878' : '#f73e3a';
       }
       if (item.name === 'TRIG') {
         conclusions.Trig.review =
-          parseFloat(Triglycerides) <= item.average ? 'Bình thuờng ' : 'Cao';
+          parseFloat(Triglycerides) <= item.average ? 'Bình thuờng' : 'Cao';
         conclusions.Trig.color =
           parseFloat(Triglycerides) <= item.average ? '#50C878' : '#f73e3a';
       } else {
         conclusions.Total.review =
-          parseFloat(total) <= item.average ? 'Bình thuờng ' : 'Cao';
+          parseFloat(total) <= item.average ? 'Bình thuờng' : 'Cao';
+        conclusions.Total.status = parseFloat(total) <= item.average ? STATUS_NORMAL : STATUS_HIGH;
         conclusions.Total.color =
           parseFloat(total) <= item.average ? '#50C878' : '#f73e3a';
       }
@@ -246,6 +250,9 @@ const Cholesterol = ({navigation}) => {
   const inputTransition = new Animated.Value(-widthDevice);
 
   const saveParameter = noted => {
+    if (conclusion === -1) {
+      return;
+    }
     const payload = {
       cholesterol: {
         unit: conclusion.unit === 1 ? UNIT_MG_DL : UNIT_MMOL_MOL,
@@ -255,6 +262,7 @@ const Cholesterol = ({navigation}) => {
         total: parseFloat(total),
       },
       noted,
+      status: conclusion?.Total.status,
       date: convertDateParameter(date.toLocaleString('en-GB')) || '',
       parameters_monitor_code: CODE_CHOLESTEROL,
     };

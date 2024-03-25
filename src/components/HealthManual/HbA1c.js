@@ -78,6 +78,7 @@ const HbA1c = ({navigation}) => {
           content: item.key,
           color: item.color,
           icon: 'test-tube',
+          status: item.status,
         });
         return;
       }
@@ -105,6 +106,7 @@ const HbA1c = ({navigation}) => {
         },
         parameters_monitor_code: CODE_HBA1C,
         noted,
+        status: conclusion.status,
         date: convertDateParameter(date.toLocaleString('en-GB')) || '',
       }),
     );

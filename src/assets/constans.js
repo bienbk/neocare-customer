@@ -100,7 +100,7 @@ const BLOOD_PRESSURE = [
   {
     key: 'Huyết áp thấp',
     value: {
-      id: 1,
+      status: 1,
       min_tam_thu: 0,
       max_tam_thu: 100,
       min_tam_truong: 0,
@@ -111,7 +111,7 @@ const BLOOD_PRESSURE = [
   {
     key: 'Tối ưu',
     value: {
-      id: 2,
+      status: 2,
       min_tam_thu: 100,
       max_tam_thu: 120,
       min_tam_truong: 60,
@@ -122,7 +122,7 @@ const BLOOD_PRESSURE = [
   {
     key: 'Bình thuờng',
     value: {
-      id: 3,
+      status: 0,
       min_tam_thu: 120,
       max_tam_thu: 129,
       min_tam_truong: 80,
@@ -133,7 +133,7 @@ const BLOOD_PRESSURE = [
   {
     key: 'Hơi Cao',
     value: {
-      id: 4,
+      status: 3,
       min_tam_thu: 130,
       max_tam_thu: 139,
       min_tam_truong: 85,
@@ -144,7 +144,7 @@ const BLOOD_PRESSURE = [
   {
     key: 'Cao',
     value: {
-      id: 5,
+      status: 4,
       min_tam_thu: 140,
       max_tam_thu: 159,
       min_tam_truong: 90,
@@ -155,7 +155,7 @@ const BLOOD_PRESSURE = [
   {
     key: 'Rất cao',
     value: {
-      id: 6,
+      status: 5,
       min_tam_thu: 160,
       max_tam_thu: 179,
       min_tam_truong: 100,
@@ -166,7 +166,7 @@ const BLOOD_PRESSURE = [
   {
     key: 'Cực kỳ cao',
     value: {
-      id: 7,
+      status: 6,
       min_tam_thu: 180,
       max_tam_thu: 1000,
       min_tam_truong: 110,
@@ -180,24 +180,28 @@ const MAX = Number.MAX_SAFE_INTEGER;
 export const BLOOD_SUGAR_MOL = [
   {
     key: 'Cao',
+    status: 4,
     type_1: {min: 7.3, max: MAX, color: '#d40000'},
     type_2: {min: 10.1, max: MAX, color: '#d40000'},
     type_3: {min: 7.3, max: MAX, color: '#d40000'},
   },
   {
     key: 'Bình thuờng',
+    status: 0,
     type_1: {min: 3.9, max: 7.2, color: '#50C878'},
     type_2: {min: 3.9, max: 9.9, color: '#50C878'},
     type_3: {min: 3.9, max: 7.2, color: '#50C878'},
   },
   {
     key: 'Thấp',
+    status: 1,
     type_1: {min: 3.0, max: 3.8, color: Colors.blue.blue60},
     type_2: {min: 3.0, max: 3.8, color: Colors.blue.blue60},
     type_3: {min: 3.0, max: 3.8, color: Colors.blue.blue60},
   },
   {
     key: 'Rất thấp',
+    status: 1,
     type_1: {min: MIN, max: 3.0, color: Colors.blue.blue40},
     type_2: {min: MIN, max: 3.0, color: Colors.blue.blue40},
     type_3: {min: MIN, max: 3.0, color: Colors.blue.blue40},
@@ -218,50 +222,54 @@ export const CHOLESTEROL_MOL = [
 export const BLOOD_SUGAR_MG = [
   {
     key: 'Cao',
+    status: 4,
     type_1: {min: 131, max: MAX, color: '#d40000'},
     type_2: {min: 181, max: MAX, color: '#d40000'},
     type_3: {min: 131, max: MAX, color: '#d40000'},
   },
   {
     key: 'Bình thuờng',
+    status: 0,
     type_1: {min: 70, max: 130, color: '#50C878'},
     type_2: {min: 70, max: 180, color: '#50C878'},
     type_3: {min: 70, max: 130, color: '#50C878'},
   },
   {
     key: 'Thấp',
+    status: 1,
     type_1: {min: 54, max: 69, color: Colors.blue.blue60},
     type_2: {min: 54, max: 69, color: Colors.blue.blue60},
     type_3: {min: 54, max: 69, color: Colors.blue.blue60},
   },
   {
     key: 'Rất thấp',
+    status: 1,
     type_1: {min: MIN, max: 54, color: Colors.blue.blue40},
     type_2: {min: MIN, max: 54, color: Colors.blue.blue40},
     type_3: {min: MIN, max: 54, color: Colors.blue.blue40},
   },
 ];
 export const AXIT_URIC_MG = [
-  {key: 'An toàn', min: MIN, max: 6.4, color: '#50C878'},
-  {key: 'Cần chú ý', min: 6.5, max: 7.2, color: '#ffdf00'},
-  {key: 'Cao', min: 7.3, max: 10.0, color: '#f73e3a'},
-  {key: 'Cực kỳ cao', min: 10.1, max: MAX, color: '#d40000'},
+  {key: 'An toàn', min: MIN, max: 6.4, color: '#50C878', status: 2},
+  {key: 'Cần chú ý', min: 6.5, max: 7.2, color: '#ffdf00', status: 3},
+  {key: 'Cao', min: 7.3, max: 10.0, color: '#f73e3a', status: 4},
+  {key: 'Cực kỳ cao', min: 10.1, max: MAX, color: '#d40000', status: 5},
 ];
 export const AXIT_URIC_MOL = [
-  {key: 'An toàn', min: MIN, max: 379, color: '#50C878'},
-  {key: 'Cần chú ý', min: 380, max: 420, color: '#ffdf00'},
-  {key: 'Cao', min: 421, max: 580, color: '#f73e3a'},
-  {key: 'Cực kỳ cao', min: 581, max: MAX, color: '#d40000'},
+  {key: 'An toàn', min: MIN, max: 379, color: '#50C878', status: 2},
+  {key: 'Cần chú ý', min: 380, max: 420, color: '#ffdf00', status: 3},
+  {key: 'Cao', min: 421, max: 580, color: '#f73e3a', status: 4},
+  {key: 'Cực kỳ cao', min: 581, max: MAX, color: '#d40000', status: 5},
 ];
 export const HBA1C_PERCENT = [
-  {key: 'Bình thuờng', color: '#50C878', min: 3.0, max: 5.6},
-  {key: 'Tiểu đuờng', color: '#f73e3a', min: 6.5, max: MAX},
-  {key: 'Tiền tiểu đuờng', color: '#ffdf00', min: 5.7, max: 6.4},
+  {key: 'Bình thuờng', color: '#50C878', min: 3.0, max: 5.6, status: 0},
+  {key: 'Tiểu đuờng', color: '#f73e3a', min: 6.5, max: MAX, status: 4},
+  {key: 'Tiền tiểu đuờng', color: '#ffdf00', min: 5.7, max: 6.4, status: 3},
 ];
 export const HBA1C_MOL = [
-  {key: 'Bình thuờng', color: '#50C878', min: 9.0, max: 38},
-  {key: 'Tiểu đuờng', color: '#f73e3a', min: 48, max: MAX},
-  {key: 'Tiền tiểu đuờng', color: '#ffdf00', min: 39, max: 47},
+  {key: 'Bình thuờng', color: '#50C878', min: 9.0, max: 38, status: 0},
+  {key: 'Tiểu đuờng', color: '#f73e3a', min: 48, max: MAX, status: 4},
+  {key: 'Tiền tiểu đuờng', color: '#ffdf00', min: 39, max: 47, status: 3},
 ];
 export const HOME_DATA = [
   {
@@ -387,6 +395,7 @@ export const UNIT_BEAT_MIN = 4;
 export const UNIT_KG = 5;
 export const UNIT_LBS = 6;
 export const UNIT_UMOLL = 8;
+export const UNIT_MMOLL = 9;
 // --------- CODE DISEASE -------------
 export const CODE_HBA1C = 'A1C';
 export const CODE_BLOOD_PRESSURE = 'BLP';

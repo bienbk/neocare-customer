@@ -135,7 +135,12 @@ const BloodPressure = ({navigation}) => {
         resultFirst.key.id > resultSecond.key.id
           ? resultFirst.key.color
           : resultSecond.key.color,
+      status:
+        resultFirst.key.id > resultSecond.key.id
+          ? resultFirst.key.status
+          : resultSecond.key.status,
     };
+    console.log('my conclusion::', result);
     setConclusion(result);
   };
   const handleSelectInput = index => {
@@ -165,6 +170,7 @@ const BloodPressure = ({navigation}) => {
         unit_sys: UNIT_MMHG,
       },
       noted: note || '',
+      status: conclusion.status,
       date: convertDateParameter(date.toLocaleString('en-GB')) || '',
       parameters_monitor_code: CODE_BLOOD_PRESSURE,
     };
@@ -377,7 +383,9 @@ const BloodPressure = ({navigation}) => {
       </Animated.View>
       {conclusion !== -1 && (
         <Animated.View
-          style={[showTextarea && {transform: [{translateY: inputTransition}]}]}>
+          style={[
+            showTextarea && {transform: [{translateY: inputTransition}]},
+          ]}>
           <TouchableOpacity
             style={[
               styles.wrapperInputArea,
