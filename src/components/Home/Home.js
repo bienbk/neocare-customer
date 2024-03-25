@@ -40,23 +40,22 @@ const Home = ({navigation}) => {
   const listDoctors = useSelector(state => listDoctorSelector(state));
   const [currentDoctor, setCurrentDoctor] = useState(-1);
   useEffect(() => {
-    getParameterData();
-    dispatch(listDoctorAction());
-  }, []);
+    const listener = navigation.addListener('focus', () => {
+      dispatch(
+        listParameterAction({
+          size: 100,
+          page: 1,
+        }),
+      );
+      dispatch(listDoctorAction());
+    });
+    return listener;
+  }, [navigation]);
   useEffect(() => {
     if (listDoctors && listDoctors.length) {
       setCurrentDoctor({...listDoctors[0]});
     }
   }, [listDoctors]);
-  const getParameterData = () => {
-    const query = {
-      size: 100,
-      page: 1,
-      // from_at: '2024-02-12T00:00:00Z',
-      // to_at: '2024-03-14T00:00:00Z',
-    };
-    dispatch(listParameterAction(query));
-  };
   useEffect(() => {
     if (statusListing === Status.SUCCESS) {
       dispatch(resetListingParameter());
@@ -91,19 +90,14 @@ const Home = ({navigation}) => {
 
   const sendOneSignal = async () => {
     const tempUser = await asyncStorage.getUser();
-    // const id = await OneSignal.User.pushSubscription.getPushSubscriptionId();
-    // console.log('IDDDDDDDDD:::::::::::::::::::', id);
     if (tempUser == null) {
       return;
     }
-
     OneSignal.login(tempUser?.id.toString());
-
     let dataOneSignal = {
       cid: tempUser?.id,
       name: tempUser?.first_name + ' ' + tempUser?.last_name,
     };
-    // console.log('dataOneSignalLLLLLLLLLL::::::::::', dataOneSignal);
     OneSignal.User.addTags(dataOneSignal);
   };
 

@@ -51,9 +51,11 @@ const Connection = ({navigation, route}) => {
     if (statusFollowDoctor === Status.SUCCESS) {
       const connected = {
         code,
-        patient_id: 7,
       };
       navigation.navigate(NAVIGATION_DOCTOR_DETAIL, {connected});
+    }
+    if (statusFollowDoctor === Status.ERROR) {
+      navigation.navigate(NAVIGATION_HOME);
     }
   }, [statusFollowDoctor]);
   const handleOnBlur = () => {
@@ -139,11 +141,11 @@ const Connection = ({navigation, route}) => {
               style={styles.hiddenTextInput}
               // autoFocus={true}
             />
-            <TextNormal style={{color: '#EF0000', paddingVertical: 20}}>
+            {/* <TextNormal style={{color: '#EF0000', paddingVertical: 20}}>
               {messageFollowDoctor
                 ? 'Mã bác sĩ không đúng, vui lòng thử lại!'
                 : ''}
-            </TextNormal>
+            </TextNormal> */}
           </View>
         </View>
       )}
