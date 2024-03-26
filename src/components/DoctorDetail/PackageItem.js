@@ -4,26 +4,69 @@ import Icons from 'common/Icons/Icons';
 import {FlatList, View, TouchableOpacity, ImageBackground} from 'react-native';
 import {TextNormal, TextSemiBold, TextSmallTwelve} from 'common/Text/TextFont';
 import styles from './styles';
-import {card_pink, formatMoney} from 'assets/constans';
+import {
+  card_pink,
+  formatMoney,
+  header_package,
+  decorator_package,
+  path_package,
+} from 'assets/constans';
 import Colors from 'theme/Colors';
 import {NAVIGATION_PACKAGE_DETAIL} from 'navigation/routes';
 import ProgressLine from 'common/ProgressLine/ProgressLine';
+import Images from '../../common/Images/Images';
 const AvailablePackage = ({packageItem, navigation}) => {
   return (
     <View style={styles.wrapperActivePackage}>
-      <TextNormal style={styles.packageName}>{packageItem.name}</TextNormal>
+      <ImageBackground
+        source={header_package}
+        imageStyle={{borderTopLeftRadius: 12, borderTopRightRadius: 12}}
+        style={{height: 70, width: '100%'}}
+        resizeMode={'cover'}>
+        <Images
+          source={path_package}
+          style={{position: 'absolute', left: 0, top: 13}}
+        />
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <View style={{alignItems: 'center'}}>
+            <TextNormal style={styles.packageName}>
+              {'Gói chăm sóc đặc biệt'}
+            </TextNormal>
+            <TextSemiBold style={{color: '#203A69'}}>
+              {parseInt(packageItem.name.match(/\d+/)[0], 10) * 30 + ' Ngày'}
+            </TextSemiBold>
+          </View>
+          <Images
+            source={decorator_package}
+            style={{height: 70, width: 130, marginLeft: 10}}
+          />
+        </View>
+      </ImageBackground>
+      {/* <TextNormal style={styles.packageName}>{packageItem.name}</TextNormal> */}
       <FlatList
+        style={{marginTop: 10}}
         data={packageItem?.desc ? packageItem.desc.split(',') : []}
         renderItem={({item}) => (
-          <View style={{flexDirection: 'row', paddingVertical: 2}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              paddingVertical: 5,
+              paddingHorizontal: 10,
+            }}>
             <Icons
               type={'Feather'}
               name={'check'}
-              size={19}
-              color={'black'}
+              size={15}
+              color={Colors.gray.gray40}
               style={{paddingHorizontal: 5}}
             />
-            <TextSmallTwelve style={{color: Colors.main}}>
+            <TextSmallTwelve style={{color: Colors.gray.gray40}}>
               {item.toString().trim()}
             </TextSmallTwelve>
           </View>
@@ -48,7 +91,7 @@ const AvailablePackage = ({packageItem, navigation}) => {
           ]}>
           <TextNormal
             style={{
-              color: Colors.whiteColor,
+              color: Colors.main,
               fontWeight: 'bold',
               opacity: packageItem?.product_status === 2 ? 0.5 : 1,
             }}>
