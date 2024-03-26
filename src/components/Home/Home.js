@@ -95,7 +95,7 @@ const Home = ({navigation}) => {
     }
     OneSignal.login(tempUser?.id.toString());
     let dataOneSignal = {
-      cid: tempUser?.id,
+      cid: tempUser?.id.toString(),
       name: tempUser?.first_name + ' ' + tempUser?.last_name,
     };
     OneSignal.User.addTags(dataOneSignal);
