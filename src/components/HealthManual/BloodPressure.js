@@ -18,7 +18,6 @@ import {
   CODE_BLOOD_PRESSURE,
   UNIT_BEAT_MIN,
   UNIT_MMHG,
-  heightDevice,
   convertDateParameter,
   convertDate,
   widthDevice,
@@ -32,10 +31,10 @@ import {
 } from 'store/parameter/parameterAction';
 import {NAVIGATION_HOME} from 'navigation/routes';
 import Status from 'common/Status/Status';
-import DateTimePicker from '../../common/DateTImePicker/DateTimePicker';
+import DateTimePicker from 'common/DateTImePicker/DateTimePicker';
 const PLACEHOLDER =
   'Ghi chú trạng thái cảm giác của bạn khi đo huyết áp, chất luợng giấc ngủ, chế độ dinh duỡng, bài tập thể dục gần đây của bạn...';
-const BloodPressure = ({navigation}) => {
+const BloodPressure = ({navigation, setWarningModal}) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const [date, setDate] = useState(new Date());
   const [systolic, setSystolic] = useState('');
@@ -181,7 +180,9 @@ const BloodPressure = ({navigation}) => {
   useEffect(() => {
     if (statusCreateParameter === Status.SUCCESS) {
       dispatch(resetCreationParameter());
-      navigation && navigation.navigate(NAVIGATION_HOME);
+      conclusion.status === 0
+        ? navigation.navigate(NAVIGATION_HOME)
+        : setWarningModal(true);
     }
   }, [statusCreateParameter]);
   const handleNoteInput = ({nativeEvent}) => {

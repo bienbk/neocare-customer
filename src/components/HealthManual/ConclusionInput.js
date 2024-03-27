@@ -91,7 +91,19 @@ const ConclusionInput = ({navigation, conclusion, onSave, value, title, unit, ty
           );
         }
       });
-
+      // const transitionModal = new Animated.Value(heightDevice);
+      // React.useEffect(() => {
+      //   if (showWarning) {
+      //     animatedAction(transitionModal);
+      //   }
+      // }, [showWarning]);
+      // const animatedAction = val => {
+      //   Animated.timing(val, {
+      //     duration: 700,
+      //     toValue: 0,
+      //     useNativeDriver: true,
+      //   }).start();
+      // };
   return (
     <Pressable onPress={Keyboard.dismiss} style={styles.container}>
       <CustomHeader
@@ -274,6 +286,15 @@ const ConclusionInput = ({navigation, conclusion, onSave, value, title, unit, ty
           label={strings.common.save}
         />
       )}
+      {/* <MyModal visible={showWarning} onPressOutSide={() => {}}>
+        <Animated.View
+          style={[
+            styles.modalView,
+            {transform: [{translateY: transitionModal}]},
+          ]}>
+            <WarningContainer onSending={() => {}} title={`${title} của bạn cao`} onSkip={() => navigation.navigate(NAVIGATION_HOME)} />
+        </Animated.View>
+      </MyModal> */}
     </Pressable>
   );
 };
@@ -282,6 +303,23 @@ export default ConclusionInput;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  modalView: {
+    backgroundColor: 'white',
+    position: 'absolute',
+    bottom: -heightDevice / 2.3,
+    left: -widthDevice / 2 + 10,
+    paddingVertical: 10,
+    width: widthDevice - 20,
+    shadowColor: '#000',
+    borderRadius: 10,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
   activeTextArea: {
     borderWidth: 1.5,

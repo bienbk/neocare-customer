@@ -37,5 +37,14 @@ class DoctorController {
       return {success: false};
     }
   };
+  sendService = async payload => {
+    try {
+      const {data} = await HttpClient.post(UrlApi.apiSendService, payload);
+      return {success: true, data};
+    } catch (error) {
+      console.log('SEND SERVICE ERROR: ', error);
+      return {success: false};
+    }
+  };
 }
 export default new DoctorController();

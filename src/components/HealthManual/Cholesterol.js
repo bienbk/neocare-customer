@@ -45,8 +45,9 @@ const items = [
 const STATUS_NORMAL = 0;
 const STATUS_HIGH = 4;
 
-const Cholesterol = ({navigation}) => {
+const Cholesterol = ({navigation, setWarningModal}) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
+  // const [warningModal, setWarningModal] = useState(false);
   const [date, setDate] = useState(new Date());
   const [HDL, setHDL] = useState('');
   const [LDL, setLDL] = useState('');
@@ -225,7 +226,8 @@ const Cholesterol = ({navigation}) => {
       } else {
         conclusions.Total.review =
           parseFloat(total) <= item.average ? 'Bình thuờng' : 'Cao';
-        conclusions.Total.status = parseFloat(total) <= item.average ? STATUS_NORMAL : STATUS_HIGH;
+        conclusions.Total.status =
+          parseFloat(total) <= item.average ? STATUS_NORMAL : STATUS_HIGH;
         conclusions.Total.color =
           parseFloat(total) <= item.average ? '#50C878' : '#f73e3a';
       }
@@ -271,7 +273,9 @@ const Cholesterol = ({navigation}) => {
   useEffect(() => {
     if (statusCreateParameter === Status.SUCCESS) {
       dispatch(resetCreationParameter());
-      navigation && navigation.navigate(NAVIGATION_HOME);
+      conclusion.Total.status === STATUS_HIGH
+        ? setWarningModal(true)
+        : navigation.navigate(NAVIGATION_HOME);
     }
   }, [statusCreateParameter]);
   return (

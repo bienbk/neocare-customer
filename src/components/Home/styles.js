@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
-  fontSize24: {fontSize: 24},
+  fontSize24: {fontSize: 20},
   wrapperHeader: {
     height: heightDevice * 0.4,
     backgroundColor: '#2544BD',
@@ -141,9 +141,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 5,
     fontSize: 12,
+    minWidth: 80,
+    alignItems: 'center',
     borderRadius: 8,
     fontWeight: '600',
-    backgroundColor: '#07C558',
+    // backgroundColor: '#07C558',
     textAlign: 'center',
   },
   statusDangerText: {
@@ -164,7 +166,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   navigationText: {
-    color: Colors.blue.blue30,
+    color: '#1A54DB',
     fontWeight: 'bold',
     paddingVertical: 10,
     paddingHorizontal: 5,
@@ -178,7 +180,7 @@ const styles = StyleSheet.create({
     paddingVertical: 3,
   },
   unitText: {
-    fontSize: 20,
+    fontSize: 14,
     fontWeight: '600',
     alignSelf: 'flex-end',
     marginBottom: 3,

@@ -15,3 +15,7 @@ export const followedDoctorSelector = state => state.doctor.followedDoctor;
 // ------------------- LIST DOCTOR SELECTOR ----------------------
 export const listDoctorSelector = state => state.doctor.listDoctor;
 export const statusListDoctorSelector = state => state.doctor.statusListDoctor;
+
+// ------------------ SEND SERVICE TO EXPERT ------------------
+export const statusSendServiceSelector = state => state.doctor.statusSendService;
+export const errorSendServiceSelector = state => state.doctor.errorSendService;

@@ -37,7 +37,7 @@ import {NAVIGATION_HOME} from 'navigation/routes';
 import DateTimePicker from 'common/DateTImePicker/DateTimePicker';
 const MIN_MG = 36;
 const MIN_MOL = 2.0;
-const BloodSugar = ({navigation}) => {
+const BloodSugar = ({navigation, setWarningModal}) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const [invalid, setInvalid] = useState(false);
   const [date, setDate] = useState(new Date());
@@ -46,6 +46,7 @@ const BloodSugar = ({navigation}) => {
   const [bloodSugar, setBloodSugar] = useState(40);
   const [timeMessure, setTimeMessure] = useState(1);
   const [conclusion, setConclusion] = useState(-1);
+  // const [warningModal, setWarningModal] = useState(false);
   const dispatch = useDispatch();
   const statusCreateParameter = useSelector(state =>
     statusCreateParamSelector(state),
@@ -142,7 +143,9 @@ const BloodSugar = ({navigation}) => {
   useEffect(() => {
     if (statusCreateParameter === Status.SUCCESS) {
       dispatch(resetCreationParameter());
-      navigation && navigation.navigate(NAVIGATION_HOME);
+      conclusion.status === 4
+        ? setWarningModal(true)
+        : navigation.navigate(NAVIGATION_HOME);
     }
   }, [statusCreateParameter]);
   useEffect(() => {

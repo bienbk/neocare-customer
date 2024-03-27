@@ -23,3 +23,11 @@ export const listDoctorAction = () => ({
 export const resetListDoctor = () => ({
   type: NEOCARE.LIST_DOCTOR_RESET,
 });
+
+export const sendServiceAction = payload => ({
+  type: NEOCARE.SEND_SERVICE_REQUEST,
+  payload,
+});
+export const resetSendService = () => ({
+  type: NEOCARE.SEND_SERVICE_RESET,
+});

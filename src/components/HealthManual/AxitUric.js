@@ -19,7 +19,7 @@ import DateTimePicker from 'common/DateTImePicker/DateTimePicker';
 
 const PLACEHOLDER =
   'Ghi chú trạng thái cảm giác của bạn khi đo huyết áp, chất luợng giấc ngủ, chế độ dinh duỡng, bài tập thể dục gần đây của bạn...';
-const AxitUric = ({navigation}) => {
+const AxitUric = ({navigation, setWarningModal}) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const [date, setDate] = useState(new Date());
   const [axitUric, setAxitUric] = useState('');
@@ -38,6 +38,7 @@ const AxitUric = ({navigation}) => {
   const statusCreateParameter = useSelector(state =>
     statusCreateParamSelector(state),
   );
+
   Keyboard.addListener('keyboardDidHide', () => {
     if (
       showTextarea &&
@@ -104,7 +105,8 @@ const AxitUric = ({navigation}) => {
   useEffect(() => {
     if (statusCreateParameter === Status.SUCCESS) {
       dispatch(resetCreationParameter());
-      navigation && navigation.navigate(NAVIGATION_HOME);
+      console.log(conclusion.status);
+      conclusion.status < 3 ? navigation.navigate(NAVIGATION_HOME) : setWarningModal(true);
     }
   }, [statusCreateParameter]);
   const handleFocusInput = () => {
@@ -319,6 +321,7 @@ const AxitUric = ({navigation}) => {
         }}
         onClose={() => setOpenDatePicker(false)}
       />
+
     </Pressable>
   );
 };

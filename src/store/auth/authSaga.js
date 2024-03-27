@@ -150,11 +150,11 @@ function* loginPhone({payload}) {
 
 function* logout() {
   try {
-    yield put(resetOrder());
-    yield put(resetGetListShop({isLogout: true}));
+    // yield put(resetOrder());
+    // yield put(resetGetListShop({isLogout: true}));
     // yield put(resetGetListProduct());
     asyncStorage.clearStorage();
-    asyncStorage.setTheFirstLogin('false');
+    // asyncStorage.setTheFirstLogin('false');
   } catch (e) {
     console.log(e);
   }

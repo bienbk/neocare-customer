@@ -1,11 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {
-  FlatList,
-  SafeAreaView,
-  View,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {FlatList, SafeAreaView, View, ScrollView} from 'react-native';
 import styles from './styles';
 import DiseaseCard from './DiseaseCard';
 import CustomeHeader from './CustomeHeader';
@@ -31,11 +25,12 @@ import {
 import DoctorInfo from './DoctorInfo';
 import {HOME_DATA} from 'assets/constans';
 import {OneSignal} from 'react-native-onesignal';
-import {asyncStorage} from '../../store';
+import {asyncStorage} from 'store';
 
 const Home = ({navigation}) => {
   const dispatch = useDispatch();
   const listParameter = useSelector(state => listParameterSelector(state));
+  const [listParams, setListParams] = useState([]);
   const statusListing = useSelector(state => statusListingParam(state));
   const listDoctors = useSelector(state => listDoctorSelector(state));
   const [currentDoctor, setCurrentDoctor] = useState(-1);
@@ -51,6 +46,39 @@ const Home = ({navigation}) => {
     });
     return listener;
   }, [navigation]);
+  useEffect(() => {
+    mapParameter();
+  }, [listParameter]);
+  const mapParameter = () => {
+    const tempMap = new Map(
+      HOME_DATA.map(i => {
+        return [i.code, i];
+      }),
+    );
+    console.log('TEST::::::::', tempMap);
+    listParameter.map(p => {
+      if (tempMap.has(p.name)) {
+        const mapItem = tempMap.get(p.name);
+        if (p.name === 'Blood Pressure') {
+          mapItem.value = `${p.index_sys}/${p.index_dia}`;
+          mapItem.subVal = p.index_pulse;
+        } else if (p.name === 'Cholesterol') {
+          mapItem.value = p.total;
+        } else if (p.name === 'Blood Glucose') {
+          mapItem.value = p.index;
+          mapItem.eating_status = p.eating_status;
+        } else {
+          mapItem.value = p.index;
+        }
+        mapItem.created_at = p.date;
+        mapItem.status = p.status;
+        mapItem.unit = p.unit_name;
+        tempMap.set(p.name, mapItem);
+      }
+    });
+    console.log(tempMap.values());
+    setListParams(Array.from(tempMap.values()));
+  };
   useEffect(() => {
     if (listDoctors && listDoctors.length) {
       setCurrentDoctor({...listDoctors[0]});
@@ -73,8 +101,9 @@ const Home = ({navigation}) => {
       value={item.value}
       unit={item.unit}
       label={item.label}
+      id={item.id}
+      item={item}
       subValue={item.subVal}
-      index={index}
       onPressItem={() => handlePressCard(item)}
     />
   );
@@ -115,7 +144,7 @@ const Home = ({navigation}) => {
         />
         <View style={styles.wrapperListCard}>
           <FlatList
-            data={HOME_DATA}
+            data={listParams}
             scrollEnabled={false}
             showsVerticalScrollIndicator={false}
             keyExtractor={i => i.name}

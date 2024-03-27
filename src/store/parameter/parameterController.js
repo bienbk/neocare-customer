@@ -15,8 +15,9 @@ class ParameterController {
   listParameter = async params => {
     try {
       const {data} = await HttpClient.get(UrlApi.apiListParameter, {params});
-      console.log('LIST PARAMETER CONTROLLER::: ', data);
-      return {success: true, data: data?.parameters_of_patients};
+      const items =
+        data.parameters_of_patients.items.map(i => JSON.parse(i)) || [];
+      return {success: true, data: items};
     } catch (error) {
       console.log('LIST PARAMETER CONTROLLER::: ', error);
       return {success: false};

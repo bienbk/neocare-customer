@@ -1,11 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {
-  View,
-  SafeAreaView,
-  FlatList,
-  Animated,
-  TouchableOpacity,
-} from 'react-native';
+import React, {useEffect, useRef} from 'react';
+import {View, SafeAreaView, FlatList, Animated} from 'react-native';
 
 import {NAVIGATION_LOGIN} from 'navigation/routes';
 import styles from './styles';
@@ -20,10 +14,12 @@ import {
   TextSemiBold,
   TextSmallMedium,
 } from 'common/Text/TextFont';
+import SuperTokens from 'supertokens-react-native';
 import {getStatusGetUserInfo} from 'store/selectors';
 import {getUserInfoAction, resetGetUserInfo} from 'store/user/userAction';
 import Status from 'common/Status/Status';
-
+import {CommonActions} from '@react-navigation/native';
+import {asyncStorage} from 'store';
 const IMAGE_HEIGHT = heightDevice * 0.336;
 
 const Account = ({navigation}) => {
@@ -65,11 +61,27 @@ const Account = ({navigation}) => {
         name={item.name}
         icon={item.icon}
         index={index}
+        item={item}
         lastIndex={index === list.length - 1}
         navigation={navigation}
+        logOut={handleLogout}
         link={item.link}
       />
     ));
+  const handleLogout = async () => {
+    await asyncStorage.clearStorage();
+    await SuperTokens.signOut();
+    setTimeout(() => {
+      setTimeout(() => {
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{name: NAVIGATION_LOGIN}],
+          }),
+        );
+      }, 50);
+    }, 100);
+  };
   const renderFooter = () => (
     <TextSmallMedium style={{color: Colors.gray.gray60, alignSelf: 'center'}}>
       Phiên bản 1.0 build 2445

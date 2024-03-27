@@ -28,14 +28,14 @@ import {
   createParameterAction,
   resetCreationParameter,
 } from 'store/parameter/parameterAction';
-import DateTimePicker from '../../common/DateTImePicker/DateTimePicker';
+import DateTimePicker from 'common/DateTImePicker/DateTimePicker';
 import {CODE_HBA1C, UNIT_MMOL_MOL, UNIT_PERCENTER} from 'assets/constans';
 import {NAVIGATION_HOME} from 'navigation/routes';
 import Status from 'common/Status/Status';
-import TransitionContainer from '../../common/TransitionContainer/TransitionContainer';
+import TransitionContainer from 'common/TransitionContainer/TransitionContainer';
 const MIN_PERCENT = 3;
 const MIN_MOL = 9;
-const HbA1c = ({navigation}) => {
+const HbA1c = ({navigation, setWarningModal}) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const [invalid, setInvalid] = useState(false);
   const [date, setDate] = useState(new Date());
@@ -114,7 +114,9 @@ const HbA1c = ({navigation}) => {
   useEffect(() => {
     if (statusCreateParameter === Status.SUCCESS) {
       dispatch(resetCreationParameter());
-      navigation && navigation.navigate(NAVIGATION_HOME);
+      conclusion.status >= 4
+        ? setWarningModal(true)
+        : navigation.navigate(NAVIGATION_HOME);
     }
   }, [statusCreateParameter]);
 

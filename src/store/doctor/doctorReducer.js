@@ -15,10 +15,36 @@ const initializeState = {
   // LIST DOCTOR
   listDoctor: [],
   statusListDoctor: Status.DEFAULT,
+
+  // SEND SERVICE
+  statusSendService: Status.DEFAULT,
+  errorSendService: '',
 };
 
 export default (state = initializeState, {type, payload}) => {
   switch (type) {
+    // -------------- SEND SERVICE ----------------------
+    case NEOCARE.SEND_SERVICE_REQUEST:
+      return {
+        ...state,
+        statusSendService: Status.LOADING,
+      };
+    case NEOCARE.SEND_SERVICE_SUCCESS:
+      return {
+        ...state,
+        statusSendService: Status.SUCCESS,
+      };
+    case NEOCARE.SEND_SERVICE_ERROR:
+      return {
+        ...state,
+        statusSendService: Status.ERROR,
+        errorSendService: payload,
+      };
+    case NEOCARE.SEND_SERVICE_RESET:
+      return {
+        ...state,
+        statusSendService: Status.DEFAULT,
+      };
     // -------------- LIST ALL DOCTOR ---------------------
     case NEOCARE.LIST_DOCTOR_REQUEST:
       return {

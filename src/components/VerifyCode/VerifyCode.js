@@ -37,7 +37,7 @@ import {asyncStorage} from 'store/index';
 import strings from 'localization/Localization';
 
 import {getUserInfoAction} from 'store/user/userAction';
-import {statusRegisterSelector} from '../../store/user/userSelector';
+import {getStatusGetUserInfo} from 'store/selectors';
 
 const VerifyCode = ({navigation, route}) => {
   const {phone, type} = route.params;
@@ -48,7 +48,7 @@ const VerifyCode = ({navigation, route}) => {
   const statusConfirmOtp = useSelector(state => isStatusConfirmOtp(state));
   const [disableSendAgainButton, setDisableSendAgainButton] = useState(false);
   const [timer, setTimer] = useState(60);
-  const statusGetUser = useSelector(state => statusRegisterSelector(state));
+  const statusGetUser = useSelector(state => getStatusGetUserInfo(state));
   useEffect(() => {
     const interval = setInterval(() => {
       setTimer(lastTimerCount => {
@@ -103,12 +103,11 @@ const VerifyCode = ({navigation, route}) => {
   }, [statusGetUser]);
   const checkUser = async () => {
     const user = await asyncStorage.getUser();
-    if (user && user?.info_submitted === 0) {
+    user &&
+      user?.info_submitted === 0 &&
       navigation.navigate(NAVIGATION_PROFILE_HEALTH);
-    }
-    if (user && user?.info_submitted === 1) {
-      navigation.navigate(NAVIGATION_MAIN);
-    }
+
+    user && user?.info_submitted === 1 && navigation.navigate(NAVIGATION_MAIN);
   };
   useEffect(() => {
     if (type === 1 && statusConfirmDelete === Status.SUCCESS) {

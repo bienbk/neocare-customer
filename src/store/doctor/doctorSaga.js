@@ -67,9 +67,30 @@ function* listDoctorSaga() {
     });
   }
 }
+function* sendServiceSaga({payload}) {
+  try {
+    const result = yield call(DoctorController.sendService, payload);
+    if (result && result.success) {
+      yield put({
+        type: NEOCARE.SEND_SERVICE_SUCCESS,
+      });
+    } else {
+      yield put({
+        type: NEOCARE.SEND_SERVICE_ERROR,
+        payload: ' Gửi yêu cầu tư vấn tới chuyên gia thất bại. Vui lòng kiểm tra tình trạng gói chăm sóc sức khoẻ của bạn',
+      });
+    }
+  } catch (error) {
+    yield put({
+      type: NEOCARE.SEND_SERVICE_ERROR,
+      payload: ' Gửi yêu cầu tư vấn tới chuyên gia thất bại. Vui lòng kiểm tra tình trạng gói chăm sóc sức khoẻ của bạn',
+    });
+  }
+}
 
 export default function* watcherSaga() {
   yield takeLatest(NEOCARE.LIST_DOCTOR_REQUEST, listDoctorSaga);
   yield takeLatest(NEOCARE.FOLLOW_DOCTOR_REQUEST, followDoctorSaga);
+  yield takeLatest(NEOCARE.SEND_SERVICE_REQUEST, sendServiceSaga);
   // yield takeLatest(NEOCARE.GET_PACKAGE_OF_DOCTOR_REQUEST, getPackageDoctorSaga);
 }

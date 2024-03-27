@@ -10,6 +10,7 @@ import {TouchableOpacity, View} from 'react-native';
 import Icons from 'common/Icons/Icons';
 import styles from './styles';
 import Colors from '../../theme/Colors';
+import {STATUS_COLORS, STATUS} from 'assets/constans';
 // import Colors from 'theme/Colors';
 
 const DiseaseCard = ({
@@ -19,9 +20,10 @@ const DiseaseCard = ({
   value,
   label,
   subValue,
+  id,
+  item,
   created_at,
   onPressItem,
-  index,
 }) => {
   return (
     <View style={styles.wrapperCardItem}>
@@ -29,23 +31,34 @@ const DiseaseCard = ({
         <View style={styles.wrapperNameLine}>
           <TextSemiBold>{name}</TextSemiBold>
           <View
-            style={
-              status === 'Bình thường'
-                ? styles.statusText
-                : styles.statusDangerText
-            }>
+            style={[
+              styles.statusText,
+              {backgroundColor: STATUS_COLORS[status]},
+            ]}>
             <TextSmallTwelve style={{color: Colors.whiteColor}}>
-              {status}
+              {STATUS[status]}
             </TextSmallTwelve>
           </View>
         </View>
-        {index === 1 && (
+        {id === 2 && item?.eating_status && (
           <View style={styles.wrapperTypeTime}>
             <TextNormal style={styles.timeText}>Trạng thái:</TextNormal>
-            <TextNormal style={styles.typeTimeText}>Trước ăn</TextNormal>
+            <TextNormal style={styles.typeTimeText}>
+              {item?.eating_status === 1
+                ? 'Nhịn ăn'
+                : item?.eating_status === 2
+                ? 'Sau ăn'
+                : 'Truớc ăn'}
+            </TextNormal>
           </View>
         )}
-        <TextSmallTwelve style={styles.timeText}>{created_at}</TextSmallTwelve>
+        <TextSmallTwelve style={styles.timeText}>
+          {new Date(created_at)
+            .toLocaleDateString('en-GB')
+            .replaceAll('/', '-') +
+            ', ' +
+            new Date(created_at).toLocaleTimeString('vi-VN').substring(0, 5)}
+        </TextSmallTwelve>
       </View>
       <View style={styles.wrapperValue}>
         <View style={{flexDirection: 'row'}}>
@@ -55,7 +68,7 @@ const DiseaseCard = ({
               <Icons
                 type={'FontAwesome'}
                 name={'heartbeat'}
-                size={22}
+                size={20}
                 style={{paddingHorizontal: 3}}
                 color={'red'}
               />

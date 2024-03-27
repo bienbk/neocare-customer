@@ -121,14 +121,6 @@ const Login = props => {
                 </View>
               </TouchableOpacity>
             </View>
-            {/* <TouchableOpacity
-              onPress={}
-              disabled={!phone || phone.length === 0}
-              style={[styles.buttonSubmitPhone]}>
-              <TextSemiBold style={styles.textConfirm}>
-                {'Tiếp tục'}
-              </TextSemiBold>
-            </TouchableOpacity> */}
             <CustomButton
               onPress={() => handleSubmitPhone()}
               isDisabled={!phone || phone.length === 0}
