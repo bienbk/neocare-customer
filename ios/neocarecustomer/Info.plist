@@ -36,7 +36,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Cho phép "Neo Care" được biết vị trí của bạn để tìm cửa hàng gần nhất</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SVN-Poppins-Black.ttf</string>
