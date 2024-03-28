@@ -34,7 +34,7 @@ export default function Example() {
 
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
-      <Icons
+      {/* <Icons
         type={'Ionicons'}
         name={'arrow-back'}
         size={25}
@@ -57,7 +57,7 @@ export default function Example() {
           },
         )}
         scrollEventThrottle={1}
-      />
+      /> */}
     </View>
   );
 }
@@ -65,7 +65,7 @@ export default function Example() {
 const styles = StyleSheet.create({
   content: {
     padding: 24,
-    backgroundColor: 'red',
+    // backgroundColor: 'red',
     minHeight: heightDevice,
   },
   /** Header */
