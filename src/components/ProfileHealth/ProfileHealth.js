@@ -8,6 +8,7 @@ import {updateUserInformation} from 'store/actions';
 import Status from 'common/Status/Status';
 import {resetUpdateUser} from 'store/user/userAction';
 import {statusUpdateUserSelector} from 'store/selectors';
+import {CommonActions} from '@react-navigation/native';
 const Profile = ({navigation}) => {
   const dispatch = useDispatch();
   const statusUpdateUser = useSelector(state =>
@@ -16,7 +17,12 @@ const Profile = ({navigation}) => {
   React.useEffect(() => {
     if (statusUpdateUser === Status.SUCCESS) {
       dispatch(resetUpdateUser());
-      navigation && navigation.navigate(NAVIGATION_MAIN);
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{name: NAVIGATION_MAIN}],
+        }),
+      );
     }
   }, [statusUpdateUser]);
   const submitUserInfo = payload => {

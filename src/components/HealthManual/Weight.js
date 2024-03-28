@@ -30,7 +30,6 @@ import {
 } from 'assets/constans';
 import {NAVIGATION_HOME} from 'navigation/routes';
 import Status from 'common/Status/Status';
-import {} from 'assets/constans';
 import DateTimePicker from 'common/DateTImePicker/DateTimePicker';
 const Weight = ({navigation}) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
@@ -38,7 +37,7 @@ const Weight = ({navigation}) => {
   const [loading, setLoading] = useState(true);
   const [messure, setMessure] = useState(1);
   const [weight, setWeight] = useState(40);
-  const inputTransition = new Animated.Value(-widthDevice);
+  const inputTransition = new Animated.Value(0);
   const conclusionTransition = new Animated.Value(widthDevice);
   const [conclusion, setConclusion] = useState(-1);
   const dispatch = useDispatch();
@@ -147,6 +146,7 @@ const Weight = ({navigation}) => {
                 type={messure === 1 ? 'kg' : 'lbs'}
                 initValue={weight}
                 setValue={setWeight}
+                max={1000}
               />
             )}
           </Animated.View>

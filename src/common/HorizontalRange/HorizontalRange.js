@@ -5,11 +5,11 @@ import {TextNormalSemiBold} from '../../common/Text/TextFont';
 import {widthDevice} from '../../assets/constans';
 import Colors from '../../theme/Colors';
 import Icons from '../../common/Icons/Icons';
-const segmentsLength = 600;
-const segmentWidth = 3;
-const segmentSpacing = 14;
+const segmentsLength = 1000;
+const segmentWidth = 2;
+const segmentSpacing = 10;
 const snapSegment = segmentWidth + segmentSpacing;
-const spacerWidth = Math.floor((widthDevice - snapSegment) / 2) - 1;
+const spacerWidth = Math.floor(widthDevice / 2 - snapSegment);
 const rulerWidth = spacerWidth * 2 + (segmentsLength - 1) * snapSegment;
 const indicatorWidth = 100;
 const indicatorHeight = 80;
@@ -29,7 +29,7 @@ const Ruler = ({type, data}) => {
                   width: segmentWidth,
                   backgroundColor: Colors.gray.gray80,
                   borderRadius: 10,
-                  height: tenth ? 40 : 25,
+                  height: tenth ? 45 : 20,
                   marginBottom: tenth === 0 ? 10 : 0,
                   alignSelf: 'center',
                   marginRight: segmentSpacing,
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
   },
   indicatorWrapper: {
     position: 'absolute',
-    left: (widthDevice - indicatorWidth - 20) / 2,
+    left: (widthDevice - indicatorWidth - 26) / 2,
     top: 10,
     alignItems: 'center',
     justifyContent: 'center',

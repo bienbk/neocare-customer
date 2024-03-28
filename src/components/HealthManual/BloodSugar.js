@@ -43,10 +43,9 @@ const BloodSugar = ({navigation, setWarningModal}) => {
   const [date, setDate] = useState(new Date());
   const [loading, setLoading] = useState(true);
   const [messure, setMessure] = useState(1);
-  const [bloodSugar, setBloodSugar] = useState(40);
+  const [bloodSugar, setBloodSugar] = useState(MIN_MOL);
   const [timeMessure, setTimeMessure] = useState(1);
   const [conclusion, setConclusion] = useState(-1);
-  // const [warningModal, setWarningModal] = useState(false);
   const dispatch = useDispatch();
   const statusCreateParameter = useSelector(state =>
     statusCreateParamSelector(state),
@@ -60,8 +59,8 @@ const BloodSugar = ({navigation, setWarningModal}) => {
   }, [loading]);
   useEffect(() => {
     if (bloodSugar && !loading) {
-      messure === 1 && setInvalid(parseFloat(bloodSugar) < parseFloat(MIN_MG));
-      messure === 2 && setInvalid(parseFloat(bloodSugar) < parseFloat(MIN_MOL));
+      messure === 2 && setInvalid(parseFloat(bloodSugar) < parseFloat(MIN_MG));
+      messure === 1 && setInvalid(parseFloat(bloodSugar) < parseFloat(MIN_MOL));
     }
   }, [bloodSugar]);
 
@@ -87,14 +86,14 @@ const BloodSugar = ({navigation, setWarningModal}) => {
     );
   };
   const processInput = () => {
-    if (messure === 1 && parseFloat(bloodSugar) < MIN_MG) {
+    if (messure === 2 && parseFloat(bloodSugar) < MIN_MG) {
       return;
     }
-    if (messure === 2 && parseFloat(bloodSugar) < MIN_MOL) {
+    if (messure === 1 && parseFloat(bloodSugar) < MIN_MOL) {
       return;
     }
     let result;
-    const checkList = messure === 1 ? BLOOD_SUGAR_MG : BLOOD_SUGAR_MOL;
+    const checkList = messure === 2 ? BLOOD_SUGAR_MG : BLOOD_SUGAR_MOL;
     checkList.map(item => {
       if (
         timeMessure === 1 &&
@@ -151,8 +150,6 @@ const BloodSugar = ({navigation, setWarningModal}) => {
   useEffect(() => {
     if (conclusion !== -1) {
       conclusionTransition && animatedAction(conclusionTransition);
-    } else {
-      inputTransition && animatedAction(inputTransition);
     }
   }, [conclusion]);
   const animatedAction = val => {
@@ -163,12 +160,11 @@ const BloodSugar = ({navigation, setWarningModal}) => {
     }).start();
   };
   const conclusionTransition = new Animated.Value(widthDevice);
-  const inputTransition = new Animated.Value(-widthDevice);
+
   return (
     <View style={styles.container}>
       {conclusion === -1 && (
-        <Animated.View
-          style={{flex: 1, transform: [{translateX: inputTransition}]}}>
+        <Animated.View style={{flex: 1}}>
           <CustomHeader
             conclusion={''}
             title={'Đuờng huyết'}
@@ -198,10 +194,10 @@ const BloodSugar = ({navigation, setWarningModal}) => {
                 {bloodSugar}
               </TextMoneyBold>
               <UnitSelector
-                firstOption={'mg/dL'}
-                secondOption={'mmol/L'}
+                firstOption={'mmol/L'}
+                secondOption={'mg/dL'}
                 onPressSelector={val => {
-                  setBloodSugar(val === 1 ? 45.0 : 5.5);
+                  setBloodSugar(val === 1 ? MIN_MOL : MIN_MG);
                   setMessure(val);
                 }}
                 isSelected={messure}
@@ -215,14 +211,14 @@ const BloodSugar = ({navigation, setWarningModal}) => {
               />
             ) : (
               <HorizontalRange
-                type={messure === 1 ? 'mg' : 'mol'}
+                type={messure === 2 ? 'mg' : 'mol'}
                 initValue={bloodSugar}
                 setValue={setBloodSugar}
-                max={messure === 2 ? 50 * 10 : 200 * 10}
+                max={messure === 1 ? 50 * 10 : 200 * 10}
               />
             )}
             <TextNormalSemiBold style={styles.textNoteSlider}>
-              {messure === 1
+              {messure === 2
                 ? 'Đuờng huyết đơn vị mg/dL (36 ~ 240)'
                 : 'Đuờng huyết đơn vị mmol/L (2.0 ~ 49.9)'}
             </TextNormalSemiBold>
@@ -276,7 +272,7 @@ const BloodSugar = ({navigation, setWarningModal}) => {
             date={date}
             value={bloodSugar}
             withTime={true}
-            unit={messure === 1 ? 'mg/dL' : 'mmol/L'}
+            unit={messure === 2 ? 'mg/dL' : 'mmol/L'}
             type={timeMessure}
           />
         </Animated.View>

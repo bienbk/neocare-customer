@@ -47,7 +47,7 @@ const STATUS_HIGH = 4;
 
 const Cholesterol = ({navigation, setWarningModal}) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
-  // const [warningModal, setWarningModal] = useState(false);
+  const conclusionTransition = new Animated.Value(widthDevice);
   const [date, setDate] = useState(new Date());
   const [HDL, setHDL] = useState('');
   const [LDL, setLDL] = useState('');
@@ -237,8 +237,6 @@ const Cholesterol = ({navigation, setWarningModal}) => {
   useEffect(() => {
     if (conclusion && conclusion !== -1) {
       animatedAction(conclusionTransition);
-    } else {
-      animatedAction(inputTransition);
     }
   }, [conclusion]);
   const animatedAction = val => {
@@ -248,8 +246,6 @@ const Cholesterol = ({navigation, setWarningModal}) => {
       useNativeDriver: true,
     }).start();
   };
-  const conclusionTransition = new Animated.Value(widthDevice);
-  const inputTransition = new Animated.Value(-widthDevice);
 
   const saveParameter = noted => {
     if (conclusion === -1) {
@@ -281,8 +277,7 @@ const Cholesterol = ({navigation, setWarningModal}) => {
   return (
     <Pressable onPress={Keyboard.dismiss} style={styles.container}>
       {conclusion === -1 && (
-        <Animated.View
-          style={{flex: 1, transform: [{translateX: inputTransition}]}}>
+        <Animated.View style={{flex: 1}}>
           <CustomHeader
             conclusion={{color: '#FFE600'}}
             title={'Mỡ máu'}

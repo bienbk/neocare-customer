@@ -11,17 +11,15 @@ import {
 } from 'navigation/routes';
 import SuperTokens from 'supertokens-react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {statusUpdateUserSelector, getStatusGetUserInfo} from 'store/selectors';
+import {getStatusGetUserInfo} from 'store/selectors';
 import {getUserInfoAction, resetGetUserInfo} from 'store/user/userAction';
 import {asyncStorage} from 'store';
 import strings from 'localization/Localization';
 import Status from '../../common/Status/Status';
+import {CommonActions} from '@react-navigation/native';
 
 const Splash = ({navigation}) => {
   const dispatch = useDispatch();
-  // const statusUpdateUser = useSelector(state =>
-  //   statusUpdateUserSelector(state),
-  // );
   const statusGetUserInfo = useSelector(state => getStatusGetUserInfo(state));
   useEffect(() => {
     dispatch(getUserInfoAction());
@@ -48,15 +46,26 @@ const Splash = ({navigation}) => {
     const user = (await asyncStorage.getUser()) || {id: -1};
 
     if (hasToken) {
-      navigation.navigate(
-        user?.info_submitted === 0
-          ? NAVIGATION_PROFILE_HEALTH
-          : NAVIGATION_MAIN,
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [
+            {
+              name:
+                user?.info_submitted === 0
+                  ? NAVIGATION_PROFILE_HEALTH
+                  : NAVIGATION_MAIN,
+            },
+          ],
+        }),
       );
     } else {
-      setTimeout(() => {
-        navigation && navigation.navigate(NAVIGATION_LOGIN);
-      }, 500);
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{name: NAVIGATION_LOGIN}],
+        }),
+      );
     }
   };
   return (

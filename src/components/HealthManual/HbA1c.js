@@ -41,8 +41,7 @@ const HbA1c = ({navigation, setWarningModal}) => {
   const [date, setDate] = useState(new Date());
   const [loading, setLoading] = useState(true);
   const [messure, setMessure] = useState(1);
-  const [hba1c, setHba1c] = useState(40);
-  const inputTransition = new Animated.Value(-widthDevice);
+  const [hba1c, setHba1c] = useState(MIN_PERCENT);
   const conclusionTransition = new Animated.Value(widthDevice);
   const [conclusion, setConclusion] = useState(-1);
   const dispatch = useDispatch();
@@ -64,14 +63,15 @@ const HbA1c = ({navigation, setWarningModal}) => {
     }
   }, [hba1c]);
   const checkValid = () => {
-    messure === 1 && setInvalid(parseFloat(hba1c) < parseFloat(MIN_MOL));
-    messure === 2 && setInvalid(parseFloat(hba1c) < parseFloat(MIN_PERCENT));
+    messure === 2 && setInvalid(parseFloat(hba1c) < parseFloat(MIN_MOL));
+    messure === 1 && setInvalid(parseFloat(hba1c) < parseFloat(MIN_PERCENT));
   };
   const processInput = () => {
-    if (invalid) {
+    console.log(parseFloat(hba1c), invalid);
+    if (invalid === true) {
       return;
     }
-    const checkList = messure === 1 ? HBA1C_MOL : HBA1C_PERCENT;
+    const checkList = messure === 2 ? HBA1C_MOL : HBA1C_PERCENT;
     checkList.map(item => {
       if (parseFloat(hba1c) >= item.min && parseFloat(hba1c) <= item.max) {
         setConclusion({
@@ -88,7 +88,6 @@ const HbA1c = ({navigation, setWarningModal}) => {
     conclusion !== -1 &&
       conclusionTransition &&
       animatedAction(conclusionTransition);
-    conclusion === -1 && inputTransition && animatedAction(inputTransition);
   }, [conclusion]);
   const animatedAction = val => {
     Animated.timing(val, {
@@ -101,7 +100,7 @@ const HbA1c = ({navigation, setWarningModal}) => {
     dispatch(
       createParameterAction({
         a1c_lab_test: {
-          unit: messure === 1 ? UNIT_MMOL_MOL : UNIT_PERCENTER,
+          unit: messure === 2 ? UNIT_MMOL_MOL : UNIT_PERCENTER,
           index: parseFloat(hba1c),
         },
         parameters_monitor_code: CODE_HBA1C,
@@ -123,8 +122,7 @@ const HbA1c = ({navigation, setWarningModal}) => {
   return (
     <View style={styles.container}>
       {conclusion === -1 && (
-        <Animated.View
-          style={{flex: 1, transform: [{translateX: inputTransition}]}}>
+        <Animated.View style={{flex: 1}}>
           <CustomHeader
             conclusion={{icon: 'test-tube', color: Colors.blue.blue50}}
             title={'Xét nghiệm HbA1c'}
@@ -150,10 +148,10 @@ const HbA1c = ({navigation, setWarningModal}) => {
                 {hba1c}
               </TextMoneyBold>
               <UnitSelector
-                firstOption={'mmol/mol'}
-                secondOption={'%'}
+                firstOption={'%'}
+                secondOption={'mmol/mol'}
                 onPressSelector={val => {
-                  setHba1c(val === 1 ? 45.0 : 5.5);
+                  setHba1c(val === 1 ? MIN_PERCENT : MIN_MOL);
                   setMessure(val);
                 }}
                 isSelected={messure}
@@ -167,14 +165,14 @@ const HbA1c = ({navigation, setWarningModal}) => {
               />
             ) : (
               <HorizontalRange
-                type={messure === 2 ? '%' : 'mmol/mol'}
+                type={messure === 1 ? '%' : 'mmol/mol'}
                 initValue={hba1c}
                 setValue={setHba1c}
-                max={messure === 2 ? 18 * 10 : 162 * 10}
+                max={messure === 1 ? 18 * 10 : 162 * 10}
               />
             )}
             <TextNormalSemiBold style={styles.textNoteSlider}>
-              {messure === 2
+              {messure === 1
                 ? 'A1C  đơn vị % (3.0 ~ 17.0)'
                 : 'A1C  đơn vị mmol/mol (9 ~ 162)'}
             </TextNormalSemiBold>

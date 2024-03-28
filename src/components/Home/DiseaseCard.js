@@ -33,10 +33,10 @@ const DiseaseCard = ({
           <View
             style={[
               styles.statusText,
-              {backgroundColor: STATUS_COLORS[status]},
+              {backgroundColor: STATUS_COLORS[status || 0]},
             ]}>
             <TextSmallTwelve style={{color: Colors.whiteColor}}>
-              {STATUS[status]}
+              {STATUS[status || 0]}
             </TextSmallTwelve>
           </View>
         </View>
