@@ -108,6 +108,7 @@
 		96D6C8F92B8D79A600C8A70B /* SVN-Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-Bold.ttf"; path = "../src/assets/fonts/SVN-Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		96D6C8FB2B8D79A600C8A70B /* SVN-Poppins-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-ExtraBoldItalic.ttf"; path = "../src/assets/fonts/SVN-Poppins-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		96D6C8FC2B8D79A600C8A70B /* SVN-Poppins-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-Thin.ttf"; path = "../src/assets/fonts/SVN-Poppins-Thin.ttf"; sourceTree = "<group>"; };
+		96F5B85B2BB9AFF2001A12A3 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -189,6 +190,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				96F5B85B2BB9AFF2001A12A3 /* Config.xcconfig */,
 				96A571232B97B5F80091F3D7 /* Feather.ttf */,
 				96D6C8F02B8D79A600C8A70B /* SVN-Poppins-Black.ttf */,
 				96D6C8EB2B8D79A600C8A70B /* SVN-Poppins-BlackItalic.ttf */,
@@ -657,7 +659,7 @@
 				CODE_SIGN_ENTITLEMENTS = neocarecustomer/neocarecustomer.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = WZUVY28PG4;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = neocarecustomer/Info.plist;
@@ -690,7 +692,7 @@
 				CODE_SIGN_ENTITLEMENTS = neocarecustomer/neocarecustomer.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = WZUVY28PG4;
 				INFOPLIST_FILE = neocarecustomer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -713,6 +715,7 @@
 		};
 		83CBBA201A601CBA00E9B192 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 96F5B85B2BB9AFF2001A12A3 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -785,6 +788,7 @@
 		};
 		83CBBA211A601CBA00E9B192 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 96F5B85B2BB9AFF2001A12A3 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
