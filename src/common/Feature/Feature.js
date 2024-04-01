@@ -22,8 +22,8 @@ const Feature = ({
       logOut();
     }
     if (navigation && link !== NAVIGATION_LOGIN) {
-      console.log('LINK:', link);
-      navigation.navigate(NAVIGATION_MY_PROFILE);
+      // console.log('LINK:', link);
+      navigation.navigate(link);
       // onPress && onPress();
     }
   };

@@ -100,7 +100,7 @@ const Connection = ({navigation, route}) => {
     return (
       <View key={index} style={[styles.otpInputView]}>
         <TextNormal style={styles.otpInputText}>
-          {digit ? digit : ''}
+          {digit ? digit : '-'}
         </TextNormal>
       </View>
     );
@@ -139,7 +139,7 @@ const Connection = ({navigation, route}) => {
               ref={textInputRef}
               onBlur={handleOnBlur}
               style={styles.hiddenTextInput}
-              // autoFocus={true}
+              autoFocus={true}
             />
             {/* <TextNormal style={{color: '#EF0000', paddingVertical: 20}}>
               {messageFollowDoctor

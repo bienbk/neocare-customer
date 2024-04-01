@@ -141,6 +141,11 @@ const Home = ({navigation}) => {
         <DoctorInfo
           currentDoctor={currentDoctor ? currentDoctor : -1}
           onPress={handleSelectDoctor}
+          packagePurchased={
+            currentDoctor && currentDoctor?.package_items
+              ? currentDoctor.package_items.filter(i => i.product_status === 1)
+              : []
+          }
         />
         <View style={styles.wrapperListCard}>
           <FlatList

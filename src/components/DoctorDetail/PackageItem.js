@@ -15,6 +15,7 @@ import Colors from 'theme/Colors';
 import {NAVIGATION_PACKAGE_DETAIL} from 'navigation/routes';
 import ProgressLine from 'common/ProgressLine/ProgressLine';
 import Images from '../../common/Images/Images';
+import Svg from '../../common/Svg/Svg';
 const AvailablePackage = ({packageItem, navigation}) => {
   return (
     <View style={styles.wrapperActivePackage}>
@@ -42,10 +43,7 @@ const AvailablePackage = ({packageItem, navigation}) => {
               {parseInt(packageItem.name.match(/\d+/)[0], 10) * 30 + ' Ngày'}
             </TextSemiBold>
           </View>
-          <Images
-            source={decorator_package}
-            style={{height: 70, width: 130, marginLeft: 10}}
-          />
+          <Svg name={'decorator_package'} size={130} />
         </View>
       </ImageBackground>
       {/* <TextNormal style={styles.packageName}>{packageItem.name}</TextNormal> */}

@@ -11,6 +11,7 @@ import Icons from '../../common/Icons/Icons';
 import Colors from '../../theme/Colors';
 import {
   NAVIGATION_DOCTOR_DETAIL,
+  NAVIGATION_HOME,
   NAVIGATION_MY_DOCTOR,
 } from '../../navigation/routes';
 import {formatMoney, heightDevice} from '../../assets/constans';
@@ -56,16 +57,11 @@ const PackageDetail = ({navigation, route}) => {
   const confirmSendingRequest = () => {
     dispatch(resetBuyPackage());
     setModal(false);
-    navigation && navigation.navigate(NAVIGATION_MY_DOCTOR);
+    navigation && navigation.navigate(NAVIGATION_HOME);
   };
   return (
     <SafeAreaView style={styles.containerSafeArea}>
-      <View
-        style={{
-          flex: 1,
-          padding: 15,
-          backgroundColor: Colors.backgroundColor,
-        }}>
+      <View style={styles.wrapperContainer}>
         <TouchableOpacity
           onPress={() => navigation.navigate(NAVIGATION_DOCTOR_DETAIL)}
           style={styles.closeIcon}>

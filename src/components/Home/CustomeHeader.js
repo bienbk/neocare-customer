@@ -1,12 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, TouchableOpacity, ImageBackground} from 'react-native';
 import {user_example, decorator_header} from 'assets/constans';
 import Images from 'common/Images/Images';
 import Icons from 'common/Icons/Icons';
 import {TextSmallMedium, TextSemiBold} from 'common/Text/TextFont';
 import styles from './styles';
+import {asyncStorage} from 'store';
 
 const CustomeHeader = () => {
+  const [currentUser, setCurrentUser] = React.useState({first_name: ''});
+  useEffect(() => {
+    initUser();
+  }, []);
+  const initUser = async () => {
+    const user = await asyncStorage.getUser();
+    if (user) {
+      setCurrentUser(user);
+    }
+  };
   return (
     // <View style={styles.wrapperHeader}>
     //   <Images source={home_image} style={styles.imageBackground} />
@@ -27,7 +38,10 @@ const CustomeHeader = () => {
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <Images source={user_example} style={styles.avatarIcon} />
         <View style={{paddingHorizontal: 10}}>
-          <TextSemiBold>Xin chào Tran,</TextSemiBold>
+          <TextSemiBold style={{fontWeight: '400'}}>
+            Xin chào
+            <TextSemiBold>{' ' + currentUser?.first_name}</TextSemiBold>
+          </TextSemiBold>
           <TextSmallMedium>Sức khoẻ bạn hôm nay thế nào?</TextSmallMedium>
         </View>
       </View>

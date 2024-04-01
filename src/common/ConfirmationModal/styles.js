@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   modalButtonOkText: {
-    color: 'white',
+    color: Colors.main,
     fontSize: 14,
     fontWeight: '600',
   },
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: 40,
-    backgroundColor: Colors.buttonBackground,
+    backgroundColor: Colors.primary,
     borderRadius: 20,
   },
   buttonBack: {

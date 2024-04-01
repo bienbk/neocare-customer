@@ -15,7 +15,7 @@ import {getStatusGetUserInfo} from 'store/selectors';
 import {getUserInfoAction, resetGetUserInfo} from 'store/user/userAction';
 import {asyncStorage} from 'store';
 import strings from 'localization/Localization';
-import Status from '../../common/Status/Status';
+import Status from 'common/Status/Status';
 import {CommonActions} from '@react-navigation/native';
 
 const Splash = ({navigation}) => {

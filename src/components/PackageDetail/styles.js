@@ -1,10 +1,15 @@
-import {heightDevice, widthDevice} from 'assets/constans';
+import {widthDevice} from 'assets/constans';
 import {StyleSheet} from 'react-native';
 import Colors from 'theme/Colors';
 
 const styles = StyleSheet.create({
   containerSafeArea: {
     flex: 1,
+  },
+  wrapperContainer: {
+    flex: 1,
+    padding: 15,
+    backgroundColor: Colors.backgroundColor,
   },
   closeIcon: {
     position: 'absolute',

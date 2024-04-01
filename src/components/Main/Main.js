@@ -44,7 +44,7 @@ const Main = () => {
     const icons = {
       [NAVIGATION_HOME]: 'icon_heart_main',
       // [NAVIGATION_MY_DOCTOR]: 'icon_mydoctor_main',
-      [NAVIGATION_PRESCRIPTION]: 'icon_medicine_main',
+      // [NAVIGATION_PRESCRIPTION]: 'icon_medicine_main',
       [NAVIGATION_ACCOUNT]: 'icon_account_main',
     };
     const title = router => {
@@ -53,8 +53,8 @@ const Main = () => {
           return 'Trang chủ';
         // case NAVIGATION_MY_DOCTOR:
         //   return 'Bác sĩ';
-        case NAVIGATION_PRESCRIPTION:
-          return 'Chỉ định';
+        // case NAVIGATION_PRESCRIPTION:
+        //   return 'Chỉ định';
         case NAVIGATION_ACCOUNT:
           return strings.common.user;
         default:
@@ -80,7 +80,7 @@ const Main = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName={NAVIGATION_ACCOUNT}
+      initialRouteName={NAVIGATION_HOME}
       screenOptions={screenOption}>
       <Tab.Screen
         name={NAVIGATION_HOME}
@@ -94,11 +94,11 @@ const Main = () => {
         component={Screens.MyDoctor}
         options={{title: () => null}}
       /> */}
-      <Tab.Screen
+      {/* <Tab.Screen
         name={NAVIGATION_PRESCRIPTION}
         component={Screens.Prescription}
         options={{title: () => null}}
-      />
+      /> */}
       <Tab.Screen
         name={NAVIGATION_ACCOUNT}
         component={Screens.Account}

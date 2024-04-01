@@ -301,7 +301,7 @@ export const HOME_DATA = [
     value: '--/--',
     unit: '',
     subVal: '--',
-    label: 'Thêm chỉ số đo',
+    label: 'Nhập thủ công',
   },
   {
     id: 4,
@@ -311,7 +311,7 @@ export const HOME_DATA = [
     created_at: new Date(),
     value: '---',
     unit: '',
-    label: 'Thêm kết quả',
+    label: 'Nhập thủ công',
   },
   {
     id: 2,
@@ -321,7 +321,7 @@ export const HOME_DATA = [
     created_at: new Date(),
     value: '--',
     unit: '',
-    label: 'Thêm chỉ số đo',
+    label: 'Nhập thủ công',
   },
   {
     id: 3,
@@ -331,13 +331,13 @@ export const HOME_DATA = [
     created_at: new Date(),
     value: '--',
     unit: '',
-    label: 'Thêm kết quả',
+    label: 'Nhập thủ công',
   },
   {
     id: 5,
     name: 'Acid Uric',
     code: 'Acid Uric',
-    status: 'Cao bất thường',
+    status: 'Nhập thủ công',
     created_at: new Date(),
     value: '--',
     unit: '',
@@ -351,7 +351,7 @@ export const HOME_DATA = [
     created_at: new Date(),
     value: '78',
     unit: 'kg',
-    label: 'Thêm chỉ số đo',
+    label: 'Nhập thủ công',
   },
 ];
 export const heightDevice = Dimensions.get('window').height;

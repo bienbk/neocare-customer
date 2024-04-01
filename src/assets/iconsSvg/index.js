@@ -20,6 +20,7 @@ import icon_language from './iconMain/icon_language.svg';
 import icon_hotline from './iconMain/icon_hotline.svg';
 import icon_policy from './iconMain/icon_policy.svg';
 import icon_logout_red from './iconMain/icon_logout_red.svg';
+import decorator_package from './iconMain/decorator_package.svg';
 export default {
   icon_option,
   icon_checked,
@@ -33,6 +34,7 @@ export default {
   icon_hotline,
   icon_right_arrow,
   icon_profile,
+  decorator_package,
   icon_female,
   icon_account_main,
   icon_sugar_line,

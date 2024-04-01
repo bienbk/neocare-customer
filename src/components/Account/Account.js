@@ -10,7 +10,6 @@ import {heightDevice, LIST_OPTION} from 'assets/constans';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   TextMoneyBold,
-  TextNormal,
   TextSemiBold,
   TextSmallMedium,
 } from 'common/Text/TextFont';
@@ -72,15 +71,13 @@ const Account = ({navigation}) => {
     await asyncStorage.clearStorage();
     await SuperTokens.signOut();
     setTimeout(() => {
-      setTimeout(() => {
-        navigation.dispatch(
-          CommonActions.reset({
-            index: 0,
-            routes: [{name: NAVIGATION_LOGIN}],
-          }),
-        );
-      }, 50);
-    }, 100);
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{name: NAVIGATION_LOGIN}],
+        }),
+      );
+    }, 50);
   };
   const renderFooter = () => (
     <TextSmallMedium style={{color: Colors.gray.gray60, alignSelf: 'center'}}>
@@ -108,7 +105,7 @@ const Account = ({navigation}) => {
         <Animated.View style={[styles.wrapperHeader, imageAnimation]}>
           <Avatar />
         </Animated.View>
-        <View style={styles.wrapperPackage}>
+        {/* <View style={styles.wrapperPackage}>
           <TextSemiBold>Gói chăm sóc sức khoẻ của tôi</TextSemiBold>
           <View
             style={[
@@ -119,7 +116,7 @@ const Account = ({navigation}) => {
               {'Đã kết nối (2)'}
             </TextNormal>
           </View>
-        </View>
+        </View> */}
         <FlatList
           data={LIST_OPTION}
           scrollEnabled={false}

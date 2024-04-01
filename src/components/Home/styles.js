@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: Colors.backgroundColor,
   },
   fontSize24: {fontSize: 20},
   wrapperHeader: {
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   wrapperListCard: {
-    backgroundColor: Colors.backgroundColor,
+    // backgroundColor: Colors.backgroundColor,
     borderTopRightRadius: 32,
     borderTopLeftRadius: 32,
     marginTop: 0,

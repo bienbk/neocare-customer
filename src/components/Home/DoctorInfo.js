@@ -2,12 +2,23 @@ import React from 'react';
 import {View, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import {TextNormal, TextSemiBold, TextSmallMedium} from 'common/Text/TextFont';
-import Colors from 'theme/Colors';
 import Images from 'common/Images/Images';
 import {doctor_avatar} from 'assets/constans';
-import {home_add_doctor} from '../../assets/constans';
-import {TextSmallTwelve} from '../../common/Text/TextFont';
-const DoctorInfo = ({currentDoctor = -1, onPress}) => {
+import {home_add_doctor} from 'assets/constans';
+import {TextSmallTwelve} from 'common/Text/TextFont';
+const DoctorInfo = ({currentDoctor = -1, onPress, packagePurchased}) => {
+  // console.log(packagePurchased);
+  const leftDay =
+    packagePurchased && packagePurchased.length
+      ? (new Date().getTime() -
+          new Date(packagePurchased[0]?.purchased_date).getTime()) /
+        60000 /
+        (24 * 60)
+      : -1;
+  const totalDay =
+    packagePurchased && packagePurchased.length
+      ? parseInt(packagePurchased[0]?.name.match(/\d+/)[0], 10) * 30
+      : -1;
   return (
     <View style={styles.doctorContainer}>
       <TextSemiBold>{'Chuyên gia tư vấn của tôi'}</TextSemiBold>
@@ -26,9 +37,13 @@ const DoctorInfo = ({currentDoctor = -1, onPress}) => {
               <TextSmallMedium>{'Chuyên khoa tim mạch'}</TextSmallMedium>
             </View>
           </View>
-          <TextNormal style={{paddingTop: 10}}>
-            Gói chăm sóc đặc biệt 6 tháng còn lại 250 ngày
-          </TextNormal>
+          {packagePurchased && leftDay !== -1 && totalDay !== -1 && (
+            <TextNormal style={{paddingTop: 10}}>
+              {`${packagePurchased[0]?.name} còn lại ${
+                totalDay - parseInt(leftDay, 10)
+              } ngày`}
+            </TextNormal>
+          )}
         </TouchableOpacity>
       ) : (
         <View style={styles.containerAsking}>

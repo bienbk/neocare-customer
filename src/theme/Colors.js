@@ -3,7 +3,7 @@ const Colors = {
   buttonBackground: '#2544BD',
   textGrayColor: '#909090',
   numberColor: '#F1DCB1',
-  backgroundColor: '#FBF8FF',
+  backgroundColor: '#f4f4f4',
   textInkColor: '#1B1B21',
   primary: '#FFC51B',
   main: '#05102A',

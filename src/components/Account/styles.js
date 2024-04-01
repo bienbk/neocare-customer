@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    // backgroundColor: 'white',
+    backgroundColor: Colors.backgroundColor,
   },
   flatlistContainer: {
     marginTop: -30,
@@ -79,7 +79,8 @@ const styles = StyleSheet.create({
   containerFlatOption: {
     alignSelf: 'center',
     paddingVertical: 10,
-    marginTop: 20,
+    marginTop: -50,
+    // marginTop: 20,
   },
   textVersion: {
     color: Colors.buttonTextColor,
