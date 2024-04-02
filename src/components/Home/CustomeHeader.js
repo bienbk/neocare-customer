@@ -4,11 +4,14 @@ import {user_example, decorator_header} from 'assets/constans';
 import Images from 'common/Images/Images';
 import Icons from 'common/Icons/Icons';
 import {TextSmallMedium, TextSemiBold} from 'common/Text/TextFont';
+import MyModal from 'common/MyModal/MyModal';
+import {empty_logo} from '../../assets/constans';
 import styles from './styles';
 import {asyncStorage} from 'store';
 
 const CustomeHeader = () => {
   const [currentUser, setCurrentUser] = React.useState({first_name: ''});
+  const [openModalNotify, setOpenModalNotify] = React.useState(false);
   useEffect(() => {
     initUser();
   }, []);
@@ -17,6 +20,12 @@ const CustomeHeader = () => {
     if (user) {
       setCurrentUser(user);
     }
+  };
+  const onPressOpenNotify = () => {
+    setOpenModalNotify(true);
+  };
+  const onPressOutSide = () => {
+    setOpenModalNotify(false);
   };
   return (
     // <View style={styles.wrapperHeader}>
@@ -45,7 +54,26 @@ const CustomeHeader = () => {
           <TextSmallMedium>Sức khoẻ bạn hôm nay thế nào?</TextSmallMedium>
         </View>
       </View>
-      <Icons type={'Feather'} name={'bell'} size={29} color={'black'} />
+      <TouchableOpacity onPress={() => onPressOpenNotify()}>
+        <Icons type={'Feather'} name={'bell'} size={29} color={'black'} />
+      </TouchableOpacity>
+      <MyModal visible={openModalNotify} onPressOutSide={onPressOutSide}>
+        <View style={styles.containerEmpty}>
+          <ImageBackground
+            source={decorator_header}
+            resizeMode={'stretch'}
+            style={styles.headerModal}>
+            <TextSemiBold style={styles.textModal}>{'Thông báo'}</TextSemiBold>
+          </ImageBackground>
+          <View style={styles.modalBody}>
+            <Images
+              resizeMode="contain"
+              style={styles.imageEmpty}
+              source={empty_logo}
+            />
+          </View>
+        </View>
+      </MyModal>
     </ImageBackground>
   );
 };
