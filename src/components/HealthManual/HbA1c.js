@@ -161,7 +161,7 @@ const HbA1c = ({navigation, setWarningModal}) => {
               <ActivityIndicator
                 style={{alignSelf: 'center', marginVertical: 20}}
                 size={'large'}
-                color={Colors.buttonBackground}
+                color={Colors.primary}
               />
             ) : (
               <HorizontalRange

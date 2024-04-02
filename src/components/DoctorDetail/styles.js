@@ -6,6 +6,11 @@ const styles = StyleSheet.create({
   containerSafeArea: {
     flex: 1,
   },
+  titleListPackage: {
+    paddingVertical: 5,
+    marginTop: 10,
+    paddingHorizontal: 15,
+  },
   packageName: {
     paddingVertical: 5,
     fontWeight: 'bold',
@@ -73,7 +78,8 @@ const styles = StyleSheet.create({
     borderColor: Colors.main,
   },
   wrapperHeaderFlatlis: {
-    paddingHorizontal: 5,
+    paddingHorizontal: 15,
+    paddingTop: 10,
     borderRadius: 20,
   },
   wrapperRemoveAction: {
@@ -124,12 +130,13 @@ const styles = StyleSheet.create({
   wrapeprCardInfo: {
     paddingBottom: 5,
     backgroundColor: 'white',
-    width: widthDevice - 30,
+    width: widthDevice,
     marginHorizontal: 15,
     // position: 'absolute',
     // opacity: 0.8,
     borderRadius: 21,
     paddingHorizontal: 20,
+
     alignSelf: 'center',
     // top: (widthDevice * 5) / 6 - 110,
   },

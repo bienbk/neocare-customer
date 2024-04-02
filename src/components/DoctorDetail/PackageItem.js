@@ -102,10 +102,11 @@ const AvailablePackage = ({packageItem, navigation}) => {
 };
 const ActivedPackage = ({packageItem, leftDay, totalDay}) => {
   return (
-    <ImageBackground
-      imageStyle={{borderRadius: 12}}
-      source={card_pink}
-      style={[styles.wrapperActivePackage, {padding: 15}]}>
+    <View
+      style={[
+        styles.wrapperActivePackage,
+        {padding: 10, marginVertical: 10, backgroundColor: '#FFF4D1'},
+      ]}>
       {/* <View style={styles.decorationActived} /> */}
       <View style={{paddingHorizontal: 10}}>
         <TextNormal style={{paddingTop: 5, fontWeight: 'bold'}}>
@@ -136,7 +137,7 @@ const ActivedPackage = ({packageItem, leftDay, totalDay}) => {
           </TextSmallTwelve>
         </View>
       </View>
-    </ImageBackground>
+    </View>
   );
 };
 const convertDate = date => {
@@ -156,11 +157,16 @@ const PackageItem = ({packageItem, index, navigation}) => {
   return (
     <View>
       {packageItem?.product_status === 1 && (
-        <ActivedPackage
-          packageItem={packageItem}
-          leftDay={leftDay}
-          totalDay={totalDay}
-        />
+        <View>
+          <TextSemiBold style={styles.titleListPackage}>
+            Gói đang sử dụng
+          </TextSemiBold>
+          <ActivedPackage
+            packageItem={packageItem}
+            leftDay={leftDay}
+            totalDay={totalDay}
+          />
+        </View>
       )}
       {packageItem?.product_status !== 1 && (
         <AvailablePackage packageItem={packageItem} navigation={navigation} />

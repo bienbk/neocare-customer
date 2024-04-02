@@ -32,10 +32,10 @@ const CustomImage = ({navigation, onPressOption}) => {
           color={Colors.gray.gray20}
         />
       </TouchableOpacity>
-      <LinearGradient
+      {/* <LinearGradient
         colors={['rgba(0,0,0,0.001)', '#FBF8FF']}
         style={{height: '40%', width: '100%'}}
-      />
+      /> */}
     </ImageBackground>
   );
 };

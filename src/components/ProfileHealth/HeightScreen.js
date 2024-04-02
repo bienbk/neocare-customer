@@ -207,7 +207,7 @@ const HeightScreen = ({nextStep}) => {
             <Icons
               type={'Feather'}
               name={'chevrons-left'}
-              color={Colors.buttonBackground}
+              color={Colors.primary}
               size={20}
             />
           </View>

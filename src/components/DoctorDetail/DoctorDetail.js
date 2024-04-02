@@ -62,13 +62,20 @@ const DoctorDetail = ({navigation, route}) => {
           onPressOption={() => setRemoveModal(1)}
         />
         {/* DESCRIPTION SECTION */}
-        <View style={{paddingHorizontal: 15, flex: 1, marginTop: -50}}>
+        <View style={{flex: 1, marginTop: -50}}>
           <CardInformation
             onPressDescription={() =>
               setShowDescription(prev => (prev = !prev))
             }
             showDescription={showDescription}
             doctor={doctor}
+          />
+          <View
+            style={{
+              borderBottomColor: '#F4F4F4',
+              borderBottomWidth: 5,
+              borderStyle: 'solid',
+            }}
           />
           {/* OPTIONS & EXTRA SECTION */}
           <FlatList
