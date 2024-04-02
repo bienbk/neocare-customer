@@ -21,6 +21,7 @@ import {NAVIGATION_VERIFY_CODE} from '../../navigation/routes';
 import CheckBox from '@react-native-community/checkbox';
 import CustomButton from '../../common/CustomButton/CustomButton';
 import strings from '../../localization/Localization';
+import {parsePhoneNumber, isValidPhoneNumber} from 'libphonenumber-js/mobile';
 const FOMART = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 const Login = props => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const Login = props => {
   const statusSendPhone = useSelector(state => isStatusSendPhone(state));
   const errorSendPhone = useSelector(state => isErrorSendOtp(state));
   const [showError, setShowError] = useState(false);
+  const [showPhoneError, setShowPhoneError] = useState(false);
   const [phone, setPhone] = useState('');
   const [isAgreePolicy, setAgreePolicy] = useState(true);
 
@@ -45,7 +47,12 @@ const Login = props => {
     if (!phone) {
       return 0;
     }
-    dispatch(sendPhone('+84' + phone.replace(/^0/, '')));
+    const phoneNumber = parsePhoneNumber(phone, 'VN');
+    if (phoneNumber.isValid()) {
+      dispatch(sendPhone(phoneNumber.number));
+    } else {
+      setShowPhoneError(true);
+    }
   };
   return (
     <SafeAreaView style={styles.safeView}>
@@ -87,7 +94,9 @@ const Login = props => {
                   onChangeText={text => setPhone(text)}
                 />
               </TouchableOpacity>
-              {(phone.match(/[a-z]/i) || FOMART.test(phone)) && (
+              {(phone.match(/[a-z]/i) ||
+                FOMART.test(phone) ||
+                showPhoneError) && (
                 <TextNormal style={styles.errorMessage}>
                   {'Số điện thoại không hợp lệ'}
                 </TextNormal>
