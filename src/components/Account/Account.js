@@ -19,6 +19,9 @@ import {getUserInfoAction, resetGetUserInfo} from 'store/user/userAction';
 import Status from 'common/Status/Status';
 import {CommonActions} from '@react-navigation/native';
 import {asyncStorage} from 'store';
+import {sendPhone} from '../../store/auth/authAction';
+import {NAVIGATION_VERIFY_CODE} from '../../navigation/routes';
+import {isStatusSendPhone} from '../../store/auth/authSelector';
 const IMAGE_HEIGHT = heightDevice * 0.336;
 
 const Account = ({navigation}) => {
@@ -37,6 +40,7 @@ const Account = ({navigation}) => {
   }, [statusGetUser]);
   const fetchUserData = () => dispatch(getUserInfoAction());
   const positionY = useRef(new Animated.Value(0)).current;
+  const statusSendPhone = useSelector(state => isStatusSendPhone(state));
   const imageAnimation = {
     transform: [
       {
@@ -80,10 +84,55 @@ const Account = ({navigation}) => {
     }, 50);
   };
   const renderFooter = () => (
-    <TextSmallMedium style={{color: Colors.gray.gray60, alignSelf: 'center'}}>
-      Phiên bản 1.0 build 2445
-    </TextSmallMedium>
+    <View>
+      <View>
+        <TextSmallMedium
+          style={{color: Colors.gray.gray60, alignSelf: 'center'}}>
+          Phiên bản 1.0 build 2445
+        </TextSmallMedium>
+      </View>
+      <TextNormal
+        onPress={() => deleteAccount()}
+        style={{
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          textDecorationLine: 'underline',
+        }}>
+        Xóa tài khoản
+      </TextNormal>
+    </View>
   );
+
+  const deleteAccount = async () => {
+    const tempUser = await asyncStorage.getUser();
+    if (!tempUser) {
+      return;
+    }
+    dispatch(sendPhone(tempUser?.phone || tempUser?.phoneNumber));
+  };
+
+  const confirmOtp = async () => {
+    const tempUser = await asyncStorage.getUser();
+    if (!tempUser) {
+      return;
+    }
+    navigation.navigate(NAVIGATION_VERIFY_CODE, {
+      phone: tempUser?.phone
+        ? tempUser?.phone.replace(/^\+84/, '')
+        : tempUser?.phoneNumber
+        ? tempUser?.phoneNumber.replace(/^\+84/, '')
+        : null,
+      screen: 'account',
+    });
+  };
+
+  useEffect(() => {
+    if (statusSendPhone === Status.SUCCESS) {
+      confirmOtp();
+    }
+  }, [statusSendPhone]);
+
   return (
     <SafeAreaView style={styles.container}>
       <Animated.View

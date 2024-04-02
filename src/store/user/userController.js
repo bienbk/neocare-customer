@@ -2,28 +2,30 @@ import HttpClient from 'http/HttpClient';
 import {UrlApi} from 'http/UrlApi';
 
 class UserController {
-  // deleteAccount = async (custId, sessionKey, phone) => {
-  //   try {
-  //     const query = {
-  //       custid: custId,
-  //       session_key: sessionKey,
-  //       phone: phone,
-  //     };
-  //     const result = await HttpClient.post(UrlApi.deleteAccount, query);
-  //     console.log('DELETE CONTROLLER:', result);
-  //     return {
-  //       success: true,
-  //       status: 200,
-  //       data: result.data,
-  //     };
-  //   } catch (error) {
-  //     console.log(error);
-  //     return {
-  //       success: false,
-  //       error,
-  //     };
-  //   }
-  // };
+  deleteAccount = async (custId, sessionKey, phone) => {
+    try {
+      const result = await HttpClient.delete(UrlApi.deleteAccount);
+      console.log('DELETE CONTROLLER:', result);
+      if (result?.data?.error) {
+        return {
+          success: false,
+          error: result?.data?.error,
+        };
+      } else {
+        return {
+          success: true,
+          status: 200,
+          data: result.data,
+        };
+      }
+    } catch (error) {
+      console.log(error);
+      return {
+        success: false,
+        error,
+      };
+    }
+  };
   // confirmDeleteAccount = async query => {
   //   try {
   //     const {data} = await HttpClient.put(UrlApi.confirmOtpDelete, query);

@@ -37,6 +37,7 @@ const Login = props => {
     if (statusSendPhone === Status.SUCCESS) {
       props.navigation.navigate(NAVIGATION_VERIFY_CODE, {
         phone: phone.replace(/^0/, ''),
+        screen: 'login',
       });
     } else if (statusSendPhone === Status.ERROR) {
       setShowError(true);

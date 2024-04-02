@@ -1,42 +1,37 @@
 import {NEOCARE} from 'store/actionsTypes';
 import {takeLatest, call, put, select} from 'redux-saga/effects';
 import UserController from './userController';
-import { asyncStorage } from '..';
+import {asyncStorage} from '..';
 // import {asyncStorage} from 'store/index';
 // import {isTokenConfirm} from '../auth/authSelector';
 
-// function* getDeleteAccount() {
-//   const currentUser = yield asyncStorage.getUser();
-//   console.log('USERRRRRRRRRRRRR:', currentUser);
-//   try {
-//     const result = yield call(
-//       UserController.deleteAccount,
-//       currentUser?.custid,
-//       currentUser?.session_key,
-//       currentUser?.custphone,
-//     );
-//     console.log('DELETE SAAAGAAAAAA:', result);
-//     if (result?.success && result?.data?.status === 1) {
-//       yield put({
-//         type: NEOCARE.GET_DELETE_ACCOUNT_SUCCESS,
-//       });
-//     } else {
-//       yield put({
-//         type: NEOCARE.GET_DELETE_ACCOUNT_ERROR,
-//         payload: {
-//           errorMsg: result?.data?.message,
-//         },
-//       });
-//     }
-//   } catch (error) {
-//     yield put({
-//       type: NEOCARE.GET_DELETE_ACCOUNT_ERROR,
-//       payload: {
-//         errorMsg: 'Xảy ra lỗi trong quá trình xóa tài khoản',
-//       },
-//     });
-//   }
-// }
+function* getDeleteAccount() {
+  const currentUser = yield asyncStorage.getUser();
+  console.log('USERRRRRRRRRRRRR:', currentUser);
+  try {
+    const result = yield call(UserController.deleteAccount);
+    console.log('DELETE SAAAGAAAAAA:', result);
+    if (result?.success) {
+      yield put({
+        type: NEOCARE.GET_DELETE_ACCOUNT_SUCCESS,
+      });
+    } else {
+      yield put({
+        type: NEOCARE.GET_DELETE_ACCOUNT_ERROR,
+        payload: {
+          errorMsg: result?.data?.error,
+        },
+      });
+    }
+  } catch (error) {
+    yield put({
+      type: NEOCARE.GET_DELETE_ACCOUNT_ERROR,
+      payload: {
+        errorMsg: 'Xảy ra lỗi trong quá trình xóa tài khoản',
+      },
+    });
+  }
+}
 // function* confirmDeleteAccountSaga({payload}) {
 //   const tokenConfirm = yield select(state => isTokenConfirm(state));
 //   console.log('tokenConfirm', tokenConfirm);
@@ -156,13 +151,13 @@ function* getUserInfoSaga() {
 }
 
 export default function* watcherSaga() {
-  // yield takeLatest(NEOCARE.GET_DELETE_ACCOUNT_REQUEST, getDeleteAccount);
+  yield takeLatest(NEOCARE.GET_DELETE_ACCOUNT_REQUEST, getDeleteAccount);
   // yield takeLatest(
   //   NEOCARE.CONFIRM_DELETE_OTP_REQUEST,
   //   confirmDeleteAccountSaga,
   // );
 
-  yield takeLatest(NEOCARE.GET_USER_INFO_REQUEST, getUserInfoSaga)
+  yield takeLatest(NEOCARE.GET_USER_INFO_REQUEST, getUserInfoSaga);
   yield takeLatest(NEOCARE.REGISTER_USER_REQUEST, registerUserSaga);
   yield takeLatest(NEOCARE.UPDATE_USER_INFO_REQUEST, updateUserSaga);
 }

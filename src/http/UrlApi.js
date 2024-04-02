@@ -17,7 +17,7 @@ export const UrlApi = {
   resendPhone: BASE_NEOCARE_AUTH + 'patients/auth/signinup/code/resend',
   confirmPhone: BASE_NEOCARE_AUTH + 'patients/auth/signinup/code/consume',
   loginPhone: BASE_NEOCARE_AUTH + 'customerloginphone',
-  deleteAccount: BASE_NEOCARE_AUTH + 'deleteAccount',
+  deleteAccount: BASE_NEOCARE_CUSTOMER + 'users',
   confirmOtpDelete: BASE_NEOCARE_AUTH + 'confirmPhone',
   updateUserInfo: BASE_NEOCARE_AUTH + 'updateCustomerInfo',
   updateLanguageUrl: BASE_NEOCARE_AUTH + 'updatelanguages',

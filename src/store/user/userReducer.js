@@ -7,7 +7,7 @@ const initializeState = {
   currentUser: -1,
   statusGetUserInfo: Status.DEFAULT,
 
-  // statusDeleteAccount: Status.DEFAULT,
+  statusDeleteAccount: Status.DEFAULT,
 
   // statusConfirmDelete: Status.DEFAULT,
   // errorDeleteAccount: '',
@@ -43,21 +43,21 @@ export default (state = initializeState, {type, payload}) => {
     //     statusSetLanguage: Status.ERROR,
     //   };
     // }
-    // case NEOCARE.GET_DELETE_ACCOUNT_REQUEST:
-    //   return {
-    //     ...state,
-    //     statusDeleteAccount: Status.LOADING,
-    //   };
-    // case NEOCARE.GET_DELETE_ACCOUNT_SUCCESS:
-    //   return {
-    //     ...state,
-    //     statusDeleteAccount: Status.SUCCESS,
-    //   };
-    // case NEOCARE.GET_DELETE_ACCOUNT_RESET:
-    //   return {
-    //     ...state,
-    //     statusDeleteAccount: Status.DEFAULT,
-    //   };
+    case NEOCARE.GET_DELETE_ACCOUNT_REQUEST:
+      return {
+        ...state,
+        statusDeleteAccount: Status.LOADING,
+      };
+    case NEOCARE.GET_DELETE_ACCOUNT_SUCCESS:
+      return {
+        ...state,
+        statusDeleteAccount: Status.SUCCESS,
+      };
+    case NEOCARE.GET_DELETE_ACCOUNT_RESET:
+      return {
+        ...state,
+        statusDeleteAccount: Status.DEFAULT,
+      };
     // case NEOCARE.CONFIRM_DELETE_OTP_REQUEST:
     //   return {
     //     ...state,
