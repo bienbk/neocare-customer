@@ -15,6 +15,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Svg from 'common/Svg/Svg';
 import {TextSmallEleven} from 'common/Text/TextFont';
 import strings from 'localization/Localization';
+import {widthDevice} from '../../assets/constans';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -121,7 +122,7 @@ const styles = StyleSheet.create({
   inactiveTab: {
     alignItems: 'center',
     // zIndex: 999,
-    // width: widthDevice / 5,
+    width: widthDevice / 2, //config ipad
     // backgroundColor: 'red',
     padding: 10,
   },
