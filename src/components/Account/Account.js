@@ -22,6 +22,7 @@ import {asyncStorage} from 'store';
 import {sendPhone} from '../../store/auth/authAction';
 import {NAVIGATION_VERIFY_CODE} from '../../navigation/routes';
 import {isStatusSendPhone} from '../../store/auth/authSelector';
+import {TextNormal} from '../../common/Text/TextFont';
 const IMAGE_HEIGHT = heightDevice * 0.336;
 
 const Account = ({navigation}) => {
