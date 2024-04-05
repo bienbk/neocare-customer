@@ -96,14 +96,14 @@ const VerifyCode = ({navigation, route}) => {
     if (statusGetUser === Status.SUCCESS) {
       checkUser();
     }
-    if (statusGetUser === Status.ERROR) {
-      navigation.navigate(NAVIGATION_LOGIN);
-    }
+    // if (statusGetUser === Status.ERROR) {
+    //   navigation.navigate(NAVIGATION_LOGIN);
+    // }
   }, [statusGetUser]);
   const checkUser = async () => {
     const user = await asyncStorage.getUser();
     user &&
-      user?.info_submitted === 0 &&
+      user?.info_submitted !== 1 &&
       navigation.navigate(NAVIGATION_PROFILE_HEALTH);
 
     user && user?.info_submitted === 1 && navigation.navigate(NAVIGATION_MAIN);
