@@ -54,7 +54,7 @@ const WarningContainer = ({onSkip, onSending, title, error}) => {
           disabled={error.length > 0 ? true : false}
           onPress={onSending}
           style={styles.sendServiceBtn}>
-          <TextNormalSemiBold>Gửi yêu cầu</TextNormalSemiBold>
+          <TextNormalSemiBold>Gửi yêu cầu tư vấn</TextNormalSemiBold>
         </TouchableOpacity>
       </View>
     </View>

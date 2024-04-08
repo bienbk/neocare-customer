@@ -7,29 +7,19 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import Colors from '../../theme/Colors';
-import {
-  TextNormal,
-  TextSemiBold,
-  TextSmallMedium,
-} from '../../common/Text/TextFont';
-import {heightDevice, widthDevice} from '../../assets/constans';
-import Icons from '../../common/Icons/Icons';
-import {
-  NAVIGATION_DOCTOR_DETAIL,
-  NAVIGATION_HOME,
-} from '../../navigation/routes';
+import Colors from 'theme/Colors';
+import {TextNormal, TextSemiBold} from 'common/Text/TextFont';
+import {heightDevice, widthDevice} from 'assets/constans';
+import Icons from 'common/Icons/Icons';
+import {NAVIGATION_DOCTOR_DETAIL, NAVIGATION_HOME} from 'navigation/routes';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   messageFollowDoctorSelector,
   statusFollowDoctorSelector,
-} from '../../store/doctor/doctorSelector';
-import {
-  followDoctorAction,
-  resetFollowDoctor,
-} from '../../store/doctor/doctorAction';
-import Status from '../../common/Status/Status';
-import {asyncStorage} from '../../store';
+} from 'store/selectors';
+import {followDoctorAction, resetFollowDoctor} from 'store/actions';
+import Status from 'common/Status/Status';
+import {asyncStorage} from 'store';
 const maxLength = 6;
 // -------------- TYPE = 1 --->>>>> MANUAL
 // -------------- TYPE = 2 --->>>>> QRCODE
@@ -54,9 +44,6 @@ const Connection = ({navigation, route}) => {
       };
       navigation.navigate(NAVIGATION_DOCTOR_DETAIL, {connected});
     }
-    if (statusFollowDoctor === Status.ERROR) {
-      navigation.navigate(NAVIGATION_HOME);
-    }
   }, [statusFollowDoctor]);
   const handleOnBlur = () => {
     setInputContainerFocus(false);
@@ -75,11 +62,9 @@ const Connection = ({navigation, route}) => {
     currentUser.current = user ? user : {id: -1};
   };
   useEffect(() => {
-    // setPinReady(code.length === maxLength);
     if (code.length === maxLength && currentUser.current.id !== -1) {
       dispatch(
         followDoctorAction({
-          patient_id: 7,
           qr_code: code,
         }),
       );
@@ -92,11 +77,6 @@ const Connection = ({navigation, route}) => {
   const toCodeDigitInput = (value, index) => {
     const emptyInputChar = '';
     const digit = code[index] || emptyInputChar;
-    const isCurrentDigit = index <= code.length - 1;
-    const isLastDigit = index === maxLength - 1;
-    const isCodeFull = code.length === maxLength;
-    const isDigitFocused = isCurrentDigit || (isLastDigit && isCodeFull);
-    const styleOTPInput = inputContainerFocus && isDigitFocused ? true : false;
     return (
       <View key={index} style={[styles.otpInputView]}>
         <TextNormal style={styles.otpInputText}>
@@ -108,7 +88,7 @@ const Connection = ({navigation, route}) => {
   return (
     <SafeAreaView style={styles.container}>
       {typeShow === 1 && (
-        <View style={{flex: 1}}>
+        <View style={styles.container}>
           <TouchableOpacity
             onPress={() => navigation.navigate(NAVIGATION_HOME)}
             style={styles.wrapperClose}>
@@ -141,15 +121,15 @@ const Connection = ({navigation, route}) => {
               style={styles.hiddenTextInput}
               autoFocus={true}
             />
-            {/* <TextNormal style={{color: '#EF0000', paddingVertical: 20}}>
+            <TextNormal style={{color: '#EF0000', paddingVertical: 20}}>
               {messageFollowDoctor
                 ? 'Mã bác sĩ không đúng, vui lòng thử lại!'
                 : ''}
-            </TextNormal> */}
+            </TextNormal>
           </View>
         </View>
       )}
-      {typeShow === 2 && (
+      {/* {typeShow === 2 && (
         <View
           style={{
             backgroundColor: 'white',
@@ -159,7 +139,7 @@ const Connection = ({navigation, route}) => {
           }}>
           <TextNormal>QRCODE</TextNormal>
         </View>
-      )}
+      )} */}
     </SafeAreaView>
   );
 };

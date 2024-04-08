@@ -36,7 +36,7 @@ const DoctorDetail = ({navigation, route}) => {
           ? currentDoctor?.package_items
           : followedDoctor.package_items,
       );
-      setDoctor(currentDoctor ? currentDoctor?.doctor : followedDoctor);
+      setDoctor(currentDoctor ? currentDoctor?.doctor : followedDoctor?.doctor);
     }
   }, [navigation]);
 
@@ -48,7 +48,7 @@ const DoctorDetail = ({navigation, route}) => {
   const headerFlatlist = () => {
     return (
       <View style={styles.wrapperHeaderFlatlis}>
-        <TextSemiBold>{'Gói sức khoẻ'}</TextSemiBold>
+        <TextSemiBold>{'Gói dịch vụ đặc biệt'}</TextSemiBold>
       </View>
     );
   };
@@ -84,9 +84,7 @@ const DoctorDetail = ({navigation, route}) => {
             showsVerticalScrollIndicator={false}
             ListHeaderComponent={headerFlatlist}
             contentContainerStyle={{
-              backgroundColor: 'white',
-              marginBottom: 10,
-              borderRadius: 10,
+              paddingBottom: 10,
             }}
             renderItem={renderPackageOfDoctor}
             keyExtractor={(_, index) => index}
