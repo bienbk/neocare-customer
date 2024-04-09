@@ -54,58 +54,58 @@ export const LIST_OPTION = [
         icon: 'icon_user',
         link: NAVIGATION_MY_PROFILE,
       },
-      {
-        name: 'Thông tin thân nhân',
-        icon: 'icon_profile',
-        link: '',
-      },
-      {
-        name: 'Tài khoản & dữ liệu',
-        icon: 'icon_profile',
-        link: '',
-      },
+      // {
+      //   name: 'Thông tin thân nhân',
+      //   icon: 'icon_profile',
+      //   link: '',
+      // },
+      // {
+      //   name: 'Tài khoản & dữ liệu',
+      //   icon: 'icon_profile',
+      //   link: '',
+      // },
     ],
   },
-  {
-    title: 'Sức khoẻ',
-    id: 2,
-    items: [
-      {
-        name: 'Tình trạng sức khoẻ',
-        icon: 'icon_user',
-        link: '',
-      },
-      {
-        name: 'Nhà thuốc & Chuyên gia',
-        icon: 'icon_profile',
-        link: '',
-      },
-      {
-        name: 'Đơn vị',
-        icon: 'icon_profile',
-        link: '',
-      },
-    ],
-  },
+  // {
+  //   title: 'Sức khoẻ',
+  //   id: 2,
+  //   items: [
+  //     {
+  //       name: 'Tình trạng sức khoẻ',
+  //       icon: 'icon_user',
+  //       link: '',
+  //     },
+  //     {
+  //       name: 'Nhà thuốc & Chuyên gia',
+  //       icon: 'icon_profile',
+  //       link: '',
+  //     },
+  //     {
+  //       name: 'Đơn vị',
+  //       icon: 'icon_profile',
+  //       link: '',
+  //     },
+  //   ],
+  // },
   {
     title: 'Cài đặt & Hỗ trợ',
     id: 3,
     items: [
-      {
-        name: 'Ngôn ngữ',
-        icon: 'icon_language',
-        link: '',
-      },
-      {
-        name: 'Hotline 0901234567',
-        icon: 'icon_hotline',
-        link: '',
-      },
-      {
-        name: 'Chính sách và quyền riêng tư',
-        icon: 'icon_policy',
-        link: '',
-      },
+      // {
+      //   name: 'Ngôn ngữ',
+      //   icon: 'icon_language',
+      //   link: '',
+      // },
+      // {
+      //   name: 'Hotline 0901234567',
+      //   icon: 'icon_hotline',
+      //   link: '',
+      // },
+      // {
+      //   name: 'Chính sách và quyền riêng tư',
+      //   icon: 'icon_policy',
+      //   link: '',
+      // },
       {
         name: 'Đăng xuất',
         icon: 'icon_logout_red',
@@ -364,7 +364,7 @@ export const KEY_ONE_SIGNAL = '7ef05ed3-d514-4300-a463-82c371e4def9';
 export const KEY_GOONG_API = 'VphPkfidhRekSJM2Ff9TPIZSFtwDtgIWoXJ0wHUN';
 // export const GOOGLE_MAP_KEY = 'AIzaSyAAO8W-KytYgmE4BzIXP_dLGZ7ABdO2z54';
 export const GOOGLE_MAP_KEY = 'AIzaSyDy_5NNS-DwcZkcIYMar-wcspaL9fWJbQ0';
-
+export const splash = require('assets/images/splash.png');
 export const doctor_avatar = require('assets/images/doctor.png');
 export const doctor_detail = require('assets/images/doctor_detail.png');
 export const empty_logo = require('assets/images/empty_logo.png');

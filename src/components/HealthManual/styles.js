@@ -7,6 +7,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   cholesterolFooter: {alignItems: 'center', paddingTop: 20},
+  methodText: {
+    fontSize: 15,
+    color: 'white',
+    fontWeight: '600',
+  },
   container: {
     flex: 1,
     paddingHorizontal: 5,
@@ -258,21 +263,17 @@ const styles = StyleSheet.create({
   },
   labelAxit: {
     alignSelf: 'center',
-    fontSize: 15,
-    fontWeight: '600',
     backgroundColor: Colors.main,
-    paddingHorizontal: 20,
-    paddingVertical: 5,
-    marginTop: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 8,
+    marginVertical: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    color: 'white',
-    borderRadius: 20,
+    borderRadius: 16,
   },
   textAxitLabel: {
     alignSelf: 'center',
-    color: Colors.gray.gray40,
-    marginVertical: 10,
+    color: Colors.whiteColor,
   },
   wrapperAxitUric: {
     marginHorizontal: 20,

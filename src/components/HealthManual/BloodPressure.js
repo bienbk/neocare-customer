@@ -352,9 +352,11 @@ const BloodPressure = ({navigation, setWarningModal}) => {
             )}
           </View>
         ) : (
-          <TextNormalSemiBold style={[styles.labelAxit, {marginBottom: 20}]}>
-            {'Thủ công'}
-          </TextNormalSemiBold>
+          <View style={styles.labelAxit}>
+            <TextNormalSemiBold style={styles.methodText}>
+              {'Thủ công'}
+            </TextNormalSemiBold>
+          </View>
         )}
         {conclusion !== -1 && (
           <View style={[styles.wrapperConclusion]}>

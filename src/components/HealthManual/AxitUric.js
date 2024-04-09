@@ -180,9 +180,11 @@ const AxitUric = ({navigation, setWarningModal}) => {
               </TextSemiBold>
             </View>
             {conclusion !== -1 && !inputFocused && axitUric && (
-              <TextNormalSemiBold style={styles.labelAxit}>
-                {messure === 1 ? 'mg/dL' : 'Umol/L'}
-              </TextNormalSemiBold>
+              <View style={styles.labelAxit}>
+                <TextNormalSemiBold style={styles.textAxitLabel}>
+                  {messure === 1 ? 'mg/dL' : 'Umol/L'}
+                </TextNormalSemiBold>
+              </View>
             )}
             <TextInput
               onChangeText={setAxitUric}

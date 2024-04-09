@@ -150,21 +150,21 @@ const ConclusionInput = ({navigation, conclusion, onSave, value, title, unit, ty
               {parseFloat(value).toFixed(1)}
             </TextNormal>
             <TextNormal style={{fontSize: 17}}>{unit}</TextNormal>
-            <TextNormal
-              style={[
-                styles.textTimeMessure,
-                type > 3 && {backgroundColor: Colors.gray.gray70},
-              ]}>
-              {type === 1
-                ? 'Nhịn ăn'
-                : type === 2
-                ? 'Sau ăn'
-                : type === 3
-                ? 'Truớc ăn'
-                : type === 4
-                ? 'Xét nghiệm'
-                : 'Thủ công'}
-            </TextNormal>
+            <View style={[styles.wrapperTimeMessure, type > 3 && {backgroundColor: Colors.gray.gray70}]}>
+              <TextNormal
+                style={styles.textTimeMessure}>
+                {type === 1
+                  ? 'Nhịn ăn'
+                  : type === 2
+                  ? 'Sau ăn'
+                  : type === 3
+                  ? 'Truớc ăn'
+                  : type === 4
+                  ? 'Xét nghiệm'
+                  : 'Thủ công'}
+              </TextNormal>
+            </View>
+
           </View>
         )}
         {title === 'Mỡ máu' && (
@@ -390,14 +390,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  textTimeMessure: {
+  wrapperTimeMessure: {
     paddingHorizontal: 20,
     paddingVertical: 8,
     backgroundColor: Colors.main,
+    marginVertical: 10,
     borderRadius: 16,
+  },
+  textTimeMessure: {
+
     fontWeight: 'bold',
     color: 'white',
-    marginTop: 10,
   },
   wrapperInputArea: {
     minHeight: 100,
@@ -405,6 +408,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     marginTop: 15,
     marginHorizontal: 15,
+    paddingVertical: 5,
   },
   wrapperDateSelector: {
     padding: 5,
@@ -413,7 +417,6 @@ const styles = StyleSheet.create({
   iconText: {position: 'absolute', top: 18, left: 15},
   inputArea: {
     marginLeft: 40,
-    paddingVertical: 15,
     paddingRight: 10,
     color: Colors.gray.gray40,
   },

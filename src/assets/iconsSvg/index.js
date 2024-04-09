@@ -21,8 +21,12 @@ import icon_hotline from './iconMain/icon_hotline.svg';
 import icon_policy from './iconMain/icon_policy.svg';
 import icon_logout_red from './iconMain/icon_logout_red.svg';
 import decorator_package from './iconMain/decorator_package.svg';
+import brand_name from './iconMain/brand_name.svg';
+import icon_splash from './iconMain/icon_splash.svg';
 export default {
   icon_option,
+  icon_splash,
+  brand_name,
   icon_checked,
   icon_mydoctor_main,
   icon_male,

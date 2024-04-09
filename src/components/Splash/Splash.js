@@ -1,9 +1,6 @@
 import React, {useEffect} from 'react';
 import {View, SafeAreaView} from 'react-native';
 import styles from './styles';
-
-// import {useDispatch} from 'react-redux';
-import {TextMoneyBold} from 'common/Text/TextFont';
 import {
   NAVIGATION_LOGIN,
   NAVIGATION_MAIN,
@@ -17,13 +14,14 @@ import {asyncStorage} from 'store';
 import strings from 'localization/Localization';
 import Status from 'common/Status/Status';
 import {CommonActions} from '@react-navigation/native';
+import Svg from 'common/Svg/Svg';
+import Colors from 'theme/Colors';
 
 const Splash = ({navigation}) => {
   const dispatch = useDispatch();
   const statusGetUserInfo = useSelector(state => getStatusGetUserInfo(state));
   useEffect(() => {
     dispatch(getUserInfoAction());
-    // checkUser();
   }, []);
 
   useEffect(() => {
@@ -44,34 +42,38 @@ const Splash = ({navigation}) => {
     strings.setLanguage('vi');
     const hasToken = await doesSessionExist();
     const user = (await asyncStorage.getUser()) || {id: -1};
-
-    if (hasToken) {
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [
-            {
-              name:
-                user?.info_submitted === 0
-                  ? NAVIGATION_PROFILE_HEALTH
-                  : NAVIGATION_MAIN,
-            },
-          ],
-        }),
-      );
-    } else {
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [{name: NAVIGATION_LOGIN}],
-        }),
-      );
-    }
+    setTimeout(() => {
+      if (hasToken) {
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [
+              {
+                name:
+                  user?.info_submitted === 0
+                    ? NAVIGATION_PROFILE_HEALTH
+                    : NAVIGATION_MAIN,
+              },
+            ],
+          }),
+        );
+      } else {
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{name: NAVIGATION_LOGIN}],
+          }),
+        );
+      }
+    }, 1000);
   };
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.wrapper}>
-        <TextMoneyBold>WELCOME TO NEO CARE</TextMoneyBold>
+        <Svg name={'brand_name'} size={220} />
+        <View style={styles.decorator}>
+          <Svg name={'icon_splash'} size={300} color={Colors.primary} />
+        </View>
       </View>
     </SafeAreaView>
   );
