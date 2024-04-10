@@ -141,6 +141,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     // alignItems: 'center',
     // backgroundColor: 'red',
+    flex: 1,
     color: 'black',
     // backgroundColor: 'green',
     // fontFamily: 'SVN-Poppins-Medium',

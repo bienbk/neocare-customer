@@ -23,8 +23,15 @@ import icon_logout_red from './iconMain/icon_logout_red.svg';
 import decorator_package from './iconMain/decorator_package.svg';
 import brand_name from './iconMain/brand_name.svg';
 import icon_splash from './iconMain/icon_splash.svg';
+import doctor_icon from './iconMain/doctor_icon.svg';
+import heart_active from './iconMain/heart_active';
+import background_doctor from './iconMain/background_doctor.svg';
+import icon_avatar from './iconMain/icon_avatar.svg';
 export default {
+  heart_active,
   icon_option,
+  background_doctor,
+  icon_avatar,
   icon_splash,
   brand_name,
   icon_checked,
@@ -40,6 +47,7 @@ export default {
   icon_profile,
   decorator_package,
   icon_female,
+  doctor_icon,
   icon_account_main,
   icon_sugar_line,
   icon_heart_line,

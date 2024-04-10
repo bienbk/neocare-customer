@@ -2,6 +2,7 @@ import {Dimensions, Platform} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import Colors from '../theme/Colors';
 import {NAVIGATION_LOGIN, NAVIGATION_MY_PROFILE} from '../navigation/routes';
+
 export const today = new Intl.DateTimeFormat('vi', {
   month: 'long',
   day: 'numeric',
@@ -26,7 +27,20 @@ export const STATUS_COLORS = {
   5: Colors.very_high,
   6: Colors.highest,
 };
-export const WARNING_TEXT = 'Thống kê chỉ số khuyên bạn nên liên hệ ngay với chuyên gia tư vấn sức khoẻ của bạn hoặc  đến gặp bác sĩ  để kiểm tra, điều chỉnh phuơng pháp điều trị.';
+export const BMI = [
+  {
+    min: MIDDLE_DOT,
+    max: 18.5,
+    key: 'Thiếu cân',
+    color: Colors.lowest,
+    status: 1,
+  },
+  {min: 18.6, max: 24.9, key: 'Bình thuờng', color: Colors.normal, status: 0},
+  {min: 25, max: 29.9, key: 'Thừa cân', color: Colors.litle_high, status: 3},
+  {min: 30, max: 999, key: 'Béo phì', color: Colors.very_high, status: 5},
+];
+export const WARNING_TEXT =
+  'Thống kê chỉ số khuyên bạn nên liên hệ ngay với chuyên gia tư vấn sức khoẻ của bạn hoặc  đến gặp bác sĩ  để kiểm tra, điều chỉnh phuơng pháp điều trị.';
 export const convertDate = (date, year) => {
   return new Intl.DateTimeFormat(
     'vi',
@@ -196,7 +210,7 @@ const BLOOD_PRESSURE = [
   },
 ];
 const MIN = Number.MIN_SAFE_INTEGER;
-const MAX = Number.MAX_SAFE_INTEGER;
+const MAX = 9999;
 export const BLOOD_SUGAR_MOL = [
   {
     key: 'Cao',

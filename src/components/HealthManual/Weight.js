@@ -31,6 +31,8 @@ import {
 import {NAVIGATION_HOME} from 'navigation/routes';
 import Status from 'common/Status/Status';
 import DateTimePicker from 'common/DateTImePicker/DateTimePicker';
+import {asyncStorage} from 'store';
+import {BMI} from 'assets/constans';
 const Weight = ({navigation}) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const [date, setDate] = useState(new Date());
@@ -40,25 +42,46 @@ const Weight = ({navigation}) => {
   const inputTransition = new Animated.Value(0);
   const conclusionTransition = new Animated.Value(widthDevice);
   const [conclusion, setConclusion] = useState(-1);
+  const currentUser = React.useRef({id: -1});
   const dispatch = useDispatch();
   const statusCreateParameter = useSelector(state =>
     statusCreateParamSelector(state),
   );
   useEffect(() => {
     if (loading) {
+      if (currentUser.current.id === -1) {
+        checkUser();
+      }
       setTimeout(() => {
         setLoading(false);
       }, 100);
     }
   }, [loading]);
+  const checkUser = async () => {
+    const user = await asyncStorage.getUser();
+    currentUser.current = user ? user : {id: -1};
+  };
 
   const processInput = () => {
-    setConclusion({
-      content: 'Bình thuờng',
-      icon: 'weight',
-      color: Colors.greenColor,
-      type: 'FontAwesome5',
+    if (currentUser.current.id === -1 && !currentUser.current?.height) {
+      return;
+    }
+    const height = Math.pow(parseFloat(currentUser.current?.height / 100), 2);
+    const bmiIndex = parseFloat(weight / height);
+    let result;
+    BMI.map(item => {
+      if (bmiIndex > item.min && bmiIndex < item.max) {
+        result = item;
+      }
     });
+    if (result) {
+      setConclusion({
+        content: result.key,
+        icon: 'weight',
+        color: result.color,
+        type: 'FontAwesome5',
+      });
+    }
   };
   useEffect(() => {
     if (conclusion !== -1) {
@@ -129,9 +152,7 @@ const Weight = ({navigation}) => {
               <UnitSelector
                 firstOption={'kg'}
                 secondOption={'lbs'}
-                onPressSelector={val => {
-                  setMessure(val);
-                }}
+                onPressSelector={() => setMessure(1)}
                 isSelected={messure}
               />
             </View>
@@ -146,7 +167,7 @@ const Weight = ({navigation}) => {
                 type={messure === 1 ? 'kg' : 'lbs'}
                 initValue={weight}
                 setValue={setWeight}
-                max={1000}
+                max={1500}
               />
             )}
           </Animated.View>

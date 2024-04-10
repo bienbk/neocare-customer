@@ -1,19 +1,20 @@
 import React from 'react';
-import {ImageBackground, TouchableOpacity} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import styles from './styles';
-import Icons from '../../common/Icons/Icons';
-import Colors from '../../theme/Colors';
-import LinearGradient from 'react-native-linear-gradient';
-import {NAVIGATION_HOME, NAVIGATION_MY_DOCTOR} from '../../navigation/routes';
-import { doctor_detail } from '../../assets/constans';
-const AVATAR_URL = 'https://i.pravatar.cc/?img=';
+import Icons from 'common/Icons/Icons';
+import Colors from 'theme/Colors';
+import {NAVIGATION_HOME} from 'navigation/routes';
+import {widthDevice} from 'assets/constans';
+import Svg from 'common/Svg/Svg';
 
 const CustomImage = ({navigation, onPressOption}) => {
   return (
-    <ImageBackground
-      resizeMode={'cover'}
-      source={doctor_detail}
-      style={styles.imageDoctor}>
+    <View style={styles.imageDoctor}>
+      <Svg
+        name={'background_doctor'}
+        width={'100%'}
+        height={(widthDevice * 5) / 6}
+      />
       <TouchableOpacity
         onPress={() => navigation.navigate(NAVIGATION_HOME)}
         style={styles.closeIcon}>
@@ -32,11 +33,7 @@ const CustomImage = ({navigation, onPressOption}) => {
           color={Colors.gray.gray20}
         />
       </TouchableOpacity>
-      {/* <LinearGradient
-        colors={['rgba(0,0,0,0.001)', '#FBF8FF']}
-        style={{height: '40%', width: '100%'}}
-      /> */}
-    </ImageBackground>
+    </View>
   );
 };
 

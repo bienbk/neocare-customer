@@ -47,7 +47,9 @@ const Home = ({navigation}) => {
     return listener;
   }, [navigation]);
   useEffect(() => {
-    mapParameter();
+    if (listParameter && listParameter.length) {
+      mapParameter();
+    }
   }, [listParameter]);
   const mapParameter = () => {
     const tempMap = new Map(
@@ -55,7 +57,6 @@ const Home = ({navigation}) => {
         return [i.code, i];
       }),
     );
-    console.log('TEST::::::::', tempMap);
     listParameter.map(p => {
       if (tempMap.has(p.name)) {
         const mapItem = tempMap.get(p.name);
@@ -76,7 +77,6 @@ const Home = ({navigation}) => {
         tempMap.set(p.name, mapItem);
       }
     });
-    console.log(tempMap.values());
     setListParams(Array.from(tempMap.values()));
   };
   useEffect(() => {

@@ -3,9 +3,9 @@ import {View, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import {TextNormal, TextSemiBold, TextSmallMedium} from 'common/Text/TextFont';
 import Images from 'common/Images/Images';
-import {doctor_avatar} from 'assets/constans';
 import {home_add_doctor} from 'assets/constans';
 import {TextSmallTwelve} from 'common/Text/TextFont';
+import Svg from 'common/Svg/Svg';
 const DoctorInfo = ({currentDoctor = -1, onPress, packagePurchased}) => {
   // console.log(packagePurchased);
   const leftDay =
@@ -25,7 +25,7 @@ const DoctorInfo = ({currentDoctor = -1, onPress, packagePurchased}) => {
       {currentDoctor !== -1 ? (
         <TouchableOpacity onPress={onPress} style={styles.wrapperDoctorInfo}>
           <View style={styles.wrapperMainDoctor}>
-            <Images source={doctor_avatar} style={styles.imageDoctor} />
+            <Svg name={'doctor_icon'} size={70} style={styles.imageDoctor} />
             <View style={styles.paddingH10}>
               <TextNormal style={styles.doctorName}>
                 {currentDoctor?.doctor?.last_name

@@ -51,6 +51,7 @@ const MyProfile = ({navigation}) => {
     setFirstname(user?.first_name || '');
     setPhone(user?.phone || '');
     setGender(user?.gender === 1 ? 'Nam' : 'Nữ');
+    setHeight(user?.height || 165);
     const tempBirthday = user?.birthday
       ? user.birthday.substring(0, 10).split('-').reverse().join('/')
       : '';
@@ -70,6 +71,7 @@ const MyProfile = ({navigation}) => {
       gender: gender === 'Nam' ? 1 : 0,
       info_submitted: 1,
       birthday: formatBirthday(date),
+      height: parseFloat(height),
     };
     dispatch(updateUserInformation(payload));
   };

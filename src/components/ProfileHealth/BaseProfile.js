@@ -47,7 +47,7 @@ const BaseProfile = ({next}) => {
       last_name: lastname,
       gender: gender === 'Nam' ? 1 : 0,
       info_submitted: 1,
-      // height: parseFloat(height),
+      height: parseFloat(height),
       birthday: formatBirthday(date.toISOString()),
     };
     // console.log(payload);
@@ -70,7 +70,7 @@ const BaseProfile = ({next}) => {
             returnKeyType={'done'}
             placeholderTextColor={Colors.textGrayColor}
             onSubmitEditing={Keyboard.dismiss}
-            value={firstname}
+            value={lastname}
             onChangeText={setFirstname}
             underlineColorAndroid="transparent"
           />
@@ -83,7 +83,7 @@ const BaseProfile = ({next}) => {
             returnKeyType={'done'}
             placeholderTextColor={Colors.textGrayColor}
             onSubmitEditing={Keyboard.dismiss}
-            value={lastname}
+            value={firstname}
             onChangeText={setLastname}
             underlineColorAndroid="transparent"
           />

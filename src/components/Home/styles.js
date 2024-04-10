@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
   },
   imageDoctorAsking: {height: 120, width: 70, marginHorizontal: 10},
   paddingH10: {paddingHorizontal: 10},
-  imageDoctor: {height: 70, width: 70, borderRadius: 10},
+  imageDoctor: {borderRadius: 10},
   wrapperMainDoctor: {
     flexDirection: 'row',
     borderBottomColor: Colors.whiteColor,
