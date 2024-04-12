@@ -78,7 +78,7 @@ const HealthManual = ({navigation, route}) => {
         listDoctors.length && listDoctors[0]?.package_items
           ? listDoctors[0].package_items[0].product_id
           : -1,
-      status: 7,
+      status: 1,
     };
     dispatch(sendServiceAction(body));
   };
