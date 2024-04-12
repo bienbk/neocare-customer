@@ -105,8 +105,8 @@ android {
         applicationId "com.neocarecustomer"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 9
-        versionName "1.0.0"
+        versionCode 15
+        versionName "1.0.1"
         multiDexEnabled true
         resValue "string", "build_config_package", "com.neocarecustomer"
         manifestPlaceholders = [label: 'Neo_NeoCare_Customer']
@@ -176,6 +176,14 @@ android {
             }
 
         }
+    }
+
+    // Define the assembleReleaserelease task
+    task assembleReleaserelease {
+        // Define task actions here
+        // For example:
+        dependsOn('assembleRelease')
+        // Add any additional configuration or dependencies as needed
     }
 }
 
