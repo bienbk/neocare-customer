@@ -6,6 +6,7 @@ import {
   NAVIGATION_HEALTH_MANUAL,
   NAVIGATION_LOGIN,
   NAVIGATION_MAIN,
+  NAVIGATION_MY_PHARMACY,
   NAVIGATION_MY_PROFILE,
   NAVIGATION_PACKAGE_DETAIL,
   NAVIGATION_PROFILE_HEALTH,
@@ -55,6 +56,10 @@ const StackNavigator = () => {
       <Stack.Screen
         name={NAVIGATION_MY_PROFILE}
         component={Screens.MyProfile}
+      />
+      <Stack.Screen
+        name={NAVIGATION_MY_PHARMACY}
+        component={Screens.MyPharmacy}
       />
       <Stack.Screen
         name={NAVIGATION_SHOW_MANAGER}

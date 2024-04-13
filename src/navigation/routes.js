@@ -15,3 +15,4 @@ export const NAVIGATION_CONNECTION = 'Connection';
 export const NAVIGATION_PRESCRIPTION = 'Prescription';
 export const NAVIGATION_SHOW_MANAGER = 'ShowManager';
 export const NAVIGATION_MY_PROFILE = 'MyProfile';
+export const NAVIGATION_MY_PHARMACY = 'MyPharmacy';

@@ -115,6 +115,7 @@ const Home = ({navigation}) => {
     } else {
       navigation.navigate(NAVIGATION_CONNECTION, {type: 1});
     }
+    // navigation.navigate(NAVIGATION_CONNECTION, {type: 1});
   };
 
   const sendOneSignal = async () => {

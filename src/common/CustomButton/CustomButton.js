@@ -31,7 +31,7 @@ export default CustomButton;
 const styles = StyleSheet.create({
   buttonContinue: {
     width: widthDevice - 40,
-    paddingVertical: 13,
+    paddingVertical: 14,
     borderRadius: 16,
     backgroundColor: Colors.primary,
     marginTop: 10,

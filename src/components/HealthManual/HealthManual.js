@@ -71,15 +71,25 @@ const HealthManual = ({navigation, route}) => {
     ) {
       return;
     }
+
     const body = {
-      doctor_id: listDoctors.length ? listDoctors[0].doctor.id : -1,
-      patient_id: currentUser?.id,
+      doctor: listDoctors.length ? listDoctors[0].doctor : -1,
+      patient: {
+        id: currentUser?.id,
+        address: '',
+        first_name: currentUser?.first_name,
+        gender: currentUser?.gender,
+        last_name: currentUser?.last_name,
+        phone: currentUser?.phone,
+        image: '',
+      },
       product_id:
         listDoctors.length && listDoctors[0]?.package_items
           ? listDoctors[0].package_items[0].product_id
           : -1,
-      status: 7,
+      status: 1,
     };
+    console.log('body:::: ', body);
     dispatch(sendServiceAction(body));
   };
   return (

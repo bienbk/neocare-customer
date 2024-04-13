@@ -150,6 +150,7 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 12,
     justifyContent: 'center',
+    paddingHorizontal: 10,
     backgroundColor: Colors.primary,
     alignItems: 'center',
   },
@@ -341,7 +342,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     // width: '100%',
     paddingVertical: 10,
-    marginTop: 20,
+    marginTop: 10,
   },
   bloodSugarText: {
     fontSize: 45,

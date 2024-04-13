@@ -27,13 +27,17 @@ import doctor_icon from './iconMain/doctor_icon.svg';
 import heart_active from './iconMain/heart_active';
 import background_doctor from './iconMain/background_doctor.svg';
 import icon_avatar from './iconMain/icon_avatar.svg';
+import icon_pharmacy from './iconMain/icon_pharmacy.svg';
+import icon_empty from './iconMain/icon_empty.svg';
 export default {
   heart_active,
   icon_option,
   background_doctor,
   icon_avatar,
   icon_splash,
+  icon_pharmacy,
   brand_name,
+  icon_empty,
   icon_checked,
   icon_mydoctor_main,
   icon_male,

@@ -172,7 +172,7 @@ const BloodSugar = ({navigation, setWarningModal}) => {
             showTextarea={false}
           />
           <Animated.View style={[styles.containerBloodSugar]}>
-            <View style={{alignItems: 'center', marginTop: 20}}>
+            <View style={{alignItems: 'center'}}>
               <TouchableOpacity
                 onPress={() => {
                   setOpenDatePicker(true);
@@ -244,7 +244,7 @@ const BloodSugar = ({navigation, setWarningModal}) => {
             isDisabled={invalid}
             labelStyled={invalid && {color: Colors.whiteColor}}
             styled={{
-              marginBottom: 20,
+              marginBottom: 10,
               backgroundColor: !invalid ? Colors.primary : Colors.gray.gray80,
             }}
             label={strings.common.continue}

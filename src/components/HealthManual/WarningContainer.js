@@ -50,10 +50,7 @@ const WarningContainer = ({onSkip, onSending, title, error}) => {
         <TouchableOpacity onPress={onSkip} style={styles.skipButton}>
           <TextNormalSemiBold>Bỏ qua</TextNormalSemiBold>
         </TouchableOpacity>
-        <TouchableOpacity
-          disabled={error.length > 0 ? true : false}
-          onPress={onSending}
-          style={styles.sendServiceBtn}>
+        <TouchableOpacity onPress={onSending} style={styles.sendServiceBtn}>
           <TextNormalSemiBold>Gửi yêu cầu tư vấn</TextNormalSemiBold>
         </TouchableOpacity>
       </View>

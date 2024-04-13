@@ -1,7 +1,7 @@
 import {Dimensions, Platform} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import Colors from '../theme/Colors';
-import {NAVIGATION_LOGIN, NAVIGATION_MY_PROFILE} from '../navigation/routes';
+import {NAVIGATION_LOGIN, NAVIGATION_MY_PROFILE, NAVIGATION_MY_PHARMACY} from '../navigation/routes';
 
 export const today = new Intl.DateTimeFormat('vi', {
   month: 'long',
@@ -68,11 +68,11 @@ export const LIST_OPTION = [
         icon: 'icon_user',
         link: NAVIGATION_MY_PROFILE,
       },
-      // {
-      //   name: 'Thông tin thân nhân',
-      //   icon: 'icon_profile',
-      //   link: '',
-      // },
+      {
+        name: 'Nhà thuốc của tôi',
+        icon: 'icon_profile',
+        link: NAVIGATION_MY_PHARMACY,
+      },
       // {
       //   name: 'Tài khoản & dữ liệu',
       //   icon: 'icon_profile',
@@ -392,6 +392,7 @@ export const decorator_package = require('assets/images/decorate_package.png');
 export const header_package = require('assets/images/header_package.png');
 export const path_package = require('assets/images/path_package.png');
 export const MIDDLE_DOT = '\u25CF';
+export const product_example = require('assets/images/product_example.png');
 export const BLOOD_PRESSURE_DATA = new Map(
   BLOOD_PRESSURE.map(item => {
     return [item.value, item.key];

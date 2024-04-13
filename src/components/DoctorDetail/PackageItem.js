@@ -37,10 +37,10 @@ const AvailablePackage = ({packageItem, navigation}) => {
           }}>
           <View style={{alignItems: 'center'}}>
             <TextNormal style={styles.packageName}>
-              {'Gói chăm sóc đặc biệt'}
+              {`Gói chăm sóc đặc biệt`}
             </TextNormal>
             <TextSemiBold style={{color: '#203A69'}}>
-              {parseInt(packageItem.name.match(/\d+/)[0], 10) * 30 + ' Ngày'}
+              {`${packageItem.name.match(/\d+/)[0]} tháng`}
             </TextSemiBold>
           </View>
           <Svg name={'decorator_package'} size={130} />
@@ -146,7 +146,10 @@ const convertDate = date => {
 };
 const PackageItem = ({packageItem, index, navigation}) => {
   const leftDay =
-    (new Date().getTime() - new Date(packageItem?.purchased_date).getTime()) /
+    (new Date().getTime() -
+      (packageItem?.purchased_date.startsWith('0')
+        ? new Date().getTime()
+        : new Date(packageItem?.purchased_date).getTime())) /
     60000 /
     (24 * 60);
   const totalDay = packageItem.name
@@ -158,9 +161,9 @@ const PackageItem = ({packageItem, index, navigation}) => {
     <View>
       {packageItem?.product_status === 1 && (
         <View>
-          <TextSemiBold style={styles.titleListPackage}>
+          {/* <TextSemiBold style={styles.titleListPackage}>
             Gói đang sử dụng
-          </TextSemiBold>
+          </TextSemiBold> */}
           <ActivedPackage
             packageItem={packageItem}
             leftDay={leftDay}
@@ -169,7 +172,12 @@ const PackageItem = ({packageItem, index, navigation}) => {
         </View>
       )}
       {packageItem?.product_status !== 1 && (
-        <AvailablePackage packageItem={packageItem} navigation={navigation} />
+        <View>
+          {/* <TextSemiBold style={styles.titleListPackage}>
+            Gói dịch vụ đặc biệt
+          </TextSemiBold> */}
+          <AvailablePackage packageItem={packageItem} navigation={navigation} />
+        </View>
       )}
     </View>
   );

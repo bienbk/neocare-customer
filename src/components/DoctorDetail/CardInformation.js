@@ -24,21 +24,13 @@ const CardInformation = ({doctor, onPressDescription, showDescription}) => {
             : 'Nguyen Tran'}
         </TextSemiBold>
         <TextSmallTwelve style={{color: Colors.gray.gray50}}>
-          {doctor?.department || 'Chuyên khoa Tim'}
+          {doctor?.department || 'Chuyên khoa Tim mạch'}
         </TextSmallTwelve>
-        <View style={styles.wrapperDepartmentLabel}>
+        {/* <View style={styles.wrapperDepartmentLabel}>
           <TextSmallTwelve style={{color: Colors.primary, fontWeight: 'bold'}}>
             {'Tim mạch'}
           </TextSmallTwelve>
-        </View>
-
-        <TouchableOpacity
-          onPress={onPressDescription}
-          style={styles.toggleIcon}>
-          <TextSmallMedium style={styles.textShowMore}>
-            {showDescription ? 'Rút gọn' : 'Xem thêm'}
-          </TextSmallMedium>
-        </TouchableOpacity>
+        </View> */}
       </View>
       <View
         style={[
@@ -48,6 +40,13 @@ const CardInformation = ({doctor, onPressDescription, showDescription}) => {
         <TextSmallMedium numberOfLines={showDescription ? 0 : 3}>
           {DESCRIPTION}
         </TextSmallMedium>
+        <TouchableOpacity
+          onPress={onPressDescription}
+          style={styles.toggleIcon}>
+          <TextSmallMedium style={styles.textShowMore}>
+            {showDescription ? 'Rút gọn' : 'Xem thêm'}
+          </TextSmallMedium>
+        </TouchableOpacity>
       </View>
     </View>
   );

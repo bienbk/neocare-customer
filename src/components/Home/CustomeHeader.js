@@ -8,6 +8,7 @@ import MyModal from 'common/MyModal/MyModal';
 import {empty_logo} from '../../assets/constans';
 import styles from './styles';
 import {asyncStorage} from 'store';
+import Svg from '../../common/Svg/Svg';
 
 const CustomeHeader = () => {
   const [currentUser, setCurrentUser] = React.useState({first_name: ''});
@@ -62,15 +63,13 @@ const CustomeHeader = () => {
           <ImageBackground
             source={decorator_header}
             resizeMode={'stretch'}
+            imageStyle={{borderRadius: 12}}
             style={styles.headerModal}>
             <TextSemiBold style={styles.textModal}>{'Thông báo'}</TextSemiBold>
           </ImageBackground>
           <View style={styles.modalBody}>
-            <Images
-              resizeMode="contain"
-              style={styles.imageEmpty}
-              source={empty_logo}
-            />
+            <Svg name={'icon_empty'} size={100} />
+            <TextSmallMedium>Danh sách thông báo trống</TextSmallMedium>
           </View>
         </View>
       </MyModal>

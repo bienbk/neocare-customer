@@ -121,7 +121,6 @@ const HorizontalRange = ({setValue, type, initValue, max}) => {
         scrollEventThrottle={0}>
         <Ruler type={type} data={data} />
       </Animated.ScrollView>
-      <TextNormalSemiBold style={{textAlign: 'center', paddingTop: 20, color: Colors.gray.gray60}}>Trượt thanh đo sang 2 bên để thay đổi chỉ số</TextNormalSemiBold>
       <View style={styles.indicatorWrapper}>
         <View style={[styles.segment, styles.segmentIndicator]} />
         <Icons
