@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   sendServiceBtn: {
-    minWidth: 120,
+    minWidth: '45%',
     height: 40,
     borderRadius: 12,
     justifyContent: 'center',
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   skipButton: {
-    minWidth: 120,
+    minWidth: '45%',
     height: 40,
     borderWidth: 1.4,
     borderColor: Colors.primary,

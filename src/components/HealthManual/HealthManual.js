@@ -25,7 +25,7 @@ const HealthManual = ({navigation, route}) => {
   // 1 - HUYET AP, 2 - DUONG HUYET, 3 - MO MAU, 4 - HbA1c
   const [typeManual, setTypeManual] = useState(-1);
   const [currentUser, setCurrentUser] = useState({});
-  const [warningModal, setWarningModal] = useState(false);
+  const [warningModal, setWarningModal] = useState(0);
   const listDoctors = useSelector(state => listDoctorSelector(state));
   const statusSendService = useSelector(state =>
     statusSendServiceSelector(state),
@@ -36,7 +36,7 @@ const HealthManual = ({navigation, route}) => {
   useEffect(() => {
     if (statusSendService === Status.SUCCESS) {
       dispatch(resetSendService());
-      navigation.navigate(NAVIGATION_HOME);
+      setWarningModal(2);
     }
   }, [statusSendService]);
   const getUserInfo = async () => {
@@ -89,43 +89,46 @@ const HealthManual = ({navigation, route}) => {
           : -1,
       status: 1,
     };
-    console.log('body:::: ', body);
     dispatch(sendServiceAction(body));
+  };
+  const onBack = () => {
+    setWarningModal(0);
+    navigation.navigate(NAVIGATION_HOME);
   };
   return (
     <SafeAreaView style={styles.containerSafeArea}>
       {typeManual === 1 && (
         <BloodPressure
           navigation={navigation}
-          setWarningModal={v => setWarningModal(v)}
+          setWarningModal={v => setWarningModal(v ? 1 : 0)}
         />
       )}
       {typeManual === 2 && (
         <BloodSugar
           navigation={navigation}
-          setWarningModal={v => setWarningModal(v)}
+          setWarningModal={v => setWarningModal(v ? 1 : 0)}
         />
       )}
       {typeManual === 3 && (
         <Cholesterol
           navigation={navigation}
-          setWarningModal={v => setWarningModal(v)}
+          setWarningModal={v => setWarningModal(v ? 1 : 0)}
         />
       )}
       {typeManual === 4 && (
         <HbA1c
           navigation={navigation}
-          setWarningModal={v => setWarningModal(v)}
+          setWarningModal={v => setWarningModal(v ? 1 : 0)}
         />
       )}
       {typeManual === 5 && (
         <AxitUric
           navigation={navigation}
-          setWarningModal={v => setWarningModal(v)}
+          setWarningModal={v => setWarningModal(v ? 1 : 0)}
         />
       )}
       {typeManual === 6 && <Weight navigation={navigation} />}
-      <MyModal visible={warningModal} onPressOutSide={() => {}}>
+      <MyModal visible={warningModal > 0} onPressOutSide={() => {}}>
         <Animated.View
           style={[
             styles.modalView,
@@ -135,7 +138,13 @@ const HealthManual = ({navigation, route}) => {
             error={errorSendService}
             onSending={handleSendService}
             title={'Chỉ số vừa nhập của bạn cao'}
-            onSkip={() => navigation.navigate(NAVIGATION_HOME)}
+            note={
+              listDoctors.length === 0
+                ? 'Vui lòng mua gói để sử dụng dịch vụ'
+                : ''
+            }
+            type={warningModal}
+            onSkip={onBack}
           />
         </Animated.View>
       </MyModal>

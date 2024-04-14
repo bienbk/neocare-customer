@@ -25,7 +25,7 @@ export const UrlApi = {
   // --------------------- PACKAGE OF DOCTOR --------------------
   apiGetPackageOfDoctor: BASE_NEOCARE_CUSTOMER + 'products/doctors',
   apiFollowDoctor: BASE_NEOCARE_CUSTOMER + 'follow/doctor',
-  apiListDoctorInfo: BASE_NEOCARE_CUSTOMER + 'users',
+  apiListDoctorInfo: BASE_NEOCARE_CUSTOMER + 'doctor',
   apiSendService: BASE_NEOCARE_CUSTOMER + 'suh',
   // ---------------------- ORDER ------------------------
   apiBuyPackage: BASE_NEOCARE_CUSTOMER + 'orders/healthcare',

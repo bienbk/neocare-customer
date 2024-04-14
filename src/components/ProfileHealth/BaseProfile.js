@@ -71,7 +71,7 @@ const BaseProfile = ({next}) => {
             placeholderTextColor={Colors.textGrayColor}
             onSubmitEditing={Keyboard.dismiss}
             value={lastname}
-            onChangeText={setFirstname}
+            onChangeText={setLastname}
             underlineColorAndroid="transparent"
           />
         </View>
@@ -84,7 +84,7 @@ const BaseProfile = ({next}) => {
             placeholderTextColor={Colors.textGrayColor}
             onSubmitEditing={Keyboard.dismiss}
             value={firstname}
-            onChangeText={setLastname}
+            onChangeText={setFirstname}
             underlineColorAndroid="transparent"
           />
         </View>

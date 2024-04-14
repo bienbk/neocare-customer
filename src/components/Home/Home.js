@@ -150,7 +150,7 @@ const Home = ({navigation}) => {
         />
         <View style={styles.wrapperListCard}>
           <FlatList
-            data={listParams}
+            data={listParams.length > 0 ? listParams : HOME_DATA}
             scrollEnabled={false}
             showsVerticalScrollIndicator={false}
             keyExtractor={i => i.name}

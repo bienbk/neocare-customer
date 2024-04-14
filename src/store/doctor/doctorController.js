@@ -27,7 +27,7 @@ class DoctorController {
     };
     try {
       console.log('come to controller');
-      const {data} = await HttpClient.get(UrlApi.apiListDoctorInfo + 'doctor', {
+      const {data} = await HttpClient.get(UrlApi.apiListDoctorInfo, {
         params: query,
       });
       console.log('DATA', data);
