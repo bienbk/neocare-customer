@@ -1,7 +1,11 @@
 import {Dimensions, Platform} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import Colors from '../theme/Colors';
-import {NAVIGATION_LOGIN, NAVIGATION_MY_PROFILE, NAVIGATION_MY_PHARMACY} from '../navigation/routes';
+import {
+  NAVIGATION_LOGIN,
+  NAVIGATION_MY_PROFILE,
+  NAVIGATION_MY_PHARMACY,
+} from '../navigation/routes';
 
 export const today = new Intl.DateTimeFormat('vi', {
   month: 'long',
@@ -374,7 +378,10 @@ export const versionSystem = DeviceInfo.getSystemVersion();
 export const versionNameApp = DeviceInfo.getVersion();
 export const deviceId = DeviceInfo.getUniqueId();
 export const isAndroid = Platform.OS === 'ios' ? false : true;
-export const KEY_ONE_SIGNAL = '7ef05ed3-d514-4300-a463-82c371e4def9';
+export const KEY_ONE_SIGNAL =
+  process.env.NODE_ENV === 'development'
+    ? '7ef05ed3-d514-4300-a463-82c371e4def9'
+    : '4ce32c8b-dbe2-43ab-83dc-1eb1b985df55';
 export const KEY_GOONG_API = 'VphPkfidhRekSJM2Ff9TPIZSFtwDtgIWoXJ0wHUN';
 // export const GOOGLE_MAP_KEY = 'AIzaSyAAO8W-KytYgmE4BzIXP_dLGZ7ABdO2z54';
 export const GOOGLE_MAP_KEY = 'AIzaSyDy_5NNS-DwcZkcIYMar-wcspaL9fWJbQ0';
