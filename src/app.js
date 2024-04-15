@@ -5,8 +5,9 @@ import SuperTokens from 'supertokens-react-native';
 import RootNavigation from 'navigation/RootNavigation';
 import {LogBox, TextInput} from 'react-native';
 import {setCustomText} from 'react-native-global-props';
-import {KEY_ONE_SIGNAL} from './assets/constans';
+// import {KEY_ONE_SIGNAL} from './assets/constans';
 import {LogLevel, OneSignal} from 'react-native-onesignal';
+import {KEY_ONE_SIGNAL} from './assets/config';
 
 const customTextProps = {
   allowFontScaling: false,
