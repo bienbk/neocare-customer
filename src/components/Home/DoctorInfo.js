@@ -6,6 +6,7 @@ import Images from 'common/Images/Images';
 import {home_add_doctor} from 'assets/constans';
 import {TextSmallTwelve} from 'common/Text/TextFont';
 import Svg from 'common/Svg/Svg';
+import Colors from '../../theme/Colors';
 const DoctorInfo = ({currentDoctor = -1, onPress, packagePurchased}) => {
   // console.log(packagePurchased);
   const leftDay =
@@ -14,10 +15,6 @@ const DoctorInfo = ({currentDoctor = -1, onPress, packagePurchased}) => {
           new Date(packagePurchased[0]?.purchased_date).getTime()) /
         60000 /
         (24 * 60)
-      : -1;
-  const totalDay =
-    packagePurchased && packagePurchased.length
-      ? parseInt(packagePurchased[0]?.name.match(/\d+/)[0], 10) * 30
       : -1;
   return (
     <View style={styles.doctorContainer}>
@@ -34,14 +31,12 @@ const DoctorInfo = ({currentDoctor = -1, onPress, packagePurchased}) => {
                     currentDoctor?.doctor?.first_name
                   : 'Nguyen Tran'}
               </TextNormal>
-              <TextSmallMedium>{'Chuyên khoa tim mạch'}</TextSmallMedium>
+              <TextSmallMedium style={{color: Colors.gray.gray50}}>{'Chuyên khoa tim mạch'}</TextSmallMedium>
             </View>
           </View>
-          {packagePurchased && leftDay !== -1 && totalDay !== -1 && (
+          {packagePurchased && (
             <TextNormal style={{paddingTop: 10}}>
-              {`${packagePurchased[0]?.name} còn lại ${
-                totalDay - parseInt(leftDay, 10)
-              } ngày`}
+              {`${packagePurchased[0]?.name}`}
             </TextNormal>
           )}
         </TouchableOpacity>

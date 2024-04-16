@@ -4,18 +4,12 @@ import Icons from 'common/Icons/Icons';
 import {FlatList, View, TouchableOpacity, ImageBackground} from 'react-native';
 import {TextNormal, TextSemiBold, TextSmallTwelve} from 'common/Text/TextFont';
 import styles from './styles';
-import {
-  card_pink,
-  formatMoney,
-  header_package,
-  decorator_package,
-  path_package,
-} from 'assets/constans';
+import {formatMoney, header_package, path_package} from 'assets/constans';
 import Colors from 'theme/Colors';
 import {NAVIGATION_PACKAGE_DETAIL} from 'navigation/routes';
 import ProgressLine from 'common/ProgressLine/ProgressLine';
-import Images from '../../common/Images/Images';
-import Svg from '../../common/Svg/Svg';
+import Images from 'common/Images/Images';
+import Svg from 'common/Svg/Svg';
 const AvailablePackage = ({packageItem, navigation}) => {
   return (
     <View style={styles.wrapperActivePackage}>
@@ -37,11 +31,11 @@ const AvailablePackage = ({packageItem, navigation}) => {
           }}>
           <View style={{alignItems: 'center'}}>
             <TextNormal style={styles.packageName}>
-              {`Gói chăm sóc đặc biệt`}
+              {`${packageItem.name}`}
             </TextNormal>
-            <TextSemiBold style={{color: '#203A69'}}>
-              {`${packageItem.name.match(/\d+/)[0]} tháng`}
-            </TextSemiBold>
+            {/* <TextSemiBold style={{color: '#203A69'}}>
+              {`${packageItem.name.match(/\d+/)[0]}`}
+            </TextSemiBold> */}
           </View>
           <Svg name={'decorator_package'} size={130} />
         </View>
@@ -108,35 +102,34 @@ const ActivedPackage = ({packageItem, leftDay, totalDay}) => {
         {padding: 10, marginVertical: 10, backgroundColor: '#FFF4D1'},
       ]}>
       {/* <View style={styles.decorationActived} /> */}
-      <View style={{paddingHorizontal: 10}}>
-        <TextNormal style={{paddingTop: 5, fontWeight: 'bold'}}>
-          {`Chăm sóc đặc biệt ${packageItem.name.match(/\d+/)[0]} tháng`}
+      <View style={{paddingHorizontal: 20, marginLeft: 5}}>
+        <TextNormal style={{paddingTop: 5, fontWeight: 'bold', fontSize: 14}}>
+          {packageItem.name}
         </TextNormal>
-        <TextSmallTwelve style={{paddingVertical: 5}}>
-          {`Giá gói: ${formatMoney(packageItem.price)}`}
-        </TextSmallTwelve>
-        <TextSmallTwelve style={{paddingBottom: 5}}>
-          {'Ngày tham gia: ' +
-            convertDate(packageItem.purchased_date.substring(0, 10))}
-        </TextSmallTwelve>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            paddingVertical: 6,
-          }}>
-          <ProgressLine isDetailDoctor={true} line={packageItem} />
-          <TextSmallTwelve
-            style={{
-              textAlign: 'right',
-              fontWeight: 'bold',
-              color: '#4C0C23',
-              paddingLeft: 10,
-            }}>
-            {`${totalDay - parseInt(leftDay, 10)} ngày`}
+        <TextSmallTwelve style={{paddingVertical: 2}}>
+          {'Ngày tham gia: '}
+          <TextSmallTwelve style={{fontWeight: 'bold'}}>
+            {convertDate(packageItem.purchased_date.substring(0, 10))}
           </TextSmallTwelve>
-        </View>
+        </TextSmallTwelve>
+        <TextSmallTwelve style={{paddingVertical: 2}}>
+          {'Thời hạn còn lại: '}
+          <TextSmallTwelve style={{fontWeight: 'bold'}}>
+            {totalDay}
+          </TextSmallTwelve>
+        </TextSmallTwelve>
+        <TextSmallTwelve style={{paddingVertical: 2}}>
+          {'Số lần tư vấn: '}
+          <TextSmallTwelve style={{fontWeight: 'bold'}}>{0}</TextSmallTwelve>
+        </TextSmallTwelve>
       </View>
+      <Icons
+        type={'FontAwesome'}
+        name={'check-square'}
+        size={20}
+        color={Colors.primary}
+        style={{position: 'absolute', top: 15, left: 10}}
+      />
     </View>
   );
 };
@@ -152,10 +145,10 @@ const PackageItem = ({packageItem, index, navigation}) => {
         : new Date(packageItem?.purchased_date).getTime())) /
     60000 /
     (24 * 60);
-  const totalDay = packageItem.name
-    ? parseInt(packageItem.name.match(/\d+/)[0], 10) * 30
-    : -1;
-
+  const totalDay =
+    packageItem.name && parseInt(packageItem.name.match(/\d+/)[0], 10) <= 12
+      ? `${parseInt(packageItem.name.match(/\d+/)[0], 10)} tháng`
+      : `${parseInt(packageItem.name.match(/\d+/)[0], 10)} ngày`;
   // FOLLOWING || REQUESTING
   return (
     <View>
