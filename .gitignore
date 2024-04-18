@@ -25,10 +25,10 @@ Podfile.lock
 
 # Android/IntelliJ
 #
-build/
+# build/
 devrelease/
 .idea
-.gradle
+# .gradle
 local.properties
 *.iml
 .tmp/
