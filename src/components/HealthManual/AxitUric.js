@@ -290,7 +290,7 @@ const AxitUric = ({navigation, setWarningModal}) => {
               }}
               style={styles.btnSaveNote}>
               <TextSemiBold style={{color: Colors.whiteColor}}>
-                Lưu
+                {'Hoàn thành'}
               </TextSemiBold>
             </TouchableOpacity>
           )}

@@ -275,7 +275,7 @@ const ConclusionInput = ({navigation, conclusion, onSave, value, title, unit, ty
               setNote(refNoteInput.current);
             }}
             style={styles.btnSaveNote}>
-            <TextSemiBold style={{color: Colors.whiteColor}}>Đóng</TextSemiBold>
+            <TextSemiBold style={{color: Colors.whiteColor}}>{'Hoàn thành'}</TextSemiBold>
           </TouchableOpacity>
         )}
       </Animated.View>

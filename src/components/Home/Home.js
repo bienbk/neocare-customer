@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, SafeAreaView, View, ScrollView} from 'react-native';
+import {SafeAreaView, View, ScrollView} from 'react-native';
 import styles from './styles';
 import DiseaseCard from './DiseaseCard';
 import CustomeHeader from './CustomeHeader';
@@ -26,6 +26,7 @@ import DoctorInfo from './DoctorInfo';
 import {HOME_DATA} from 'assets/constans';
 import {OneSignal} from 'react-native-onesignal';
 import {asyncStorage} from 'store';
+import {FlashList} from '@shopify/flash-list';
 
 const Home = ({navigation}) => {
   const dispatch = useDispatch();
@@ -149,7 +150,7 @@ const Home = ({navigation}) => {
           }
         />
         <View style={styles.wrapperListCard}>
-          <FlatList
+          <FlashList
             data={listParams.length > 0 ? listParams : HOME_DATA}
             scrollEnabled={false}
             showsVerticalScrollIndicator={false}

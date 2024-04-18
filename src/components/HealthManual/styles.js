@@ -342,7 +342,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     // width: '100%',
     paddingVertical: 10,
-    marginTop: 10,
+    marginTop: 30,
   },
   bloodSugarText: {
     fontSize: 45,

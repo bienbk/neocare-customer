@@ -421,7 +421,7 @@ const BloodPressure = ({navigation, setWarningModal}) => {
               }}
               style={styles.btnSaveNote}>
               <TextSemiBold style={{color: Colors.whiteColor}}>
-                Đóng
+                {'Hoàn thành'}
               </TextSemiBold>
             </TouchableOpacity>
           )}

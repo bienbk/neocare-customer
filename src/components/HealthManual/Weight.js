@@ -1,16 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {
-  ActivityIndicator,
-  Animated,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Animated, TouchableOpacity, View} from 'react-native';
 import styles from './styles';
 import {TextMoneyBold, TextNormalSemiBold} from 'common/Text/TextFont';
 import Icons from 'common/Icons/Icons';
 import Colors from 'theme/Colors';
 import strings from 'localization/Localization';
-import HorizontalRange from 'common/HorizontalRange/HorizontalRange';
 import CustomButton from 'common/CustomButton/CustomButton';
 import UnitSelector from 'common/UnitSelector/UnitSelector';
 import ConclusionInput from './ConclusionInput';
@@ -33,12 +27,12 @@ import Status from 'common/Status/Status';
 import DateTimePicker from 'common/DateTImePicker/DateTimePicker';
 import {asyncStorage} from 'store';
 import {BMI} from 'assets/constans';
+import Ruler from 'common/Ruler/Ruler';
 const Weight = ({navigation}) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const [date, setDate] = useState(new Date());
-  const [loading, setLoading] = useState(true);
   const [messure, setMessure] = useState(1);
-  const [weight, setWeight] = useState(40);
+  const [weight, setWeight] = useState(0);
   const inputTransition = new Animated.Value(0);
   const conclusionTransition = new Animated.Value(widthDevice);
   const [conclusion, setConclusion] = useState(-1);
@@ -48,15 +42,10 @@ const Weight = ({navigation}) => {
     statusCreateParamSelector(state),
   );
   useEffect(() => {
-    if (loading) {
-      if (currentUser.current.id === -1) {
-        checkUser();
-      }
-      setTimeout(() => {
-        setLoading(false);
-      }, 100);
+    if (currentUser.current.id === -1) {
+      checkUser();
     }
-  }, [loading]);
+  }, []);
   const checkUser = async () => {
     const user = await asyncStorage.getUser();
     currentUser.current = user ? user : {id: -1};
@@ -66,8 +55,10 @@ const Weight = ({navigation}) => {
     if (currentUser.current.id === -1 && !currentUser.current?.height) {
       return;
     }
-    const height = Math.pow(parseFloat(currentUser.current?.height / 100), 2);
-    const bmiIndex = parseFloat(weight / height);
+    const height = Math.floor(
+      Math.pow(parseFloat(currentUser.current?.height / 100), 2),
+    );
+    const bmiIndex = Math.floor(parseFloat(weight / height));
     let result;
     BMI.map(item => {
       if (bmiIndex > item.min && bmiIndex < item.max) {
@@ -156,20 +147,13 @@ const Weight = ({navigation}) => {
                 isSelected={messure}
               />
             </View>
-            {loading ? (
-              <ActivityIndicator
-                style={{alignSelf: 'center', marginVertical: 20}}
-                size={'large'}
-                color={Colors.primary}
-              />
-            ) : (
-              <HorizontalRange
-                type={messure === 1 ? 'kg' : 'lbs'}
-                initValue={weight}
-                setValue={setWeight}
-                max={1500}
-              />
-            )}
+            <Ruler
+              max={150}
+              step={0.1}
+              fractionDigits={1}
+              initialValue={60}
+              onValueChange={number => setWeight(number)}
+            />
           </Animated.View>
           <CustomButton
             onPress={() => processInput()}
@@ -192,7 +176,6 @@ const Weight = ({navigation}) => {
             conclusion={conclusion}
             title={'Cân nặng'}
             resetConclusion={() => {
-              setLoading(true);
               setConclusion(-1);
             }}
             onSave={saveParameter}

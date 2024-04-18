@@ -1,196 +1,249 @@
-/* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useRef, useState} from 'react';
-import {Animated, View, StyleSheet} from 'react-native';
-import {TextNormalSemiBold} from '../../common/Text/TextFont';
-import {widthDevice} from '../../assets/constans';
-import Colors from '../../theme/Colors';
-import Icons from '../../common/Icons/Icons';
-const segmentsLength = 1000;
-const segmentWidth = 2;
-const segmentSpacing = 10;
-const snapSegment = segmentWidth + segmentSpacing;
-const spacerWidth = Math.floor(widthDevice / 2 - snapSegment);
-const rulerWidth = spacerWidth * 2 + (segmentsLength - 1) * snapSegment;
-const indicatorWidth = 100;
-const indicatorHeight = 80;
+import React, {useCallback, useEffect, useRef} from 'react';
+import {StyleSheet, View, Animated} from 'react-native';
+import {AnimatedFlashList} from '@shopify/flash-list';
 
-const Ruler = ({type, data}) => {
-  // console.log('current data:::::::::::', data);
-  return (
-    <View style={styles.ruler}>
-      <View style={styles.spacer} />
-      {data.map((i, id) => {
-        const tenth = id % 5 === 0;
-        return (
-          <View key={i} style={styles.wrapperRulerItem}>
-            <View
-              style={[
-                {
-                  width: segmentWidth,
-                  backgroundColor: Colors.gray.gray80,
-                  borderRadius: 10,
-                  height: tenth ? 45 : 20,
-                  marginBottom: tenth === 0 ? 10 : 0,
-                  alignSelf: 'center',
-                  marginRight: segmentSpacing,
-                },
-              ]}
-            />
-            {id % 10 === 0 && (
-              <View style={styles.wrapperNumberItem}>
-                <TextNormalSemiBold
-                  style={{
-                    fontWeight: 'bold',
-                    color: Colors.gray.gray60,
-                  }}>
-                  {parseFloat(i).toFixed(1)}
-                </TextNormalSemiBold>
-              </View>
-            )}
-          </View>
-        );
-      })}
-      <View style={styles.spacer} />
-    </View>
+import {RulerPickerItem} from './RulerPickerItem';
+import {widthDevice} from 'assets/constans';
+import Icons from '../Icons/Icons';
+import Colors from 'theme/Colors';
+import {TextNormalSemiBold} from '../Text/TextFont';
+const calculateCurrentValue = (
+  scrollPosition,
+  stepWidth,
+  gapBetweenItems,
+  min,
+  max,
+  step,
+  fractionDigits,
+) => {
+  const index = Math.round(scrollPosition / (stepWidth + gapBetweenItems));
+  return Math.min(Math.max(index * step + min, min), max).toFixed(
+    fractionDigits,
   );
 };
 
-const HorizontalRange = ({setValue, type, initValue, max}) => {
-  const positionX = useRef(new Animated.Value(0)).current;
-  const scrollViewRef = useRef();
-  const [data, setData] = useState([]);
-  positionX.addListener(event => {
-    if (!event) {
-      return;
-    }
-    setValue(parseFloat(event?.value / snapSegment / 10).toFixed(1));
-  });
-  useEffect(() => {
-    initRange();
-  }, []);
-  useEffect(() => {
-    scrollToValue();
-  }, [type]);
-  const scrollToValue = () => {
-    if (scrollViewRef && scrollViewRef.current) {
-      scrollViewRef.current.scrollTo({
-        x: initValue * 10 * snapSegment,
-        y: 0,
-        animated: true,
-      });
-    }
-  };
+const Ruler = ({
+  width = widthDevice - 30,
+  height = 140,
+  min = 0,
+  max = 10,
+  step = 1,
+  initialValue = min,
+  fractionDigits = 1,
+  indicatorHeight = 80,
+  gapBetweenSteps = 10,
+  shortStepHeight = 25,
+  longStepHeight = 50,
+  stepWidth = 3,
+  indicatorColor = Colors.primary,
+  shortStepColor = 'lightgray',
+  longStepColor = 'darkgray',
+  decelerationRate = 'normal',
+  onValueChange,
+  onValueChangeEnd,
+}) => {
+  const itemAmount = (max - min) / step;
+  const arrData = Array.from({length: itemAmount + 1}, (_, index) => index);
+  const listRef = useRef(null);
 
-  const initRange = () => {
-    const dt =
-      max && max > 0
-        ? [...Array(segmentsLength).keys()]
-            .filter(a => a <= max)
-            .map(i => i / 10)
-        : [...Array(segmentsLength).keys()].map(i => i / 10);
-    setData(dt);
-    setTimeout(() => {
-      scrollToValue();
-    }, 100);
-  };
-  const handleLoadMore = ({nativeEvent}) => {
-    if (
-      data.length <= max &&
-      data.length - nativeEvent.contentOffset.x / snapSegment <= 50
-    ) {
-      const dt = [...Array(segmentsLength).keys()].map(
-        i => parseFloat(i / 10) + data.length / 10,
+  // const stepTextRef = useRef(null);
+  const prevValue = useRef(initialValue);
+  const prevMomentumValue = useRef(initialValue);
+  const scrollPosition = useRef(new Animated.Value(0)).current;
+
+  const valueCallback = useCallback(
+    ({value}) => {
+      const newStep = calculateCurrentValue(
+        value,
+        stepWidth,
+        gapBetweenSteps,
+        min,
+        max,
+        step,
+        fractionDigits,
       );
-      setData([...data, ...dt]);
-    }
-  };
+
+      if (prevValue.current !== newStep) {
+        onValueChange?.(newStep);
+      }
+
+      prevValue.current = newStep;
+    },
+    [fractionDigits, gapBetweenSteps, stepWidth, max, min, onValueChange, step],
+  );
+
+  useEffect(() => {
+    scrollPosition.addListener(valueCallback);
+
+    return () => {
+      scrollPosition.removeAllListeners();
+    };
+  }, [scrollPosition, valueCallback]);
+
+  const scrollHandler = Animated.event(
+    [{nativeEvent: {contentOffset: {x: scrollPosition}}}],
+    {useNativeDriver: true},
+  );
+
+  const renderSeparator = useCallback(
+    () => <View style={{width: width * 0.5 - stepWidth * 0.5}} />,
+    [stepWidth, width],
+  );
+
+  const renderItem = useCallback(
+    ({item, index}) => {
+      return (
+        <View style={{height}}>
+          <RulerPickerItem
+            isLast={index === arrData.length - 1}
+            index={index}
+            number={item && index % 10 === 0 ? item : -1}
+            shortStepHeight={shortStepHeight}
+            longStepHeight={longStepHeight}
+            gapBetweenSteps={gapBetweenSteps}
+            stepWidth={stepWidth}
+            shortStepColor={shortStepColor}
+            longStepColor={longStepColor}
+          />
+          {index % 10 === 0 && (
+            <View style={styles.wrapperNumber}>
+              <TextNormalSemiBold style={styles.numberText}>
+                {parseFloat(item / 10).toFixed(1)}
+              </TextNormalSemiBold>
+            </View>
+          )}
+        </View>
+      );
+    },
+    [
+      arrData.length,
+      gapBetweenSteps,
+      stepWidth,
+      longStepColor,
+      longStepHeight,
+      shortStepColor,
+      shortStepHeight,
+    ],
+  );
+
+  const onMomentumScrollEnd = useCallback(
+    event => {
+      const newStep = calculateCurrentValue(
+        event.nativeEvent.contentOffset.x || event.nativeEvent.contentOffset.y,
+        stepWidth,
+        gapBetweenSteps,
+        min,
+        max,
+        step,
+        fractionDigits,
+      );
+
+      if (prevMomentumValue.current !== newStep) {
+        onValueChangeEnd?.(newStep);
+      }
+
+      prevMomentumValue.current = newStep;
+    },
+    [
+      fractionDigits,
+      gapBetweenSteps,
+      stepWidth,
+      max,
+      min,
+      onValueChangeEnd,
+      step,
+    ],
+  );
+  function onContentSizeChange() {
+    const initialIndex = Math.floor((initialValue - min) / step);
+    listRef.current?.scrollToOffset({
+      offset: initialIndex * (stepWidth + gapBetweenSteps),
+      animated: false,
+    });
+  }
+
   return (
-    <View>
-      <Animated.ScrollView
-        ref={scrollViewRef}
-        onScroll={Animated.event(
-          [{nativeEvent: {contentOffset: {x: positionX}}}],
-          {useNativeDriver: true},
+    <View
+      style={{
+        height,
+        width: widthDevice - 30,
+        alignSelf: 'center',
+        marginTop: 10,
+      }}>
+      <AnimatedFlashList
+        ref={listRef}
+        data={arrData}
+        keyExtractor={(_, index) => index.toString()}
+        renderItem={renderItem}
+        ListHeaderComponent={renderSeparator}
+        ListFooterComponent={renderSeparator}
+        onScroll={scrollHandler}
+        onMomentumScrollEnd={onMomentumScrollEnd}
+        estimatedItemSize={stepWidth + gapBetweenSteps}
+        snapToOffsets={arrData.map(
+          (_, index) => index * (stepWidth + gapBetweenSteps),
         )}
-        onMomentumScrollEnd={handleLoadMore}
-        snapToInterval={snapSegment}
-        bounces={false}
-        horizontal
-        contentContainerStyle={styles.scrollViewContainerStyle}
+        onContentSizeChange={onContentSizeChange}
+        snapToAlignment="start"
+        decelerationRate={decelerationRate}
+        estimatedFirstItemOffset={0}
+        scrollEventThrottle={16}
         showsHorizontalScrollIndicator={false}
-        scrollEventThrottle={0}>
-        <Ruler type={type} data={data} />
-      </Animated.ScrollView>
-      <View style={styles.indicatorWrapper}>
-        <View style={[styles.segment, styles.segmentIndicator]} />
+        showsVerticalScrollIndicator={false}
+        horizontal
+      />
+      <View pointerEvents="none" style={[styles.indicator]}>
+        <View
+          style={{
+            width: stepWidth,
+            height: indicatorHeight,
+            borderRadius: 10,
+            backgroundColor: indicatorColor,
+            marginBottom: 5,
+          }}
+        />
         <Icons
-          type={'Feather'}
-          name={'navigation-2'}
-          color={Colors.primary}
+          type={'AntDesign'}
+          name={'caretup'}
           size={20}
+          color={Colors.primary}
         />
       </View>
+      <TextNormalSemiBold style={styles.noteText}>
+        Trượt thanh đo sang 2 bên để thay đổi chỉ số
+      </TextNormalSemiBold>
     </View>
   );
 };
-
-export default HorizontalRange;
+export default Ruler;
 
 const styles = StyleSheet.create({
-  wrapperRulerItem: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 0,
-    height: 120,
+  numberText: {
+    color: Colors.gray.gray50,
+    fontWeight: 'bold',
+    fontSize: 12,
   },
-  wrapperNumberItem: {
-    marginTop: 10,
-    position: 'absolute',
-    bottom: -20,
-    left: -19,
-    alignItems: 'center',
-    width: 40,
-  },
-  scrollViewContainerStyle: {
-    justifyContent: 'center',
-    alignItems: 'center',
+  noteText: {
+    textAlign: 'center',
+    color: Colors.gray.gray60,
+    paddingVertical: 10,
+    width: widthDevice - 30,
     // backgroundColor: 'red',
-    paddingBottom: 20,
-    // width: '100%',
   },
-  indicatorWrapper: {
+  wrapperNumber: {
     position: 'absolute',
-    left: (widthDevice - indicatorWidth - 26) / 2,
-    top: 10,
+    bottom: 0,
     alignItems: 'center',
+    left: -15,
+    width: 30,
+    height: 40,
     justifyContent: 'center',
-    width: indicatorWidth,
-    // backgroundColor: 'green',
   },
-  segmentIndicator: {
-    height: indicatorHeight,
-    width: 6,
-    borderRadius: 20,
-    backgroundColor: Colors.primary,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    position: 'relative',
-  },
-  ruler: {
-    // flex: 1,
-    alignItems: 'flex-end',
-    justifyContent: 'flex-start',
-    flexDirection: 'row',
-  },
-
-  ageTextStyle: {
-    fontSize: 42,
-    fontFamily: 'red',
-  },
-  spacer: {
-    width: spacerWidth,
-    backgroundColor: 'red',
+  indicator: {
+    position: 'absolute',
+    top: 0,
+    width: widthDevice - 30,
+    alignSelf: 'center',
+    alignItems: 'center',
   },
 });

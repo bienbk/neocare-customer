@@ -35,13 +35,13 @@ import {
 import Status from 'common/Status/Status';
 import {NAVIGATION_HOME} from 'navigation/routes';
 import DateTimePicker from 'common/DateTImePicker/DateTimePicker';
+import Ruler from '../../common/Ruler/Ruler';
 const MIN_MG = 36;
 const MIN_MOL = 2.0;
 const BloodSugar = ({navigation, setWarningModal}) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const [invalid, setInvalid] = useState(false);
   const [date, setDate] = useState(new Date());
-  const [loading, setLoading] = useState(true);
   const [messure, setMessure] = useState(1);
   const [bloodSugar, setBloodSugar] = useState(MIN_MOL);
   const [timeMessure, setTimeMessure] = useState(1);
@@ -51,14 +51,7 @@ const BloodSugar = ({navigation, setWarningModal}) => {
     statusCreateParamSelector(state),
   );
   useEffect(() => {
-    if (loading) {
-      setTimeout(() => {
-        setLoading(false);
-      }, 300);
-    }
-  }, [loading]);
-  useEffect(() => {
-    if (bloodSugar && !loading) {
+    if (bloodSugar) {
       messure === 2 && setInvalid(parseFloat(bloodSugar) < parseFloat(MIN_MG));
       messure === 1 && setInvalid(parseFloat(bloodSugar) < parseFloat(MIN_MOL));
     }
@@ -203,7 +196,7 @@ const BloodSugar = ({navigation, setWarningModal}) => {
                 isSelected={messure}
               />
             </View>
-            {loading ? (
+            {/* {loading ? (
               <ActivityIndicator
                 style={{alignSelf: 'center', marginVertical: 20}}
                 size={'large'}
@@ -216,7 +209,14 @@ const BloodSugar = ({navigation, setWarningModal}) => {
                 setValue={setBloodSugar}
                 max={messure === 1 ? 50 * 10 : 200 * 10}
               />
-            )}
+            )} */}
+            <Ruler
+              max={messure === 1 ? 50 : 240}
+              step={0.1}
+              fractionDigits={1}
+              initialValue={messure === 1 ? MIN_MOL + 50 / 2 : MIN_MG + 240 / 2}
+              onValueChange={number => setBloodSugar(number)}
+            />
             <TextNormalSemiBold style={styles.textNoteSlider}>
               {messure === 2
                 ? 'Đuờng huyết đơn vị mg/dL (36 ~ 240)'
@@ -265,7 +265,6 @@ const BloodSugar = ({navigation, setWarningModal}) => {
             conclusion={conclusion}
             title={'Đuờng huyết'}
             resetConclusion={() => {
-              setLoading(true);
               setConclusion(-1);
             }}
             onSave={noted => saveParameter(noted)}
