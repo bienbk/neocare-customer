@@ -1,22 +1,19 @@
 import React from 'react';
-import {
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  TextInput,
-  Text,
-} from 'react-native';
-// import CartHeaderButton from '~/common/CartHeaderButton/CartHeaderButton';
-// import {Icon} from '~/common';
-// import Colors from '../Colors/Colors';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import Icons from '../Icons/Icons';
 import {TextNormal} from '../Text/TextFont';
+import { widthDevice } from '../../assets/constans';
 
-const Header = ({navigation, title}) => {
+const Header = ({onBack, title}) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => {}}>
-        <Icons type="feather" name={'menu'} size={25} />
+      <TouchableOpacity style={styles.wrapperIcon} onPress={onBack}>
+        <Icons
+          type={'Ionicons'}
+          name={'arrow-back'}
+          size={24}
+          color={'black'}
+        />
       </TouchableOpacity>
       {title && (
         <View style={styles.titleContainer}>
@@ -30,13 +27,18 @@ const Header = ({navigation, title}) => {
 export default Header;
 
 const styles = StyleSheet.create({
+  wrapperIcon: {
+    position: 'absolute',
+    top: 15,
+    left: 15,
+    zIndex: 100,
+  },
   container: {
-    width: '100%',
+    width: widthDevice,
     height: 60,
-    paddingHorizontal: 18,
+    paddingHorizontal: 15,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
     backgroundColor: 'white',
     shadowColor: 'rgba(0, 0, 0, 0.05)',
     shadowOffset: {
@@ -45,34 +47,12 @@ const styles = StyleSheet.create({
     },
     elevation: 6,
   },
-  cartLayout: {
-    width: 40,
-    height: 30,
-    alignItems: 'center',
-  },
-  badge: {
-    position: 'absolute',
-    top: -8,
-    right: 0,
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    backgroundColor: '#EB5757',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  badgeText: {
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    fontSize: 12,
-    color: '#FFFFFF',
-  },
-
   titleContainer: {
     height: 58,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    // backgroundColor: 'red',
   },
   title: {
     fontWeight: 'bold',

@@ -9,6 +9,7 @@ import {
   NAVIGATION_MY_PHARMACY,
   NAVIGATION_MY_PROFILE,
   NAVIGATION_PACKAGE_DETAIL,
+  NAVIGATION_PRESCRIPTION,
   NAVIGATION_PROFILE_HEALTH,
   NAVIGATION_SHOW_MANAGER,
   NAVIGATION_SPLASH,
@@ -60,6 +61,10 @@ const StackNavigator = () => {
       <Stack.Screen
         name={NAVIGATION_MY_PHARMACY}
         component={Screens.MyPharmacy}
+      />
+      <Stack.Screen
+        name={NAVIGATION_PRESCRIPTION}
+        component={Screens.Prescription}
       />
       <Stack.Screen
         name={NAVIGATION_SHOW_MANAGER}

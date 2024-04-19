@@ -5,6 +5,7 @@ import {
   NAVIGATION_LOGIN,
   NAVIGATION_MY_PROFILE,
   NAVIGATION_MY_PHARMACY,
+  NAVIGATION_PRESCRIPTION,
 } from '../navigation/routes';
 
 export const today = new Intl.DateTimeFormat('vi', {
@@ -77,11 +78,11 @@ export const LIST_OPTION = [
         icon: 'icon_profile',
         link: NAVIGATION_MY_PHARMACY,
       },
-      // {
-      //   name: 'Tài khoản & dữ liệu',
-      //   icon: 'icon_profile',
-      //   link: '',
-      // },
+      {
+        name: 'Tài khoản & dữ liệu',
+        icon: 'icon_option',
+        link: NAVIGATION_PRESCRIPTION,
+      },
     ],
   },
   // {
