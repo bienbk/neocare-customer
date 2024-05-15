@@ -100,15 +100,15 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.neocarecustomer"
+    namespace "vn.neocare.customer"
     defaultConfig {
-        applicationId "com.neocarecustomer"
+        applicationId "vn.neocare.customer"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 19
-        versionName "1.0.1"
+        versionCode 1
+        versionName "1.0.0"
         multiDexEnabled true
-        resValue "string", "build_config_package", "com.neocarecustomer"
+        resValue "string", "build_config_package", "vn.neocare.customer"
         manifestPlaceholders = [label: 'Neo_NeoCare_Customer']
     }
 

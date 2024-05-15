@@ -2,7 +2,7 @@ import React, {useRef} from 'react';
 import {StyleSheet, SafeAreaView} from 'react-native';
 import Colors from 'theme/Colors';
 
-import DetailProduct from '../../common/DetailProduct/DetailProduct';
+// import DetailProduct from '../../common/DetailProduct/DetailProduct';
 const Prescription = ({navigation}) => {
   // const scrollY = useRef(new Animated.Value(0)).current;
   // const onScroll = Animated.event(
@@ -12,7 +12,7 @@ const Prescription = ({navigation}) => {
   // const onBack = () => navigation && navigation.navigate(NAVIGATION_ACCOUNT);
   return (
     <SafeAreaView style={styles.safeAreaView}>
-      <DetailProduct />
+      {/* <DetailProduct /> */}
     </SafeAreaView>
   );
 };

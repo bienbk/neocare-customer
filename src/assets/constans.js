@@ -379,10 +379,10 @@ export const versionSystem = DeviceInfo.getSystemVersion();
 export const versionNameApp = DeviceInfo.getVersion();
 export const deviceId = DeviceInfo.getUniqueId();
 export const isAndroid = Platform.OS === 'ios' ? false : true;
-export const KEY_ONE_SIGNAL =
-  process.env.NODE_ENV === 'development'
-    ? '7ef05ed3-d514-4300-a463-82c371e4def9'
-    : '4ce32c8b-dbe2-43ab-83dc-1eb1b985df55';
+// export const KEY_ONE_SIGNAL =
+//   process.env.NODE_ENV === 'development'
+//     ? '7ef05ed3-d514-4300-a463-82c371e4def9'
+//     : '4ce32c8b-dbe2-43ab-83dc-1eb1b985df55';
 export const KEY_GOONG_API = 'VphPkfidhRekSJM2Ff9TPIZSFtwDtgIWoXJ0wHUN';
 // export const GOOGLE_MAP_KEY = 'AIzaSyAAO8W-KytYgmE4BzIXP_dLGZ7ABdO2z54';
 export const GOOGLE_MAP_KEY = 'AIzaSyDy_5NNS-DwcZkcIYMar-wcspaL9fWJbQ0';

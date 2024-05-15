@@ -1,40 +1,21 @@
 {
   "project_info": {
-    "project_number": "227893603584",
-    "project_id": "neocare-customer",
-    "storage_bucket": "neocare-customer.appspot.com"
+    "project_number": "326077913365",
+    "project_id": "neocare-patient",
+    "storage_bucket": "neocare-patient.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:227893603584:android:d40c341af9db816a35d7e5",
+        "mobilesdk_app_id": "1:326077913365:android:bc253359e032e2d884b11c",
         "android_client_info": {
-          "package_name": "com.neocarecustomer"
+          "package_name": "vn.neocare.customer"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCnuZ0ZZgGaY4K3olQPUjszdIleMh5oEPE"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:227893603584:android:7ed2cb72eb6c24ae35d7e5",
-        "android_client_info": {
-          "package_name": "com.neocarecustomer.development"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCnuZ0ZZgGaY4K3olQPUjszdIleMh5oEPE"
+          "current_key": "AIzaSyCbmGMpI0cE-A9oeBQUbbUwlDdB1BKJvbE"
         }
       ],
       "services": {
