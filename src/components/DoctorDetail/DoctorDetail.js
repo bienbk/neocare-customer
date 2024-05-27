@@ -17,16 +17,22 @@ import Colors from 'theme/Colors';
 import MyModal from 'common/MyModal/MyModal';
 import strings from 'localization/Localization';
 import PackageItem from './PackageItem';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {followedDoctorSelector} from 'store/selectors';
 import CustomImage from './CustomImage';
 import CardInformation from './CardInformation';
+import { removeDoctorAction } from '../../store/doctor/doctorAction';
+import { statusRemoveDoctor } from '../../store/doctor/doctorSelector';
+import Status from '../../common/Status/Status';
+import { NAVIGATION_HOME } from '../../navigation/routes';
 
 const DoctorDetail = ({navigation, route}) => {
+  const dispatch = useDispatch();
   const [showDescription, setShowDescription] = useState(false);
   const [removeModal, setRemoveModal] = useState(-1);
   const [doctor, setDoctor] = useState();
   const [listPackage, setListPackage] = useState([]);
+  const statusRemoveDoc = useSelector(state => statusRemoveDoctor(state));
   const followedDoctor = useSelector(state => followedDoctorSelector(state));
   useEffect(() => {
     const {currentDoctor} = route.params;
@@ -50,6 +56,21 @@ const DoctorDetail = ({navigation, route}) => {
       <View style={styles.wrapperHeaderFlatlis}>
         <TextSemiBold>{'Gói dịch vụ đặc biệt'}</TextSemiBold>
       </View>
+    );
+  };
+  useEffect(() => {
+    if (statusRemoveDoc === Status.SUCCESS) {
+      setRemoveModal(-1);
+      setTimeout(() => {
+        navigation && navigation.navigate(NAVIGATION_HOME);
+      }, 200);
+    }
+  }, [statusRemoveDoc]);
+  const handleRemoveDoctor = () => {
+    dispatch(
+      removeDoctorAction({
+        qr_code: doctor?.id,
+      }),
     );
   };
   return (
@@ -112,8 +133,8 @@ const DoctorDetail = ({navigation, route}) => {
               Xoá thông tin bác sĩ
             </TextNormalSemiBold>
             <TextNormal style={{textAlign: 'center', paddingVertical: 10}}>
-              Bạn có chắc chắn muốn xoá thông tin Bác sĩ Nguyễn Hữu Nghĩa khỏi
-              danh sách đang theo dõi không?
+              {`Bạn có chắc chắn muốn xoá thông tin Bác sĩ ${doctor?.first_name} khỏi
+              danh sách đang theo dõi không?`}
             </TextNormal>
             <View style={styles.wrapperRemoveAction}>
               <TouchableOpacity
@@ -124,7 +145,7 @@ const DoctorDetail = ({navigation, route}) => {
                 </TextSemiBold>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => setRemoveModal(-1)}
+                onPress={() => handleRemoveDoctor()}
                 style={styles.removeButton}>
                 <TextSemiBold
                   style={{

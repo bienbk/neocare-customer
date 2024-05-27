@@ -221,6 +221,10 @@ const styles = StyleSheet.create({
   numberText: {
     color: Colors.gray.gray50,
     fontWeight: 'bold',
+    minWidth: 50,
+    alignSelf: 'center',
+    textAlign: 'center',
+    // backgroundColor: 'red',
     fontSize: 12,
   },
   noteText: {

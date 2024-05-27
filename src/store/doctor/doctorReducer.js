@@ -19,10 +19,37 @@ const initializeState = {
   // SEND SERVICE
   statusSendService: Status.DEFAULT,
   errorSendService: '',
+
+  // REMOVE DOCTOR
+  statusRemoveDoctor: Status.DEFAULT,
+  errorRemoveDoctor: '',
 };
 
 export default (state = initializeState, {type, payload}) => {
   switch (type) {
+    // ---------------- REMOVE DOCTOR ------------------
+    case NEOCARE.REMOVE_DOCTOR_REQUEST:
+      return {
+        ...state,
+        statusRemoveDoctor: Status.LOADING,
+      };
+    case NEOCARE.REMOVE_DOCTOR_SUCCESS:
+      return {
+        ...state,
+        statusRemoveDoctor: Status.SUCCESS,
+      };
+    case NEOCARE.REMOVE_DOCTOR_ERROR:
+      return {
+        ...state,
+        statusRemoveDoctor: Status.ERROR,
+        errorRemoveDoctor: payload,
+      };
+    case NEOCARE.REMOVE_DOCTOR_RESET:
+      return {
+        ...state,
+        statusRemoveDoctor: Status.DEFAULT,
+        errorRemoveDoctor: '',
+      };
     // -------------- SEND SERVICE ----------------------
     case NEOCARE.SEND_SERVICE_REQUEST:
       return {

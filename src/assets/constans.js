@@ -78,11 +78,11 @@ export const LIST_OPTION = [
         icon: 'icon_profile',
         link: NAVIGATION_MY_PHARMACY,
       },
-      {
-        name: 'Tài khoản & dữ liệu',
-        icon: 'icon_option',
-        link: NAVIGATION_PRESCRIPTION,
-      },
+      // {
+      //   name: 'Tài khoản & dữ liệu',
+      //   icon: 'icon_option',
+      //   link: NAVIGATION_PRESCRIPTION,
+      // },
     ],
   },
   // {
@@ -426,11 +426,11 @@ export const dates = () => {
   const currentMonth = new Date().getMonth();
   const currentYear = new Date().getFullYear();
   const rangeDate = new Set();
-  const today = new Date().getDate() + 1;
+  const todays = new Date().getDate() + 1;
   for (let month = 0; month <= currentMonth; month++) {
     const lastDayOfMonth = new Date(currentYear, month, 0).getDate();
     for (let day = 1; day <= lastDayOfMonth; day++) {
-      if (day === today && month === currentMonth) {
+      if (day === todays && month === currentMonth) {
         break;
       }
       rangeDate.add(formatter.format(new Date(currentYear, month, day)));

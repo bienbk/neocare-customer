@@ -55,9 +55,11 @@ const Weight = ({navigation}) => {
     if (currentUser.current.id === -1 && !currentUser.current?.height) {
       return;
     }
-    const height = Math.floor(
-      Math.pow(parseFloat(currentUser.current?.height / 100), 2),
-    );
+    const height =
+      parseFloat(currentUser.current?.height / 100) *
+      parseFloat(currentUser.current?.height / 100);
+
+    console.log('height:::', height);
     const bmiIndex = Math.floor(parseFloat(weight / height));
     let result;
     BMI.map(item => {

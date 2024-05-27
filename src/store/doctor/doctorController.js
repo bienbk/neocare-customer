@@ -46,5 +46,16 @@ class DoctorController {
       return {success: false};
     }
   };
+  removeDoctor = async payload => {
+    const {qr_code} = payload;
+    try {
+      const {data} = await HttpClient.delete(
+        `${UrlApi.apiFollowDoctor}/${qr_code}`,
+      );
+      return data ? {success: true} : {success: false, message: data};
+    } catch (error) {
+      return {success: false, message: error};
+    }
+  };
 }
 export default new DoctorController();
