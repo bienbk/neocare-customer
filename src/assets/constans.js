@@ -73,16 +73,16 @@ export const LIST_OPTION = [
         icon: 'icon_user',
         link: NAVIGATION_MY_PROFILE,
       },
-      {
-        name: 'Nhà thuốc của tôi',
-        icon: 'icon_profile',
-        link: NAVIGATION_MY_PHARMACY,
-      },
-      {
-        name: 'Tài khoản & dữ liệu',
-        icon: 'icon_option',
-        link: NAVIGATION_PRESCRIPTION,
-      },
+      // {
+      //   name: 'Nhà thuốc của tôi',
+      //   icon: 'icon_profile',
+      //   link: NAVIGATION_MY_PHARMACY,
+      // },
+      // {
+      //   name: 'Tài khoản & dữ liệu',
+      //   icon: 'icon_option',
+      //   link: NAVIGATION_PRESCRIPTION,
+      // },
     ],
   },
   // {
