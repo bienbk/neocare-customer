@@ -8,7 +8,7 @@ import {TextSmallTwelve} from 'common/Text/TextFont';
 import Svg from 'common/Svg/Svg';
 import Colors from '../../theme/Colors';
 const DoctorInfo = ({currentDoctor = -1, onPress, packagePurchased}) => {
-  // console.log(packagePurchased);
+  console.log('packagePurchased:::', packagePurchased);
   const leftDay =
     packagePurchased && packagePurchased.length
       ? (new Date().getTime() -
@@ -34,7 +34,7 @@ const DoctorInfo = ({currentDoctor = -1, onPress, packagePurchased}) => {
               <TextSmallMedium style={{color: Colors.gray.gray50}}>{'Chuyên khoa tim mạch'}</TextSmallMedium>
             </View>
           </View>
-          {packagePurchased && (
+          {packagePurchased.length > 0 && (
             <TextNormal style={{paddingTop: 10}}>
               {`${packagePurchased[0]?.name}`}
             </TextNormal>

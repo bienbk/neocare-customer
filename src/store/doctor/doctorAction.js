@@ -31,3 +31,12 @@ export const sendServiceAction = payload => ({
 export const resetSendService = () => ({
   type: NEOCARE.SEND_SERVICE_RESET,
 });
+
+// REMOVE DOCTOR
+export const removeDoctorAction = payload => ({
+  type: NEOCARE.REMOVE_DOCTOR_REQUEST,
+  payload,
+});
+export const resetRemoveDoctor = () => ({
+  type: NEOCARE.REMOVE_DOCTOR_RESET,
+});

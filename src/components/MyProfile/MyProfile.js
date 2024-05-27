@@ -181,7 +181,7 @@ const MyProfile = ({navigation}) => {
         <View style={styles.wrapperButton}>
           <CustomButton
             onPress={handleSubmitInfo}
-            label={strings.common.continue}
+            label={strings.common.save}
             styledButton={styles.btnContinue}
           />
         </View>

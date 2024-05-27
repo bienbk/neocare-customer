@@ -267,7 +267,7 @@ const BloodPressure = ({navigation, setWarningModal}) => {
               min={30}
               max={300}
               onWarning={value =>
-                setWarningMessage(value === true ? 'Tầm thu không hợp lệ' : '')
+                setWarningMessage(value === true ? 'Tâm thu không hợp lệ' : '')
               }
               isFocused={activeInput === 1}
             />
@@ -276,7 +276,7 @@ const BloodPressure = ({navigation, setWarningModal}) => {
                 styles.textLabelInput,
                 activeInput === 1 && {color: Colors.main},
               ]}>
-              {'Tầm thu'}
+              {'Tâm thu'}
             </TextNormalSemiBold>
           </TouchableOpacity>
           <TouchableOpacity
@@ -294,7 +294,7 @@ const BloodPressure = ({navigation, setWarningModal}) => {
               max={250}
               onWarning={value =>
                 setWarningMessage(
-                  value === true ? 'Tầm truơng không hợp lệ' : '',
+                  value === true ? 'Tâm truơng không hợp lệ' : '',
                 )
               }
               isFocused={activeInput === 2}
@@ -304,7 +304,7 @@ const BloodPressure = ({navigation, setWarningModal}) => {
                 styles.textLabelInput,
                 activeInput === 2 && {color: Colors.gray.gray20},
               ]}>
-              {'Tầm truơng'}
+              {'Tâm truơng'}
             </TextNormalSemiBold>
           </TouchableOpacity>
           <TouchableOpacity

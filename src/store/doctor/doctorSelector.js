@@ -19,3 +19,6 @@ export const statusListDoctorSelector = state => state.doctor.statusListDoctor;
 // ------------------ SEND SERVICE TO EXPERT ------------------
 export const statusSendServiceSelector = state => state.doctor.statusSendService;
 export const errorSendServiceSelector = state => state.doctor.errorSendService;
+// ------------------- REMOVE DOCTOR --------------------'
+export const statusRemoveDoctor = state => state.doctor.statusRemoveDoctor;
+export const messageRemoveDoctor = state => state.doctor.messageRemoveDoctor;
