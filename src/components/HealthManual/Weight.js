@@ -28,10 +28,12 @@ import DateTimePicker from 'common/DateTImePicker/DateTimePicker';
 import {asyncStorage} from 'store';
 import {BMI} from 'assets/constans';
 import Ruler from 'common/Ruler/Ruler';
+import {TextSmallTwelve} from '../../common/Text/TextFont';
 const Weight = ({navigation}) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const [date, setDate] = useState(new Date());
   const [messure, setMessure] = useState(1);
+  const [warning, setWarning] = useState('');
   const [weight, setWeight] = useState(0);
   const inputTransition = new Animated.Value(0);
   const conclusionTransition = new Animated.Value(widthDevice);
@@ -52,7 +54,8 @@ const Weight = ({navigation}) => {
   };
 
   const processInput = () => {
-    if (currentUser.current.id === -1 && !currentUser.current?.height) {
+    if (currentUser.current.id === -1 || !currentUser.current?.height) {
+      setWarning('Chiều cao không hợp lệ, vui lòng nhập trong hồ sơ');
       return;
     }
     const height =
@@ -156,7 +159,18 @@ const Weight = ({navigation}) => {
               initialValue={60}
               onValueChange={number => setWeight(number)}
             />
+            {warning.length > 0 && (
+              <TextSmallTwelve
+                style={{
+                  textAlign: 'center',
+                  marginTop: 50,
+                  color: Colors.very_high,
+                }}>
+                {warning}
+              </TextSmallTwelve>
+            )}
           </Animated.View>
+
           <CustomButton
             onPress={() => processInput()}
             styled={[{marginBottom: 20}]}

@@ -21,7 +21,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {followedDoctorSelector} from 'store/selectors';
 import CustomImage from './CustomImage';
 import CardInformation from './CardInformation';
-import { removeDoctorAction } from '../../store/doctor/doctorAction';
+import { listDoctorAction, removeDoctorAction } from '../../store/doctor/doctorAction';
 import { statusRemoveDoctor } from '../../store/doctor/doctorSelector';
 import Status from '../../common/Status/Status';
 import { NAVIGATION_HOME } from '../../navigation/routes';
@@ -61,6 +61,7 @@ const DoctorDetail = ({navigation, route}) => {
   useEffect(() => {
     if (statusRemoveDoc === Status.SUCCESS) {
       setRemoveModal(-1);
+      dispatch(listDoctorAction());
       setTimeout(() => {
         navigation && navigation.navigate(NAVIGATION_HOME);
       }, 200);

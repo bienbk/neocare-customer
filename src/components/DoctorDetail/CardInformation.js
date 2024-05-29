@@ -18,13 +18,13 @@ const CardInformation = ({doctor, onPressDescription, showDescription}) => {
         <Icons type={'Feather'} name={'phone'} size={18} color={'white'} />
       </TouchableOpacity>
       <View style={styles.inforCard}>
-        <TextSemiBold style={{paddingVertical: 5, fontSize: 20}}>
+        <TextSemiBold style={{paddingVertical: 3, fontSize: 20}}>
           {doctor?.last_name
             ? doctor?.last_name + ' ' + doctor?.first_name
             : 'Nguyen Tran'}
         </TextSemiBold>
         <TextSmallTwelve style={{color: Colors.gray.gray50}}>
-          {doctor?.department || 'Chuyên khoa Tim mạch'}
+          {`Mã chuyên gia: ${doctor?.qr_code}`}
         </TextSmallTwelve>
         {/* <View style={styles.wrapperDepartmentLabel}>
           <TextSmallTwelve style={{color: Colors.primary, fontWeight: 'bold'}}>

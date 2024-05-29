@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useCallback, useEffect, useRef} from 'react';
 import {StyleSheet, View, Animated} from 'react-native';
 import {AnimatedFlashList} from '@shopify/flash-list';
