@@ -64,7 +64,7 @@ const DoctorDetail = ({navigation, route}) => {
       dispatch(listDoctorAction());
       setTimeout(() => {
         navigation && navigation.navigate(NAVIGATION_HOME);
-      }, 200);
+      }, 500);
     }
   }, [statusRemoveDoc]);
   const handleRemoveDoctor = () => {
