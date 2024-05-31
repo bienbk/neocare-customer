@@ -26,16 +26,13 @@ const AvailablePackage = ({packageItem, navigation}) => {
           style={{
             flex: 1,
             flexDirection: 'row',
-            justifyContent: 'center',
+            justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <View style={{alignItems: 'center'}}>
-            <TextNormal style={styles.packageName}>
+          <View style={{alignItems: 'center', width: '60%'}}>
+            <TextNormal numberOfLines={2} style={styles.packageName}>
               {`${packageItem.name}`}
             </TextNormal>
-            {/* <TextSemiBold style={{color: '#203A69'}}>
-              {`${packageItem.name.match(/\d+/)[0]}`}
-            </TextSemiBold> */}
           </View>
           <Svg name={'decorator_package'} size={130} />
         </View>

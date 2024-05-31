@@ -28,11 +28,15 @@ import heart_active from './iconMain/heart_active';
 import background_doctor from './iconMain/background_doctor.svg';
 import icon_avatar from './iconMain/icon_avatar.svg';
 import icon_pharmacy from './iconMain/icon_pharmacy.svg';
+import avatar_default from './iconMain/avatar_default.svg';
 import icon_empty from './iconMain/icon_empty.svg';
+import home_doctor from './iconMain/home_doctor.svg';
 export default {
   heart_active,
   icon_option,
   background_doctor,
+  home_doctor,
+  avatar_default,
   icon_avatar,
   icon_splash,
   icon_pharmacy,

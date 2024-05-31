@@ -112,7 +112,7 @@ const MyProfile = ({navigation}) => {
           {'Hồ sơ của tôi'}
         </TextMoneyBold>
         <TouchableOpacity style={styles.wrapperAvatar}>
-          <Images source={user_example} style={styles.avatar} />
+          <Svg name={'avatar_default'} size={80} style={styles.avatar} />
           {/* <View style={styles.iconEdit}>
             <Svg name={'icon_edit1'} size={25} />
           </View> */}

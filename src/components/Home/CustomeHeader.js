@@ -1,14 +1,15 @@
 import React, {useEffect} from 'react';
 import {View, TouchableOpacity, ImageBackground} from 'react-native';
-import {user_example, decorator_header} from 'assets/constans';
-import Images from 'common/Images/Images';
+import {decorator_header} from 'assets/constans';
 import Icons from 'common/Icons/Icons';
 import {TextSmallMedium, TextSemiBold} from 'common/Text/TextFont';
 import MyModal from 'common/MyModal/MyModal';
-import {empty_logo} from '../../assets/constans';
+import {header_home} from 'assets/constans';
 import styles from './styles';
 import {asyncStorage} from 'store';
-import Svg from '../../common/Svg/Svg';
+import Svg from 'common/Svg/Svg';
+import Colors from 'theme/Colors';
+import {TextNormal} from 'common/Text/TextFont';
 
 const CustomeHeader = () => {
   const [currentUser, setCurrentUser] = React.useState({first_name: ''});
@@ -29,34 +30,31 @@ const CustomeHeader = () => {
     setOpenModalNotify(false);
   };
   return (
-    // <View style={styles.wrapperHeader}>
-    //   <Images source={home_image} style={styles.imageBackground} />
-    //   <View style={styles.wrapperTitle}>
-    //     <TouchableOpacity style={styles.wrapperBellIcon}>
-    //       <Icons type={'Feather'} name={'bell'} size={28} color={'black'} />
-    //     </TouchableOpacity>
-    //     <TextSemiBold style={styles.greetingText}>Xin chào,</TextSemiBold>
-    //     <TextMoneyBold style={styles.titleText}>
-    //       {'Sức khoẻ bạn\n hôm nay thế nào?'}
-    //     </TextMoneyBold>
-    //   </View>
-    // </View>
     <ImageBackground
-      source={decorator_header}
+      source={header_home}
       resizeMode={'stretch'}
       style={styles.wrapperFixedHeader}>
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <Images source={user_example} style={styles.avatarIcon} />
+      <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 17}}>
+        <View style={styles.borderAvatar}>
+          <Svg name={'avatar_default'} size={45} style={styles.avatarIcon} />
+        </View>
+
         <View style={{paddingHorizontal: 10}}>
-          <TextSemiBold style={{fontWeight: '400'}}>
+          <TextNormal style={{color: Colors.whiteColor, fontSize: 16}}>
             Xin chào
-            <TextSemiBold>{' ' + currentUser?.first_name}</TextSemiBold>
-          </TextSemiBold>
-          <TextSmallMedium>Sức khoẻ bạn hôm nay thế nào?</TextSmallMedium>
+            <TextSemiBold style={{color: Colors.whiteColor}}>
+              {' ' + currentUser?.first_name}
+            </TextSemiBold>
+          </TextNormal>
+          <TextSmallMedium style={{color: Colors.whiteColor}}>
+            Sức khoẻ bạn hôm nay thế nào?
+          </TextSmallMedium>
         </View>
       </View>
-      <TouchableOpacity onPress={() => onPressOpenNotify()}>
-        <Icons type={'Feather'} name={'bell'} size={29} color={'black'} />
+      <TouchableOpacity
+        style={{position: 'absolute', top: 17, right: 15, zIndex: 100}}
+        onPress={() => onPressOpenNotify()}>
+        <Icons type={'Feather'} name={'bell'} size={29} color={'white'} />
       </TouchableOpacity>
       <MyModal visible={openModalNotify} onPressOutSide={onPressOutSide}>
         <View style={styles.containerEmpty}>

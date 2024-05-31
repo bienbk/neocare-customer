@@ -3,18 +3,21 @@ import {StyleSheet, Platform} from 'react-native';
 import Colors from 'theme/Colors';
 
 const styles = StyleSheet.create({
+  borderAvatar: {
+    borderColor: Colors.primary,
+    borderWidth: 2,
+    borderRadius: 40,
+    borderStyle: 'solid',
+  },
   avatarIcon: {
     height: 45,
     width: 45,
     borderRadius: 20,
-    backgroundColor: 'lightgray',
+    // backgroundColor: Colors.gray.gray90,
+    // backgroundColor: 'lightgray',
   },
   wrapperFixedHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    height: 70,
+    height: heightDevice * 0.25,
     paddingHorizontal: 15,
     width: widthDevice,
   },
@@ -100,11 +103,23 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     lineHeight: 33,
   },
-  doctorContainer: {marginHorizontal: 15, paddingTop: 10},
+  doctorContainer: {
+    marginHorizontal: 15,
+    height: heightDevice * 0.22,
+    marginBottom: 10,
+    marginTop: -(heightDevice * 0.22) / 1.5,
+  },
+  wrapperDoctorInfo: {
+    padding: 16,
+    backgroundColor: Colors.primary,
+    marginTop: 10,
+    justifyContent: 'center',
+    borderRadius: 16,
+    height: heightDevice * 0.19,
+  },
   doctorName: {
     fontWeight: 'bold',
     fontSize: 16,
-    paddingVertical: 5,
   },
   containerAsking: {
     flexDirection: 'row',
@@ -116,8 +131,8 @@ const styles = StyleSheet.create({
   },
   textBold: {fontWeight: 'bold'},
   buttonAsking: {
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingHorizontal: 15,
+    paddingVertical: 7,
     backgroundColor: '#FFE699',
     borderRadius: 8,
     alignSelf: 'center',
@@ -132,21 +147,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   imageDoctorAsking: {height: 120, width: 70, marginHorizontal: 10},
-  paddingH10: {paddingHorizontal: 10},
+  wrapperInfoText: {
+    paddingHorizontal: 12,
+    // alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 5,
+  },
   imageDoctor: {borderRadius: 10},
   wrapperMainDoctor: {
     flexDirection: 'row',
-    borderBottomColor: Colors.whiteColor,
-    borderBottomWidth: 1,
-    borderStyle: 'solid',
-    paddingBottom: 10,
+    // paddingVertical: 10,
   },
-  wrapperDoctorInfo: {
-    padding: 15,
-    marginVertical: 10,
-    backgroundColor: Colors.primary,
-    borderRadius: 16,
-  },
+
   wrapperCardItem: {
     width: widthDevice - 30,
     alignSelf: 'center',
@@ -169,7 +181,7 @@ const styles = StyleSheet.create({
         },
       },
     }),
-    paddingVertical: 10,
+    paddingVertical: 5,
   },
   wrapperOptionIcon: {
     padding: 10,
@@ -187,7 +199,7 @@ const styles = StyleSheet.create({
   },
   wrapperContentCard: {
     paddingVertical: 10,
-    borderBottomColor: Colors.gray.gray90,
+    borderBottomColor: Colors.gray.gray95,
     borderBottomWidth: 1,
   },
   wrapperNameLine: {
@@ -250,12 +262,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: 15,
     alignItems: 'center',
-  },
-  wrapperListCard: {
-    // backgroundColor: Colors.backgroundColor,
-    borderTopRightRadius: 32,
-    borderTopLeftRadius: 32,
-    marginTop: 0,
   },
 });
 

@@ -6,15 +6,25 @@ import Colors from 'theme/Colors';
 import {NAVIGATION_HOME} from 'navigation/routes';
 import {widthDevice} from 'assets/constans';
 import Svg from 'common/Svg/Svg';
+import Images from '../../common/Images/Images';
 
-const CustomImage = ({navigation, onPressOption}) => {
+const CustomImage = ({navigation, onPressOption, doctor}) => {
+  console.log('doctor:::', doctor);
   return (
     <View style={styles.imageDoctor}>
-      <Svg
-        name={'background_doctor'}
-        width={'100%'}
-        height={(widthDevice * 5) / 6}
-      />
+      {doctor?.avarta.length > 0 ? (
+        <Images
+          source={{uri: doctor?.avarta}}
+          style={{height: (widthDevice * 5) / 6, width: '100%'}}
+        />
+      ) : (
+        <Svg
+          name={'background_doctor'}
+          width={'100%'}
+          height={(widthDevice * 5) / 6}
+        />
+      )}
+
       <TouchableOpacity
         onPress={() => navigation.navigate(NAVIGATION_HOME)}
         style={styles.closeIcon}>

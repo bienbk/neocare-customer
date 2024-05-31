@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {SafeAreaView, View, ScrollView} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {SafeAreaView, View, ScrollView, Animated} from 'react-native';
 import styles from './styles';
 import DiseaseCard from './DiseaseCard';
 import CustomeHeader from './CustomeHeader';
@@ -27,6 +27,7 @@ import {HOME_DATA} from 'assets/constans';
 import {OneSignal} from 'react-native-onesignal';
 import {asyncStorage} from 'store';
 import {FlashList} from '@shopify/flash-list';
+import {heightDevice} from '../../assets/constans';
 
 const Home = ({navigation}) => {
   const dispatch = useDispatch();
@@ -116,7 +117,6 @@ const Home = ({navigation}) => {
     } else {
       navigation.navigate(NAVIGATION_CONNECTION, {type: 1});
     }
-    // navigation.navigate(NAVIGATION_CONNECTION, {type: 1});
   };
 
   const sendOneSignal = async () => {
@@ -127,7 +127,7 @@ const Home = ({navigation}) => {
     OneSignal.login(tempUser?.id.toString());
     let dataOneSignal = {
       cid: tempUser?.id.toString(),
-      name: tempUser?.first_name + ' ' + tempUser?.last_name,
+      name: tempUser?.last_name + ' ' + tempUser?.first_name,
     };
     OneSignal.User.addTags(dataOneSignal);
   };
@@ -135,11 +135,16 @@ const Home = ({navigation}) => {
   useEffect(() => {
     sendOneSignal();
   }, []);
-
+  // const positionY = useRef(new Animated.Value(0)).current;
   return (
     <SafeAreaView style={styles.container}>
-      <CustomeHeader />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        // onScroll={({nativeEvent}) => {
+        //   positionY.setValue(nativeEvent.contentOffset.y);
+        // }}
+      >
+        <CustomeHeader doctor={currentDoctor?.doctor} />
         <DoctorInfo
           currentDoctor={currentDoctor ? currentDoctor : -1}
           onPress={handleSelectDoctor}
@@ -149,22 +154,18 @@ const Home = ({navigation}) => {
               : []
           }
         />
-        <View style={styles.wrapperListCard}>
-          <FlashList
-            data={listParams.length > 0 ? listParams : HOME_DATA}
-            scrollEnabled={false}
-            showsVerticalScrollIndicator={false}
-            keyExtractor={i => i.name}
-            renderItem={renderCardItem}
-            ListHeaderComponent={
-              <HeaderList
-                onPressOption={() =>
-                  navigation.navigate(NAVIGATION_SHOW_MANAGER)
-                }
-              />
-            }
-          />
-        </View>
+        <FlashList
+          data={listParams.length > 0 ? listParams : HOME_DATA}
+          scrollEnabled={false}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={i => i.name}
+          renderItem={renderCardItem}
+          ListHeaderComponent={
+            <HeaderList
+              onPressOption={() => navigation.navigate(NAVIGATION_SHOW_MANAGER)}
+            />
+          }
+        />
       </ScrollView>
     </SafeAreaView>
   );

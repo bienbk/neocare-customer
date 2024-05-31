@@ -9,7 +9,7 @@ import {TouchableOpacity, View} from 'react-native';
 // import {MIDDLE_DOT,} from 'assets/constans';
 import Icons from 'common/Icons/Icons';
 import styles from './styles';
-import Colors from '../../theme/Colors';
+import Colors from 'theme/Colors';
 import {STATUS_COLORS, STATUS} from 'assets/constans';
 // import Colors from 'theme/Colors';
 
@@ -30,15 +30,17 @@ const DiseaseCard = ({
       <View style={styles.wrapperContentCard}>
         <View style={styles.wrapperNameLine}>
           <TextSemiBold>{name}</TextSemiBold>
-          <View
-            style={[
-              styles.statusText,
-              {backgroundColor: STATUS_COLORS[status || 0]},
-            ]}>
-            <TextSmallTwelve style={{color: Colors.whiteColor}}>
-              {STATUS[status || 0]}
-            </TextSmallTwelve>
-          </View>
+          {id !== 6 && (
+            <View
+              style={[
+                styles.statusText,
+                {backgroundColor: STATUS_COLORS[status || 0]},
+              ]}>
+              <TextSmallTwelve style={{color: Colors.whiteColor}}>
+                {STATUS[status || 0]}
+              </TextSmallTwelve>
+            </View>
+          )}
         </View>
         {id === 2 && item?.eating_status && (
           <View style={styles.wrapperTypeTime}>
@@ -62,7 +64,15 @@ const DiseaseCard = ({
       </View>
       <View style={styles.wrapperValue}>
         <View style={{flexDirection: 'row'}}>
-          <TextMoneyBold style={styles.fontSize24}>{value}</TextMoneyBold>
+          <TextMoneyBold
+            style={[
+              {
+                color: parseInt(value, 10) > 0 ? 'black' : 'lightgray',
+                fontSize: 20,
+              },
+            ]}>
+            {value}
+          </TextMoneyBold>
           {subValue && (
             <View style={styles.wrapperSubvalue}>
               <Icons
@@ -72,7 +82,11 @@ const DiseaseCard = ({
                 style={{paddingHorizontal: 3}}
                 color={'red'}
               />
-              <TextMoneyBold style={styles.fontSize24}>
+              <TextMoneyBold
+                style={{
+                  fontSize: 20,
+                  color: parseInt(subValue, 10) > 0 ? 'black' : 'lightgray',
+                }}>
                 {subValue}
               </TextMoneyBold>
             </View>

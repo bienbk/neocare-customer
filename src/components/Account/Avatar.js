@@ -1,18 +1,10 @@
-import {user_example} from 'assets/constans';
-import Images from 'common/Images/Images';
 import {TextNormalSemiBold, TextSemiBold} from 'common/Text/TextFont';
-import React, {useEffect, useState} from 'react';
-import {
-  StyleSheet,
-  FlatList,
-  RefreshControl,
-  TouchableOpacity,
-  View,
-  ScrollView,
-} from 'react-native';
+import React, {useEffect} from 'react';
+import {StyleSheet, RefreshControl, View, ScrollView} from 'react-native';
 import Colors from 'theme/Colors';
-import {heightDevice, widthDevice} from '../../assets/constans';
-import {asyncStorage} from '../../store';
+import {heightDevice, widthDevice} from 'assets/constans';
+import {asyncStorage} from 'store';
+import Svg from 'common/Svg/Svg';
 
 const Avatar = ({}) => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -46,12 +38,12 @@ const Avatar = ({}) => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
         <View style={styles.content}>
-          <Images source={user_example} style={styles.image} />
+          <Svg name={'avatar_default'} size={90} style={styles.image} />
         </View>
         <View style={styles.textBalance}>
           <TextSemiBold style={{color: Colors.whiteColor}}>
             {user.first_name !== ''
-              ? user.first_name + ' ' + user.last_name
+              ? user.last_name + ' ' + user.first_name
               : 'Username'}
           </TextSemiBold>
         </View>
@@ -88,7 +80,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.primary,
     width: 92,
     backgroundColor: Colors.gray.gray90,
-    height: heightDevice * 0.336 * 0.35,
+    height: heightDevice * 0.336 * 0.35 + 10,
     borderRadius: 92,
     justifyContent: 'center',
     alignItems: 'center',

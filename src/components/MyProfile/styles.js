@@ -117,9 +117,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   iconEdit: {position: 'absolute', bottom: -2, right: 0},
-  avatar: {height: 80, width: 82},
+  avatar: {height: 80, width: 80},
   wrapperAvatar: {
-    padding: 5,
+    // padding: 5,
     alignSelf: 'center',
     marginVertical: 10,
     borderRadius: 40,

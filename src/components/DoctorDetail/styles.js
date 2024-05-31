@@ -12,14 +12,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   packageName: {
-    paddingVertical: 5,
+    padding: 5,
     fontWeight: 'bold',
     fontSize: 14,
-    width: '80%',
     alignSelf: 'center',
     textAlign: 'center',
     // backgroundColor: 'red',
-    color: '#45B4A5',
+    color: '#2248A1',
   },
   textShowMore: {
     textDecorationLine: 'underline',

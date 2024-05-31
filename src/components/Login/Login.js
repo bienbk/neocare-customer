@@ -12,17 +12,17 @@ import {useDispatch, useSelector} from 'react-redux';
 import {sendPhone} from 'store/actions';
 import styles from './styles';
 import {isErrorSendOtp, isStatusSendPhone} from 'store/selectors';
-import {TextNormal} from '../../common/Text/TextFont';
+import {TextNormal} from 'common/Text/TextFont';
 import Svg from 'common/Svg/Svg';
 import Colors from 'theme/Colors';
 import Status from 'common/Status/Status';
 import {heightDevice} from 'assets/constans';
-import {NAVIGATION_VERIFY_CODE} from '../../navigation/routes';
+import {NAVIGATION_VERIFY_CODE} from 'navigation/routes';
 import CheckBox from '@react-native-community/checkbox';
-import CustomButton from '../../common/CustomButton/CustomButton';
-import strings from '../../localization/Localization';
-import {parsePhoneNumber, isValidPhoneNumber} from 'libphonenumber-js/mobile';
-import {isAndroid} from '../../assets/constans';
+import CustomButton from 'common/CustomButton/CustomButton';
+import strings from 'localization/Localization';
+import {parsePhoneNumber} from 'libphonenumber-js/mobile';
+import {isAndroid} from 'assets/constans';
 const FOMART = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 const Login = props => {
   const dispatch = useDispatch();
@@ -90,9 +90,7 @@ const Login = props => {
                   placeholder="000 000 000 "
                   placeholderTextColor={Colors.textGrayColor}
                   style={styles.styleTextInput}
-                  keyboardType={
-                    isAndroid ? 'number-pad' : 'numbers-and-punctuation'
-                  }
+                  keyboardType={isAndroid ? 'number-pad' : 'phone-pad'}
                   returnKeyLabel={'Done'}
                   returnKeyType={'done'}
                   onChangeText={text => setPhone(text)}

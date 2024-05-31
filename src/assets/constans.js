@@ -17,7 +17,7 @@ export const today = new Intl.DateTimeFormat('vi', {
 export const STATUS = {
   0: 'Bình thuờng',
   1: 'Thấp',
-  2: 'Lý tuởng',
+  2: 'Lý tưởng',
   3: 'Hơi Cao',
   4: 'Cao',
   5: 'Rất cao',
@@ -366,7 +366,7 @@ export const HOME_DATA = [
     id: 6,
     name: 'Cân nặng',
     code: 'Weight',
-    status: 'Bình thường',
+    status: '',
     created_at: new Date(),
     value: '--/--',
     unit: 'kg',
@@ -391,6 +391,7 @@ export const doctor_avatar = require('assets/images/doctor.png');
 export const doctor_detail = require('assets/images/doctor_detail.png');
 export const empty_logo = require('assets/images/empty_logo.png');
 export const user_example = require('assets/images/user_example.png');
+export const header_home = require('assets/images/header_home.png');
 export const card_blue = require('assets/images/card_blue.jpg');
 export const card_pink = require('assets/images/card_pink.jpg');
 export const home_image = require('assets/images/home.png');

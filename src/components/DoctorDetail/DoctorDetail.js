@@ -21,10 +21,10 @@ import {useDispatch, useSelector} from 'react-redux';
 import {followedDoctorSelector} from 'store/selectors';
 import CustomImage from './CustomImage';
 import CardInformation from './CardInformation';
-import { listDoctorAction, removeDoctorAction } from '../../store/doctor/doctorAction';
-import { statusRemoveDoctor } from '../../store/doctor/doctorSelector';
-import Status from '../../common/Status/Status';
-import { NAVIGATION_HOME } from '../../navigation/routes';
+import {listDoctorAction, removeDoctorAction} from 'store/doctor/doctorAction';
+import {statusRemoveDoctor} from 'store/doctor/doctorSelector';
+import Status from 'common/Status/Status';
+import {NAVIGATION_HOME} from 'navigation/routes';
 
 const DoctorDetail = ({navigation, route}) => {
   const dispatch = useDispatch();
@@ -81,6 +81,7 @@ const DoctorDetail = ({navigation, route}) => {
         showsVerticalScrollIndicator={false}>
         <CustomImage
           navigation={navigation}
+          doctor={doctor}
           onPressOption={() => setRemoveModal(1)}
         />
         {/* DESCRIPTION SECTION */}
