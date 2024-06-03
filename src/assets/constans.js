@@ -155,7 +155,7 @@ const BLOOD_PRESSURE = [
       max_tam_thu: 120,
       min_tam_truong: 60,
       max_tam_truong: 80,
-      color: '#50C878',
+      color: Colors.greenColor,
     },
   },
   {
@@ -166,7 +166,7 @@ const BLOOD_PRESSURE = [
       max_tam_thu: 129,
       min_tam_truong: 80,
       max_tam_truong: 84,
-      color: '#50C878',
+      color: Colors.greenColor,
     },
   },
   {
@@ -227,9 +227,9 @@ export const BLOOD_SUGAR_MOL = [
   {
     key: 'Bình thuờng',
     status: 0,
-    type_1: {min: 3.9, max: 7.2, color: '#50C878'},
-    type_2: {min: 3.9, max: 9.9, color: '#50C878'},
-    type_3: {min: 3.9, max: 7.2, color: '#50C878'},
+    type_1: {min: 3.9, max: 7.2, color: Colors.greenColor},
+    type_2: {min: 3.9, max: 9.9, color: Colors.greenColor},
+    type_3: {min: 3.9, max: 7.2, color: Colors.greenColor},
   },
   {
     key: 'Thấp',
@@ -269,9 +269,9 @@ export const BLOOD_SUGAR_MG = [
   {
     key: 'Bình thuờng',
     status: 0,
-    type_1: {min: 70, max: 130, color: '#50C878'},
-    type_2: {min: 70, max: 180, color: '#50C878'},
-    type_3: {min: 70, max: 130, color: '#50C878'},
+    type_1: {min: 70, max: 130, color: Colors.greenColor},
+    type_2: {min: 70, max: 180, color: Colors.greenColor},
+    type_3: {min: 70, max: 130, color: Colors.greenColor},
   },
   {
     key: 'Thấp',
@@ -289,24 +289,24 @@ export const BLOOD_SUGAR_MG = [
   },
 ];
 export const AXIT_URIC_MG = [
-  {key: 'An toàn', min: MIN, max: 6.4, color: '#50C878', status: 2},
+  {key: 'An toàn', min: MIN, max: 6.4, color: Colors.greenColor, status: 2},
   {key: 'Cần chú ý', min: 6.5, max: 7.2, color: '#ffdf00', status: 3},
   {key: 'Cao', min: 7.3, max: 10.0, color: '#f73e3a', status: 4},
   {key: 'Cực kỳ cao', min: 10.1, max: MAX, color: '#d40000', status: 5},
 ];
 export const AXIT_URIC_MOL = [
-  {key: 'An toàn', min: MIN, max: 379, color: '#50C878', status: 2},
+  {key: 'An toàn', min: MIN, max: 379, color: Colors.greenColor, status: 2},
   {key: 'Cần chú ý', min: 380, max: 420, color: '#ffdf00', status: 3},
   {key: 'Cao', min: 421, max: 580, color: '#f73e3a', status: 4},
   {key: 'Cực kỳ cao', min: 581, max: MAX, color: '#d40000', status: 5},
 ];
 export const HBA1C_PERCENT = [
-  {key: 'Bình thuờng', color: '#50C878', min: 3.0, max: 5.6, status: 0},
+  {key: 'Bình thuờng', color: Colors.greenColor, min: 3.0, max: 5.6, status: 0},
   {key: 'Tiểu đuờng', color: '#f73e3a', min: 6.5, max: MAX, status: 4},
   {key: 'Tiền tiểu đuờng', color: '#ffdf00', min: 5.7, max: 6.4, status: 3},
 ];
 export const HBA1C_MOL = [
-  {key: 'Bình thuờng', color: '#50C878', min: 9.0, max: 38, status: 0},
+  {key: 'Bình thuờng', color: Colors.greenColor, min: 9.0, max: 38, status: 0},
   {key: 'Tiểu đuờng', color: '#f73e3a', min: 48, max: MAX, status: 4},
   {key: 'Tiền tiểu đuờng', color: '#ffdf00', min: 39, max: 47, status: 3},
 ];
@@ -369,7 +369,7 @@ export const HOME_DATA = [
     status: '',
     created_at: new Date(),
     value: '--/--',
-    unit: 'kg',
+    unit: '',
     label: 'Nhập thủ công',
   },
 ];

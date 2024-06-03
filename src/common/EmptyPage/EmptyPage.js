@@ -16,7 +16,7 @@ export default EmptyPage;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.backgroundColor,
+    backgroundColor: Colors.whiteColor,
     justifyContent: 'center',
     alignItems: 'center',
   },

@@ -62,7 +62,7 @@ const ConclusionInput = ({navigation, conclusion, onSave, value, title, unit, ty
       .map((item, index) => {
         if (type === 1) {
           return (
-            <View style={styles.wrapperSubValItem}>
+            <View  key={item.name} style={styles.wrapperSubValItem}>
               <View style={styles.containerSubValItem}>
                 <TextSemiBold style={{fontSize: 25}}>{item.value}</TextSemiBold>
                 <TextSmallMedium style={{color: Colors.gray.gray50}}>
@@ -75,7 +75,7 @@ const ConclusionInput = ({navigation, conclusion, onSave, value, title, unit, ty
         } else {
           item.name = item?.name ? item?.name : 'TOTAL';
           return (
-            <View style={styles.wrapperCholesterolItem}>
+            <View key={item.name} style={styles.wrapperCholesterolItem}>
               <View style={styles.wrapperSubItem}>
                 <View style={styles.line}>
                   <Icons type={'Fontisto'} name={'blood-drop'}size={15}color={item?.color}/>
@@ -91,19 +91,6 @@ const ConclusionInput = ({navigation, conclusion, onSave, value, title, unit, ty
           );
         }
       });
-      // const transitionModal = new Animated.Value(heightDevice);
-      // React.useEffect(() => {
-      //   if (showWarning) {
-      //     animatedAction(transitionModal);
-      //   }
-      // }, [showWarning]);
-      // const animatedAction = val => {
-      //   Animated.timing(val, {
-      //     duration: 700,
-      //     toValue: 0,
-      //     useNativeDriver: true,
-      //   }).start();
-      // };
   return (
     <Pressable onPress={Keyboard.dismiss} style={styles.container}>
       <CustomHeader
@@ -171,7 +158,7 @@ const ConclusionInput = ({navigation, conclusion, onSave, value, title, unit, ty
           <View
             style={[styles.wrapperSubContent, {height: heightDevice / 5.5}]}>
             <TextNormal style={{fontSize: 50, fontWeight: 'bold'}}>
-              {parseFloat(conclusion?.Total?.value).toFixed(1)}
+              {parseFloat(conclusion?.Total?.value).toFixed(2)}
             </TextNormal>
             <TextNormal style={{fontSize: 17}}>{conclusion?.unit}</TextNormal>
           </View>

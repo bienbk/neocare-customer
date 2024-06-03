@@ -25,6 +25,7 @@ import {listDoctorAction, removeDoctorAction} from 'store/doctor/doctorAction';
 import {statusRemoveDoctor} from 'store/doctor/doctorSelector';
 import Status from 'common/Status/Status';
 import {NAVIGATION_HOME} from 'navigation/routes';
+import ActivedPackage from './ActivedPackage';
 
 const DoctorDetail = ({navigation, route}) => {
   const dispatch = useDispatch();
@@ -51,10 +52,15 @@ const DoctorDetail = ({navigation, route}) => {
       <PackageItem packageItem={item} index={index} navigation={navigation} />
     );
   };
-  const headerFlatlist = () => {
+  const renderActivePackage = ({item, index}) => {
+    return <ActivedPackage packageItem={item} />;
+  };
+  const headerFlatlist = type => {
     return (
       <View style={styles.wrapperHeaderFlatlis}>
-        <TextSemiBold>{'Gói dịch vụ đặc biệt'}</TextSemiBold>
+        <TextSemiBold>
+          {type === 1 ? 'Gói đang sử dụng' : 'Gói dịch vụ đặc biệt'}
+        </TextSemiBold>
       </View>
     );
   };
@@ -101,17 +107,32 @@ const DoctorDetail = ({navigation, route}) => {
             }}
           />
           {/* OPTIONS & EXTRA SECTION */}
-          <FlatList
-            data={listPackage}
-            scrollEnabled={false}
-            showsVerticalScrollIndicator={false}
-            ListHeaderComponent={headerFlatlist}
-            contentContainerStyle={{
-              paddingBottom: 10,
-            }}
-            renderItem={renderPackageOfDoctor}
-            keyExtractor={(_, index) => index}
-          />
+          {listPackage.length > 0 && (
+            <FlatList
+              data={listPackage}
+              scrollEnabled={false}
+              showsVerticalScrollIndicator={false}
+              ListHeaderComponent={() => headerFlatlist(2)}
+              contentContainerStyle={{
+                paddingBottom: 10,
+              }}
+              renderItem={renderPackageOfDoctor}
+              keyExtractor={(_, index) => index}
+            />
+          )}
+          {listPackage.filter(a => a.product_status === 1).length > 0 && (
+            <FlatList
+              data={listPackage.filter(a => a.product_status === 1)}
+              scrollEnabled={false}
+              showsVerticalScrollIndicator={false}
+              ListHeaderComponent={() => headerFlatlist(1)}
+              contentContainerStyle={{
+                paddingBottom: 10,
+              }}
+              renderItem={renderActivePackage}
+              keyExtractor={(_, index) => index}
+            />
+          )}
         </View>
       </ScrollView>
       <MyModal
