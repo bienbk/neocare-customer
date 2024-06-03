@@ -37,6 +37,7 @@ const MyProfile = ({navigation}) => {
   const [modal, setModal] = useState(-1);
   const [date, setDate] = useState('');
   const [height, setHeight] = useState(165);
+  const [currentUser, setCurrentUser] = useState({});
   const dispatch = useDispatch();
   const statusUpdateUser = useSelector(state =>
     statusUpdateUserSelector(state),
@@ -47,6 +48,7 @@ const MyProfile = ({navigation}) => {
 
   const checkUser = async () => {
     const user = (await asyncStorage.getUser()) || {id: -1};
+    setCurrentUser(user);
     setLastname(user?.last_name || '');
     setFirstname(user?.first_name || '');
     setPhone(user?.phone || '');
@@ -112,7 +114,12 @@ const MyProfile = ({navigation}) => {
           {'Hồ sơ của tôi'}
         </TextMoneyBold>
         <TouchableOpacity style={styles.wrapperAvatar}>
-          <Svg name={'avatar_default'} size={80} style={styles.avatar} />
+          {/* <Svg name={'avatar_default'} size={80} style={styles.avatar} /> */}
+          {currentUser?.avarta && currentUser?.avarta.length > 0 ? (
+            <Images source={{uri: currentUser?.avarta}} style={styles.avatar} />
+          ) : (
+            <Svg name={'avatar_default'} size={80} style={styles.imageDoctor} />
+          )}
           {/* <View style={styles.iconEdit}>
             <Svg name={'icon_edit1'} size={25} />
           </View> */}
@@ -155,7 +162,7 @@ const MyProfile = ({navigation}) => {
             <TouchableOpacity
               style={styles.birthSection}
               onPress={() => setModal(1)}>
-              <TextNormal>{date || 'Nhập ngày sinh của bạn'}</TextNormal>
+              <TextNormal>{date || 'Ngày sinh của bạn'}</TextNormal>
             </TouchableOpacity>
           </View>
           <View style={[styles.wrapperSection, {width: '50%'}]}>

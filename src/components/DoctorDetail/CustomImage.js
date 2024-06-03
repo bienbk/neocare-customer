@@ -9,7 +9,6 @@ import Svg from 'common/Svg/Svg';
 import Images from '../../common/Images/Images';
 
 const CustomImage = ({navigation, onPressOption, doctor}) => {
-  console.log('doctor:::', doctor);
   return (
     <View style={styles.imageDoctor}>
       {doctor?.avarta.length > 0 ? (

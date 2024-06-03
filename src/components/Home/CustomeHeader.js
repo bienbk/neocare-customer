@@ -10,6 +10,7 @@ import {asyncStorage} from 'store';
 import Svg from 'common/Svg/Svg';
 import Colors from 'theme/Colors';
 import {TextNormal} from 'common/Text/TextFont';
+import Images from '../../common/Images/Images';
 
 const CustomeHeader = () => {
   const [currentUser, setCurrentUser] = React.useState({first_name: ''});
@@ -36,7 +37,15 @@ const CustomeHeader = () => {
       style={styles.wrapperFixedHeader}>
       <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 17}}>
         <View style={styles.borderAvatar}>
-          <Svg name={'avatar_default'} size={45} style={styles.avatarIcon} />
+          {/* <Svg name={'avatar_default'} size={45} style={styles.avatarIcon} /> */}
+          {currentUser?.avarta && currentUser?.avarta.length > 0 ? (
+            <Images
+              source={{uri: currentUser?.avarta}}
+              style={styles.avatarIcon}
+            />
+          ) : (
+            <Svg name={'avatar_default'} size={45} style={styles.imageDoctor} />
+          )}
         </View>
 
         <View style={{paddingHorizontal: 10}}>

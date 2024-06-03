@@ -25,6 +25,7 @@ const DiseaseCard = ({
   created_at,
   onPressItem,
 }) => {
+  console.log('d::', created_at);
   return (
     <View style={styles.wrapperCardItem}>
       <View style={styles.wrapperContentCard}>
@@ -54,13 +55,11 @@ const DiseaseCard = ({
             </TextNormal>
           </View>
         )}
-        <TextSmallTwelve style={styles.timeText}>
-          {new Date(created_at)
-            .toLocaleDateString('en-GB')
-            .replaceAll('/', '-') +
-            ', ' +
-            new Date(created_at).toLocaleTimeString('vi-VN').substring(0, 5)}
-        </TextSmallTwelve>
+        {typeof created_at === 'string' && (
+          <TextSmallTwelve style={styles.timeText}>
+            {created_at}
+          </TextSmallTwelve>
+        )}
       </View>
       <View style={styles.wrapperValue}>
         <View style={{flexDirection: 'row'}}>

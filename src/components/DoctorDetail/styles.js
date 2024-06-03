@@ -1,5 +1,5 @@
 import {heightDevice, widthDevice} from 'assets/constans';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 import Colors from 'theme/Colors';
 
 const styles = StyleSheet.create({
@@ -182,6 +182,20 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     marginTop: 10,
     width: widthDevice - 30,
+    ...Platform.select({
+      android: {
+        elevation: 2,
+      },
+      ios: {
+        shadowColor: '#a8bed2',
+        shadowOpacity: 1,
+        shadowRadius: 6,
+        shadowOffset: {
+          width: 2,
+          height: 2,
+        },
+      },
+    }),
     alignSelf: 'center',
     // borderStyle: 'solid',
     // borderWidth: 1.5,

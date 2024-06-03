@@ -27,7 +27,8 @@ import {HOME_DATA} from 'assets/constans';
 import {OneSignal} from 'react-native-onesignal';
 import {asyncStorage} from 'store';
 import {FlashList} from '@shopify/flash-list';
-import {heightDevice} from '../../assets/constans';
+import {heightDevice, mFomatter} from '../../assets/constans';
+import PackageOfDoctor from './PackageOfDoctor';
 
 const Home = ({navigation}) => {
   const dispatch = useDispatch();
@@ -60,6 +61,7 @@ const Home = ({navigation}) => {
       }),
     );
     listParameter.map(p => {
+      const date = new Date(p.date);
       if (tempMap.has(p.name)) {
         const mapItem = tempMap.get(p.name);
         if (p.name === 'Blood Pressure') {
@@ -73,7 +75,7 @@ const Home = ({navigation}) => {
         } else {
           mapItem.value = p.index;
         }
-        mapItem.created_at = p.date;
+        mapItem.created_at = mFomatter(date).fromNow();
         mapItem.status = p.status;
         mapItem.unit = p.unit_name;
         tempMap.set(p.name, mapItem);
@@ -154,6 +156,16 @@ const Home = ({navigation}) => {
               : []
           }
         />
+        {currentDoctor?.package_items &&
+          currentDoctor?.package_items.length > 0 && (
+            <PackageOfDoctor
+              currentPackge={
+                currentDoctor?.package_items.filter(
+                  a => a.product_status === 2,
+                )[0]
+              }
+            />
+          )}
         <FlashList
           data={listParams.length > 0 ? listParams : HOME_DATA}
           scrollEnabled={false}

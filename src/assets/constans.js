@@ -7,6 +7,12 @@ import {
   NAVIGATION_MY_PHARMACY,
   NAVIGATION_PRESCRIPTION,
 } from '../navigation/routes';
+import moment from 'moment';
+import 'moment/locale/vi';
+moment.locale('vi');
+// moment.relativeTimeThreshold('m', 60);
+// moment.relativeTimeThreshold('h', 24 * 26);
+export const mFomatter = moment;
 
 export const today = new Intl.DateTimeFormat('vi', {
   month: 'long',

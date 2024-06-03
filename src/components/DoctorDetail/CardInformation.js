@@ -10,7 +10,7 @@ import {
 import Colors from '../../theme/Colors';
 // () => setShowDescription(prev => (prev = !prev))
 const DESCRIPTION =
-  'BS CKI Lê Hoàng Bảo công tác tại bệnh viện Đại học Y dược TP.HCM, có hơn 10 năm kinh nghiệm điều trị các bệnh lý nội tiết, bao gồm đái tháo đường, tuyến giáp, tuyến thượng thận, tuyến yên, chuyển hóa. Ngoài ra, BS Lê Hoàng Bảo còn là Hội viên Hội Đái tháo đường và Nội tiết TP.';
+  'BS công tác tại bệnh viện Đại học Y dược TP.HCM, có hơn 10 năm kinh nghiệm điều trị các bệnh lý nội tiết, bao gồm đái tháo đường, tuyến giáp, tuyến thượng thận, tuyến yên, chuyển hóa. Ngoài ra, BS Lê Hoàng Bảo còn là Hội viên Hội Đái tháo đường và Nội tiết TP.';
 const CardInformation = ({doctor, onPressDescription, showDescription}) => {
   return (
     <View style={[styles.wrapeprCardInfo]}>

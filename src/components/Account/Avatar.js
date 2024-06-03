@@ -5,6 +5,7 @@ import Colors from 'theme/Colors';
 import {heightDevice, widthDevice} from 'assets/constans';
 import {asyncStorage} from 'store';
 import Svg from 'common/Svg/Svg';
+import Images from '../../common/Images/Images';
 
 const Avatar = ({}) => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -38,7 +39,12 @@ const Avatar = ({}) => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
         <View style={styles.content}>
-          <Svg name={'avatar_default'} size={90} style={styles.image} />
+          {/* <Svg name={'avatar_default'} size={90} style={styles.image} /> */}
+          {user?.avarta && user?.avarta.length > 0 ? (
+            <Images source={{uri: user?.avarta}} style={styles.image} />
+          ) : (
+            <Svg name={'avatar_default'} size={90} style={styles.image} />
+          )}
         </View>
         <View style={styles.textBalance}>
           <TextSemiBold style={{color: Colors.whiteColor}}>

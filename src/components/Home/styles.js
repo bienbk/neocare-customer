@@ -105,17 +105,17 @@ const styles = StyleSheet.create({
   },
   doctorContainer: {
     marginHorizontal: 15,
-    height: heightDevice * 0.22,
+    height: 177,
     marginBottom: 10,
-    marginTop: -(heightDevice * 0.22) / 1.5,
+    marginTop: -177 * 0.55,
   },
   wrapperDoctorInfo: {
-    padding: 16,
+    padding: 20,
     backgroundColor: Colors.primary,
     marginTop: 10,
     justifyContent: 'center',
     borderRadius: 16,
-    height: heightDevice * 0.19,
+    height: 147,
   },
   doctorName: {
     fontWeight: 'bold',
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
   wrapperHeaderList: {
     paddingHorizontal: 15,
     paddingBottom: 10,
-    paddingTop: 20,
+    paddingTop: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
