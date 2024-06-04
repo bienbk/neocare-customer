@@ -732,7 +732,7 @@
 				CODE_SIGN_ENTITLEMENTS = neocarecustomer/neocarecustomer.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = NYP3FQG9KC;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = neocarecustomer/Info.plist;
@@ -767,7 +767,7 @@
 				CODE_SIGN_ENTITLEMENTS = neocarecustomer/neocarecustomer.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = NYP3FQG9KC;
 				INFOPLIST_FILE = neocarecustomer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
