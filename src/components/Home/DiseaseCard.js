@@ -25,7 +25,6 @@ const DiseaseCard = ({
   created_at,
   onPressItem,
 }) => {
-  console.log('d::', created_at);
   return (
     <View style={styles.wrapperCardItem}>
       <View style={styles.wrapperContentCard}>
@@ -57,7 +56,7 @@ const DiseaseCard = ({
         )}
         {typeof created_at === 'string' && (
           <TextSmallTwelve style={styles.timeText}>
-            {created_at}
+            {created_at || ''}
           </TextSmallTwelve>
         )}
       </View>
