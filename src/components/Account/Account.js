@@ -64,6 +64,7 @@ const Account = ({navigation}) => {
         key={item.name}
         name={item.name}
         icon={item.icon}
+        deleteAccount={deleteAccount}
         index={index}
         item={item}
         lastIndex={index === list.length - 1}
@@ -92,7 +93,7 @@ const Account = ({navigation}) => {
           Phiên bản 1.0 build 2445
         </TextSmallMedium>
       </View>
-      <TextNormal
+      {/* <TextNormal
         onPress={() => deleteAccount()}
         style={{
           position: 'absolute',
@@ -101,7 +102,7 @@ const Account = ({navigation}) => {
           textDecorationLine: 'underline',
         }}>
         Xóa tài khoản
-      </TextNormal>
+      </TextNormal> */}
     </View>
   );
 
@@ -178,9 +179,11 @@ const Account = ({navigation}) => {
           renderItem={({item}) => {
             return (
               <View>
-                <TextSemiBold style={styles.cardTitleFeature}>
-                  {item.title}
-                </TextSemiBold>
+                {item?.id !== 4 && (
+                  <TextSemiBold style={styles.cardTitleFeature}>
+                    {item.title}
+                  </TextSemiBold>
+                )}
                 <View style={styles.cardFeature}>
                   {renderFeature(item.items)}
                 </View>

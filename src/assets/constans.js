@@ -115,21 +115,18 @@ export const LIST_OPTION = [
     title: 'Cài đặt & Hỗ trợ',
     id: 3,
     items: [
-      // {
-      //   name: 'Ngôn ngữ',
-      //   icon: 'icon_language',
-      //   link: '',
-      // },
-      // {
-      //   name: 'Hotline 0901234567',
-      //   icon: 'icon_hotline',
-      //   link: '',
-      // },
-      // {
-      //   name: 'Chính sách và quyền riêng tư',
-      //   icon: 'icon_policy',
-      //   link: '',
-      // },
+      {
+        name: 'Xóa tài khoản',
+        icon: 'icon_delete',
+        link: '',
+        action: 'DeleteAccount',
+      },
+    ],
+  },
+  {
+    title: '',
+    id: 4,
+    items: [
       {
         name: 'Đăng xuất',
         icon: 'icon_logout_red',

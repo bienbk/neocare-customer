@@ -11,6 +11,7 @@ const Feature = ({
   name,
   navigation,
   link,
+  deleteAccount,
   onPress,
   index,
   lastIndex,
@@ -20,6 +21,12 @@ const Feature = ({
   const handlePress = () => {
     if (item && item.isLogout && link === NAVIGATION_LOGIN) {
       logOut();
+      return;
+    }
+    if (item && item.action === 'DeleteAccount') {
+      // console.log('DeleteAccount');
+      deleteAccount();
+      return;
     }
     if (navigation && link !== NAVIGATION_LOGIN) {
       // console.log('LINK:', link);
@@ -32,14 +39,24 @@ const Feature = ({
       style={[styles.container, lastIndex && {borderBottomWidth: 0}]}
       onPress={handlePress}>
       <View style={[styles.content]}>
-        <View style={{flexDirection: 'row'}}>
-          <Svg name={icon} size={16} color={Colors.gray.gray90} />
-          {name === 'Đăng xuất' ? (
+        {name === 'Đăng xuất' ? (
+          <View
+            style={{
+              flexDirection: 'row',
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center',
+              alignSelf: 'center',
+            }}>
+            <Svg name={icon} size={16} color={Colors.gray.gray90} />
             <TextNormal style={styles.textLogout}>Đăng xuất</TextNormal>
-          ) : (
+          </View>
+        ) : (
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Svg name={icon} size={16} color={Colors.gray.gray90} />
             <TextNormal style={styles.textName}>{name}</TextNormal>
-          )}
-        </View>
+          </View>
+        )}
         {name === 'Đăng xuất' ? null : (
           <Svg
             name={'icon_right_arrow'}
@@ -84,7 +101,7 @@ const styles = StyleSheet.create({
   textName: {
     // marginTop: 20,
     textAlign: 'center',
-    fontSize: 14,
+    fontSize: 16,
     marginLeft: 10,
   },
   textLogout: {
@@ -92,5 +109,6 @@ const styles = StyleSheet.create({
     // marginLeft: widthDevice / 2 - 55,
     marginLeft: 10,
     color: '#EF0000',
+    fontSize: 16,
   },
 });

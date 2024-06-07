@@ -34,10 +34,12 @@ import home_doctor from './iconMain/home_doctor.svg';
 import default_doctor from './iconMain/default_doctor.svg';
 import icon_gift from './iconMain/gift_icon.svg';
 import cover_expert from './iconMain/Cover-expert.svg';
+import icon_delete from './iconMain/icon_delete.svg';
 export default {
   heart_active,
   icon_option,
   cover_expert,
+  icon_delete,
   icon_gift,
   background_doctor,
   default_doctor,

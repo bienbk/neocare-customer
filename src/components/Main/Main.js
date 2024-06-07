@@ -1,13 +1,7 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import * as Screens from 'components';
-import {
-  NAVIGATION_HOME,
-  NAVIGATION_ACCOUNT,
-  NAVIGATION_DOCTOR_DETAIL,
-  NAVIGATION_MY_DOCTOR,
-  NAVIGATION_PRESCRIPTION,
-} from 'navigation/routes';
+import {NAVIGATION_HOME, NAVIGATION_ACCOUNT} from 'navigation/routes';
 import {StyleSheet, View} from 'react-native';
 import Colors from 'theme/Colors';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -15,19 +9,19 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Svg from 'common/Svg/Svg';
 import {TextSmallEleven} from 'common/Text/TextFont';
 import strings from 'localization/Localization';
-import {widthDevice} from '../../assets/constans';
+import {widthDevice} from 'assets/constans';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-const StackAccount = () => {
-  return (
-    <Stack.Navigator
-      screenOptions={{header: () => null}}
-      initialRouteName={NAVIGATION_ACCOUNT}>
-      <Stack.Screen name={NAVIGATION_ACCOUNT} component={Screens.Account} />
-    </Stack.Navigator>
-  );
-};
+// const StackAccount = () => {
+//   return (
+//     <Stack.Navigator
+//       screenOptions={{header: () => null}}
+//       initialRouteName={NAVIGATION_ACCOUNT}>
+//       <Stack.Screen name={NAVIGATION_ACCOUNT} component={Screens.Account} />
+//     </Stack.Navigator>
+//   );
+// };
 
 // icon_giohang1
 const Main = () => {
@@ -81,7 +75,7 @@ const Main = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName={NAVIGATION_HOME}
+      initialRouteName={NAVIGATION_ACCOUNT}
       screenOptions={screenOption}>
       <Tab.Screen
         name={NAVIGATION_HOME}

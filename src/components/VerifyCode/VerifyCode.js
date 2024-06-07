@@ -111,6 +111,7 @@ const VerifyCode = ({navigation, route}) => {
 
   //Delete the account
   const deleteAccount = () => {
+    setCode('');
     dispatch(getDeleteAccount());
   };
 

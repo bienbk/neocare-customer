@@ -1,4 +1,4 @@
-import {TextNormalSemiBold, TextSemiBold} from 'common/Text/TextFont';
+import {TextNormal, TextSemiBold} from 'common/Text/TextFont';
 import React, {useEffect} from 'react';
 import {StyleSheet, RefreshControl, View, ScrollView} from 'react-native';
 import Colors from 'theme/Colors';
@@ -43,18 +43,18 @@ const Avatar = ({}) => {
           {user?.avarta && user?.avarta.length > 0 ? (
             <Images source={{uri: user?.avarta}} style={styles.image} />
           ) : (
-            <Svg name={'avatar_default'} size={90} style={styles.image} />
+            <Svg name={'avatar_default'} size={82} style={styles.image} />
           )}
         </View>
         <View style={styles.textBalance}>
-          <TextSemiBold style={{color: Colors.whiteColor}}>
+          <TextSemiBold style={{color: Colors.whiteColor, fontSize: 24}}>
             {user.first_name !== ''
               ? user.last_name + ' ' + user.first_name
               : 'Username'}
           </TextSemiBold>
         </View>
         <View style={styles.label}>
-          <TextNormalSemiBold>{user?.phone}</TextNormalSemiBold>
+          <TextNormal style={{fontSize: 16, color: Colors.whiteColor}}>{user?.phone}</TextNormal>
         </View>
       </ScrollView>
     </View>
@@ -65,9 +65,9 @@ export default Avatar;
 
 const styles = StyleSheet.create({
   label: {
-    backgroundColor: Colors.whiteColor,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    // backgroundColor: Colors.whiteColor,
+    // paddingHorizontal: 10,
+    paddingBottom: 5,
     borderRadius: 16,
   },
 
@@ -84,17 +84,18 @@ const styles = StyleSheet.create({
   content: {
     borderWidth: 2,
     borderColor: Colors.primary,
-    width: 92,
-    backgroundColor: Colors.gray.gray90,
-    height: heightDevice * 0.336 * 0.35 + 10,
-    borderRadius: 92,
+    width: 90,
+    backgroundColor: Colors.main,
+    marginTop: 5,
+    height: 90,
+    borderRadius: 90,
     justifyContent: 'center',
     alignItems: 'center',
   },
   image: {
-    width: 90,
-    height: heightDevice * 0.336 * 0.35,
-    borderRadius: 90,
+    width: 88,
+    height: 88,
+    // borderRadius: 90,
     // color: '#FFC51B',
   },
   textBalance: {
