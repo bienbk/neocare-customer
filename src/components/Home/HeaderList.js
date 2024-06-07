@@ -7,12 +7,12 @@ import styles from './styles';
 const HeaderList = ({onPressOption}) => {
   return (
     <View style={styles.wrapperHeaderList}>
-      <TextSemiBold>{'Sức khoẻ của tôi'}</TextSemiBold>
-      <TouchableOpacity
+      <TextSemiBold style={{fontSize: 24}}>{'Sức khoẻ của tôi'}</TextSemiBold>
+      {/* <TouchableOpacity
         onPress={onPressOption}
         style={styles.wrapperOptionIcon}>
         <Svg name={'icon_option'} size={15} color={'black'} />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };

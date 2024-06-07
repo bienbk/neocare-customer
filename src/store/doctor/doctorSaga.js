@@ -50,7 +50,6 @@ function* followDoctorSaga({payload}) {
 }
 function* listDoctorSaga() {
   try {
-    console.log('come to saga');
     const result = yield call(DoctorController.listDoctor);
     if (result.success) {
       yield put({

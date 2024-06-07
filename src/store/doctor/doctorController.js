@@ -26,11 +26,10 @@ class DoctorController {
       page: 1,
     };
     try {
-      console.log('come to controller');
       const {data} = await HttpClient.get(UrlApi.apiListDoctorInfo, {
         params: query,
       });
-      console.log('DATA', data);
+      console.log('LIST DOCTOR DATA', data);
       return {success: true, data: data.doctor_of_patients || []};
     } catch (error) {
       console.log('LIST DOCTOR ERROR::', error);

@@ -11,7 +11,7 @@ const DoctorInfo = ({currentDoctor = -1, onPress}) => {
   const {doctor} = currentDoctor;
   return (
     <View style={styles.doctorContainer}>
-      <TextSemiBold style={{color: Colors.whiteColor}}>
+      <TextSemiBold style={{color: Colors.whiteColor, fontSize: 24}}>
         {'Chuyên gia tư vấn của tôi'}
       </TextSemiBold>
       {currentDoctor !== -1 ? (
@@ -20,28 +20,22 @@ const DoctorInfo = ({currentDoctor = -1, onPress}) => {
             {doctor?.avarta && doctor?.avarta.length > 0 ? (
               <Images
                 source={{uri: doctor?.avarta}}
-                style={{height: 107, width: 107, borderRadius: 10}}
-              />
-            ) : (
-              <Svg
-                name={'avatar_default'}
-                size={107}
                 style={styles.imageDoctor}
               />
+            ) : (
+              <Svg name={'default_doctor'} size={93} />
             )}
             <View style={styles.wrapperInfoText}>
-              <TextNormal style={styles.doctorName}>
+              <TextNormal numberOfLines={2} style={styles.doctorName}>
                 {`BS.${doctor?.last_name} ${doctor?.first_name}`}
               </TextNormal>
-              <TextSmallTwelve style={{paddingVertical: 4}}>
+              <TextNormal style={{paddingVertical: 4, fontSize: 16}}>
                 {'Chuyên khoa tim mạch'}
-              </TextSmallTwelve>
-              <TextSmallTwelve>
+              </TextNormal>
+              <TextNormal style={{fontSize: 16}}>
                 {'Mã giới thiệu: '}
-                <TextSmallTwelve style={{fontWeight: 'bold'}}>
-                  {doctor?.qr_code}
-                </TextSmallTwelve>
-              </TextSmallTwelve>
+                <TextSemiBold>{doctor?.qr_code || ''}</TextSemiBold>
+              </TextNormal>
             </View>
           </View>
         </TouchableOpacity>

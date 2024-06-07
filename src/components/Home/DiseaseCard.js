@@ -42,30 +42,13 @@ const DiseaseCard = ({
             </View>
           )}
         </View>
-        {id === 2 && item?.eating_status && (
-          <View style={styles.wrapperTypeTime}>
-            <TextNormal style={styles.timeText}>Trạng thái:</TextNormal>
-            <TextNormal style={styles.typeTimeText}>
-              {item?.eating_status === 1
-                ? 'Nhịn ăn'
-                : item?.eating_status === 2
-                ? 'Sau ăn'
-                : 'Truớc ăn'}
-            </TextNormal>
-          </View>
-        )}
-        {typeof created_at === 'string' && (
-          <TextSmallTwelve style={styles.timeText}>
-            {created_at || ''}
-          </TextSmallTwelve>
-        )}
       </View>
       <View style={styles.wrapperValue}>
         <View style={{flexDirection: 'row'}}>
           <TextMoneyBold
             style={[
               {
-                color: parseInt(value, 10) > 0 ? 'black' : 'lightgray',
+                color: parseFloat(value) > 0 ? 'black' : 'lightgray',
                 fontSize: 20,
               },
             ]}>
@@ -96,6 +79,24 @@ const DiseaseCard = ({
             {label || 'Nhập thủ công'}
           </TextNormal>
         </TouchableOpacity>
+      </View>
+      <View
+        style={{flexDirection: 'row', alignItems: 'center', paddingBottom: 15}}>
+        {typeof created_at === 'string' && (
+          <TextNormal style={styles.timeText}>{created_at || ''}</TextNormal>
+        )}
+        {id === 2 && item?.eating_status && (
+          <View style={styles.wrapperTypeTime}>
+            <TextNormal style={styles.timeText}>Trạng thái:</TextNormal>
+            <TextNormal style={styles.typeTimeText}>
+              {item?.eating_status === 1
+                ? 'Nhịn ăn'
+                : item?.eating_status === 2
+                ? 'Sau ăn'
+                : 'Truớc ăn'}
+            </TextNormal>
+          </View>
+        )}
       </View>
     </View>
   );

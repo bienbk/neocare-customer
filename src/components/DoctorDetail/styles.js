@@ -3,6 +3,25 @@ import {StyleSheet, Platform} from 'react-native';
 import Colors from 'theme/Colors';
 
 const styles = StyleSheet.create({
+  departmentText: {
+    color: Colors.gray.gray40,
+    paddingVertical: 3,
+    fontSize: 16,
+  },
+  textTitleInfo: {fontWeight: 'bold', fontSize: 16},
+  textCode: {
+    color: Colors.gray.gray40,
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  subtitle: {fontSize: 16, color: Colors.gray.gray40},
+  activePackName: {paddingTop: 5, fontWeight: 'bold', fontSize: 18},
+  textVal: {fontWeight: 'bold', color: '#5C5C5C', fontSize: 16},
+  padVertical2: {
+    paddingVertical: 2,
+    color: Colors.gray.gray60,
+    fontSize: 16,
+  },
   containerSafeArea: {
     flex: 1,
   },
@@ -14,7 +33,7 @@ const styles = StyleSheet.create({
   packageName: {
     padding: 5,
     fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: 16,
     alignSelf: 'center',
     textAlign: 'center',
     // backgroundColor: 'red',
@@ -197,9 +216,12 @@ const styles = StyleSheet.create({
       },
     }),
     alignSelf: 'center',
-    // borderStyle: 'solid',
-    // borderWidth: 1.5,
-    // borderColor: Colors.primary,
+  },
+  isActived: {
+    paddingVertical: 10,
+    marginVertical: 10,
+    backgroundColor: '#FFF4D1',
+    paddingHorizontal: 15,
   },
 
   wrapperFooterCard: {
@@ -220,7 +242,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary,
     borderRadius: 30,
   },
-  inforCard: {paddingVertical: 10},
+  inforCard: {
+    paddingVertical: 10,
+  },
 
   closeIcon: {
     position: 'absolute',
@@ -244,22 +268,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   toggleIcon: {
-    position: 'absolute',
-    padding: 5,
-    borderRadius: 15,
-    // borderWidth: 1,
-    // backgroundColor: 'red',
-    paddingHorizontal: 20,
-    bottom: -10,
-    zIndex: 999,
-    right: -15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderTopColor: Colors.gray.gray95,
+    backgroundColor: 'white',
+    paddingVertical: 10,
+    borderTopWidth: 1,
   },
   wrapperDescription: {
     paddingTop: 10,
     paddingBottom: 15,
-    borderTopColor: Colors.gray.gray95,
-    backgroundColor: 'white',
-    borderTopWidth: 1,
+    flex: 1,
+    flexWrap: 'wrap',
     borderStyle: 'solid',
   },
   wrapperDoctorContainer: {

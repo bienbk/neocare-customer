@@ -35,7 +35,7 @@ const CustomeHeader = () => {
       source={header_home}
       resizeMode={'stretch'}
       style={styles.wrapperFixedHeader}>
-      <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 17}}>
+      <View style={styles.wrapperTitleAvatar}>
         <View style={styles.borderAvatar}>
           {/* <Svg name={'avatar_default'} size={45} style={styles.avatarIcon} /> */}
           {currentUser?.avarta && currentUser?.avarta.length > 0 ? (
@@ -44,26 +44,26 @@ const CustomeHeader = () => {
               style={styles.avatarIcon}
             />
           ) : (
-            <Svg name={'avatar_default'} size={45} style={styles.imageDoctor} />
+            <Svg name={'avatar_default'} size={48} style={styles.imageDoctor} />
           )}
         </View>
 
-        <View style={{paddingHorizontal: 10}}>
-          <TextNormal style={{color: Colors.whiteColor, fontSize: 16}}>
+        <View style={{paddingHorizontal: 12}}>
+          <TextNormal style={styles.textTitle}>
             Xin chào
-            <TextSemiBold style={{color: Colors.whiteColor}}>
+            <TextSemiBold style={styles.textTitle}>
               {' ' + currentUser?.first_name}
             </TextSemiBold>
           </TextNormal>
-          <TextSmallMedium style={{color: Colors.whiteColor}}>
+          {/* <TextSmallMedium style={{color: Colors.whiteColor}}>
             Sức khoẻ bạn hôm nay thế nào?
-          </TextSmallMedium>
+          </TextSmallMedium> */}
         </View>
       </View>
       <TouchableOpacity
-        style={{position: 'absolute', top: 17, right: 15, zIndex: 100}}
+        style={styles.bellNoti}
         onPress={() => onPressOpenNotify()}>
-        <Icons type={'Feather'} name={'bell'} size={29} color={'white'} />
+        <Icons type={'Feather'} name={'bell'} size={24} color={'white'} />
       </TouchableOpacity>
       <MyModal visible={openModalNotify} onPressOutSide={onPressOutSide}>
         <View style={styles.containerEmpty}>

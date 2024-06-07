@@ -1,63 +1,65 @@
 import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import styles from './styles';
-import Icons from '../../common/Icons/Icons';
+import Icons from 'common/Icons/Icons';
 import {
   TextSemiBold,
   TextSmallMedium,
   TextSmallTwelve,
-} from '../../common/Text/TextFont';
-import Colors from '../../theme/Colors';
-// () => setShowDescription(prev => (prev = !prev))
-const DESCRIPTION =
-  'BS công tác tại bệnh viện Đại học Y dược TP.HCM, có hơn 10 năm kinh nghiệm điều trị các bệnh lý nội tiết, bao gồm đái tháo đường, tuyến giáp, tuyến thượng thận, tuyến yên, chuyển hóa. Ngoài ra, BS Lê Hoàng Bảo còn là Hội viên Hội Đái tháo đường và Nội tiết TP.';
+} from 'common/Text/TextFont';
+import Colors from 'theme/Colors';
+import {RenderHTML} from 'react-native-render-html';
+import {widthDevice} from 'assets/constans';
+import {TextNormal} from '../../common/Text/TextFont';
 const CardInformation = ({doctor, onPressDescription, showDescription}) => {
-  return (
-    <View style={[styles.wrapeprCardInfo]}>
-      <TouchableOpacity style={styles.phoneIcon}>
-        <Icons type={'Feather'} name={'phone'} size={18} color={'white'} />
-      </TouchableOpacity>
-      <View style={styles.inforCard}>
-        <TextSemiBold style={{fontSize: 20}}>
-          {doctor?.last_name
-            ? doctor?.last_name + ' ' + doctor?.first_name
-            : 'Nguyen Tran'}
-        </TextSemiBold>
-        {/* <View style={styles.wrapperDepartmentLabel}>
-          <TextSmallTwelve style={{color: Colors.primary, fontWeight: 'bold'}}>
-            {'Tim mạch'}
-          </TextSmallTwelve>
-        </View> */}
-        <TextSmallTwelve
-          style={{color: Colors.gray.gray50, paddingVertical: 3}}>
-          {'Chuyên khoa tim mạch'}
-        </TextSmallTwelve>
-        <TextSmallTwelve>
-          {'Mã chuyên gia: '}
-          <TextSmallTwelve
-            style={{color: Colors.gray.gray50, fontWeight: 'bold'}}>
-            {doctor?.qr_code}
-          </TextSmallTwelve>
-        </TextSmallTwelve>
-      </View>
-      <View
-        style={[
-          styles.wrapperDescription,
-          // !showDescription && {height: '50%'},
-        ]}>
-        <TextSmallMedium numberOfLines={showDescription ? 0 : 3}>
-          {DESCRIPTION}
-        </TextSmallMedium>
+  if (doctor) {
+    return (
+      <View style={[styles.wrapeprCardInfo]}>
+        <TouchableOpacity style={styles.phoneIcon}>
+          <Icons type={'Feather'} name={'phone'} size={18} color={'white'} />
+        </TouchableOpacity>
+        <View style={styles.inforCard}>
+          <TextSemiBold style={{fontSize: 24}}>
+            {doctor?.last_name + ' ' + doctor?.first_name}
+          </TextSemiBold>
+          <TextNormal style={styles.departmentText}>
+            {'Chuyên khoa tim mạch'}
+          </TextNormal>
+          <TextNormal style={styles.subtitle}>
+            {'Mã chuyên gia: '}
+            <TextNormal style={styles.textCode}>{doctor?.qr_code}</TextNormal>
+          </TextNormal>
+        </View>
         <TouchableOpacity
           onPress={onPressDescription}
           style={styles.toggleIcon}>
-          <TextSmallMedium style={styles.textShowMore}>
-            {showDescription ? 'Rút gọn' : 'Xem thêm'}
-          </TextSmallMedium>
+          <TextNormal style={styles.textTitleInfo}>
+            {'Thông tin chi tiết'}
+          </TextNormal>
+          <Icons
+            type={'Feather'}
+            name={!showDescription ? 'chevron-down' : 'chevron-up'}
+            size={20}
+            color={'black'}
+          />
         </TouchableOpacity>
+
+        <View
+          style={[
+            styles.wrapperDescription,
+            !showDescription && {display: 'none'},
+          ]}>
+          {doctor && doctor?.introduce && (
+            <RenderHTML
+              contentWidth={widthDevice}
+              source={{html: doctor?.introduce}}
+              baseStyle={{color: Colors.gray.gray40}}
+            />
+          )}
+        </View>
       </View>
-    </View>
-  );
+    );
+  }
 };
 
 export default CardInformation;

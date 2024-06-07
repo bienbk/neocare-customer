@@ -84,8 +84,10 @@ const Home = ({navigation}) => {
     setListParams(Array.from(tempMap.values()));
   };
   useEffect(() => {
-    if (listDoctors && listDoctors.length) {
+    if (listDoctors && listDoctors.length > 0) {
       setCurrentDoctor({...listDoctors[0]});
+    } else {
+      setCurrentDoctor(-1);
     }
   }, [listDoctors]);
   useEffect(() => {
@@ -148,7 +150,9 @@ const Home = ({navigation}) => {
       >
         <CustomeHeader doctor={currentDoctor?.doctor} />
         <DoctorInfo
-          currentDoctor={currentDoctor ? currentDoctor : -1}
+          currentDoctor={
+            currentDoctor && currentDoctor?.id ? currentDoctor : -1
+          }
           onPress={handleSelectDoctor}
           packagePurchased={
             currentDoctor && currentDoctor?.package_items
@@ -161,7 +165,7 @@ const Home = ({navigation}) => {
             <PackageOfDoctor
               currentPackge={
                 currentDoctor?.package_items.filter(
-                  a => a.product_status === 2,
+                  a => a.product_status === 1,
                 )[0]
               }
             />

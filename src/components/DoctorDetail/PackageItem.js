@@ -58,14 +58,14 @@ const PackageItem = ({packageItem, navigation}) => {
                   color={Colors.gray.gray40}
                   style={{paddingHorizontal: 5}}
                 />
-                <TextSmallTwelve style={{color: Colors.gray.gray40}}>
+                <TextNormal style={{color: Colors.gray.gray40, fontSize: 14}}>
                   {item.toString().trim()}
-                </TextSmallTwelve>
+                </TextNormal>
               </View>
             )}
           />
           <View style={styles.wrapperFooterCard}>
-            <TextSemiBold style={{color: Colors.main}}>
+            <TextSemiBold style={{color: Colors.main, fontSize: 20}}>
               {formatMoney(packageItem.price) + 'đ'}
             </TextSemiBold>
             <TouchableOpacity

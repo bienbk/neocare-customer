@@ -31,12 +31,16 @@ import icon_pharmacy from './iconMain/icon_pharmacy.svg';
 import avatar_default from './iconMain/avatar_default.svg';
 import icon_empty from './iconMain/icon_empty.svg';
 import home_doctor from './iconMain/home_doctor.svg';
+import default_doctor from './iconMain/default_doctor.svg';
 import icon_gift from './iconMain/gift_icon.svg';
+import cover_expert from './iconMain/Cover-expert.svg';
 export default {
   heart_active,
   icon_option,
+  cover_expert,
   icon_gift,
   background_doctor,
+  default_doctor,
   home_doctor,
   avatar_default,
   icon_avatar,

@@ -21,7 +21,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import {followedDoctorSelector} from 'store/selectors';
 import CustomImage from './CustomImage';
 import CardInformation from './CardInformation';
-import {listDoctorAction, removeDoctorAction} from 'store/doctor/doctorAction';
+import {
+  listDoctorAction,
+  removeDoctorAction,
+  resetRemoveDoctor,
+} from 'store/doctor/doctorAction';
 import {statusRemoveDoctor} from 'store/doctor/doctorSelector';
 import Status from 'common/Status/Status';
 import {NAVIGATION_HOME} from 'navigation/routes';
@@ -52,13 +56,13 @@ const DoctorDetail = ({navigation, route}) => {
       <PackageItem packageItem={item} index={index} navigation={navigation} />
     );
   };
-  const renderActivePackage = ({item, index}) => {
+  const renderActivePackage = ({item, _}) => {
     return <ActivedPackage packageItem={item} />;
   };
   const headerFlatlist = type => {
     return (
       <View style={styles.wrapperHeaderFlatlis}>
-        <TextSemiBold>
+        <TextSemiBold style={{fontSize: 24}}>
           {type === 1 ? 'Gói đang sử dụng' : 'Gói dịch vụ đặc biệt'}
         </TextSemiBold>
       </View>
@@ -67,6 +71,7 @@ const DoctorDetail = ({navigation, route}) => {
   useEffect(() => {
     if (statusRemoveDoc === Status.SUCCESS) {
       setRemoveModal(-1);
+      dispatch(resetRemoveDoctor());
       dispatch(listDoctorAction());
       setTimeout(() => {
         navigation && navigation.navigate(NAVIGATION_HOME);

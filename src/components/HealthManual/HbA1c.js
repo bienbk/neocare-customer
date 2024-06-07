@@ -190,7 +190,7 @@ const HbA1c = ({navigation, setWarningModal}) => {
             value={hba1c}
             date={date}
             withTime={false}
-            unit={messure === 2 ? '%' : 'mmol/mol'}
+            unit={messure === 1 ? '%' : 'mmol/mol'}
             type={4}
           />
         </Animated.View>

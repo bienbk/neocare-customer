@@ -3,6 +3,13 @@ import {StyleSheet, Platform} from 'react-native';
 import Colors from 'theme/Colors';
 
 const styles = StyleSheet.create({
+  wrapperTitleAvatar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 17,
+  },
+  textTitle: {color: Colors.whiteColor, fontSize: 20},
+  bellNoti: {position: 'absolute', top: 20, right: 15, zIndex: 100},
   borderAvatar: {
     borderColor: Colors.primary,
     borderWidth: 2,
@@ -17,7 +24,7 @@ const styles = StyleSheet.create({
     // backgroundColor: 'lightgray',
   },
   wrapperFixedHeader: {
-    height: heightDevice * 0.25,
+    height: heightDevice * 0.28,
     paddingHorizontal: 15,
     width: widthDevice,
   },
@@ -105,21 +112,24 @@ const styles = StyleSheet.create({
   },
   doctorContainer: {
     marginHorizontal: 15,
-    height: 177,
+    height: 183,
     marginBottom: 10,
-    marginTop: -177 * 0.55,
+    justifyContent: 'space-between',
+    // backgroundColor: 'red',
+    marginTop: -183 * 0.5 - 30,
   },
   wrapperDoctorInfo: {
-    padding: 20,
+    // padding: 15,
     backgroundColor: Colors.primary,
-    marginTop: 10,
+    marginTop: 5,
     justifyContent: 'center',
+    paddingLeft: 20,
     borderRadius: 16,
-    height: 147,
+    height: 133,
   },
   doctorName: {
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 20,
   },
   containerAsking: {
     flexDirection: 'row',
@@ -148,15 +158,15 @@ const styles = StyleSheet.create({
   },
   imageDoctorAsking: {height: 120, width: 70, marginHorizontal: 10},
   wrapperInfoText: {
-    paddingHorizontal: 12,
-    // alignItems: 'center',
     justifyContent: 'center',
+    flex: 1,
+    marginLeft: 10,
     marginBottom: 5,
   },
-  imageDoctor: {borderRadius: 10},
+  imageDoctor: {height: 93, width: 93, borderRadius: 10},
   wrapperMainDoctor: {
     flexDirection: 'row',
-    // paddingVertical: 10,
+    alignItems: 'center',
   },
 
   wrapperCardItem: {
@@ -181,7 +191,7 @@ const styles = StyleSheet.create({
         },
       },
     }),
-    paddingVertical: 5,
+    // paddingVertical: 5,
   },
   wrapperOptionIcon: {
     padding: 10,
@@ -198,27 +208,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   wrapperContentCard: {
-    paddingVertical: 10,
+    paddingVertical: 15,
     borderBottomColor: Colors.gray.gray95,
     borderBottomWidth: 1,
   },
   wrapperNameLine: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingBottom: 5,
     alignItems: 'center',
   },
   statusText: {
     color: 'white',
-    paddingHorizontal: 8,
-    paddingVertical: 5,
     fontSize: 12,
-    minWidth: 80,
+    width: 110,
+    height: 25,
+    justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 8,
     fontWeight: '600',
-    // backgroundColor: '#07C558',
-    textAlign: 'center',
   },
   statusDangerText: {
     color: 'white',
@@ -230,9 +237,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#FF5449',
     textAlign: 'center',
   },
-  timeText: {color: '#898989'},
+  timeText: {color: '#898989', fontSize: 14},
   wrapperValue: {
-    paddingVertical: 10,
+    paddingTop: 15,
+    paddingBottom: 10,
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
@@ -240,16 +248,15 @@ const styles = StyleSheet.create({
   navigationText: {
     color: '#1A54DB',
     fontWeight: 'bold',
-    paddingVertical: 10,
+    fontSize: 14,
+    paddingVertical: 5,
     paddingLeft: 15,
-    // backgroundColor: 'red',
-    fontSize: 12,
   },
-  typeTimeText: {fontWeight: 'bold', paddingHorizontal: 5},
+  typeTimeText: {fontWeight: 'bold', paddingHorizontal: 5, fontSize: 14},
   wrapperTypeTime: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 3,
+    paddingLeft: 24,
   },
   unitText: {
     fontSize: 14,

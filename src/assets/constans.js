@@ -5,7 +5,6 @@ import {
   NAVIGATION_LOGIN,
   NAVIGATION_MY_PROFILE,
   NAVIGATION_MY_PHARMACY,
-  NAVIGATION_PRESCRIPTION,
 } from '../navigation/routes';
 import moment from 'moment';
 import 'moment/locale/vi';
@@ -21,13 +20,13 @@ export const today = new Intl.DateTimeFormat('vi', {
   weekday: 'long',
 }).format(new Date());
 export const STATUS = {
-  0: 'Bình thuờng',
-  1: 'Thấp',
-  2: 'Lý tưởng',
-  3: 'Hơi Cao',
-  4: 'Cao',
-  5: 'Rất cao',
-  6: 'Cực kỳ cao',
+  0: 'Bình thuờng'.toUpperCase(),
+  1: 'Thấp'.toUpperCase(),
+  2: 'Lý tưởng'.toUpperCase(),
+  3: 'Hơi Cao'.toUpperCase(),
+  4: 'Cao'.toUpperCase(),
+  5: 'Rất cao'.toUpperCase(),
+  6: 'Cực kỳ cao'.toUpperCase(),
 };
 export const STATUS_COLORS = {
   0: Colors.normal,

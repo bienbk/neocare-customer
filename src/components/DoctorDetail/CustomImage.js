@@ -6,7 +6,7 @@ import Colors from 'theme/Colors';
 import {NAVIGATION_HOME} from 'navigation/routes';
 import {widthDevice} from 'assets/constans';
 import Svg from 'common/Svg/Svg';
-import Images from '../../common/Images/Images';
+import Images from 'common/Images/Images';
 
 const CustomImage = ({navigation, onPressOption, doctor}) => {
   return (
@@ -18,7 +18,7 @@ const CustomImage = ({navigation, onPressOption, doctor}) => {
         />
       ) : (
         <Svg
-          name={'background_doctor'}
+          name={'cover_expert'}
           width={'100%'}
           height={(widthDevice * 5) / 6}
         />
