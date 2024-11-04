@@ -8,5 +8,32 @@ import Main from './Main/Main';
 import Home from './Home/Home';
 import Login from './Login/Login';
 import VerifyCode from './VerifyCode/VerifyCode';
-
-export {Splash, Main, Home, Login, VerifyCode};
+import ProfileHealth from './ProfileHealth/ProfileHealth';
+import MyDoctor from './MyDoctor/MyDoctor';
+import HealthManual from './HealthManual/HealthManual';
+import DoctorDetail from './DoctorDetail/DoctorDetail';
+import Account from './Account/Account';
+import PackageDetail from './PackageDetail/PackageDetail';
+import Connection from './Connection/Connection';
+import Prescription from './Prescription/Prescription';
+import MyProfile from './MyProfile/MyProfile';
+import ShowManager from './ShowManager/ShowManager';
+import MyPharmacy from './MyPharmacy/MyPharmacy';
+export {
+  Splash,
+  Main,
+  Home,
+  Login,
+  VerifyCode,
+  ProfileHealth,
+  Prescription,
+  Connection,
+  HealthManual,
+  MyProfile,
+  MyPharmacy,
+  PackageDetail,
+  MyDoctor,
+  ShowManager,
+  DoctorDetail,
+  Account,
+};

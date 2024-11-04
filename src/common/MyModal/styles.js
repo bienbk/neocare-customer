@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: heightDevice,
     width: widthDevice,
-    backgroundColor: 'red',
+    // backgroundColor: 'red',
     padding: 30,
   },
   content: {
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     right: 0,
-    opacity: 0.2,
+    opacity: 0.8,
   },
   viewContent: {
     // position: 'absolute',

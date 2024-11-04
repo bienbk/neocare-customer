@@ -100,15 +100,15 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.neocarecustomer"
+    namespace "vn.neocare.customer"
     defaultConfig {
-        applicationId "com.neocarecustomer"
+        applicationId "vn.neocare.customer"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.1"
         multiDexEnabled true
-        resValue "string", "build_config_package", "com.neocarecustomer"
+        resValue "string", "build_config_package", "vn.neocare.customer"
         manifestPlaceholders = [label: 'Neo_NeoCare_Customer']
     }
 
@@ -158,7 +158,7 @@ android {
             signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-            resValue "string", "app_name", "Neo Care Customer"
+            resValue "string", "app_name", "Neo Care"
         }
     }
 
@@ -176,6 +176,14 @@ android {
             }
 
         }
+    }
+
+    // Define the assembleReleaserelease task
+    task assembleReleaserelease {
+        // Define task actions here
+        // For example:
+        dependsOn('assembleRelease')
+        // Add any additional configuration or dependencies as needed
     }
 }
 

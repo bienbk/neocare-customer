@@ -1,99 +1,149 @@
 import Status from 'common/Status/Status';
-import {NEOCAFE} from 'store/actionsTypes';
+import {NEOCARE} from 'store/actionsTypes';
 
 const initializeState = {
-  currentUser: {},
-  statusSetUser: Status.DEFAULT,
+  // currentUser: {},
+  // statusSetUser: Status.DEFAULT,
+  currentUser: -1,
+  statusGetUserInfo: Status.DEFAULT,
 
   statusDeleteAccount: Status.DEFAULT,
 
-  statusConfirmDelete: Status.DEFAULT,
-  errorDeleteAccount: '',
+  // statusConfirmDelete: Status.DEFAULT,
+  // errorDeleteAccount: '',
+  statusRegisterUser: Status.DEFAULT,
+  messageRegisterUser: '',
 
   statusUpdateUser: Status.DEFAULT,
   updatedUser: {},
   errorUpdateUser: '',
 
   statusSetLanguage: Status.DEFAULT,
-  currentUserLanguage: '',
+  // currentUserLanguage: '',
 };
 
 export default (state = initializeState, {type, payload}) => {
   switch (type) {
-    case NEOCAFE.SET_LANGUAGE_REQUEST: {
-      return {
-        ...state,
-        statusSetLanguage: Status.LOADING,
-      };
-    }
-    case NEOCAFE.SET_LANGUAGE_SUCCESS: {
-      return {
-        ...state,
-        currentUserLanguage: payload,
-        statusSetLanguage: Status.SUCCESS,
-      };
-    }
-    case NEOCAFE.SET_LANGUAGE_ERROR: {
-      return {
-        ...state,
-        statusSetLanguage: Status.ERROR,
-      };
-    }
-    case NEOCAFE.GET_DELETE_ACCOUNT_REQUEST:
+    // case NEOCARE.SET_LANGUAGE_REQUEST: {
+    //   return {
+    //     ...state,
+    //     statusSetLanguage: Status.LOADING,
+    //   };
+    // }
+    // case NEOCARE.SET_LANGUAGE_SUCCESS: {
+    //   return {
+    //     ...state,
+    //     currentUserLanguage: payload,
+    //     statusSetLanguage: Status.SUCCESS,
+    //   };
+    // }
+    // case NEOCARE.SET_LANGUAGE_ERROR: {
+    //   return {
+    //     ...state,
+    //     statusSetLanguage: Status.ERROR,
+    //   };
+    // }
+    case NEOCARE.GET_DELETE_ACCOUNT_REQUEST:
       return {
         ...state,
         statusDeleteAccount: Status.LOADING,
       };
-    case NEOCAFE.GET_DELETE_ACCOUNT_SUCCESS:
+    case NEOCARE.GET_DELETE_ACCOUNT_SUCCESS:
       return {
         ...state,
         statusDeleteAccount: Status.SUCCESS,
       };
-    case NEOCAFE.GET_DELETE_ACCOUNT_RESET:
+    case NEOCARE.GET_DELETE_ACCOUNT_RESET:
       return {
         ...state,
         statusDeleteAccount: Status.DEFAULT,
       };
-    case NEOCAFE.CONFIRM_DELETE_OTP_REQUEST:
+    // case NEOCARE.CONFIRM_DELETE_OTP_REQUEST:
+    //   return {
+    //     ...state,
+    //     statusConfirmDelete: Status.LOADING,
+    //   };
+    // case NEOCARE.CONFIRM_DELETE_OTP_SUCCESS:
+    //   return {
+    //     ...state,
+    //     statusConfirmDelete: Status.SUCCESS,
+    //   };
+    // case NEOCARE.CONFIRM_DELETE_OTP_ERROR:
+    //   return {
+    //     ...state,
+    //     statusConfirmDelete: Status.ERROR,
+    //     errorDeleteAccount: payload,
+    //   };
+    // case NEOCARE.CONFIRM_DELETE_OTP_RESET:
+    //   return {
+    //     ...state,
+    //     statusConfirmDelete: Status.DEFAULT,
+    //     errorDeleteAccount: '',
+    //   };
+    // ------------ GET USER INFO ---
+    case NEOCARE.GET_USER_INFO_REQUEST:
       return {
         ...state,
-        statusConfirmDelete: Status.LOADING,
+        statusGetUserInfo: Status.LOADING,
       };
-    case NEOCAFE.CONFIRM_DELETE_OTP_SUCCESS:
+    case NEOCARE.GET_USER_INFO_SUCCESS:
       return {
         ...state,
-        statusConfirmDelete: Status.SUCCESS,
+        statusGetUserInfo: Status.SUCCESS,
       };
-    case NEOCAFE.CONFIRM_DELETE_OTP_ERROR:
+    case NEOCARE.GET_USER_INFO_ERROR:
       return {
         ...state,
-        statusConfirmDelete: Status.ERROR,
-        errorDeleteAccount: payload,
+        statusGetUserInfo: Status.ERROR,
+        currentUser: payload,
       };
-    case NEOCAFE.CONFIRM_DELETE_OTP_RESET:
+    case NEOCARE.GET_USER_INFO_RESET:
       return {
         ...state,
-        statusConfirmDelete: Status.DEFAULT,
-        errorDeleteAccount: '',
+        statusGetUserInfo: Status.DEFAULT,
       };
-    case NEOCAFE.UPDATE_USER_INFO_REQUEST:
+    // ---------- REGISTER USER ----
+    case NEOCARE.REGISTER_USER_REQUEST:
+      return {
+        ...state,
+        statusRegisterUser: Status.LOADING,
+      };
+    case NEOCARE.REGISTER_USER_SUCCESS:
+      return {
+        ...state,
+        statusRegisterUser: Status.SUCCESS,
+      };
+    case NEOCARE.REGISTER_USER_ERROR:
+      return {
+        ...state,
+        statusRegisterUser: Status.ERROR,
+        messageRegisterUser: payload,
+      };
+    case NEOCARE.REGISTER_USER_RESET:
+      return {
+        ...state,
+        statusRegisterUser: Status.DEFAULT,
+        messageRegisterUser: '',
+      };
+    // -------- UPDATE USER INFO -----------
+    case NEOCARE.UPDATE_USER_INFO_REQUEST:
       return {
         ...state,
         statusUpdateUser: Status.LOADING,
       };
-    case NEOCAFE.UPDATE_USER_INFO_SUCCESS:
+    case NEOCARE.UPDATE_USER_INFO_SUCCESS:
       return {
         ...state,
         updatedUser: payload,
         statusUpdateUser: Status.SUCCESS,
       };
-    case NEOCAFE.UPDATE_USER_INFO_ERROR:
+    case NEOCARE.UPDATE_USER_INFO_ERROR:
       return {
         ...state,
         statusUpdateUser: Status.ERROR,
         errorUpdateUser: payload,
       };
-    case NEOCAFE.UPDATE_USER_INFO_RESET:
+    case NEOCARE.UPDATE_USER_INFO_RESET:
       return {
         ...state,
         statusUpdateUser: Status.DEFAULT,

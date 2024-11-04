@@ -14,6 +14,41 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-neocarecustomer-neocarecustomerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-neocarecustomer-neocarecustomerTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		962FE5892BBC190B0003B0C9 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 962FE5832BBC190A0003B0C9 /* Roboto-Light.ttf */; };
+		962FE58A2BBC190B0003B0C9 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 962FE5842BBC190A0003B0C9 /* Roboto-Medium.ttf */; };
+		962FE58B2BBC190B0003B0C9 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 962FE5852BBC190A0003B0C9 /* Roboto-Regular.ttf */; };
+		962FE58C2BBC190B0003B0C9 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 962FE5862BBC190A0003B0C9 /* Roboto-Bold.ttf */; };
+		962FE58D2BBC190B0003B0C9 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 962FE5872BBC190A0003B0C9 /* Roboto-Thin.ttf */; };
+		962FE58E2BBC190B0003B0C9 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 962FE5882BBC190A0003B0C9 /* Roboto-Black.ttf */; };
+		962FE5982BBC19250003B0C9 /* SF-Pro-Display-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 962FE58F2BBC19240003B0C9 /* SF-Pro-Display-Light.otf */; };
+		962FE5992BBC19250003B0C9 /* SF-Pro-Display-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 962FE5902BBC19240003B0C9 /* SF-Pro-Display-Semibold.otf */; };
+		962FE59A2BBC19250003B0C9 /* SF-Pro-Display-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 962FE5912BBC19240003B0C9 /* SF-Pro-Display-Heavy.otf */; };
+		962FE59B2BBC19250003B0C9 /* SF-Pro-Display-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 962FE5922BBC19240003B0C9 /* SF-Pro-Display-Medium.otf */; };
+		962FE59C2BBC19250003B0C9 /* SF-Pro-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 962FE5932BBC19240003B0C9 /* SF-Pro-Display-Regular.otf */; };
+		962FE59D2BBC19250003B0C9 /* SF-Pro-Display-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 962FE5942BBC19250003B0C9 /* SF-Pro-Display-Black.otf */; };
+		962FE59E2BBC19250003B0C9 /* SF-Pro-Display-Ultralight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 962FE5952BBC19250003B0C9 /* SF-Pro-Display-Ultralight.otf */; };
+		962FE59F2BBC19250003B0C9 /* SF-Pro-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 962FE5962BBC19250003B0C9 /* SF-Pro-Display-Bold.otf */; };
+		962FE5A02BBC19250003B0C9 /* SF-Pro-Display-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 962FE5972BBC19250003B0C9 /* SF-Pro-Display-Thin.otf */; };
+		965C640F2BF34E5400F43D15 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965C640E2BF34E5400F43D15 /* NotificationService.swift */; };
+		965C64132BF34E5400F43D15 /* OneSignalNotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 965C640C2BF34E5400F43D15 /* OneSignalNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		96D6C8FD2B8D79A600C8A70B /* SVN-Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96D6C8EA2B8D79A600C8A70B /* SVN-Poppins-Medium.ttf */; };
+		96D6C8FE2B8D79A600C8A70B /* SVN-Poppins-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96D6C8EB2B8D79A600C8A70B /* SVN-Poppins-BlackItalic.ttf */; };
+		96D6C8FF2B8D79A600C8A70B /* SVN-Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96D6C8EC2B8D79A600C8A70B /* SVN-Poppins-Italic.ttf */; };
+		96D6C9002B8D79A600C8A70B /* SVN-Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96D6C8ED2B8D79A600C8A70B /* SVN-Poppins-ExtraBold.ttf */; };
+		96D6C9012B8D79A600C8A70B /* SVN-Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96D6C8EE2B8D79A600C8A70B /* SVN-Poppins-MediumItalic.ttf */; };
+		96D6C9022B8D79A600C8A70B /* SVN-Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96D6C8EF2B8D79A600C8A70B /* SVN-Poppins-ExtraLight.ttf */; };
+		96D6C9032B8D79A600C8A70B /* SVN-Poppins-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96D6C8F02B8D79A600C8A70B /* SVN-Poppins-Black.ttf */; };
+		96D6C9042B8D79A600C8A70B /* SVN-Poppins-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96D6C8F12B8D79A600C8A70B /* SVN-Poppins-BoldItalic.ttf */; };
+		96D6C9052B8D79A600C8A70B /* SVN-Poppins-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96D6C8F22B8D79A600C8A70B /* SVN-Poppins-ExtraLightItalic.ttf */; };
+		96D6C9062B8D79A600C8A70B /* SVN-Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96D6C8F32B8D79A600C8A70B /* SVN-Poppins-Light.ttf */; };
+		96D6C9072B8D79A600C8A70B /* SVN-Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96D6C8F42B8D79A600C8A70B /* SVN-Poppins-Regular.ttf */; };
+		96D6C9082B8D79A600C8A70B /* SVN-Poppins-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96D6C8F52B8D79A600C8A70B /* SVN-Poppins-SemiBoldItalic.ttf */; };
+		96D6C9092B8D79A600C8A70B /* SVN-Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96D6C8F62B8D79A600C8A70B /* SVN-Poppins-ThinItalic.ttf */; };
+		96D6C90A2B8D79A600C8A70B /* SVN-Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96D6C8F72B8D79A600C8A70B /* SVN-Poppins-SemiBold.ttf */; };
+		96D6C90B2B8D79A600C8A70B /* SVN-Poppins-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96D6C8F82B8D79A600C8A70B /* SVN-Poppins-LightItalic.ttf */; };
+		96D6C90C2B8D79A600C8A70B /* SVN-Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96D6C8F92B8D79A600C8A70B /* SVN-Poppins-Bold.ttf */; };
+		96D6C90E2B8D79A600C8A70B /* SVN-Poppins-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96D6C8FB2B8D79A600C8A70B /* SVN-Poppins-ExtraBoldItalic.ttf */; };
+		96D6C90F2B8D79A600C8A70B /* SVN-Poppins-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96D6C8FC2B8D79A600C8A70B /* SVN-Poppins-Thin.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,7 +59,28 @@
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = neocarecustomer;
 		};
+		965C64112BF34E5400F43D15 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 965C640B2BF34E5400F43D15;
+			remoteInfo = OneSignalNotificationServiceExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		968E98892BAD669F00D99AFE /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				965C64132BF34E5400F43D15 /* OneSignalNotificationServiceExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		00E356EE1AD99517003FC87E /* neocarecustomerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = neocarecustomerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -43,6 +99,48 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-neocarecustomer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-neocarecustomer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = neocarecustomer/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-neocarecustomer-neocarecustomerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-neocarecustomer-neocarecustomerTests.release.xcconfig"; path = "Target Support Files/Pods-neocarecustomer-neocarecustomerTests/Pods-neocarecustomer-neocarecustomerTests.release.xcconfig"; sourceTree = "<group>"; };
+		962FE5832BBC190A0003B0C9 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Light.ttf"; path = "../src/assets/fonts/Roboto-Light.ttf"; sourceTree = "<group>"; };
+		962FE5842BBC190A0003B0C9 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Medium.ttf"; path = "../src/assets/fonts/Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		962FE5852BBC190A0003B0C9 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Regular.ttf"; path = "../src/assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		962FE5862BBC190A0003B0C9 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Bold.ttf"; path = "../src/assets/fonts/Roboto-Bold.ttf"; sourceTree = "<group>"; };
+		962FE5872BBC190A0003B0C9 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Thin.ttf"; path = "../src/assets/fonts/Roboto-Thin.ttf"; sourceTree = "<group>"; };
+		962FE5882BBC190A0003B0C9 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Black.ttf"; path = "../src/assets/fonts/Roboto-Black.ttf"; sourceTree = "<group>"; };
+		962FE58F2BBC19240003B0C9 /* SF-Pro-Display-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Display-Light.otf"; path = "../src/assets/fonts/SF-Pro-Display-Light.otf"; sourceTree = "<group>"; };
+		962FE5902BBC19240003B0C9 /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Display-Semibold.otf"; path = "../src/assets/fonts/SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; };
+		962FE5912BBC19240003B0C9 /* SF-Pro-Display-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Display-Heavy.otf"; path = "../src/assets/fonts/SF-Pro-Display-Heavy.otf"; sourceTree = "<group>"; };
+		962FE5922BBC19240003B0C9 /* SF-Pro-Display-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Display-Medium.otf"; path = "../src/assets/fonts/SF-Pro-Display-Medium.otf"; sourceTree = "<group>"; };
+		962FE5932BBC19240003B0C9 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Display-Regular.otf"; path = "../src/assets/fonts/SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
+		962FE5942BBC19250003B0C9 /* SF-Pro-Display-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Display-Black.otf"; path = "../src/assets/fonts/SF-Pro-Display-Black.otf"; sourceTree = "<group>"; };
+		962FE5952BBC19250003B0C9 /* SF-Pro-Display-Ultralight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Display-Ultralight.otf"; path = "../src/assets/fonts/SF-Pro-Display-Ultralight.otf"; sourceTree = "<group>"; };
+		962FE5962BBC19250003B0C9 /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Display-Bold.otf"; path = "../src/assets/fonts/SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
+		962FE5972BBC19250003B0C9 /* SF-Pro-Display-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Display-Thin.otf"; path = "../src/assets/fonts/SF-Pro-Display-Thin.otf"; sourceTree = "<group>"; };
+		965C640C2BF34E5400F43D15 /* OneSignalNotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneSignalNotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		965C640E2BF34E5400F43D15 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		965C64102BF34E5400F43D15 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		968E98702BAD5F3A00D99AFE /* neocarecustomer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = neocarecustomer.entitlements; path = neocarecustomer/neocarecustomer.entitlements; sourceTree = "<group>"; };
+		968E98832BAD669F00D99AFE /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		968E98852BAD669F00D99AFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		968E988D2BAD710500D99AFE /* OneSignalNotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OneSignalNotificationServiceExtension.entitlements; sourceTree = "<group>"; };
+		96A571232B97B5F80091F3D7 /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Feather.ttf; path = ../src/assets/fonts/Feather.ttf; sourceTree = "<group>"; };
+		96D6C8EA2B8D79A600C8A70B /* SVN-Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-Medium.ttf"; path = "../src/assets/fonts/SVN-Poppins-Medium.ttf"; sourceTree = "<group>"; };
+		96D6C8EB2B8D79A600C8A70B /* SVN-Poppins-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-BlackItalic.ttf"; path = "../src/assets/fonts/SVN-Poppins-BlackItalic.ttf"; sourceTree = "<group>"; };
+		96D6C8EC2B8D79A600C8A70B /* SVN-Poppins-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-Italic.ttf"; path = "../src/assets/fonts/SVN-Poppins-Italic.ttf"; sourceTree = "<group>"; };
+		96D6C8ED2B8D79A600C8A70B /* SVN-Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-ExtraBold.ttf"; path = "../src/assets/fonts/SVN-Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
+		96D6C8EE2B8D79A600C8A70B /* SVN-Poppins-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-MediumItalic.ttf"; path = "../src/assets/fonts/SVN-Poppins-MediumItalic.ttf"; sourceTree = "<group>"; };
+		96D6C8EF2B8D79A600C8A70B /* SVN-Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-ExtraLight.ttf"; path = "../src/assets/fonts/SVN-Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
+		96D6C8F02B8D79A600C8A70B /* SVN-Poppins-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-Black.ttf"; path = "../src/assets/fonts/SVN-Poppins-Black.ttf"; sourceTree = "<group>"; };
+		96D6C8F12B8D79A600C8A70B /* SVN-Poppins-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-BoldItalic.ttf"; path = "../src/assets/fonts/SVN-Poppins-BoldItalic.ttf"; sourceTree = "<group>"; };
+		96D6C8F22B8D79A600C8A70B /* SVN-Poppins-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-ExtraLightItalic.ttf"; path = "../src/assets/fonts/SVN-Poppins-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		96D6C8F32B8D79A600C8A70B /* SVN-Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-Light.ttf"; path = "../src/assets/fonts/SVN-Poppins-Light.ttf"; sourceTree = "<group>"; };
+		96D6C8F42B8D79A600C8A70B /* SVN-Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-Regular.ttf"; path = "../src/assets/fonts/SVN-Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		96D6C8F52B8D79A600C8A70B /* SVN-Poppins-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-SemiBoldItalic.ttf"; path = "../src/assets/fonts/SVN-Poppins-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		96D6C8F62B8D79A600C8A70B /* SVN-Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-ThinItalic.ttf"; path = "../src/assets/fonts/SVN-Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
+		96D6C8F72B8D79A600C8A70B /* SVN-Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-SemiBold.ttf"; path = "../src/assets/fonts/SVN-Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
+		96D6C8F82B8D79A600C8A70B /* SVN-Poppins-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-LightItalic.ttf"; path = "../src/assets/fonts/SVN-Poppins-LightItalic.ttf"; sourceTree = "<group>"; };
+		96D6C8F92B8D79A600C8A70B /* SVN-Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-Bold.ttf"; path = "../src/assets/fonts/SVN-Poppins-Bold.ttf"; sourceTree = "<group>"; };
+		96D6C8FB2B8D79A600C8A70B /* SVN-Poppins-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-ExtraBoldItalic.ttf"; path = "../src/assets/fonts/SVN-Poppins-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		96D6C8FC2B8D79A600C8A70B /* SVN-Poppins-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SVN-Poppins-Thin.ttf"; path = "../src/assets/fonts/SVN-Poppins-Thin.ttf"; sourceTree = "<group>"; };
+		96F5B85B2BB9AFF2001A12A3 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -60,6 +158,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C80B921A6F3F58F76C31292 /* libPods-neocarecustomer.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		965C64092BF34E5400F43D15 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +191,7 @@
 		13B07FAE1A68108700A75B9A /* neocarecustomer */ = {
 			isa = PBXGroup;
 			children = (
+				968E98702BAD5F3A00D99AFE /* neocarecustomer.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -116,9 +222,46 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				962FE5942BBC19250003B0C9 /* SF-Pro-Display-Black.otf */,
+				962FE5962BBC19250003B0C9 /* SF-Pro-Display-Bold.otf */,
+				962FE5912BBC19240003B0C9 /* SF-Pro-Display-Heavy.otf */,
+				962FE58F2BBC19240003B0C9 /* SF-Pro-Display-Light.otf */,
+				962FE5922BBC19240003B0C9 /* SF-Pro-Display-Medium.otf */,
+				962FE5932BBC19240003B0C9 /* SF-Pro-Display-Regular.otf */,
+				962FE5902BBC19240003B0C9 /* SF-Pro-Display-Semibold.otf */,
+				962FE5972BBC19250003B0C9 /* SF-Pro-Display-Thin.otf */,
+				962FE5952BBC19250003B0C9 /* SF-Pro-Display-Ultralight.otf */,
+				962FE5882BBC190A0003B0C9 /* Roboto-Black.ttf */,
+				962FE5862BBC190A0003B0C9 /* Roboto-Bold.ttf */,
+				962FE5832BBC190A0003B0C9 /* Roboto-Light.ttf */,
+				962FE5842BBC190A0003B0C9 /* Roboto-Medium.ttf */,
+				962FE5852BBC190A0003B0C9 /* Roboto-Regular.ttf */,
+				962FE5872BBC190A0003B0C9 /* Roboto-Thin.ttf */,
+				96F5B85B2BB9AFF2001A12A3 /* Config.xcconfig */,
+				96A571232B97B5F80091F3D7 /* Feather.ttf */,
+				96D6C8F02B8D79A600C8A70B /* SVN-Poppins-Black.ttf */,
+				96D6C8EB2B8D79A600C8A70B /* SVN-Poppins-BlackItalic.ttf */,
+				96D6C8F92B8D79A600C8A70B /* SVN-Poppins-Bold.ttf */,
+				96D6C8F12B8D79A600C8A70B /* SVN-Poppins-BoldItalic.ttf */,
+				96D6C8ED2B8D79A600C8A70B /* SVN-Poppins-ExtraBold.ttf */,
+				96D6C8FB2B8D79A600C8A70B /* SVN-Poppins-ExtraBoldItalic.ttf */,
+				96D6C8EF2B8D79A600C8A70B /* SVN-Poppins-ExtraLight.ttf */,
+				96D6C8F22B8D79A600C8A70B /* SVN-Poppins-ExtraLightItalic.ttf */,
+				96D6C8EC2B8D79A600C8A70B /* SVN-Poppins-Italic.ttf */,
+				96D6C8F32B8D79A600C8A70B /* SVN-Poppins-Light.ttf */,
+				96D6C8F82B8D79A600C8A70B /* SVN-Poppins-LightItalic.ttf */,
+				96D6C8EA2B8D79A600C8A70B /* SVN-Poppins-Medium.ttf */,
+				96D6C8EE2B8D79A600C8A70B /* SVN-Poppins-MediumItalic.ttf */,
+				96D6C8F42B8D79A600C8A70B /* SVN-Poppins-Regular.ttf */,
+				96D6C8F72B8D79A600C8A70B /* SVN-Poppins-SemiBold.ttf */,
+				96D6C8F52B8D79A600C8A70B /* SVN-Poppins-SemiBoldItalic.ttf */,
+				96D6C8FC2B8D79A600C8A70B /* SVN-Poppins-Thin.ttf */,
+				96D6C8F62B8D79A600C8A70B /* SVN-Poppins-ThinItalic.ttf */,
 				13B07FAE1A68108700A75B9A /* neocarecustomer */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* neocarecustomerTests */,
+				968E98822BAD669F00D99AFE /* OneSignalNotificationServiceExtension */,
+				965C640D2BF34E5400F43D15 /* OneSignalNotificationServiceExtension */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
@@ -133,8 +276,28 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* neocarecustomer.app */,
 				00E356EE1AD99517003FC87E /* neocarecustomerTests.xctest */,
+				965C640C2BF34E5400F43D15 /* OneSignalNotificationServiceExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		965C640D2BF34E5400F43D15 /* OneSignalNotificationServiceExtension */ = {
+			isa = PBXGroup;
+			children = (
+				965C640E2BF34E5400F43D15 /* NotificationService.swift */,
+				965C64102BF34E5400F43D15 /* Info.plist */,
+			);
+			path = OneSignalNotificationServiceExtension;
+			sourceTree = "<group>";
+		};
+		968E98822BAD669F00D99AFE /* OneSignalNotificationServiceExtension */ = {
+			isa = PBXGroup;
+			children = (
+				968E988D2BAD710500D99AFE /* OneSignalNotificationServiceExtension.entitlements */,
+				968E98832BAD669F00D99AFE /* NotificationService.swift */,
+				968E98852BAD669F00D99AFE /* Info.plist */,
+			);
+			path = OneSignalNotificationServiceExtension;
 			sourceTree = "<group>";
 		};
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
@@ -184,15 +347,34 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
 				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
+				968E98892BAD669F00D99AFE /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				965C64122BF34E5400F43D15 /* PBXTargetDependency */,
 			);
 			name = neocarecustomer;
 			productName = neocarecustomer;
 			productReference = 13B07F961A680F5B00A75B9A /* neocarecustomer.app */;
 			productType = "com.apple.product-type.application";
+		};
+		965C640B2BF34E5400F43D15 /* OneSignalNotificationServiceExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 965C64142BF34E5400F43D15 /* Build configuration list for PBXNativeTarget "OneSignalNotificationServiceExtension" */;
+			buildPhases = (
+				965C64082BF34E5400F43D15 /* Sources */,
+				965C64092BF34E5400F43D15 /* Frameworks */,
+				965C640A2BF34E5400F43D15 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OneSignalNotificationServiceExtension;
+			productName = OneSignalNotificationServiceExtension;
+			productReference = 965C640C2BF34E5400F43D15 /* OneSignalNotificationServiceExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -200,6 +382,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -208,6 +391,9 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1120;
+					};
+					965C640B2BF34E5400F43D15 = {
+						CreatedOnToolsVersion = 15.0;
 					};
 				};
 			};
@@ -226,6 +412,7 @@
 			targets = (
 				13B07F861A680F5B00A75B9A /* neocarecustomer */,
 				00E356ED1AD99517003FC87E /* neocarecustomerTests */,
+				965C640B2BF34E5400F43D15 /* OneSignalNotificationServiceExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -244,6 +431,46 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				96D6C8FD2B8D79A600C8A70B /* SVN-Poppins-Medium.ttf in Resources */,
+				96D6C8FE2B8D79A600C8A70B /* SVN-Poppins-BlackItalic.ttf in Resources */,
+				96D6C8FF2B8D79A600C8A70B /* SVN-Poppins-Italic.ttf in Resources */,
+				96D6C9002B8D79A600C8A70B /* SVN-Poppins-ExtraBold.ttf in Resources */,
+				96D6C9012B8D79A600C8A70B /* SVN-Poppins-MediumItalic.ttf in Resources */,
+				96D6C9022B8D79A600C8A70B /* SVN-Poppins-ExtraLight.ttf in Resources */,
+				96D6C9032B8D79A600C8A70B /* SVN-Poppins-Black.ttf in Resources */,
+				96D6C9042B8D79A600C8A70B /* SVN-Poppins-BoldItalic.ttf in Resources */,
+				962FE5892BBC190B0003B0C9 /* Roboto-Light.ttf in Resources */,
+				962FE58A2BBC190B0003B0C9 /* Roboto-Medium.ttf in Resources */,
+				962FE58B2BBC190B0003B0C9 /* Roboto-Regular.ttf in Resources */,
+				962FE58C2BBC190B0003B0C9 /* Roboto-Bold.ttf in Resources */,
+				962FE58D2BBC190B0003B0C9 /* Roboto-Thin.ttf in Resources */,
+				962FE5982BBC19250003B0C9 /* SF-Pro-Display-Light.otf in Resources */,
+				962FE5992BBC19250003B0C9 /* SF-Pro-Display-Semibold.otf in Resources */,
+				962FE59A2BBC19250003B0C9 /* SF-Pro-Display-Heavy.otf in Resources */,
+				962FE59B2BBC19250003B0C9 /* SF-Pro-Display-Medium.otf in Resources */,
+				962FE59C2BBC19250003B0C9 /* SF-Pro-Display-Regular.otf in Resources */,
+				962FE59D2BBC19250003B0C9 /* SF-Pro-Display-Black.otf in Resources */,
+				962FE59E2BBC19250003B0C9 /* SF-Pro-Display-Ultralight.otf in Resources */,
+				962FE59F2BBC19250003B0C9 /* SF-Pro-Display-Bold.otf in Resources */,
+				962FE5A02BBC19250003B0C9 /* SF-Pro-Display-Thin.otf in Resources */,
+				962FE58E2BBC190B0003B0C9 /* Roboto-Black.ttf in Resources */,
+				96D6C9052B8D79A600C8A70B /* SVN-Poppins-ExtraLightItalic.ttf in Resources */,
+				96D6C9062B8D79A600C8A70B /* SVN-Poppins-Light.ttf in Resources */,
+				96D6C9072B8D79A600C8A70B /* SVN-Poppins-Regular.ttf in Resources */,
+				96D6C9082B8D79A600C8A70B /* SVN-Poppins-SemiBoldItalic.ttf in Resources */,
+				96D6C9092B8D79A600C8A70B /* SVN-Poppins-ThinItalic.ttf in Resources */,
+				96D6C90A2B8D79A600C8A70B /* SVN-Poppins-SemiBold.ttf in Resources */,
+				96D6C90B2B8D79A600C8A70B /* SVN-Poppins-LightItalic.ttf in Resources */,
+				96D6C90C2B8D79A600C8A70B /* SVN-Poppins-Bold.ttf in Resources */,
+				96D6C90E2B8D79A600C8A70B /* SVN-Poppins-ExtraBoldItalic.ttf in Resources */,
+				96D6C90F2B8D79A600C8A70B /* SVN-Poppins-Thin.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		965C640A2BF34E5400F43D15 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,6 +644,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		965C64082BF34E5400F43D15 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				965C640F2BF34E5400F43D15 /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -424,6 +659,11 @@
 			isa = PBXTargetDependency;
 			target = 13B07F861A680F5B00A75B9A /* neocarecustomer */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
+		};
+		965C64122BF34E5400F43D15 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 965C640B2BF34E5400F43D15 /* OneSignalNotificationServiceExtension */;
+			targetProxy = 965C64112BF34E5400F43D15 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -433,6 +673,7 @@
 			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-neocarecustomer-neocarecustomerTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = WZUVY28PG4;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -449,7 +690,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = vn.neocare.customer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/neocarecustomer.app/neocarecustomer";
 			};
@@ -461,6 +702,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = WZUVY28PG4;
 				INFOPLIST_FILE = neocarecustomerTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -473,7 +715,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = vn.neocare.customer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/neocarecustomer.app/neocarecustomer";
 			};
@@ -483,25 +725,33 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-neocarecustomer.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CODE_SIGN_ENTITLEMENTS = neocarecustomer/neocarecustomer.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 7;
+				DEVELOPMENT_TEAM = NYP3FQG9KC;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = neocarecustomer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = vn.neocare.customer;
 				PRODUCT_NAME = neocarecustomer;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -510,29 +760,38 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-neocarecustomer.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CODE_SIGN_ENTITLEMENTS = neocarecustomer/neocarecustomer.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 7;
+				DEVELOPMENT_TEAM = NYP3FQG9KC;
 				INFOPLIST_FILE = neocarecustomer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = vn.neocare.customer;
 				PRODUCT_NAME = neocarecustomer;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
 		83CBBA201A601CBA00E9B192 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 96F5B85B2BB9AFF2001A12A3 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -564,7 +823,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -605,6 +864,7 @@
 		};
 		83CBBA211A601CBA00E9B192 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 96F5B85B2BB9AFF2001A12A3 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -636,7 +896,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -668,6 +928,91 @@
 			};
 			name = Release;
 		};
+		965C64152BF34E5400F43D15 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = OneSignalNotificationServiceExtension/OneSignalNotificationServiceExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = NYP3FQG9KC;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = OneSignalNotificationServiceExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = vn.neocare.customer.OneSignalNotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		965C64162BF34E5400F43D15 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = OneSignalNotificationServiceExtension/OneSignalNotificationServiceExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = NYP3FQG9KC;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = OneSignalNotificationServiceExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = vn.neocare.customer.OneSignalNotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -694,6 +1039,15 @@
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
 				83CBBA211A601CBA00E9B192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		965C64142BF34E5400F43D15 /* Build configuration list for PBXNativeTarget "OneSignalNotificationServiceExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				965C64152BF34E5400F43D15 /* Debug */,
+				965C64162BF34E5400F43D15 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

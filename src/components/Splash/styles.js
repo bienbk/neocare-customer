@@ -5,7 +5,18 @@ import {heightDevice, widthDevice} from 'assets/constans';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'blue',
+    backgroundColor: Colors.primary,
+  },
+  decorator: {
+    position: 'absolute',
+    bottom: -60,
+    right: -70,
+  },
+  wrapper: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 10,
+    alignSelf: 'center',
   },
   viewLogo: {
     width: 129,

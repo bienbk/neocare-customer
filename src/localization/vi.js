@@ -5,8 +5,12 @@ export default {
     store: 'Cửa hàng',
     home: 'Trang Chủ',
     select: 'Chọn',
+    cancel: 'Huỷ',
+    delete: 'Xoá',
     selected: 'Đã chọn',
+    complete: 'Hoàn tất',
     subscribe: 'Đăng kí',
+    close: 'Đóng',
     updateNotification:
       'App Neo Cafe có 1 phiên bản mới cập nhật. Bạn có muốn sử dụng ngay phiên bản mới không.',
     deliveryAddress: 'Địa chỉ nhận hàng',

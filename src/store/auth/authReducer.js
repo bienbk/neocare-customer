@@ -1,5 +1,5 @@
 import Status from 'common/Status/Status';
-import {NEOCAFE} from 'store/actionsTypes';
+import {NEOCARE} from 'store/actionsTypes';
 
 const initializeState = {
   //login
@@ -13,72 +13,86 @@ const initializeState = {
   forceUpdate: false,
   update: false,
   versionNew: '',
+  deviceId: '',
+  preAuthSessionId: '',
   statusGetVersion: Status.DEFAULT,
   updateInstalledCodePush: false,
 };
 
 export default (state = initializeState, {type, payload}) => {
   switch (type) {
-    case NEOCAFE.SEND_PHONE_REQUEST:
+    case NEOCARE.SEND_PHONE_REQUEST:
       return {
         ...state,
         statusSendPhone: Status.LOADING,
       };
-    case NEOCAFE.SEND_PHONE_SUCCESS:
+    case NEOCARE.RESEND_PHONE_REQUEST:
+      return {
+        ...state,
+        statusSendPhone: Status.LOADING,
+      };
+    case NEOCARE.RESEND_PHONE_SUCCESS:
+      return {
+        ...state,
+        statusSendPhone: Status.SUCCESS,
+      };
+    case NEOCARE.SEND_PHONE_SUCCESS:
       return {
         ...state,
         tokenConfirm: payload.tokenConfirm,
+        deviceId: payload.deviceId,
+        preAuthSessionId: payload.preAuthSessionId,
         statusSendPhone: Status.SUCCESS,
       };
-    case NEOCAFE.SEND_PHONE_ERROR:
+    case NEOCARE.SEND_PHONE_ERROR:
       return {
         ...state,
         statusSendPhone: Status.ERROR,
         errorSendOtp: payload.errorMsg,
       };
-    case NEOCAFE.SEND_PHONE_RESET:
+    case NEOCARE.SEND_PHONE_RESET:
       return {
         ...state,
         statusSendPhone: Status.DEFAULT,
         errorSendOtp: '',
       };
 
-    case NEOCAFE.CONFIRM_OTP_REQUEST:
+    case NEOCARE.CONFIRM_OTP_REQUEST:
       return {
         ...state,
         statusConfirmOtp: Status.LOADING,
       };
-    case NEOCAFE.CONFIRM_OTP_SUCCESS:
+    case NEOCARE.CONFIRM_OTP_SUCCESS:
       return {
         ...state,
         statusConfirmOtp: Status.SUCCESS,
       };
-    case NEOCAFE.CONFIRM_OTP_ERROR:
+    case NEOCARE.CONFIRM_OTP_ERROR:
       return {
         ...state,
         errorConfirm: payload.errorMsg,
         statusConfirmOtp: Status.ERROR,
       };
-    case NEOCAFE.CONFIRM_OTP_RESET:
+    case NEOCARE.CONFIRM_OTP_RESET:
       return {
         ...state,
         statusConfirmOtp: Status.DEFAULT,
         errorConfirm: '',
       };
 
-    case NEOCAFE.LOGIN_PHONE_SUCCESS:
+    case NEOCARE.LOGIN_PHONE_SUCCESS:
       return {
         ...state,
         tempUser: payload.user,
         statusLoginPhone: Status.SUCCESS,
       };
-    case NEOCAFE.LOGIN_PHONE_RESET:
+    case NEOCARE.LOGIN_PHONE_RESET:
       return {
         ...state,
         statusLoginPhone: Status.DEFAULT,
       };
     //get Version
-    case NEOCAFE.GET_VERSION_SUCCESS:
+    case NEOCARE.GET_VERSION_SUCCESS:
       return {
         ...state,
         forceUpdate: payload.forceUpdate,

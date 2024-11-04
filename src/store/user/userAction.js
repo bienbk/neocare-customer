@@ -1,28 +1,41 @@
-import {NEOCAFE} from 'store/actionsTypes';
+import {NEOCARE} from 'store/actionsTypes';
 
 export const getDeleteAccount = () => ({
-  type: NEOCAFE.GET_DELETE_ACCOUNT_REQUEST,
+  type: NEOCARE.GET_DELETE_ACCOUNT_REQUEST,
 });
 export const deleteAccountReset = () => ({
-  type: NEOCAFE.GET_DELETE_ACCOUNT_RESET,
+  type: NEOCARE.GET_DELETE_ACCOUNT_RESET,
 });
-export const confirmDeleteAccountOtp = otp => ({
-  type: NEOCAFE.CONFIRM_DELETE_OTP_REQUEST,
-  payload: {
-    otp,
-  },
-});
-export const resetDeleteOtp = () => ({
-  type: NEOCAFE.CONFIRM_DELETE_OTP_RESET,
-});
+// export const confirmDeleteAccountOtp = otp => ({
+//   type: NEOCARE.CONFIRM_DELETE_OTP_REQUEST,
+//   payload: {
+//     otp,
+//   },
+// });
+// export const resetDeleteOtp = () => ({
+//   type: NEOCARE.CONFIRM_DELETE_OTP_RESET,
+// });
 export const updateUserInformation = payload => ({
-  type: NEOCAFE.UPDATE_USER_INFO_REQUEST,
+  type: NEOCARE.UPDATE_USER_INFO_REQUEST,
   payload,
 });
 export const resetUpdateUser = () => ({
-  type: NEOCAFE.UPDATE_USER_INFO_RESET,
+  type: NEOCARE.UPDATE_USER_INFO_RESET,
 });
-export const setLanguageAction = payload => ({
-  type: NEOCAFE.SET_LANGUAGE_REQUEST,
+export const registerUserAction = payload => ({
+  type: NEOCARE.REGISTER_USER_REQUEST,
   payload,
+});
+export const resetRegisterUser = () => ({
+  type: NEOCARE.REGISTER_USER_RESET,
+});
+// export const setLanguageAction = payload => ({
+//   type: NEOCARE.SET_LANGUAGE_REQUEST,
+//   payload,
+// });
+export const getUserInfoAction = () => ({
+  type: NEOCARE.GET_USER_INFO_REQUEST,
+});
+export const resetGetUserInfo = () => ({
+  type: NEOCARE.GET_USER_INFO_RESET,
 });

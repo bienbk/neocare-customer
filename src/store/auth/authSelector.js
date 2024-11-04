@@ -7,6 +7,8 @@ export const isErrorConfirm = state => state.auth.errorConfirm;
 export const getVersionNew = state => state.auth.versionNew;
 export const getForceUpdate = state => state.auth.forceUpdate;
 export const getUpdate = state => state.auth.update;
+export const getDeviceId = state => state.auth.deviceId;
+export const getPreAuthSessionId = state => state.auth.preAuthSessionId;
 export const isErrorSendOtp = state => state.auth.errorSendOtp;
 export const isUpdateInstalledCodePush = state =>
   state.auth.updateInstalledCodePush;

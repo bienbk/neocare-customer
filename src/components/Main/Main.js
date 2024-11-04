@@ -1,27 +1,15 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import * as Screens from 'components';
-import {NAVIGATION_HOME, NAVIGATION_MENU} from 'navigation/routes';
-// import Images from 'common/Images/Images';
-// import {
-//   heightDevice,
-//   icon_account,
-//   icon_home,
-//   icon_menu,
-//   icon_shop,
-//   widthDevice,
-// } from 'assets/constans';
-import {Platform, StyleSheet, View} from 'react-native';
+import {NAVIGATION_HOME, NAVIGATION_ACCOUNT} from 'navigation/routes';
+import {StyleSheet, View} from 'react-native';
 import Colors from 'theme/Colors';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Svg from 'common/Svg/Svg';
 import {TextSmallEleven} from 'common/Text/TextFont';
-import {widthDevice} from 'assets/constans';
 import strings from 'localization/Localization';
-import {useSelector} from 'react-redux';
-import {getCurrentLanguage} from 'store/selectors';
-
+import {widthDevice} from 'assets/constans';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -31,14 +19,6 @@ const Stack = createNativeStackNavigator();
 //       screenOptions={{header: () => null}}
 //       initialRouteName={NAVIGATION_ACCOUNT}>
 //       <Stack.Screen name={NAVIGATION_ACCOUNT} component={Screens.Account} />
-//       <Stack.Screen
-//         name={NAVIGATION_ACCOUNT_INFO}
-//         component={Screens.AccountInfo}
-//       />
-//       <Stack.Screen
-//         name={NAVIGATION_ACCOUNT_ORDER_HISTORY}
-//         component={Screens && Screens.HistoryOrder ? Screens.HistoryOrder : ''}
-//       />
 //     </Stack.Navigator>
 //   );
 // };
@@ -46,99 +26,77 @@ const Stack = createNativeStackNavigator();
 // icon_giohang1
 const Main = () => {
   const insets = useSafeAreaInsets();
-  const currentUserLanguage = useSelector(state => getCurrentLanguage(state));
-
-  useEffect(() => {
-    console.log('CHANGE LANGUAGE:::::', currentUserLanguage);
-  }, [currentUserLanguage]);
+  const screenOption = ({route}) => ({
+    tabBarHideOnKeyboard: true,
+    tabBarIcon: e => renderItemTab(e, route),
+    tabBarActiveTintColor: Colors.buttonBackground,
+    tabBarInactiveTintColor: Colors.textGrayColor,
+    headerShown: false,
+    tabBarStyle: {height: 75 + insets.bottom / 2},
+  });
+  // const currentUserLanguage = useSelector(state => getCurrentLanguage(state));
+  const renderItemTab = ({focused}, route) => {
+    const icons = {
+      [NAVIGATION_HOME]: 'icon_heart_main',
+      // [NAVIGATION_MY_DOCTOR]: 'icon_mydoctor_main',
+      // [NAVIGATION_PRESCRIPTION]: 'icon_medicine_main',
+      [NAVIGATION_ACCOUNT]: 'icon_account_main',
+    };
+    const title = router => {
+      switch (router) {
+        case NAVIGATION_HOME:
+          return 'Trang chủ';
+        // case NAVIGATION_MY_DOCTOR:
+        //   return 'Bác sĩ';
+        // case NAVIGATION_PRESCRIPTION:
+        //   return 'Chỉ định';
+        case NAVIGATION_ACCOUNT:
+          return strings.common.user;
+        default:
+      }
+    };
+    return (
+      <View style={styles.inactiveTab}>
+        <Svg
+          name={icons[route.name]}
+          size={25}
+          color={focused ? Colors.buttonBackground : 'black'}
+        />
+        <TextSmallEleven
+          style={{
+            color: focused ? Colors.black : Colors.textGrayColor,
+            fontWeight: focused ? 'bold' : '600',
+          }}>
+          {title(route.name)}
+        </TextSmallEleven>
+      </View>
+    );
+  };
 
   return (
     <Tab.Navigator
-      initialRouteName={NAVIGATION_HOME}
-      screenOptions={({route}) => ({
-        tabBarHideOnKeyboard: true,
-        tabBarIcon: ({color, size, focused}) => {
-          const icons = {
-            [NAVIGATION_HOME]: 'icon_svg_home',
-            // [NAVIGATION_SHOP]: 'icon_svg_shop',
-            // [NAVIGATION_MENU]: 'icon_svg_menu',
-            // [NAVIGATION_REVIEW]: 'icon_rating',
-            // [NAVIGATION_ACCOUNT]: 'icon_svg_account',
-          };
-          const title = router => {
-            switch (router) {
-              case NAVIGATION_HOME:
-                return strings.common.home;
-              // case NAVIGATION_MENU:
-              //   return 'Menu';
-              // case NAVIGATION_SHOP:
-              //   return strings.common.store;
-              // case NAVIGATION_REVIEW:
-              //   return strings.common.reviews;
-              // case NAVIGATION_ACCOUNT:
-              //   return strings.common.user;
-              default:
-            }
-          };
-          return (
-            // <Images
-            //   resizeMode="contain"
-            //   style={styles.icon}
-            //   styleContainer={styles.styleContainerIcon}
-            //   source={icons[route.name]}
-            //   tintColor={
-            //     focused ? Colors.buttonTextColor : Colors.textGrayColor
-            //   }
-            // />
-            <View
-              style={{
-                alignItems: 'center',
-                width: widthDevice / 5,
-              }}>
-              <Svg
-                name={icons[route.name]}
-                size={35}
-                color={focused ? Colors.buttonTextColor : Colors.textGrayColor}
-                style={{
-                  marginTop: 10,
-                }}
-              />
-              <TextSmallEleven
-                // eslint-disable-next-line react-native/no-inline-styles
-                style={{
-                  fontSize: 11,
-                  fontWeight:
-                    Platform.OS === 'ios'
-                      ? focused
-                        ? 'bold'
-                        : 'normal'
-                      : 'normal',
-                  fontFamily: focused
-                    ? 'SVN-Poppins-SemiBold'
-                    : 'SVN-Poppins-Regular',
-                  marginBottom: insets.bottom > 0 ? 0 : 13,
-                  color: focused
-                    ? Colors.buttonTextColor
-                    : Colors.textGrayColor,
-                }}>
-                {title(route.name)}
-              </TextSmallEleven>
-            </View>
-          );
-        },
-        tabBarActiveTintColor: Colors.buttonTextColor,
-        tabBarInactiveTintColor: Colors.textGrayColor,
-        // tabBarLabelStyle: {
-        //   fontSize: 11,
-        //   fontFamily: 'SVN-Poppins-Regular',
-        //   marginBottom: insets.bottom > 0 ? 0 : 13,
-        // },
-        headerShown: false,
-        tabBarStyle: {height: 75 + insets.bottom / 2},
-      })}>
+      initialRouteName={NAVIGATION_ACCOUNT}
+      screenOptions={screenOption}>
       <Tab.Screen
         name={NAVIGATION_HOME}
         component={Screens.Home}
+        options={{
+          title: () => null,
+        }}
+      />
+      {/* <Tab.Screen
+        name={NAVIGATION_MY_DOCTOR}
+        component={Screens.MyDoctor}
+        options={{title: () => null}}
+      /> */}
+      {/* <Tab.Screen
+        name={NAVIGATION_PRESCRIPTION}
+        component={Screens.Prescription}
+        options={{title: () => null}}
+      /> */}
+      <Tab.Screen
+        name={NAVIGATION_ACCOUNT}
+        component={Screens.Account}
         options={{title: () => null}}
       />
     </Tab.Navigator>
@@ -154,5 +112,24 @@ const styles = StyleSheet.create({
   },
   styleContainerIcon: {
     marginTop: 5,
+  },
+  inactiveTab: {
+    alignItems: 'center',
+    // zIndex: 999,
+    width: widthDevice / 2, //config ipad
+    // backgroundColor: 'red',
+    padding: 10,
+  },
+  activeTab: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    // backgroundColor: Colors.blue.blue95,
+    zIndex: 999,
+    elevation: 0,
+    // padding: 5,
+    // width: Platform.OS === 'ios' ? 50 : 60,
+    // height: Platform.OS === 'ios' ? 50 : 60,
+    // top: Platform.OS === 'ios' ? -10 : -15,
+    // borderRadius: Platform.OS === 'ios' ? 30 : 40,
   },
 });
